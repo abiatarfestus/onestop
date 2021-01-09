@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary</title>
+    <link rel="stylesheet" href="{% static 'dictionary/css/dictionary.css' %}"/>
+</head>
+<!-- <img src="{% static 'my_app/example.jpg' %}" alt="My image">  -->
+<body>
+    <img src="{% static 'dictionary/images/logo_onestop.png' %}" alt="logo" width="50">
+    <h1>Welcome to OneStop</h1> 
+    <br> 
+    <p>The time is now <strong>{{ time }}</strong></p>
+</body>
+</html>
