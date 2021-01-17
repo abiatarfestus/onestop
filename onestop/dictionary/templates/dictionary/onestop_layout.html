@@ -69,15 +69,33 @@
         </div>
       </div>
     </nav>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-<p><h1>Heading1</h1></p>
-
-    {% block content %}{% endblock %} 
+    {% block content %}
+<div class="container">
+  <h1>Welcome to One Stop</h1>
+  <h2>Your one stop hub for all thing Oshiwambo</h2>
+  <hr>
+      <div class="row row-cols-2">
+        <div class="col">
+          Latest Blog Posts
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
+          <img src="/onestop/dictionary/static/dictionary/images/logo_festus_the_writer.png" alt="" width=300 height="300">
+        </div>
+        <div class="col">
+          Latest Publications
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
+        </div>
+        <div class="col">
+          Editing Services
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
+        </div>
+        <div class="col">
+          Latest Updates from Events
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
+        </div>
+      </div>
+  <hr>
+</div>
+  {% endblock %} 
 
     <footer class="mainfooter" role="contentinfo">
       <div class="footer-middle">

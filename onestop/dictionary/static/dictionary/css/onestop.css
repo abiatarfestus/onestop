@@ -1,3 +1,4 @@
+/* Use REM instead of EM: EM set font size relative toimmediate parent element, whereas REM sets font size reltive root html font size */
 /*HEADER*/
 nav {
 	background: #16222a;
@@ -8,6 +9,23 @@ nav {
 /*BODY*/
 body {
 	background-color: #e3f2fd;
+}
+
+h1,
+h2 {
+	text-align: center;
+}
+
+.col {
+	background-color: white;
+	font-weight: bold;
+	font-size: 3rem;
+	/* border: solid; */
+	/* border-radius: 5%; */
+	border-style:groove;
+}
+p {
+	font-size:medium;
 }
 
 /*FOOTER*/
