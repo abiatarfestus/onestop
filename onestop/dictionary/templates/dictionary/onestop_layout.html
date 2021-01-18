@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="/onestop/dictionary/static/dictionary/css/onestop.css">
+    <link rel="stylesheet" href="{% static 'dictionary/onestop.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>One Stop</title>
   </head>
@@ -27,7 +28,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="/onestop/dictionary/static/dictionary/images/logo_festus_the_writer.png" alt="" width="50" height="50">
+          <img src="{% static 'dictionary/images/logo_festus_the_writer.png' %}" alt="" width="50" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -69,33 +70,11 @@
         </div>
       </div>
     </nav>
-    {% block content %}
-<div class="container">
-  <h1>Welcome to One Stop</h1>
-  <h2>Your one stop hub for all thing Oshiwambo</h2>
-  <hr>
-      <div class="row row-cols-2">
-        <div class="col">
-          Latest Blog Posts
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
-          <img src="/onestop/dictionary/static/dictionary/images/logo_festus_the_writer.png" alt="" width=300 height="300">
-        </div>
-        <div class="col">
-          Latest Publications
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
-        </div>
-        <div class="col">
-          Editing Services
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
-        </div>
-        <div class="col">
-          Latest Updates from Events
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit mollitia laudantium possimus. Officia esse officiis molestiae? Ad quis repellendus excepturi, dolorem aspernatur sequi et eaque atque nesciunt quos blanditiis deleniti?</p>
-        </div>
-      </div>
-  <hr>
-</div>
-  {% endblock %} 
+
+    {% block welcome %}{% endblock %}
+
+    
+    {% block content %}{% endblock %} 
 
     <footer class="mainfooter" role="contentinfo">
       <div class="footer-middle">

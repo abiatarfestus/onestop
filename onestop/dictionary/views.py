@@ -1,10 +1,12 @@
 from django.shortcuts import render
 #from django.http import HttpResponse
-import datetime
 
 # Create your views here.
 
 def index(request):
-    now = datetime.datetime.now()
-    context = {'time': now}
+    context = {}
     return render(request, 'dictionary/index.html', context)
+
+def search(request):
+    context = {}
+    return render(request, 'dictionary/search.html', context)
