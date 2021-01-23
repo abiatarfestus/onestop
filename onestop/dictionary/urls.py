@@ -4,5 +4,5 @@ from dictionary import views
 app_name = 'dictionary'
 urlpatterns = [
     path('',views.index, name="index"),
-    path('search', views.search, name='search')
+    path('search', views.search_word, name='search')
 ]

@@ -16,16 +16,19 @@ h2 {
 	text-align: center;
 }
 
+#id_search_word {
+	border-color: red;
+}
 .col {
 	background-color: white;
 	font-weight: bold;
 	font-size: 3rem;
 	/* border: solid; */
 	/* border-radius: 5%; */
-	border-style:groove;
+	border-style: groove;
 }
 p {
-	font-size:medium;
+	font-size: medium;
 }
 
 /*FOOTER*/

@@ -1,6 +1,4 @@
 {% extends "dictionary/onestop_layout.html" %}
-{% load static %}
-
 {% block welcome %}
   <h1>Welcome to Oshinglish Dictionary</h1>
   <h2>Built by the community for the community</h2>
@@ -8,5 +6,13 @@
 
 {% block content %}
 <hr>
-<h1>Definitions to appear here!</h1>
+<br><br>
+<h2>Search for a word</h2>
+<div class="container">
+      <form class='d-flex' action="/dictionary/search/" method="GET"> <!--d-flex joins the input widget and search button on oneline-->
+        {% csrf_token %}
+        {{ form.search_word }} <!--form.fieldname removes the label before the widget-->
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+</div>
 {% endblock %}
