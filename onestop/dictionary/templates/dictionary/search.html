@@ -1,4 +1,26 @@
 {% extends "dictionary/onestop_layout.html" %}
+{% block secondarynav %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(210, 38%, 66%);" id='dictionary_nav'>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">--><ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Search</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dictionary:add_english' %}">Add/Update Eng Word</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dictionary:add_oshindonga' %}">Add/Update Osh Word</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dictionary:add_definition' %}">Add/Update Definition</a>
+        </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
 {% block welcome %}
   <h1>Welcome to Oshinglish Dictionary</h1>
   <h2>Built by the community for the community</h2>
@@ -7,12 +29,89 @@
 {% block content %}
 <hr>
 <br><br>
-<h2>Search for a word</h2>
-<div class="container">
-      <form class='d-flex' action="/dictionary/search/" method="GET"> <!--d-flex joins the input widget and search button on oneline-->
-        {% csrf_token %}
-        {{ form.search_word }} <!--form.fieldname removes the label before the widget-->
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-</div>
+<!-- <div class="container"> -->
+  <h3>Search for a word</h2><br>
+  <form action="/dictionary/search/" method="GET"> <!--d-flex joins the input widget and search button on oneline-->
+    
+    {% csrf_token %}
+    <!-- <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="english_radio" value="english">
+      <label class="form-check-label" for="english_radio">English</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="oshindonga_radio" value="oshindonga">
+      <label class="form-check-label" for="oshindonga_radio">Oshindonga</label>
+    </div> -->
+    <div class="row col-4">
+    
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <div class="input-group-text" id="btnGroupAddon"><b>Input Language: </b></div>
+      <input type="radio" class="btn-check" name="btnradio" id="english_radio" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="english_radio">English</label>
+    
+      <input type="radio" class="btn-check" name="btnradio" id="oshindonga_radio" autocomplete="off">
+      <label class="btn btn-outline-primary" for="oshindonga_radio">Oshindonga</label>
+    </div>
+    </div>
+
+    <div class="row  mb-3">
+      <div class="col-4">
+       {{ form.search_word }} <!--form.fieldname removes the label before the widget-->
+      </div>
+      <div class="col-6">
+        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+      </div>
+    </div>
+
+    <!-- <div class="input-group mb-3">
+      {{ form.search_word }}
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button">Search</button>
+      </div>
+    </div> -->
+  </form>
+
+  
+  <ul id='suggested_searches'>
+    <li id='s_search_heading'><h6>Suggested searches:</h6></li>
+    <li class='s_searches'><a href='#'>home</a></li>
+    <li class='s_searches'><a href='#'>science</a></li>
+    <li class='s_searches'><a href='#'>tradition</a></li>
+    <li class='s_searches'><a href='#'>love</a></li>
+  </ul>
+  <br>
+  <br>
+  <br>
+  <h4>Search Results</h4>
+  <div class="row">
+    <div class="col-8 columns">
+      <h5><strong>Searched word: </strong>Word/Oshitya</h5>
+      <h6 class='part_of_speech'>Noun (Definition ID)</h6>
+      <h6 class='definition'><strong>English definition</strong></h6>
+      <p> xyz xyz</p>
+      <h6 class='example'><strong>English examples</strong></h6>
+      <p><em>Ssssss</em></p>
+
+      <h6 class='definition'><strong>Oshindonga definition</strong></h6>
+      <p>Zxy zxy zxy</p>
+      <h6 class='example'><strong>Oshindonga example</strong></h6>
+      <p><em>Cccccc</em></p>
+    </div>
+    <div class="col-4 columns">
+      <h5><strong>Top Contributers: </strong></h5>
+      <ol>
+        <li>Contributer 1</li>
+        <li>Contributer 2</li>
+        <li>Contributer 3</li>
+        <li>Contributer 4</li>
+        <li>Contributer 5</li>
+        <li>Contributer 6</li>
+        <li>Contributer 7</li>
+        <li>Contributer 8</li>
+        <li>Contributer 9</li>
+        <li>Contributer 10</li>
+      </ol>
+    </div>
+  </div>
+<!-- </div> -->
 {% endblock %}

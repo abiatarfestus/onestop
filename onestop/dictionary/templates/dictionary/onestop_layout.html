@@ -27,7 +27,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{% url 'dictionary:index' %}">
           <img src="{% static 'dictionary/images/logo_festus_the_writer.png' %}" alt="" width="50" height="50">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'dictionary:index' %}">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Blog</a>
@@ -45,7 +45,7 @@
               <a class="nav-link" href="#">Books</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Dictionary</a>
+              <a class="nav-link" href="{% url 'dictionary:search' %}">Dictionary</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Editing</a>
@@ -70,10 +70,9 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid">
+    {% block secondarynav %}{% endblock %}
+    <div class="container">
     {% block welcome %}{% endblock %}
-
-    
     {% block content %}{% endblock %} 
     </div>
 

@@ -30,3 +30,22 @@ def search_word(request):
         form = SearchWordForm()
 
     return render(request, 'dictionary/search.html', {'form': form})
+
+def add_english(request):
+    # if request.method == 'POST':
+    #     form = SearchWordForm(request.POST)
+    #     if form.is_valid():
+    #         return HttpResponseRedirect('/add_english/')
+    # else:
+    #     form = SearchWordForm()
+    # return render(request, 'dictionary/add_english.html', {'form': form})
+    context = {}
+    return render(request, 'dictionary/add_english.html', context)
+
+def add_oshindonga(request):
+    context = {}
+    return render(request, 'dictionary/add_oshindonga.html', context)
+
+def add_definition(request):
+    context = {}
+    return render(request, 'dictionary/add_definition.html', context)
