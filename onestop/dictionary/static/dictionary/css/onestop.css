@@ -19,13 +19,14 @@ body {
 }
 
 h1,
-h2 {
-	text-align: center;
+h2,
+h3 {
+	text-align: end;
 }
 
-#id_search_word {
+/* #id_search_word {
 	border-color: red;
-}
+} */
 .col,
 .columns {
 	background-color: #f5fcfc;
@@ -39,6 +40,7 @@ h2 {
 p {
 	font-size: medium;
 }
+
 
 /* SUGGESTED SEARCHES | NEWLY ADDED WORDS | UNSTRATSLATED WORDS | UNDEFINED WORDS*/
 

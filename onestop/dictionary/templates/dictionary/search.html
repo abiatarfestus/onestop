@@ -30,46 +30,51 @@
 <hr>
 <br><br>
 <!-- <div class="container"> -->
-  <h3>Search for a word</h2><br>
-  <form action="/dictionary/search/" method="GET"> <!--d-flex joins the input widget and search button on oneline-->
+  <h3 id="search-heading">Search for a word</h2><br>
+
+  <!-- <form action="/dictionary/search/" method="GET">
+   {% csrf_token %}
+    <div class="row col">
     
-    {% csrf_token %}
-    <!-- <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="english_radio" value="english">
-      <label class="form-check-label" for="english_radio">English</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="oshindonga_radio" value="oshindonga">
-      <label class="form-check-label" for="oshindonga_radio">Oshindonga</label>
-    </div> -->
-    <div class="row col-4">
-    
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-      <div class="input-group-text" id="btnGroupAddon"><b>Input Language: </b></div>
-      <input type="radio" class="btn-check" name="btnradio" id="english_radio" autocomplete="off" checked>
-      <label class="btn btn-outline-primary" for="english_radio">English</label>
-    
-      <input type="radio" class="btn-check" name="btnradio" id="oshindonga_radio" autocomplete="off">
-      <label class="btn btn-outline-primary" for="oshindonga_radio">Oshindonga</label>
-    </div>
+    <div class="btn-group form-control" role="group" aria-label="Basic radio toggle button group">
+        <div class="input-group-text" id="btnGroupAddon"><b>Input Language: </b></div>
+        <input type="radio" class="btn-check" name="btnradio" id="english_radio" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="english_radio">English</label>
+        <input type="radio" class="btn-check" name="btnradio" id="oshindonga_radio" autocomplete="off">
+        <label class="btn btn-outline-primary" for="oshindonga_radio">Oshindonga</label>
+      </div>
     </div>
 
     <div class="row  mb-3">
-      <div class="col-4">
-       {{ form.search_word }} <!--form.fieldname removes the label before the widget-->
-      </div>
-      <div class="col-6">
-        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+      <div class="col-4 input-group mb-3">
+          {{ form.search_word }}
+          <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
       </div>
     </div>
-
-    <!-- <div class="input-group mb-3">
-      {{ form.search_word }}
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button">Search</button>
+  </form> -->
+  
+  <form action="">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-2 gx-0">
+        <!-- <label class="input-group-text" for="inputGroupSelect01">Options</label> -->
+        <select class="form-select form-select-lg" id="inputGroupSelect01">
+          <!-- <option selected>Language Input</option> -->
+          <option value="1">English</option>
+          <option value="2">Oshindonga</option>
+        </select>
       </div>
-    </div> -->
+      <div class="col-6 gx-0">
+    <div class="input-group mb-3">
+      
+      {{ form.search_word }}
+      <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+    </div>
+      </div>
+      <div class="col-4"></div>
+    </div>
   </form>
+  
 
   
   <ul id='suggested_searches'>
