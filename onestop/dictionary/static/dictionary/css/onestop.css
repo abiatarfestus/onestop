@@ -9,7 +9,7 @@ nav {
 	font-weight: bold;
 }
 
-#dictionary_nav {
+#dictionary-nav {
 	background: #587283;
 	color: black;
 }
@@ -19,12 +19,11 @@ body {
 }
 
 h1,
-h2,
-h3 {
-	text-align: end;
+h2 {
+	text-align: center;
 }
 
-/* #id_search_word {
+/* #id-search-word {
 	border-color: red;
 } */
 .col,
@@ -41,21 +40,24 @@ p {
 	font-size: medium;
 }
 
+#inputGroupSelect01 {
+	background-color: cadetblue;
+}
 
 /* SUGGESTED SEARCHES | NEWLY ADDED WORDS | UNSTRATSLATED WORDS | UNDEFINED WORDS*/
 
-#suggested_searches,
-.newly_added_words,
-.untranslated_words,
-.undefined_words {
+#suggested-searches,
+.newly-added-words,
+.untranslated-words,
+.undefined-words {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
 }
 
-.s_searches,
-.n_added,
+.s-searches,
+.n-added,
 .untranslated,
 .undefined {
 	float: left;
@@ -66,10 +68,10 @@ p {
 	text-decoration: none;
 }
 
-#s_search_heading,
-.n_added_words_heading,
-.untranslated_heading,
-.undefined_heading {
+#s-search-heading,
+.n-added-words-heading,
+.untranslated-heading,
+.undefined-heading {
 	float: left;
 }
 ol {
@@ -77,7 +79,7 @@ ol {
 }
 
 /* SEARCH RESULTS */
-.part_of_speech {
+.part-of-speech {
 	color: red;
 }
 .definition {
