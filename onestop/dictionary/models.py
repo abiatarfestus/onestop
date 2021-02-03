@@ -49,7 +49,7 @@ class OshindongaWord(AuthAndTimeTracker):
     english_word = models.ForeignKey(EnglishWord, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.word
+        return "%s | %s" % (self.word, self.english_word)
 
 class WordDefinition(AuthAndTimeTracker):
     '''
@@ -81,7 +81,21 @@ class WordDefinition(AuthAndTimeTracker):
         max_length=5,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    oshindonga_word = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
+    word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
     # english_word = models.CharField(max_length=50, editable=False, default=english_word_match)
     english_definition = models.TextField()
     oshindonga_definition = models.TextField()
+
+    def __str__(self):
+        return "%s (%s)" % (self.word_pair, self.part_of_speech)
+
+class DefinitionExample(AuthAndTimeTracker):
+    '''
+    A model that adds and modifies exmples to word definitions.
+    '''
+    definition = models.ForeignKey(WordDefinition, on_delete=models.CASCADE)
+    english_example = models.TextField()
+    oshindonga_example = models.TextField()
+
+    def __str__(self):
+        return "%s" % (self.definition)
