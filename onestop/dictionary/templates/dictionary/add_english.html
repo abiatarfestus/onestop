@@ -10,7 +10,11 @@
 {% block content %}
 <h5>Add or Update English Word</h5>
 <br>
-<h4>Form will be here</h4>
+<form action="/dictionary/add_english" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Submit">
+</form>
 <br>
 <ul class='newly-added-words'>
     <li class='n-added-words-heading'><h6>Newly added words:</h6></li>

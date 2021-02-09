@@ -7,5 +7,7 @@ urlpatterns = [
     path('search', views.search_word, name='search'),
     path('add_english', views.add_english, name='add_english'),
     path('add_oshindonga', views.add_oshindonga, name='add_oshindonga'),
-    path('add_definition', views.add_definition, name='add_definition')
+    path('add_definition', views.add_definition, name='add_definition'),
+    path('add_example', views.add_example, name='add_example'),
+    path('thankyou', views.thankyou, name='thankyou')
 ]

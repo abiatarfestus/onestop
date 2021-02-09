@@ -1,34 +1,30 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h3>Contribute to the dictionary by adding a new definition or updating an existing one.</h3>
+  <h3>Contribute to the dictionary by adding a new word usage example or updating an existing one.</h3>
   <br>
   <h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
   <hr>
   <br>
 {% endblock %}
 {% block content %}
-<h5>Add or Update Word Definition</h5>
+<h5>Add or Update Word Usage Example</h5>
 <br>
-<form action="/dictionary/add_definition" method="post">
+<form action="/dictionary/add_example" method="post">
   {% csrf_token %}
   <!-- {{ form.as_p }} -->
   <table>
     <tr>
-      <td> <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label></td>
-      <td>{{ form.part_of_speech }}</td>
+      <td> <label for="{{ form.definition.id_for_label }}">Definition:</label></td>
+      <td>{{ form.definition }}</td>
     </tr>
     <tr>
-      <td><label for="{{ form.word_pair.id_for_label }}">Word pair:</label></td>
-      <td>{{ form.word_pair }}</td>
+      <td><label for="{{ form.english_example.id_for_label }}">English example:</label></td>
+      <td>{{ form.english_example }}</td>
     </tr>
     <tr>
-      <td><label for="{{ form.english_definition.id_for_label }}">English definition:</label></td>
-      <td>{{ form.english_definition }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.oshindonga_definition.id_for_label }}">English definition:</label></td>
-      <td>{{ form.oshindonga_definition }}</td>
+      <td><label for="{{ form.oshindonga_example.id_for_label }}">Oshindonga example:</label></td>
+      <td>{{ form.oshindonga_example }}</td>
     </tr>
     <tr>
       <td></td>

@@ -10,7 +10,12 @@
 {% block content %}
 <h5>Add or Update Oshindonga Word</h5>
 <br>
-<h4>Form will be here</h4>
+<form action="{% url 'add_oshindonga' %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Submit">
+</form>
+<br>
 <br>
 <ul class='newly-added-words'>
     <li class='n-added-words-heading'><h6>Newly added words:</h6></li>
