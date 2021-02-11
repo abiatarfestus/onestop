@@ -47,10 +47,10 @@ def add_english(request):
             new_word = form
             new_word.save()
             #context = {'success':'Word added successfully. Thanks for your contribution!'}
-            return HttpResponseRedirect(reverse('dictionary:add_english'))
+            return HttpResponseRedirect(reverse('dictionary:add-english'))
     else:
         form = EnglishWordForm()
-    return render(request, 'dictionary/add_english.html/', {'form': form})
+    return render(request, 'dictionary/englishword_form.html/', {'form': form, 'operation': 'Add new English word'})
 
 
 def add_oshindonga(request):
@@ -59,10 +59,12 @@ def add_oshindonga(request):
         if form.is_valid():
             new_word = form
             new_word.save()
-            return HttpResponseRedirect(reverse('dictionary:add_oshindonga'))
+            return HttpResponseRedirect(reverse('dictionary:add-oshindonga'))
     else:
         form = OshindongaWordForm()
     return render(request, 'dictionary/add_oshindonga.html/', {'form': form})
+    # context = {}
+    # return render(request, 'dictionary/add_oshindonga.html', context)
 
 
 def add_definition(request):
@@ -71,7 +73,7 @@ def add_definition(request):
         if form.is_valid():
             new_definition = form
             new_definition.save()
-            return HttpResponseRedirect(reverse('dictionary:add_definition'))
+            return HttpResponseRedirect(reverse('dictionary:add-definition'))
     else:
         form = WordDefinitionForm()
     return render(request, 'dictionary/add_definition.html/', {'form': form})
@@ -87,3 +89,38 @@ def add_example(request):
     else:
         form = DefinitionExampleForm()
     return render(request, 'dictionary/add_example.html/', {'form': form})
+
+
+# GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
+from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample
+
+# class AuthorCreate(CreateView):
+#     model = Author
+#     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+#     initial = {'date_of_death': '11/06/2020'}
+
+# Update class-based views
+
+class EnglishWordUpdate(UpdateView):
+    model = EnglishWord
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    extra_context={'operation': 'Update an existing English word'}
+
+class OshindongaWordUpdate(UpdateView):
+    model = OshindongaWord
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+
+class WordDefinitionUpdate(UpdateView):
+    model = WordDefinition
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+
+class DefinitionExampleUpdate(UpdateView):
+    model = DefinitionExample
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+# class AuthorDelete(DeleteView):
+#     model = Author
+#     success_url = reverse_lazy('authors')

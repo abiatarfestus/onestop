@@ -8,7 +8,7 @@
   <br>
 {% endblock %}
 {% block content %}
-<h5>Add or Update English Word</h5>
+<h5>{{ operation }}</h5>
 <br>
 <form action="{% url 'dictionary:add-english' %}" method="post">
   {% csrf_token %}

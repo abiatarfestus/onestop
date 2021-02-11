@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import F  #For referencing fields on the same model
+from django.db.models import F  # For referencing fields on the same model
 #from datetime import datetime
 #from django.contrib.auth import get_user_model
 #from audit_log.models.fields import CreatingUserField, CreatingSessionKeyField, LastUserField, LastSessionKeyField
@@ -51,6 +51,7 @@ class OshindongaWord(AuthAndTimeTracker):
     def __str__(self):
         return "%s | %s" % (self.word, self.english_word)
 
+
 class WordDefinition(AuthAndTimeTracker):
     '''
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
@@ -88,6 +89,7 @@ class WordDefinition(AuthAndTimeTracker):
 
     def __str__(self):
         return "%s (%s)" % (self.word_pair, self.part_of_speech)
+
 
 class DefinitionExample(AuthAndTimeTracker):
     '''
