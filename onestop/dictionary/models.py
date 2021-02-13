@@ -23,7 +23,7 @@ class AuthAndTimeTracker(models.Model):
     #modified_by = LastUserField(on_delete=models.SET_NULL)
     time_modified = models.DateField(auto_now=True)
     #modified_with_session_key = LastSessionKeyField()
-
+    objects = models.Manager()
     history = HistoricalRecords(
         history_change_reason_field=models.TextField(null=True), inherit=True)
 
@@ -45,6 +45,7 @@ class OshindongaWord(AuthAndTimeTracker):
     '''
     A model that adds and modifies Oshindonga words in the database
     '''
+    #objects = models.Manager()
     word = models.CharField(unique=False, max_length=50)
     english_word = models.ForeignKey(EnglishWord, on_delete=models.CASCADE)
 
@@ -77,7 +78,7 @@ class WordDefinition(AuthAndTimeTracker):
 
     # def english_word_match(self):
     #     return OshindongaWord.objects.filter(word=F('oshindonga_word')).english_word()
-
+    #objects = models.Manager()
     part_of_speech = models.CharField(
         max_length=5,
         choices=PART_OF_SPEECH_CHOICES,
@@ -95,6 +96,7 @@ class DefinitionExample(AuthAndTimeTracker):
     '''
     A model that adds and modifies exmples to word definitions.
     '''
+    #objects = models.Manager()
     definition = models.ForeignKey(WordDefinition, on_delete=models.CASCADE)
     english_example = models.TextField()
     oshindonga_example = models.TextField()

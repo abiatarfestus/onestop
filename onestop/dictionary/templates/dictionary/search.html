@@ -33,22 +33,23 @@
 <hr>
 <br><br>
 <h3>Search for a word</h3>
-  <form action="">
+  <form action="" method="get">
     {% csrf_token %}
     <div class="row">
       <div class="col-2 gx-0">
         <!-- <label class="input-group-text" for="inputGroupSelect01">Options</label> -->
-        <select class="form-select form-select-lg" id="inputGroupSelect01">
+        <!-- <select class="form-select form-select-lg" id="inputGroupSelect01"> -->
           <!-- <option selected>Language Input</option> -->
-          <option value="1">English</option>
+          <!-- <option value="1">English</option>
           <option value="2">Oshindonga</option>
-        </select>
+        </select> -->
+        {{ form.input_language }}
       </div>
       <div class="col-6 gx-0">
     <div class="input-group mb-3">
       
       {{ form.search_word }} <!--.search_word removes the label???-->
-      <button class="btn btn-outline-primary" type="button" id="button-addon2">Search</button>
+      <input class="btn btn-outline-primary" type="submit" value="Search" id="button-addon2"></input>
     </div>
       </div>
       <div class="col-4"></div>
@@ -70,12 +71,24 @@
   <h4>Search Results</h4>
   <div class="row">
     <div class="col-8 columns">
-      <h5><strong>Searched word: </strong>Word/Oshitya</h5>
+      <h5><strong>Returned results: </strong></h5>
+      <p>{% if searched_word %}
+        {% for item in searched_word %} 
+          <ul class="returned-results-list">
+            <li>{{ item }}</li>
+          </ul>
+        {% endfor %}
+        {% else %}
+          <p>Word not found</p>
+        {% endif %}</p>
       <h6 class='part-of-speech'>Noun (Definition ID)</h6>
+      <p></p>
       <h6 class='definition'><strong>English definition</strong></h6>
       <p> xyz xyz</p>
+      <p>{{ definitions }}</p>
       <h6 class='example'><strong>English examples</strong></h6>
       <p><em>Ssssss</em></p>
+      <p>{{ examples }}</p>
 
       <h6 class='definition'><strong>Oshindonga definition</strong></h6>
       <p>Zxy zxy zxy</p>

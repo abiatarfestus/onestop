@@ -4,8 +4,16 @@ from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExamp
 
 
 class SearchWordForm(forms.Form):
+    ENGLISH = 'English'
+    OSHINDONGA = 'Oshindonga'
+    INPUT_LANGUAGE = [
+        (ENGLISH, 'English'),
+        (OSHINDONGA, 'Oshindonga'),
+    ]
+    input_language = forms.ChoiceField(widget=forms.Select(
+        attrs={'class': "form-select form-select-lg", 'id': "inputGroupSelect01"}), choices=INPUT_LANGUAGE)
     search_word = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control form-control-lg', 'placeholder': 'Search word'}), max_length=225)
+        attrs={'class': 'form-control form-control-lg', 'placeholder': 'Search word'}), max_length=50)
 
 
 class EnglishWordForm(ModelForm):

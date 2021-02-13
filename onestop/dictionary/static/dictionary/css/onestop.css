@@ -23,9 +23,12 @@ h2 {
 	text-align: center;
 }
 
-/* #id-search-word {
-	border-color: red;
-} */
+/* RETURNED RESULTS */
+.returned-results-list {
+	list-style-type: circle;
+	font-size: medium;
+}
+/* --------------- */
 .col,
 .columns {
 	background-color: #f5fcfc;
