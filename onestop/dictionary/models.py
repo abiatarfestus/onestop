@@ -89,7 +89,7 @@ class WordDefinition(AuthAndTimeTracker):
     oshindonga_definition = models.TextField()
 
     def __str__(self):
-        return "%s (%s)" % (self.word_pair, self.part_of_speech)
+        return "%s (%s) [%s]" % (self.word_pair, self.part_of_speech, self.id)
 
 
 class DefinitionExample(AuthAndTimeTracker):

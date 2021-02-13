@@ -91,7 +91,7 @@ def add_example(request):
 
 
 # TEST SEARCH FUNCTIONS
-context = {'form': '', 'searched_word': 'Word not found',
+context = {'form': '', 'searched_word': '',
            'definitions': '', 'examples': ''}
 
 
@@ -119,16 +119,26 @@ def search_definitions(request, word_pairs_pks):
     sub_request3 = request
     definitions = []
     for pair_pk in word_pairs_pks:
-        try:
-            # Return a definitions of a word pair
-            definition = WordDefinition.objects.filter(word_pair_id=pair_pk)
-            definitions.append(definition)
-        except WordDefinition.DoesNotExist:
-            # Rather than terminating if no definition found, continue search for the remaining word pairs' definitions
-            definitions.append('No definition found')
-    context['definitions'] = definitions
-    definitions_pks = [
-        definition[0].id for definition in definitions]
+        definition = WordDefinition.objects.filter(word_pair_id=pair_pk)
+        # If no definition found, an empty queryset is appended
+        definitions.append(definition)
+    print(definitions)
+    print(len(definitions))
+    cleaned_definitions = []
+    no_definition_found = 'No definition found'
+    for definition in definitions:  # For each deinition object
+        if len(definition) > 0:  # If the list of definition objects is not empty
+            for i in range(len(definition)):
+                cleaned_definitions.append(definition[i])
+        else:
+            cleaned_definitions.append(no_definition_found)
+    context['definitions'] = cleaned_definitions
+    print('Cleaned definitions: %s' % cleaned_definitions)
+    definitions_pks = []
+    for i in range(len(cleaned_definitions)):
+        if cleaned_definitions[i] != no_definition_found:
+            definitions_pks.append(cleaned_definitions[i].id)
+    print(definitions_pks)
     # return definitions_pks
     search_examples(sub_request3, definitions_pks)
 
@@ -158,9 +168,13 @@ def search_word(request):
     '''
     sub_request = request
     print('Started here')
+    # Reset context variables when visiting for the first time or refreshing the page
+    context['form'] = SearchWordForm()
+    context['searched_word'] = ''
+    context['definitions'] = ''
+    context['examples'] = ''
     form = SearchWordForm(request.GET)
-    context['form'] = form
-    print(form)
+    # print(form)
     print(form.is_valid())
     if form.is_valid():
         print('Passed here')
@@ -173,6 +187,7 @@ def search_word(request):
         except EnglishWord.DoesNotExist:
             return render(request, 'dictionary/search.html', context)
         search_word_pairs(sub_request, eng_word_pk)
+        return render(request, 'dictionary/search.html', context)
     return render(request, 'dictionary/search.html', context)
 
 # GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms

@@ -68,19 +68,19 @@
   <br>
   <br>
   <br>
-  <h4>Search Results</h4>
+  <h4>Search Results:</h4>
   <div class="row">
     <div class="col-8 columns">
-      <h5><strong>Returned results: </strong></h5>
-      <p>{% if searched_word %}
+      <!-- <h5><strong>Returned results: </strong></h5> -->
+      {% if searched_word %}
+        <ol class="search-results-list">
         {% for item in searched_word %} 
-          <ul class="returned-results-list">
             <li>{{ item }}</li>
-          </ul>
         {% endfor %}
+      </ol>
         {% else %}
-          <p>Word not found</p>
-        {% endif %}</p>
+          <p>No results to display</p>
+        {% endif %}
       <h6 class='part-of-speech'>Noun (Definition ID)</h6>
       <p></p>
       <h6 class='definition'><strong>English definition</strong></h6>
