@@ -85,8 +85,12 @@ ol {
 .part-of-speech {
 	color: red;
 }
-.definition {
+.definition,
+.definition-object {
 	color: blue;
+}
+.definitions-heading {
+	color: brown;
 }
 .example {
 	color: green;

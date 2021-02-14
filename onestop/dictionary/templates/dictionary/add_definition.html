@@ -8,19 +8,19 @@
   <br>
 {% endblock %}
 {% block content %}
-<h5>Add or Update Word Definition</h5>
+<h5>Add or Update a Word Definition</h5>
 <br>
 <form action="{% url 'dictionary:add-definition' %}" method="post">
   {% csrf_token %}
   <!-- {{ form.as_p }} -->
   <table>
     <tr>
-      <td> <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label></td>
-      <td>{{ form.part_of_speech }}</td>
+      <td> <label for="{{ form.word_pair.id_for_label }}">Word pair:</label></td>
+      <td>{{ form.word_pair }}</td>
     </tr>
     <tr>
-      <td><label for="{{ form.word_pair.id_for_label }}">Word pair:</label></td>
-      <td>{{ form.word_pair }}</td>
+      <td><label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label></td>
+      <td>{{ form.part_of_speech }}</td>
     </tr>
     <tr>
       <td><label for="{{ form.english_definition.id_for_label }}">English definition:</label></td>

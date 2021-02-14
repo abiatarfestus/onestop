@@ -99,16 +99,25 @@ def search_examples(request, definitions_pks):
     '''
         Takes in a list of pks of found definitions and search if examples exist and return example objects.
     '''
-    examples = []
+    example_querysets = []
     for definition_pk in definitions_pks:
-        try:
-            example = DefinitionExample.objects.get(
-                definition_id=definition_pk)  # Return a definition example object
-            examples.append(example)
-        except DefinitionExample.DoesNotExist:
-            # Rather than terminating if no definition found, continue search for the remaining word pairs' definitions
-            examples.append('No example found')
-    context['examples'] = examples
+        example_queryset = DefinitionExample.objects.filter(
+            definition_id=definition_pk)
+        # If no definition found, an empty queryset is appended
+        example_querysets.append(example_queryset)
+    print(example_querysets)
+    print(len(example_querysets))
+    example_objects = []
+    no_example_found = 'No example found'
+    for example_queryset in example_querysets:
+        if len(example_queryset) > 0:  # If it's not an empty querset
+            # Loop through the queryset to extract objects
+            for i in range(len(example_queryset)):
+                example_objects.append(example_queryset[i])
+        else:
+            example_objects.append(no_example_found)
+    context['examples'] = example_objects
+    print('Example objects: %s' % example_objects)
     return render(request, 'dictionary/search.html', context)
 
 
@@ -117,27 +126,28 @@ def search_definitions(request, word_pairs_pks):
         Takes in a list pks of word pairs and return a list of pks of all definitions found.
     '''
     sub_request3 = request
-    definitions = []
+    definition_querysets = []
     for pair_pk in word_pairs_pks:
-        definition = WordDefinition.objects.filter(word_pair_id=pair_pk)
+        definition_queryset = WordDefinition.objects.filter(
+            word_pair_id=pair_pk)
         # If no definition found, an empty queryset is appended
-        definitions.append(definition)
-    print(definitions)
-    print(len(definitions))
-    cleaned_definitions = []
+        definition_querysets.append(definition_queryset)
+    print(definition_querysets)
+    print(len(definition_querysets))
+    definition_objects = []
     no_definition_found = 'No definition found'
-    for definition in definitions:  # For each deinition object
-        if len(definition) > 0:  # If the list of definition objects is not empty
-            for i in range(len(definition)):
-                cleaned_definitions.append(definition[i])
+    for definition_queryset in definition_querysets:
+        if len(definition_queryset) > 0:  # If it's not an empty queryset
+            for i in range(len(definition_queryset)):
+                definition_objects.append(definition_queryset[i])
         else:
-            cleaned_definitions.append(no_definition_found)
-    context['definitions'] = cleaned_definitions
-    print('Cleaned definitions: %s' % cleaned_definitions)
+            definition_objects.append(no_definition_found)
+    context['definitions'] = definition_objects
+    print('Cleaned definitions: %s' % definition_objects)
     definitions_pks = []
-    for i in range(len(cleaned_definitions)):
-        if cleaned_definitions[i] != no_definition_found:
-            definitions_pks.append(cleaned_definitions[i].id)
+    for i in range(len(definition_objects)):
+        if definition_objects[i] != no_definition_found:
+            definitions_pks.append(definition_objects[i].id)
     print(definitions_pks)
     # return definitions_pks
     search_examples(sub_request3, definitions_pks)
