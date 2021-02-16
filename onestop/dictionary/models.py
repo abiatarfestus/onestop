@@ -30,27 +30,82 @@ class AuthAndTimeTracker(models.Model):
     class Meta:
         abstract = True
 
+# --------------------------------------------------------------------------------------------------------------
+
 
 class EnglishWord(AuthAndTimeTracker):
     '''
     A model that adds and modifies English words in the database
     '''
+    ABBREVIATION = 'Abbreviation'
+    PROPER_NOUN = 'Proper'
+    NORMAL = 'Normal'
+    WORD_CASE = [
+        (ABBREVIATION, 'Abbreviation'),
+        (PROPER_NOUN, 'Proper'),
+        (NORMAL, 'Normal'),
+    ]
     word = models.CharField(unique=True, max_length=50)
+    word_case = models.CharField(
+        max_length=12,
+        choices=WORD_CASE, default=NORMAL,
+    )
 
     def __str__(self):
         return self.word
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('dictionary.views.EnglishWordUpdate.as_view()', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        if self.word_case == self.ABBREVIATION:
+            self.word.upper()
+        elif self.word_case == self.PROPER_NOUN:
+            self.word.capitalize()
+        else:
+            self.word.lower()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+
+# --------------------------------------------------------------------------------------------------------------
 
 
 class OshindongaWord(AuthAndTimeTracker):
     '''
     A model that adds and modifies Oshindonga words in the database
     '''
+    ABBREVIATION = 'Abbreviation'
+    PROPER_NOUN = 'Proper'
+    NORMAL = 'Normal'
+    WORD_CASE = [
+        (ABBREVIATION, 'Abbreviation'),
+        (PROPER_NOUN, 'Proper'),
+        (NORMAL, 'Normal'),
+    ]
     #objects = models.Manager()
-    word = models.CharField(unique=False, max_length=50)
     english_word = models.ForeignKey(EnglishWord, on_delete=models.CASCADE)
+    word = models.CharField(unique=False, max_length=50)
+    word_case = models.CharField(
+        max_length=12,
+        choices=WORD_CASE, default=NORMAL,
+    )
 
     def __str__(self):
         return "%s | %s" % (self.word, self.english_word)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('dictionary.views.OshindongaWordUpdate.as_view()', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        if self.word_case == self.ABBREVIATION:
+            self.word.upper()
+        elif self.word_case == self.PROPER_NOUN:
+            self.word.capitalize()
+        else:
+            self.word.lower()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+# --------------------------------------------------------------------------------------------------------------
 
 
 class WordDefinition(AuthAndTimeTracker):
@@ -79,17 +134,26 @@ class WordDefinition(AuthAndTimeTracker):
     # def english_word_match(self):
     #     return OshindongaWord.objects.filter(word=F('oshindonga_word')).english_word()
     #objects = models.Manager()
+    word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
     part_of_speech = models.CharField(
         max_length=5,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
+    variants = models.JSONField(null=True)
+    plural = models.JSONField(null=True)
+    tense = models.JSONField(null=True)
     # english_word = models.CharField(max_length=50, editable=False, default=english_word_match)
     english_definition = models.TextField()
     oshindonga_definition = models.TextField()
 
     def __str__(self):
         return "%s (%s) [%s]" % (self.word_pair, self.part_of_speech, self.id)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('dictionary.views.WordDefinitionUpdate.as_view()', args=[str(self.id)])
+
+# --------------------------------------------------------------------------------------------------------------
 
 
 class DefinitionExample(AuthAndTimeTracker):
@@ -103,3 +167,26 @@ class DefinitionExample(AuthAndTimeTracker):
 
     def __str__(self):
         return "%s" % (self.definition)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('dictionary.views.DefinitionExampleUpdate.as_view()', args=[str(self.id)])
+
+# --------------------------------------------------------------------------------------------------------------
+
+
+class OshindongaIdiom(AuthAndTimeTracker):
+    '''
+    A model that adds and modifies idioms for Oshindonga words.
+    '''
+    #objects = models.Manager()
+    oshindonga_word = models.ForeignKey(
+        OshindongaWord, on_delete=models.CASCADE)
+    oshindonga_idiom = models.TextField()
+
+    def __str__(self):
+        return "%s" % (self.oshindonga_word)
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('dictionary.views.OshindongaIdiomUpdate.as_view()', args=[str(self.id)])

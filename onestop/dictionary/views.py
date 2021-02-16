@@ -49,7 +49,7 @@ def add_english(request):
             return HttpResponseRedirect(reverse('dictionary:add-english'))
     else:
         form = EnglishWordForm()
-    return render(request, 'dictionary/englishword_form.html/', {'form': form, 'operation': 'Add new English word'})
+    return render(request, 'dictionary/add_english.html/', {'form': form, 'operation': 'Add new English word'})
 
 
 def add_oshindonga(request):

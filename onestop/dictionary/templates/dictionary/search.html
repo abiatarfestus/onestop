@@ -31,7 +31,7 @@
 
 {% block content %}
 <hr>
-<br><br>
+<br>
 <h3>Search for a word</h3>
   <form action="" method="get">
     {% csrf_token %}
@@ -55,9 +55,6 @@
       <div class="col-4"></div>
     </div>
   </form>
-  
-
-  
   <ul id='suggested-searches'>
     <li id='s-search-heading'><h6>Suggested searches:</h6></li>
     <li class='s-searches'><a href='#'>home</a></li>
@@ -65,8 +62,6 @@
     <li class='s-searches'><a href='#'>tradition</a></li>
     <li class='s-searches'><a href='#'>love</a></li>
   </ul>
-  <br>
-  <br>
   <br>
   <h4>Search Results:</h4>
   <div class="row">
@@ -78,18 +73,20 @@
             <li>{{ item }}</li>
         {% endfor %}
       </ol>
+      <h5 class='definition'>Definitions</h5>
         {% else %}
           <p>No results to display</p>
         {% endif %}
-      <h5 class='definition'>Definitions</h5>
       <!-- <p>{{ definitions }}</p> -->
       {% for definition_object in definitions %}
+        <hr>
         <h6 class='definition-object'>{{ definition_object }}</h6>
+        <hr>
         {% if definition_object != 'No definition found' %} 
         <div class='div-english-definitions'><p><i class='definitions-heading'>English definitions</i></p>
           <p>>{{ definition_object.english_definition }}</p></div>
         <div class="examples-div">
-          <p><i>Examples:</i></p>
+          <p><i class='examples-heading'>Examples:</i></p>
           <ol class='examples-list'>
             {% for example_object in examples %}
               {% if example_object.definition_id == definition_object.id %}
@@ -103,13 +100,13 @@
         <div class="div-oshindonga-examples"><p><i class='definitions-heading'>Efatululo mOshindonga</i></p>
           <p>>{{ definition_object.oshindonga_definition }}</p></div>
           <div class="examples-div">
-            <p><i>Iiholelwa:</i></p>
+            <p><i class='examples-heading'>Iiholelwa:</i></p>
             <ol class='examples-list'>
               {% for example_object in examples %}
                 {% if example_object.definition_id == definition_object.id %}
                   <li><i>{{ example_object.oshindonga_example }}</i></li>
                 {% elif example_object == 'No example found' %}
-                  <li><i>{{ example_object }}</i></li>
+                  <li><i>Inapu monika oshiholelwa</i></li>
                 {% endif %}
               {% endfor %}
             </ol>
