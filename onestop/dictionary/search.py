@@ -3,7 +3,7 @@ from .forms import SearchWordForm
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample
 
 
-class SearchEnglishDefinition():
+class SearchDefinition():
     '''
         Searches for a word and returns its definition and example if found, otherwise returns no word, 
         translation, definition or example found.

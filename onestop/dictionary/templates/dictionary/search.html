@@ -8,16 +8,19 @@
           <a class="nav-link active" aria-current="page" href="#">Search</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:add-english' %}">Add/Update Eng Word</a>
+          <a class="nav-link" href="{% url 'dictionary:english-create' %}">Add English Words</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:add-oshindonga' %}">Add/Update Osh Word</a>
+          <a class="nav-link" href="{% url 'dictionary:oshindonga-create' %}">Add Oshindonga Words</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:add-definition' %}">Add/Update Definition</a>
+          <a class="nav-link" href="{% url 'dictionary:definition-create' %}">Add Definitions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:add-example' %}">Add/Update Example</a>
+          <a class="nav-link" href="{% url 'dictionary:example-create' %}">Add Definition Examples</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dictionary:oshindonga-idiom-create' %}">Add Oshindonga Idioms</a>
         </li>
         </ul>
     </div>
