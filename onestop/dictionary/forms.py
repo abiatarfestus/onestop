@@ -32,6 +32,8 @@ class WordDefinitionForm(ModelForm):
     class Meta:
         model = WordDefinition
         fields = '__all__'
+        widgets = {'part_of_speech': forms.Select(
+            attrs={'onchange': 'displayPluralOrTense()'})}
 
 
 class DefinitionExampleForm(ModelForm):

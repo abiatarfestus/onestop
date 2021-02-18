@@ -56,15 +56,15 @@ class EnglishWord(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary.views.EnglishWordUpdate.as_view()', args=[str(self.id)])
+        return reverse('dictionary:add-english', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if self.word_case == self.ABBREVIATION:
-            self.word.upper()
+            self.word.strip().upper()
         elif self.word_case == self.PROPER_NOUN:
             self.word.capitalize()
         else:
-            self.word.lower()
+            self.word.strip().lower()
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
 # --------------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ class OshindongaWord(AuthAndTimeTracker):
     )
 
     def __str__(self):
-        return "%s | %s" % (self.word, self.english_word)
+        return "%s | %s" % (self.english_word, self.word)
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -99,11 +99,11 @@ class OshindongaWord(AuthAndTimeTracker):
 
     def save(self, *args, **kwargs):
         if self.word_case == self.ABBREVIATION:
-            self.word.upper()
+            self.word.strip().upper()
         elif self.word_case == self.PROPER_NOUN:
-            self.word.capitalize()
+            self.word.strip().capitalize()
         else:
-            self.word.lower()
+            self.word.strip().lower()
         super().save(*args, **kwargs)  # Call the "real" save() method.
 # --------------------------------------------------------------------------------------------------------------
 
@@ -139,9 +139,9 @@ class WordDefinition(AuthAndTimeTracker):
         max_length=5,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    variants = models.JSONField(null=True)
-    plural = models.JSONField(null=True)
-    tense = models.JSONField(null=True)
+    variants = models.JSONField(blank=True)
+    plural = models.JSONField(blank=True)
+    tense = models.JSONField(blank=True)
     # english_word = models.CharField(max_length=50, editable=False, default=english_word_match)
     english_definition = models.TextField()
     oshindonga_definition = models.TextField()

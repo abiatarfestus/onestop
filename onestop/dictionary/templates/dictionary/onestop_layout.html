@@ -140,6 +140,23 @@
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
+    <script>
+      function displayPluralOrTense() {
+        var partOfSpeech = document.getElementById("id_part_of_speech").value;
+        console.log( partOfSpeech );
+        if (partOfSpeech == 'Noun') {
+          document.getElementById("tense").style.display = 'none';
+          document.getElementById("plural").style.display = 'table-row';
+        }
+        else if (partOfSpeech == 'Verb') {
+          document.getElementById("tense").style.display = 'table-row';
+          document.getElementById("plural").style.display = 'none';
+        }
+        else {
+          document.getElementById("tense").style.display = 'none';
+          document.getElementById("plural").style.display = 'none';
+        }
+          }
+      </script>
   </body>
 </html>
