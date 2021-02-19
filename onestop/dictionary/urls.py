@@ -28,4 +28,18 @@ urlpatterns = [
          name='example-update'),
     path('oshindonga-idiom/<int:pk>/update/', views.OshindongaIdiomUpdate.as_view(),
          name='oshindonga-idiom-update'),
+         #List Views
+     path('english-words/',
+         views.EnglishWordListView.as_view(), name='english-words'),
+    path('oshindonga-words/',
+         views.OshindongaWordListView.as_view(), name='oshindonga-words'),
+    path('oshindonga-idioms/', views.OshindongaIdiomListView.as_view(),
+         name='oshindonga-idioms'),
+         #Detail Views
+     path('english-word/<int:pk>',
+         views.EnglishWordDetailView.as_view(), name='english-word-detail'),
+    path('oshindonga-word/<int:pk>',
+         views.OshindongaWordDetailView.as_view(), name='oshindonga-word-detail'),
+    path('oshindonga-idiom/<int:pk>', views.OshindongaIdiomDetailView.as_view(),
+         name='oshindonga-idiom-detail'),
 ]

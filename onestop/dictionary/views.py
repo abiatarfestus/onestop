@@ -7,6 +7,7 @@ from .search import SearchDefinition
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 from .forms import SearchWordForm
 from django import forms
+from django.views import generic
 
 # Create your views here.
 
@@ -28,52 +29,6 @@ def search_word(request):
     return render(request, 'dictionary/search.html', context)
 
 
-# def add_english(request):
-#     if request.method == 'POST':
-#         form = EnglishWordForm(request.POST)
-#         if form.is_valid():
-#             new_word = form
-#             new_word.save()
-#             return HttpResponseRedirect(reverse('dictionary:add-english'))
-#     else:
-#         form = EnglishWordForm()
-#     return render(request, 'dictionary/add_english.html/', {'form': form, 'operation': 'Add new English word'})
-
-
-# def add_oshindonga(request):
-#     if request.method == 'POST':
-#         form = OshindongaWordForm(request.POST)
-#         if form.is_valid():
-#             new_word = form
-#             new_word.save()
-#             return HttpResponseRedirect(reverse('dictionary:add-oshindonga'))
-#     else:
-#         form = OshindongaWordForm()
-#     return render(request, 'dictionary/add_oshindonga.html/', {'form': form})
-
-
-# def add_definition(request):
-#     if request.method == 'POST':
-#         form = WordDefinitionForm(request.POST)
-#         if form.is_valid():
-#             new_definition = form
-#             new_definition.save()
-#             return HttpResponseRedirect(reverse('dictionary:add-definition'))
-#     else:
-#         form = WordDefinitionForm()
-#     return render(request, 'dictionary/add_definition.html/', {'form': form})
-
-
-# def add_example(request):
-#     if request.method == 'POST':
-#         form = DefinitionExampleForm(request.POST)
-#         if form.is_valid():
-#             new_definition = form
-#             new_definition.save()
-#             return HttpResponseRedirect(reverse('dictionary:add_example'))
-#     else:
-#         form = DefinitionExampleForm()
-#     return render(request, 'dictionary/add_example.html/', {'form': form})
 
 # GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
 
@@ -141,3 +96,79 @@ class DefinitionExampleUpdate(UpdateView):
 class OshindongaIdiomUpdate(UpdateView):
     model = OshindongaIdiom
     fields = '__all__'
+
+#List View
+objects_view = 'dictionary/objects_view.html' #A template for displating List and Detail views dynamically
+class EnglishWordListView(generic.ListView):
+    model = EnglishWord
+    template_name = objects_view
+
+    #Override the default get_queryset()
+    def get_queryset(self):
+        return EnglishWord.objects.all().order_by('word')
+
+    #Add additional context variables
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(EnglishWordListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['heading'] = 'List of English words in the dictionary' #Default context = englishword_list
+        return context
+
+
+class OshindongaWordListView(generic.ListView):
+    model = OshindongaWord
+    template_name = objects_view
+
+    def get_queryset(self):
+        return OshindongaWord.objects.all().order_by('word')
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaWordListView, self).get_context_data(**kwargs)
+        context['heading'] = 'List of Oshindonga words in the dictionary'
+        return context
+
+
+class OshindongaIdiomListView(generic.ListView):
+    model = OshindongaIdiom
+    template_name = objects_view
+
+    def get_queryset(self):
+        return OshindongaIdiom.objects.all().order_by('oshindonga_idiom')
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaIdiomListView, self).get_context_data(**kwargs)
+        context['heading'] = 'List of Oshindonga idioms in the dictionary'
+        return context
+
+#Detail View
+
+class EnglishWordDetailView(generic.DetailView):
+    model = EnglishWord
+    template_name = objects_view
+
+    def get_context_data(self, **kwargs):
+        context = super(EnglishWordDetailView, self).get_context_data(**kwargs)
+        context['heading'] = 'English word detail view'
+        return context
+
+
+class OshindongaWordDetailView(generic.DetailView):
+    model = OshindongaWord
+    template_name = objects_view
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaWordDetailView, self).get_context_data(**kwargs)
+        context['heading'] = 'Oshindonga word detail view'
+        return context
+
+
+class OshindongaIdiomDetailView(generic.DetailView):
+    model = OshindongaIdiom
+    template_name = objects_view
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaIdiomDetailView, self).get_context_data(**kwargs)
+        context['heading'] = 'Oshindonga idiom detail view'
+        return context
+

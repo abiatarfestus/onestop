@@ -143,3 +143,52 @@ urlpatterns = [
     #     path('example', views.add_example, name='add-example'),
 
     {% url 'dictionary:english' %}
+
+
+    
+# def add_english(request):
+#     if request.method == 'POST':
+#         form = EnglishWordForm(request.POST)
+#         if form.is_valid():
+#             new_word = form
+#             new_word.save()
+#             return HttpResponseRedirect(reverse('dictionary:add-english'))
+#     else:
+#         form = EnglishWordForm()
+#     return render(request, 'dictionary/add_english.html/', {'form': form, 'operation': 'Add new English word'})
+
+
+# def add_oshindonga(request):
+#     if request.method == 'POST':
+#         form = OshindongaWordForm(request.POST)
+#         if form.is_valid():
+#             new_word = form
+#             new_word.save()
+#             return HttpResponseRedirect(reverse('dictionary:add-oshindonga'))
+#     else:
+#         form = OshindongaWordForm()
+#     return render(request, 'dictionary/add_oshindonga.html/', {'form': form})
+
+
+# def add_definition(request):
+#     if request.method == 'POST':
+#         form = WordDefinitionForm(request.POST)
+#         if form.is_valid():
+#             new_definition = form
+#             new_definition.save()
+#             return HttpResponseRedirect(reverse('dictionary:add-definition'))
+#     else:
+#         form = WordDefinitionForm()
+#     return render(request, 'dictionary/add_definition.html/', {'form': form})
+
+
+# def add_example(request):
+#     if request.method == 'POST':
+#         form = DefinitionExampleForm(request.POST)
+#         if form.is_valid():
+#             new_definition = form
+#             new_definition.save()
+#             return HttpResponseRedirect(reverse('dictionary:add_example'))
+#     else:
+#         form = DefinitionExampleForm()
+#     return render(request, 'dictionary/add_example.html/', {'form': form})

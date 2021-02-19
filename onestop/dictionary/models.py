@@ -2,8 +2,6 @@ from django.db import models
 from django.db.models import F  # For referencing fields on the same model
 #from datetime import datetime
 #from django.contrib.auth import get_user_model
-#from audit_log.models.fields import CreatingUserField, CreatingSessionKeyField, LastUserField, LastSessionKeyField
-# https://django-simple-history.readthedocs.io/en/latest/index.html
 from simple_history.models import HistoricalRecords
 
 
@@ -14,15 +12,12 @@ class AuthAndTimeTracker(models.Model):
     An abstract base class for adding instance creation and modification time as well as modification history.
     To be inherited by all models.
     '''
-    # (get_user_model(), null=True, on_delete=models.SET_NULL)
-    #added_by = CreatingUserField()
-    time_added = models.DateField(auto_now_add=True)
-    # https://django-audit-log.readthedocs.io/en/latest/index.html
-    #created_with_session_key = CreatingSessionKeyField()
-    # (get_user_model(), null=True, on_delete=models.SET_NULL)
-    #modified_by = LastUserField(on_delete=models.SET_NULL)
-    time_modified = models.DateField(auto_now=True)
-    #modified_with_session_key = LastSessionKeyField()
+    #User = get_user_model()
+
+    #added_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    time_added = models.DateTimeField(auto_now_add=True)
+    #modified_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    time_modified = models.DateTimeField(auto_now=True)
     objects = models.Manager()
     history = HistoricalRecords(
         history_change_reason_field=models.TextField(null=True), inherit=True)
@@ -56,7 +51,7 @@ class EnglishWord(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary:add-english', args=[str(self.id)])
+        return reverse('dictionary:english-word-detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if self.word_case == self.ABBREVIATION:
@@ -95,7 +90,7 @@ class OshindongaWord(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary.views.OshindongaWordUpdate.as_view()', args=[str(self.id)])
+        return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if self.word_case == self.ABBREVIATION:
@@ -151,7 +146,7 @@ class WordDefinition(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary.views.WordDefinitionUpdate.as_view()', args=[str(self.id)])
+        return reverse('dictionary:definition-update', args=[str(self.id)])
 
 # --------------------------------------------------------------------------------------------------------------
 
@@ -170,7 +165,7 @@ class DefinitionExample(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary.views.DefinitionExampleUpdate.as_view()', args=[str(self.id)])
+        return reverse('dictionary:example-update', args=[str(self.id)])
 
 # --------------------------------------------------------------------------------------------------------------
 
@@ -189,4 +184,4 @@ class OshindongaIdiom(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('dictionary.views.OshindongaIdiomUpdate.as_view()', args=[str(self.id)])
+        return reverse('dictionary:oshindonga-idiom-detail', args=[str(self.id)])
