@@ -40,6 +40,10 @@ urlpatterns = [
          views.EnglishWordDetailView.as_view(), name='english-word-detail'),
     path('oshindonga-word/<int:pk>',
          views.OshindongaWordDetailView.as_view(), name='oshindonga-word-detail'),
+     path('word-definition/<int:pk>', views.WordDefinitionDetailView.as_view(),
+         name='word-definition-detail'),
+     path('definition-example/<int:pk>', views.DefinitionExampleDetailView.as_view(),
+         name='definition-example-detail'),
     path('oshindonga-idiom/<int:pk>', views.OshindongaIdiomDetailView.as_view(),
          name='oshindonga-idiom-detail'),
 ]

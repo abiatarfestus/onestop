@@ -12,8 +12,36 @@
 <br>
 <form action="" method="post">
   {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Submit">
+  <!-- {{form.errors}}
+  {{ form.as_p }} -->
+  {% for field in form %}
+    <div class="fieldWrapper">
+      {% if field.errors %}
+        <div class="alert alert-warning" role="alert">
+          {{ field.errors }} 
+        </div>
+      {% endif %}
+        {{ field.label_tag }} {{ field }}
+        {% if field.help_text %}
+        <p class="help">{{ field.help_text|safe }}</p>
+        {% endif %}
+    </div>
+  {% endfor %}
+  <input class="btn btn-outline-primary" type="submit" value="Submit">
+  <!-- <table>
+    <tr>
+      <td> <label for="{{ form.word.id_for_label }}">Word:</label></td>
+      <td>{{ form.word }}</td>
+    </tr>
+    <tr>
+      <td><label for="{{ form.word_case.id_for_label }}">Word case:</label></td>
+      <td>{{ form.word_case }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input class="btn btn-outline-primary" type="submit" value="Submit"></td>
+    </tr>
+  </table>   -->
 </form>
 <br>
 <ul class='newly-added-words'>

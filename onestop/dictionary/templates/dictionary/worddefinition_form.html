@@ -13,7 +13,37 @@
 <form action="" method="post">
   {% csrf_token %}
   <!-- {{ form.as_p }} -->
-  <table>
+  {{form.errors}}
+  <div>
+    <label for="{{ form.word_pair.id_for_label }}">Word pair:</label>
+    {{ form.word_pair }}
+  </div>
+  <div>
+    <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label>
+    {{ form.part_of_speech }}
+  </div>
+  <div style="display: none;" id="plural">
+    <label for="{{ form.plural.id_for_label }}">Plural (Oshindonga):</label>
+    {{ form.plural }}
+  </div>
+  <div style="display: none;" id="tense">
+    <label for="{{ form.tense.id_for_label }}">Tenses (Oshindonga):</label>
+    {{ form.tense }}
+  </div>
+  <div>
+    <label for="{{ form.variants.id_for_label }}">Variants (Oshindonga):</label>
+    {{ form.variants }}
+  </div>
+  <div>
+    <label for="{{ form.english_definition.id_for_label }}">English definition:</label>
+    {{ form.english_definition }}
+  </div>
+  <div>
+    <label for="{{ form.oshindonga_definition.id_for_label }}">Oshindonga definition:</label>
+    {{ form.oshindonga_definition }}
+  </div>
+  <input class="btn btn-outline-primary" type="submit" value="Submit">
+  <!-- <table>
     <tr>
       <td> <label for="{{ form.word_pair.id_for_label }}">Word pair:</label></td>
       <td>{{ form.word_pair }}</td>
@@ -46,7 +76,7 @@
       <td></td>
       <td><input type="submit" value="Submit"></td>
     </tr>
-  </table>  
+  </table>   -->
 </form>
 <br>
 <ul class='undefined-words'>

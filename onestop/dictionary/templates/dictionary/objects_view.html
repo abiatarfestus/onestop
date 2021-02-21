@@ -11,7 +11,7 @@
   <ol>
   {% for word in englishword_list %}
     
-    <li> {{ word.word}} </li>
+    <li> {{ word}} [{{ word.id }}] </li>
     
   {% endfor %}
   </ol>
@@ -20,7 +20,7 @@
 <ol>
   {% for word in oshindongaword_list %}
     
-    <li> {{ word}} </li>
+    <li> {{ word}} [{{ word.id }}]</li>
     
   {% endfor %}
   </ol>
@@ -47,8 +47,27 @@
     <p><strong> Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
     <p><strong>Date added: </strong>{{ oshindongaword.time_added }} </p>
     
+<!-- Word definition DeatilView -->
+{% elif worddefinition %}
     
-  
+    <p><strong> Definition for: </strong>{{ worddefinition }}</p>
+    <p><strong>Part of speech: </strong>{{ worddefinition.part_of_speech }} </p>
+    <p><strong>Variants: </strong>{{ worddefinition.variants }} </p>
+    <p><strong>Plural: </strong>{{ worddefinition.plural }} </p>
+    <p><strong>Tense: </strong>{{ worddefinition.tense }} </p>
+    <p><strong>English definition: </strong>{{ worddefinition.english_definition }} </p>
+    <p><strong>Oshindonga definition: </strong>{{ worddefinition.oshindonga_definition }} </p>
+    <p><strong>Date added: </strong>{{ worddefinition.time_added }} </p>
+        
+<!-- Definition example DeatilView -->
+{% elif definitionexample %}
+    
+    <p><strong> Example for: </strong>{{ definitionexample.definition }}</p>
+    <p><strong>English example: </strong>{{ definitionexample.english_example }} </p>
+    <p><strong>Oshindonga example: </strong>{{ definitionexample.oshindonga_example }} </p>
+    <p><strong>Date added: </strong>{{ definitionexample.time_added }} </p>
+        
+    
 <!-- Oshindonga idiom DetailView -->
 {% elif oshindongaidiom %}
     <p> {{item }} </p>
