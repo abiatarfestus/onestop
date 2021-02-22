@@ -7,8 +7,8 @@
   <hr>
   <br>
 {% endblock %}
-{% block content %}
-<h5>Add or Update Word Usage Example</h5>
+{% block centre %}
+<h5>{{ operation }}</h5>
 <br>
 <form action="" method="post">
   {% csrf_token %}
@@ -47,9 +47,11 @@
     </tr>
   </table>   -->
 </form>
-<br>
+{% endblock %}
+
+{% block right %}
+<h6>Undefined words:</h6>
 <ul class='undefined-words'>
-    <li class='undefined-heading'><h6>Undefined words:</h6></li>
     <li class='undefined'><a href='#'>building</a></li>
     <li class='undefined'><a href='#'>geology</a></li>
     <li class='undefined'><a href='#'>computer</a></li>

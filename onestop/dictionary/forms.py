@@ -11,7 +11,7 @@ class SearchWordForm(forms.Form):
         (OSHINDONGA, 'Oshindonga'),
     ]
     input_language = forms.ChoiceField(widget=forms.Select(
-        attrs={'class': "form-select form-select-lg", 'id': "inputGroupSelect01"}), choices=INPUT_LANGUAGE)
+        attrs={'class': "form-select form-select-lg", 'id': "inputGroupSelect01", 'style':'max-width:21%;'}), choices=INPUT_LANGUAGE)
     search_word = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control form-control-lg', 'placeholder': 'Search word'}), max_length=50)
 

@@ -18,8 +18,8 @@ body {
 	background-color: #afcff886;
 }
 
-h1,
-h2 {
+
+.page-headings {
 	text-align: center;
 }
 
@@ -30,15 +30,22 @@ h2 {
 }
 /* --------------- */
 .col,
+.col-2,
 .columns {
-	background-color: #f5fcfc;
+	background-color: #f5fcfc7e;
 	/* font-weight: bold; */
-	font-size: 3rem;
+	/* font-size: 3rem; */
 	/* border: solid; */
-	/* border-radius: 5%; */
+	border-radius: 1%;
+	border-width: thin;
 	border-style: solid;
-	border-color: rgb(233, 228, 228);
+	border-color: rgb(182, 178, 178);
 }
+
+/* #input-language {
+	background-color: unset;
+	border: none;
+} */
 p {
 	font-size: medium;
 }
@@ -59,10 +66,10 @@ p {
 	overflow: hidden;
 }
 
-.s-searches,
-.n-added,
+.s-searches
+/* .n-added,
 .untranslated,
-.undefined {
+.undefined */ {
 	float: left;
 	/* display: block; */
 	color: rgb(161, 152, 152);

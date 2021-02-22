@@ -1,15 +1,25 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h3>Contribute to the dictionary by adding a new Oshindonga word or updating an existing one.</h3>
+  <h4>Contribute to the dictionary by adding a new Oshindonga word or updating an existing one.</h4>
   <br>
-  <h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
+  <h5>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h5>
   <hr>
   <br>
 {% endblock %}
-{% block content %}
-<h5>Add or Update Oshindonga Words</h5>
+<h5>{{ operation }}</h5>
 <br>
+{% block left %}
+<ul class='newly-added-words'>
+  <li class='n-added-words-heading'><h6>Newly added words:</h6></li>
+  <li class='n-added'><a href='#'>egumbo</a></li>
+  <li class='n-added'><a href='#'>uudhindoli</a></li>
+  <li class='n-added'><a href='#'>omuthigululwakalo</a></li>
+  <li class='n-added'><a href='#'>ohole</a></li>
+</ul>
+{% endblock %}
+
+{% block centre %}
 <form action="" method="post">
   {% csrf_token %}
   <!-- {{form.errors}}
@@ -47,16 +57,8 @@
     </tr>
   </table>   -->
 </form>
-<br>
-<br>
-<ul class='newly-added-words'>
-    <li class='n-added-words-heading'><h6>Newly added words:</h6></li>
-    <li class='n-added'><a href='#'>egumbo</a></li>
-    <li class='n-added'><a href='#'>uudhindoli</a></li>
-    <li class='n-added'><a href='#'>omuthigululwakalo</a></li>
-    <li class='n-added'><a href='#'>ohole</a></li>
-</ul>
-<br>
+{% endblock %}
+{% block right %}
 <ul class='untranslated-words'>
     <li class='untranslated-heading'><h6>English words without translations::</h6></li>
     <li class='untranslated'><a href='#'>building</a></li>
