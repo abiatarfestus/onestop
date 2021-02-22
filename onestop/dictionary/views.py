@@ -44,12 +44,14 @@ def search_word(request):
 class EnglishWordCreate(SuccessMessageMixin, CreateView):
     form_class = EnglishWordForm
     model = EnglishWord
+    extra_context = {'operation': 'Add a new English word'}
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
 
 class OshindongaWordCreate(SuccessMessageMixin, CreateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
+    extra_context = {'operation': 'Gwedha mo oshitya shOshindonga oshipe'}
     success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
@@ -57,18 +59,21 @@ class OshindongaWordCreate(SuccessMessageMixin, CreateView):
 class WordDefinitionCreate(SuccessMessageMixin, CreateView):
     form_class = WordDefinitionForm  # Uses the form class defined in forms.py which allows customization
     model = WordDefinition
+    extra_context = {'operation': 'Add a new word definition'}
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
 
 
 class DefinitionExampleCreate(SuccessMessageMixin, CreateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
+    extra_context = {'operation': 'Add a new definition example'}
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
 
 class OshindongaIdiomCreate(SuccessMessageMixin, CreateView):
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
+    extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe'}
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
@@ -85,24 +90,28 @@ class EnglishWordUpdate(SuccessMessageMixin, UpdateView):
 class OshindongaWordUpdate(SuccessMessageMixin, UpdateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
+    extra_context = {'operation': 'Pukulula oshitya shOshindonga shi li mo nale'}
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
 
 class WordDefinitionUpdate(SuccessMessageMixin, UpdateView):
     form_class = WordDefinitionForm  # Uses the form class defined in forms.py which allows customization
     model = WordDefinition
+    extra_context = {'operation': 'Update an existing word definition'}
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
 
 
 class DefinitionExampleUpdate(SuccessMessageMixin, UpdateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
+    extra_context = {'operation': 'Update an existing definition example'}
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
 
 class OshindongaIdiomUpdate(SuccessMessageMixin, UpdateView):
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
+    extra_context = {'operation': 'Pukulula oshipopiwamayele shi li monale'}
     success_message = "Oshipopiwamayele osha lundululwa nawa.Tangi ku sho wa gandja!"
 
 
