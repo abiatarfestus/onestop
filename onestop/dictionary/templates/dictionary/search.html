@@ -56,10 +56,14 @@
   </form>
   <ul id='suggested-searches'>
     <li id='s-search-heading'><h6>Suggested searches:</h6></li>
-    <li class='s-searches'><a href='#'>home</a></li>
-    <li class='s-searches'><a href='#'>science</a></li>
+    {% if suggested_searches %}
+      {% for word in suggested_searches %}
+    <li class='s-searches'><a href='{{ word.get_absolute_url }}'>{{ word }}</a></li>
+    <!-- <li class='s-searches'><a href='#'>science</a></li>
     <li class='s-searches'><a href='#'>tradition</a></li>
-    <li class='s-searches'><a href='#'>love</a></li>
+    <li class='s-searches'><a href='#'>love</a></li> -->
+    {% endfor %}
+    {% endif %}
   </ul>
 <br>
 <h4>Search Results:</h4>

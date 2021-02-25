@@ -23,9 +23,9 @@ def thankyou(request):
 
 
 def search_word(request):
-    search_object = SearchDefinition(request)
-    search_object.search_word()
-    context = search_object.context
+    search_object = SearchDefinition(request)   #Create an instance of the SearchDefinition calss, passing in the request
+    search_object.search_word() #Call the search_word() method of the created instance/object, which will kickstart the necessary queries
+    context = search_object.context #Pass the context of the object/instance and pass it to the context variable of this view
     return render(request, 'dictionary/search.html', context)
 
 

@@ -1,7 +1,5 @@
 from django.db import models
 from django.db.models import F  # For referencing fields on the same model
-#from datetime import datetime
-#from django.contrib.auth import get_user_model
 from simple_history.models import HistoricalRecords
 
 
@@ -24,15 +22,10 @@ class AuthAndTimeTracker(models.Model):
     An abstract base class for adding instance creation and modification time as well as modification history.
     To be inherited by all models.
     '''
-    #User = get_user_model()
-
-    #added_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     time_added = models.DateTimeField(auto_now_add=True)
-    #modified_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     time_modified = models.DateTimeField(auto_now=True)
     objects = models.Manager()
-    history = HistoricalRecords(
-        history_change_reason_field=models.TextField(null=True), inherit=True)
+    history = HistoricalRecords(inherit=True)
 
     class Meta:
         abstract = True
@@ -52,7 +45,8 @@ class EnglishWord(AuthAndTimeTracker):
         (PROPER_NOUN, 'Proper Noun'),
         (NORMAL, 'Normal'),
     ]
-    word = models.CharField(unique=True, max_length=50, error_messages={ 'unique': 'The English word you entered already exists in the dictionary.'})
+    word = models.CharField(unique=True, max_length=50, error_messages={
+                            'unique': 'The English word you entered already exists in the dictionary.'})
     word_case = models.CharField(
         max_length=12,
         choices=WORD_CASE, default=NORMAL, help_text='Indicate whether the word you are entering is a normal word, abbretiation or proper noun.'
@@ -63,9 +57,9 @@ class EnglishWord(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        # return reverse('dictionary:english-word-detail', args=[str(self.id)])
-        return reverse('dictionary:english-create')
-    
+        return reverse('dictionary:english-word-detail', args=[str(self.id)])
+        # return reverse('dictionary:english-create')
+
 
 # --------------------------------------------------------------------------------------------------------------
 
@@ -75,11 +69,11 @@ class OshindongaWord(AuthAndTimeTracker):
     A model that adds and modifies Oshindonga words in the database
     '''
     ABBREVIATION = 'Abbreviation'
-    PROPER_NOUN = 'Proper'
+    PROPER_NOUN = 'Proper Noun'
     NORMAL = 'Normal'
     WORD_CASE = [
         (ABBREVIATION, 'Abbreviation'),
-        (PROPER_NOUN, 'Proper'),
+        (PROPER_NOUN, 'Proper Noun'),
         (NORMAL, 'Normal'),
     ]
     #objects = models.Manager()
@@ -134,9 +128,6 @@ class WordDefinition(AuthAndTimeTracker):
         (INTERJECTION, 'Interjection'),
     ]
 
-    # def english_word_match(self):
-    #     return OshindongaWord.objects.filter(word=F('oshindonga_word')).english_word()
-    #objects = models.Manager()
     word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
     part_of_speech = models.CharField(
         max_length=5,

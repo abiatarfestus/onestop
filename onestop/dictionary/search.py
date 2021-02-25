@@ -12,7 +12,8 @@ class SearchDefinition():
     def __init__(self, request):
         self.request = request
         self.context = {'form': '', 'searched_word': '',
-                        'definitions': '', 'examples': ''}
+                        'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10]}
+        # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):
         '''
@@ -100,7 +101,8 @@ class SearchDefinition():
                     # Get the the id/pk of the word found to be used in Oshindonga model
                     self.eng_word_pk = self.eng_word.id
                 except EnglishWord.DoesNotExist:
-                    self.context['searched_word'] = ['The word you searched was not found.']
+                    self.context['searched_word'] = [
+                        'The word you searched was not found.']
                     return render(self.request, 'dictionary/search.html', self.context)
                 self.search_word_pairs(self.eng_word_pk)
                 return render(self.request, 'dictionary/search.html', self.context)
