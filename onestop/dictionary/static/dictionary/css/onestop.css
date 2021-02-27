@@ -30,12 +30,13 @@ body {
 }
 /* --------------- */
 .col,
+.definition-row,
 .col-2,
 .columns {
 	background-color: #f5fcfcbe;
 	/* font-weight: bold; */
 	/* font-size: 3rem; */
-	/* border: solid; */
+	border: solid;
 	border-radius: 1%;
 	border-width: thin;
 	/* border-style: solid; */

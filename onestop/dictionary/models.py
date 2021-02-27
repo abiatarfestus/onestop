@@ -108,7 +108,8 @@ class WordDefinition(AuthAndTimeTracker):
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     '''
     SELECT = ''
-    NOUN = 'Noun'
+    NOUN = 'Noun [C]'
+    NOUN = 'Noun [U]'
     PRONOUN = 'Pron.'
     VERB = 'Verb'
     ADJECTIVE = 'Adj.'
@@ -118,7 +119,8 @@ class WordDefinition(AuthAndTimeTracker):
     INTERJECTION = 'Int.'
     PART_OF_SPEECH_CHOICES = [
         (SELECT, 'Select the part of speech of your definition'),
-        (NOUN, 'Noun'),
+        (NOUN, 'Noun [C]'),
+        (NOUN, 'Noun [U]'),
         (PRONOUN, 'Pronoun'),
         (VERB, 'Verb'),
         (ADJECTIVE, 'Adjective'),
@@ -130,13 +132,22 @@ class WordDefinition(AuthAndTimeTracker):
 
     word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
     part_of_speech = models.CharField(
-        max_length=5,
+        max_length=8,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    variants = models.JSONField(default=variants_default)
-    plural = models.JSONField(default=plural_default)
-    tense = models.JSONField(default=tense_default)
-    # english_word = models.CharField(max_length=50, editable=False, default=english_word_match)
+    # variants = models.JSONField(default=variants_default)
+    # plural = models.JSONField(default=plural_default)
+    # tense = models.JSONField(default=tense_default)
+    synonym1 = models.CharField(max_length=50, blank=True)
+    synonym2 = models.CharField(max_length=50, blank=True)
+    synonym3 = models.CharField(max_length=50, blank=True)
+    synonym4 = models.CharField(max_length=50, blank=True)
+    simple_present = models.CharField(max_length=50, blank=True)
+    present_participle = models.CharField(max_length=50, blank=True)
+    simple_past = models.CharField(max_length=50, blank=True)
+    past_participle = models.CharField(max_length=50, blank=True)
+    plural1 = models.CharField(max_length=50, blank=True)
+    plural2 = models.CharField(max_length=50, blank=True)
     english_definition = models.CharField(max_length=255)
     oshindonga_definition = models.CharField(max_length=255)
 

@@ -87,15 +87,15 @@
         {% endfor %}
       {% endif %}
       
-    <div class="container">
+    <div class="container px-1">
       <div class="row">
-        <div class="col-2 gx-0" id="left-sidebar">
+        <div class="col-2 gx-3" id="left-sidebar">
           {% block left %}{% endblock %}
         </div>
-        <div class="col gx-0" id="centre-area">
+        <div class="col gx-3" id="centre-area">
           {% block centre %}{% endblock %}
         </div>
-        <div class="col-2 gx-0" id="right-sidebar">
+        <div class="col-2 gx-3" id="right-sidebar">
           {% block right %}{% endblock %}
         </div>
       </div>
@@ -170,12 +170,12 @@
     function displayPluralOrTense() {
       var partOfSpeech = document.getElementById("id_part_of_speech").value;
       console.log( partOfSpeech );
-      if (partOfSpeech == 'Noun') {
+      if (partOfSpeech == 'Noun [C]') {
         document.getElementById("tense").style.display = 'none';
-        document.getElementById("plural").style.display = 'block';
+        document.getElementById("plural").style.display = 'flex';
       }
       else if (partOfSpeech == 'Verb') {
-        document.getElementById("tense").style.display = 'block';
+        document.getElementById("tense").style.display = 'flex';
         document.getElementById("plural").style.display = 'none';
       }
       else {
@@ -184,5 +184,6 @@
       }
         }
     </script>
+    {% block scripts %}{% endblock %}
   </body>
 </html>

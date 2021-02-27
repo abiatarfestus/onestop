@@ -70,19 +70,36 @@
 <div class="row">
   <div class="col columns">
     {% if searched_word %}
+    <!-- <div class="row px-3"> px (padding x, horizontal) for rows and div. gx (gutter x, hor) for colums -->
       <ol class="search-results-list">
       {% for item in searched_word %} 
           <li>{{ item }}</li>
       {% endfor %}
     </ol>
+    <!-- </div> -->
     <h5 class='definition'>Definitions</h5>
       {% else %}
         <p>No search was performed</p>
       {% endif %}
     {% for definition_object in definitions %}
-      <hr>
+      <!-- <hr> -->
+      <div class="row px-3 definition-row">
+        <div class="col">
       <h6 class='definition-object'>{{ definition_object }}</h6>
-      <hr>
+        </div>
+        <div class="col">
+          
+          {% if definition_object.part_of_speech == 'Noun' %} 
+          <p><strong>Plural: </strong></p>
+          {{ definition_object.plural}}
+          {% elif definition_object.part_of_speech == 'Verb' %}
+          <p><strong></strong>Tenses: </strong></p>
+          {{ definition_object.tense }}
+          {% endif %}
+        </div>
+        <div class="col">Extras2</div>
+      </div>
+      <!-- <hr> -->
       {% if definition_object != 'No definition found' %} 
       <div class='div-english-definitions'><p><i class='definitions-heading'>English definitions</i></p>
         <p>>{{ definition_object.english_definition }}</p></div>

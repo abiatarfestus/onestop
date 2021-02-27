@@ -23,17 +23,45 @@
     <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label>
     {{ form.part_of_speech }}
   </div>
-  <div style="display: none;" id="plural">
-    <label for="{{ form.plural.id_for_label }}">Plural (Oshindonga):</label>
-    {{ form.plural }}
+  <div class="row">
+    <div class="col">
+    <label for="{{ form.synonym1.id_for_label }}">Synonym1 (Oshindonga):</label>
+    {{ form.synonym1 }}
+    <label for="{{ form.synonym2.id_for_label }}">Synonym2 (Oshindonga):</label>
+    {{ form.synonym2 }}
   </div>
-  <div style="display: none;" id="tense">
-    <label for="{{ form.tense.id_for_label }}">Tenses (Oshindonga):</label>
-    {{ form.tense }}
+  <div class="col">
+    <label for="{{ form.synonym3.id_for_label }}">Synonym3 (Oshindonga):</label>
+    {{ form.synonym3 }}
+    <label for="{{ form.synonym4.id_for_label }}">Synonym4 (Oshindonga):</label>
+    {{ form.synonym4 }}
   </div>
-  <div>
-    <label for="{{ form.variants.id_for_label }}">Variants (Oshindonga):</label>
-    {{ form.variants }}
+  </div>
+  <div class="row" style="display: none;" id="tense">
+    <p style="text-align: center;"><strong>Tense forms</strong></p>
+    <div class="col gx-3">
+    <label for="{{ form.simple_present.id_for_label }}">Simple present (Oshindonga):</label>
+    {{ form.simple_present }}
+    <label for="{{ form.present_participle.id_for_label }}">Present participle (Oshindonga):</label>
+    {{ form.present_participle }}
+  </div>
+  <div class="col gx-3">
+    <label for="{{ form.simple_past.id_for_label }}">Simple past (Oshindonga):</label>
+    {{ form.simple_past }}
+    <label for="{{ form.past_participle.id_for_label }}">Past participle: (Oshindonga):</label>
+    {{ form.past_participle }}
+  </div>
+  </div>
+  <div class="row" style="display: none;" id="plural">
+    <p style="text-align: center;"><strong>Plural forms</strong></p>
+    <div class="col gx-3">
+    <label for="{{ form.plural1.id_for_label }}">Plural1 (Oshindonga):</label>
+    {{ form.plural1 }}
+  </div>
+  <div class="col gx-3">
+    <label for="{{ form.plural2.id_for_label }}">Plural2 (Oshindonga):</label>
+    {{ form.plural2 }}
+  </div>
   </div>
   <div>
     <label for="{{ form.english_definition.id_for_label }}">English definition:</label>
@@ -44,40 +72,6 @@
     {{ form.oshindonga_definition }}
   </div>
   <input class="btn btn-outline-primary" type="submit" value="Submit">
-  <!-- <table>
-    <tr>
-      <td> <label for="{{ form.word_pair.id_for_label }}">Word pair:</label></td>
-      <td>{{ form.word_pair }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label></td>
-      <td>{{ form.part_of_speech }}</td>
-    </tr>
-    <tr style="display: none;" id="plural">
-      <td><label for="{{ form.plural.id_for_label }}">Plural:</label></td>
-      <td>{{ form.plural }}</td>
-    </tr>
-    <tr style="display: none;" id="tense">
-      <td><label for="{{ form.tense.id_for_label }}">Tenses:</label></td>
-      <td>{{ form.tense }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.variants.id_for_label }}">Variants(Oshindonga):</label></td>
-      <td>{{ form.variants }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.english_definition.id_for_label }}">English definition:</label></td>
-      <td>{{ form.english_definition }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.oshindonga_definition.id_for_label }}">Oshindonga definition:</label></td>
-      <td>{{ form.oshindonga_definition }}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input type="submit" value="Submit"></td>
-    </tr>
-  </table>   -->
 </form>
 {% endblock %}
 
@@ -89,4 +83,10 @@
     <li class='undefined'><a href='#'>computer</a></li>
     <li class='undefined'><a href='#'>solar</a></li>
 </ul>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    window.onload = displayPluralOrTense; //Calls the displayPluralOrTense when the page re/loads
+  </script>
 {% endblock %}
