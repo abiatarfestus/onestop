@@ -85,46 +85,86 @@
       <!-- <hr> -->
       <div class="row px-3 definition-row">
         <div class="col">
-      <h6 class='definition-object'>{{ definition_object }}</h6>
+          <h6 class='definition-object'>{{ definition_object }}</h6>
         </div>
         <div class="col">
           
-          {% if definition_object.part_of_speech == 'Noun' %} 
-          <p><strong>Plural: </strong></p>
-          {{ definition_object.plural}}
+          {% if definition_object.part_of_speech == 'Noun [C]' %} 
+          <ul class="plural-list">
+          <li><strong>Plural: </strong></li>
+          <li><i>{{ definition_object.plural1}}</i></li>
+          <li><i>{{ definition_object.plural2}}</i></li>
+          </ul>
           {% elif definition_object.part_of_speech == 'Verb' %}
-          <p><strong></strong>Tenses: </strong></p>
-          {{ definition_object.tense }}
+          <ul class="tenses-list">
+            <li><strong>Tenses: </strong></li>
+            <li>Simple present: <i>{{ definition_object.simple_present }}</i></li>
+            <li>Present participle: <i>{{ definition_object.present_participle }}</i></li>
+            <li>Simple past: <i>{{ definition_object.simple_past }}</i></li>
+            <li>Past participle: <i>{{ definition_object.past_participle }}</i></li>
+          </ul>
           {% endif %}
         </div>
         <div class="col">Extras2</div>
       </div>
       <!-- <hr> -->
       {% if definition_object != 'No definition found' %} 
-      <div class='div-english-definitions'><p><i class='definitions-heading'>English definitions</i></p>
-        <p>>{{ definition_object.english_definition }}</p></div>
+      <div class='row div-english-definitions px-3'><p><i class='definitions-heading'>English definitions</i></p>
+          <div class="col row-english-definitions">
+          <p>
+            >{{ definition_object.english_definition }}
+          </p>
+          </div>
+          <div class="col-1">
+            <a href="{% url 'dictionary:definition-update' definition_object.id %}">
+              <input class="btn btn-outline-secondary" type="button" value="Edit">
+            </a>
+          </div>
+      </div>
       <div class="examples-div">
         <p><i class='examples-heading'>Examples:</i></p>
         <ol class='examples-list'>
           {% for example_object in examples %}
             {% if example_object.definition_id == definition_object.id %}
+            <div class="row px-3">
+            <div class="col">
               <li><i>{{ example_object.english_example }}</i></li>
-            {% elif example_object == 'No example found' %}
-              <li><i>{{ example_object }}</i></li>
+            </div>
+            <div class="col-1 gy-1">
+              <a href="{% url 'dictionary:example-update' example_object.id %}">
+                <input class="btn btn-outline-secondary" type="button" value="Edit">
+              </a>
+            </div>
+            </div>
             {% endif %}
           {% endfor %}
         </ol>
       </div>
-      <div class="div-oshindonga-examples"><p><i class='definitions-heading'>Efatululo mOshindonga</i></p>
-        <p>>{{ definition_object.oshindonga_definition }}</p></div>
+      <div class="row div-oshindonga-examples px-3"><p><i class='definitions-heading'>Efatululo mOshindonga</i></p>
+        <div class="col">
+          <p>>{{ definition_object.oshindonga_definition }}</p>
+        </div>
+        <div class="col-1">
+          <a href="{% url 'dictionary:definition-update' definition_object.id %}">
+            <input class="btn btn-outline-secondary" type="button" value="Edit">
+          </a>
+        </div>
+      </div>
         <div class="examples-div">
           <p><i class='examples-heading'>Iiholelwa:</i></p>
           <ol class='examples-list'>
             {% for example_object in examples %}
               {% if example_object.definition_id == definition_object.id %}
+              <div class="row px-3">
+                <div class="col">
                 <li><i>{{ example_object.oshindonga_example }}</i></li>
-              {% elif example_object == 'No example found' %}
-                <li><i>Inapu monika oshiholelwa</i></li>
+              </div>
+              <div class="col-1 gy-1">
+                <a href="{% url 'dictionary:example-update' example_object.id %}">
+                  <input class="btn btn-outline-secondary" type="button" value="Edit">
+                </a>
+              </div>
+              </div>
               {% endif %}
             {% endfor %}
           </ol>

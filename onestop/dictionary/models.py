@@ -92,14 +92,14 @@ class OshindongaWord(AuthAndTimeTracker):
         # return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
         return reverse('dictionary:oshindonga-create')
 
-    def save(self, *args, **kwargs):
-        if self.word_case == self.ABBREVIATION:
-            self.word.strip().upper()
-        elif self.word_case == self.PROPER_NOUN:
-            self.word.strip().capitalize()
-        else:
-            self.word.strip().lower()
-        super().save(*args, **kwargs)  # Call the "real" save() method.
+    # def save(self, *args, **kwargs):
+    #     if self.word_case == self.ABBREVIATION:
+    #         self.word.strip().upper()
+    #     elif self.word_case == self.PROPER_NOUN:
+    #         self.word.strip().capitalize()
+    #     else:
+    #         self.word.strip().lower()
+    #     super().save(*args, **kwargs)  # Call the "real" save() method.
 # --------------------------------------------------------------------------------------------------------------
 
 
@@ -108,8 +108,8 @@ class WordDefinition(AuthAndTimeTracker):
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     '''
     SELECT = ''
-    NOUN = 'Noun [C]'
-    NOUN = 'Noun [U]'
+    NOUN_C = 'Noun [C]'
+    NOUN_U = 'Noun [U]'
     PRONOUN = 'Pron.'
     VERB = 'Verb'
     ADJECTIVE = 'Adj.'
@@ -119,8 +119,8 @@ class WordDefinition(AuthAndTimeTracker):
     INTERJECTION = 'Int.'
     PART_OF_SPEECH_CHOICES = [
         (SELECT, 'Select the part of speech of your definition'),
-        (NOUN, 'Noun [C]'),
-        (NOUN, 'Noun [U]'),
+        (NOUN_C, 'Noun [C]'),
+        (NOUN_U, 'Noun [U]'),
         (PRONOUN, 'Pronoun'),
         (VERB, 'Verb'),
         (ADJECTIVE, 'Adjective'),

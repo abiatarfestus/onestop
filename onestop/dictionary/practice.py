@@ -1,4 +1,6 @@
-from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm
+# from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm
+from django.contrib.auth.models import User
+from dictionary.models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 
 # TEST SEARCH FUNCTIONS
 # context = {'form': '', 'searched_word': '',
@@ -116,36 +118,33 @@ from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefi
 #     else:
 #         return render(request, 'dictionary/search.html', context)
 
-app_name = 'dictionary'
-urlpatterns = [
-    path('', views.index, name="index"),
-    path('search/', views.search_word, name='search'),
-    path('add_english', views.add_english, name='add-english'),
-    path('add_oshindonga', views.add_oshindonga, name='add-oshindonga'),
-    path('add_definition', views.add_definition, name='add-definition'),
-    path('add_example', views.add_example, name='add-example'),
-    path('thankyou', views.thankyou, name='thankyou'),
-    path('english-word/<int:pk>/update/',
-         views.EnglishWordUpdate.as_view(), name='english-word-update'),
-    path('oshindonga-word/<int:pk>/update/',
-         views.OshindongaWordUpdate.as_view(), name='oshindonga-word-update'),
-    path('definition/<int:pk>/update/',
-         views.WordDefinitionUpdate.as_view(), name='word-definition-update'),
-    path('example/<int:pk>/update/', views.DefinitionExampleUpdate.as_view(),
-         name='definition-example-update'),
-]
+# app_name = 'dictionary'
+# urlpatterns = [
+#     path('', views.index, name="index"),
+#     path('search/', views.search_word, name='search'),
+#     path('add_english', views.add_english, name='add-english'),
+#     path('add_oshindonga', views.add_oshindonga, name='add-oshindonga'),
+#     path('add_definition', views.add_definition, name='add-definition'),
+#     path('add_example', views.add_example, name='add-example'),
+#     path('thankyou', views.thankyou, name='thankyou'),
+#     path('english-word/<int:pk>/update/',
+#          views.EnglishWordUpdate.as_view(), name='english-word-update'),
+#     path('oshindonga-word/<int:pk>/update/',
+#          views.OshindongaWordUpdate.as_view(), name='oshindonga-word-update'),
+#     path('definition/<int:pk>/update/',
+#          views.WordDefinitionUpdate.as_view(), name='word-definition-update'),
+#     path('example/<int:pk>/update/', views.DefinitionExampleUpdate.as_view(),
+#          name='definition-example-update'),
+# ]
+
+#     path('english', views.add_english, name='add-english'),
+#     path('oshindonga', views.add_oshindonga, name='add-oshindonga'),
+#     path('definition', views.add_definition, name='add-definition'),
+#     path('example', views.add_example, name='add-example'),
+
+#     {% url 'dictionary:english' %}
 
 
-
-    #     path('english', views.add_english, name='add-english'),
-    #     path('oshindonga', views.add_oshindonga, name='add-oshindonga'),
-    #     path('definition', views.add_definition, name='add-definition'),
-    #     path('example', views.add_example, name='add-example'),
-
-    {% url 'dictionary:english' %}
-
-
-    
 # def add_english(request):
 #     if request.method == 'POST':
 #         form = EnglishWordForm(request.POST)
@@ -192,3 +191,30 @@ urlpatterns = [
 #     else:
 #         form = DefinitionExampleForm()
 #     return render(request, 'dictionary/add_example.html/', {'form': form})
+
+#     {% elif example_object == 'No example found' %}
+#       <li><i>Inapu monika oshiholelwa</i></li>
+
+class HistoryRecord():
+    '''Queries the history model of the datatbase and returns query sets of each model
+    '''
+
+    def __init__(self):
+        self.english = []
+        self.oshindonga = []
+        self.definition = []
+        self.example = []
+        self.idiom = []
+        self.usernames = []
+
+    def english_history(self):
+        self.english = EnglishWord.history.all()
+        self.user_ids = []
+        for queryset in self.english:
+            if queryset.history_user_id != None:
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:
+            user = User.objects.get(id=user_id)
+            self.usernames.append(user.username)
+        print(f'Usernames: {self.usernames}')
+        return self.english

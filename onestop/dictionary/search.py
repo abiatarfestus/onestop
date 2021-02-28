@@ -12,7 +12,8 @@ class SearchDefinition():
     def __init__(self, request):
         self.request = request
         self.context = {'form': '', 'searched_word': '',
-                        'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10]}
+                        'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10],
+                        'history':''}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):
