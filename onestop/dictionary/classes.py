@@ -1,6 +1,117 @@
 from django.shortcuts import render
 from .forms import SearchWordForm
-from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample
+from django.contrib.auth.models import User
+from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
+
+
+class HistoryRecord():
+    '''Queries the history model of the datatbase and returns query sets of each model
+    '''
+
+    def __init__(self):
+        # A queryset of all history entries from EnglishWord (historicalenglishword) database
+        self.english = []
+        # A queryset of all history entries from OshindongaWord (historicaloshindongaword) database
+        self.oshindonga = []
+        # A queryset of all history entries from WordDefinition (historicalenglisworddefinition) database
+        self.definition = []
+        # A queryset of all history entries from DefinitionExample (historicaldefinitionexample) database
+        self.example = []
+        # A queryset of all history entries from OshindongaIdiom (historicalenglishwordoshindongaidiom) database
+        self.idiom = []
+        self.usernames = []  # Holds all usernames from all history entries
+        self.unique_usernames = set()  # Holds unique usernames (set) from the usernames list
+
+    def reset_history(self):
+        self.english = []
+        self.oshindonga = []
+        self.definition = []
+        self.example = []
+        self.idiom = []
+        self.usernames = []
+        self.unique_usernames = set()
+        return
+
+    def english_history(self):
+        # Holds user ids of historical_users (created/modifiers)
+        self.english = EnglishWord.history.all()
+        self.user_ids = []
+        for queryset in self.english:  # Loops through the querysets and take the user id if it's not null/none
+            if queryset.history_user_id != None:  # Appends the the user id to user_ids list
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:  # Loops through user ids and matches them to users to obtain usernames
+            # Holds querysets of users from the User model
+            user = User.objects.get(id=user_id)
+            # Appends the username to the usernames list
+            self.usernames.append(user.username)
+        # Updates the unique_usernames set with usernames
+        self.unique_usernames.update(self.usernames)
+        return self.english  # Returns a a queryset of EnglishWord historical objects/records
+
+    def oshindonga_history(self):
+        self.oshindonga = OshindongaWord.history.all()
+        self.user_ids = []
+        for queryset in self.oshindonga:
+            if queryset.history_user_id != None:
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:
+            user = User.objects.get(id=user_id)
+            self.usernames.append(user.username)
+        self.unique_usernames.update(self.usernames)
+        return self.oshindonga
+
+    def definition_history(self):
+        self.definition = WordDefinition.history.all()
+        self.user_ids = []
+        for queryset in self.definition:
+            if queryset.history_user_id != None:
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:
+            user = User.objects.get(id=user_id)
+            self.usernames.append(user.username)
+        self.unique_usernames.update(self.usernames)
+        return self.definition
+
+    def example_history(self):
+        self.example = DefinitionExample.history.all()
+        self.user_ids = []
+        for queryset in self.example:
+            if queryset.history_user_id != None:
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:
+            user = User.objects.get(id=user_id)
+            self.usernames.append(user.username)
+        self.unique_usernames.update(self.usernames)
+        return self.example
+
+    def idiom_history(self):
+        self.idiom = OshindongaIdiom.history.all()
+        self.user_ids = []
+        for queryset in self.idiom:
+            if queryset.history_user_id != None:
+                self.user_ids.append(queryset.history_user_id)
+        for user_id in self.user_ids:
+            user = User.objects.get(id=user_id)
+            self.usernames.append(user.username)
+        self.unique_usernames.update(self.usernames)
+        return self.idiom
+
+    def get_contributors(self, num=None):
+        self.reset_history()
+        self.english_history()
+        self.oshindonga_history()
+        self.definition_history()
+        self.example_history()
+        self.idiom_history()
+        contributors = []
+        for username in self.unique_usernames:
+            contributors.append((self.usernames.count(username), username))
+
+        def getKey(item):
+            return item[0]
+        contributors.sort(key=getKey, reverse=True)
+        top_contributors = contributors[:num]
+        return top_contributors
 
 
 class SearchDefinition():
@@ -11,9 +122,10 @@ class SearchDefinition():
 
     def __init__(self, request):
         self.request = request
+        self.history = HistoryRecord()
         self.context = {'form': '', 'searched_word': '',
                         'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10],
-                        'history':''}
+                        'top_contributors': self.history.get_contributors(10)}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):

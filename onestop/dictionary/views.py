@@ -4,12 +4,13 @@ from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from .search import SearchDefinition
+from .classes import SearchDefinition, HistoryRecord
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm
 from django.views import generic
 
-# Create your views here.
+
+english_words = EnglishWord.objects.order_by('-time_added')[:10]
 
 
 def index(request):
@@ -23,9 +24,12 @@ def thankyou(request):
 
 
 def search_word(request):
-    search_object = SearchDefinition(request)   #Create an instance of the SearchDefinition calss, passing in the request
-    search_object.search_word() #Call the search_word() method of the created instance/object, which will kickstart the necessary queries
-    context = search_object.context #Pass the context of the object/instance and pass it to the context variable of this view
+    # Create an instance of the SearchDefinition calss, passing in the request
+    search_object = SearchDefinition(request)
+    # Call the search_word() method of the created instance/object, which will kickstart the necessary queries
+    search_object.search_word()
+    # Pass the context of the object/instance and pass it to the context variable of this view
+    context = search_object.context
     return render(request, 'dictionary/search.html', context)
 
 
@@ -44,7 +48,8 @@ def search_word(request):
 class EnglishWordCreate(SuccessMessageMixin, CreateView):
     form_class = EnglishWordForm
     model = EnglishWord
-    extra_context = {'operation': 'Add a new English word'}
+    extra_context = {'operation': 'Add a new English word',
+                     'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
 
@@ -55,9 +60,9 @@ class OshindongaWordCreate(SuccessMessageMixin, CreateView):
     success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
-
 class WordDefinitionCreate(SuccessMessageMixin, CreateView):
-    form_class = WordDefinitionForm  # Uses the form class defined in forms.py which allows customization
+    # Uses the form class defined in forms.py which allows customization
+    form_class = WordDefinitionForm
     model = WordDefinition
     extra_context = {'operation': 'Add a new word definition'}
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
@@ -83,19 +88,22 @@ class OshindongaIdiomCreate(SuccessMessageMixin, CreateView):
 class EnglishWordUpdate(SuccessMessageMixin, UpdateView):
     form_class = EnglishWordForm
     model = EnglishWord
-    extra_context = {'operation': 'Update an existing English word'}
+    extra_context = {'operation': 'Update an existing English word',
+                     'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
 
 
 class OshindongaWordUpdate(SuccessMessageMixin, UpdateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
-    extra_context = {'operation': 'Pukulula oshitya shOshindonga shi li mo nale'}
+    extra_context = {
+        'operation': 'Pukulula oshitya shOshindonga shi li mo nale'}
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
 
 class WordDefinitionUpdate(SuccessMessageMixin, UpdateView):
-    form_class = WordDefinitionForm  # Uses the form class defined in forms.py which allows customization
+    # Uses the form class defined in forms.py which allows customization
+    form_class = WordDefinitionForm
     model = WordDefinition
     extra_context = {'operation': 'Update an existing word definition'}
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"

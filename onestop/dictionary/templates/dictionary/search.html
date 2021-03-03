@@ -176,19 +176,32 @@
 {% endblock %}
 
 {% block right %}
-    <h5><strong>Top Contributers: </strong></h5>
+    <h5><strong>Top Contributors: </strong></h5>
+    {% if top_contributors %}
+    <div class="row">
+      <div class="col-7">
+        <h6>User</h6> 
+      </div>
+        <div class="col-5">
+          <h6>Updates</h6>
+        </div>
+    </div>
     <ol>
-      <li>Contributer 1</li>
-      <li>Contributer 2</li>
-      <li>Contributer 3</li>
-      <li>Contributer 4</li>
-      <li>Contributer 5</li>
-      <li>Contributer 6</li>
-      <li>Contributer 7</li>
-      <li>Contributer 8</li>
-      <li>Contributer 9</li>
-      <li>Contributer 10</li>
+      {% for contributor in top_contributors %}
+        <li>
+          <div class="row">
+            <div class="col-9">
+              {{ contributor.1 }}:
+            </div>
+            <div class="col-3 gx-1">
+              {{ contributor.0 }}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
     </ol>
+    {% endif %}
+   
 {% endblock %}
 
 <!-- <h3>Search for a word</h3>
@@ -265,18 +278,18 @@
       {% endfor%} 
     </div>
     <div class="col-4 columns">
-      <h5><strong>Top Contributers: </strong></h5>
+      <h5><strong>Top Contributors: </strong></h5>
       <ol>
-        <li>Contributer 1</li>
-        <li>Contributer 2</li>
-        <li>Contributer 3</li>
-        <li>Contributer 4</li>
-        <li>Contributer 5</li>
-        <li>Contributer 6</li>
-        <li>Contributer 7</li>
-        <li>Contributer 8</li>
-        <li>Contributer 9</li>
-        <li>Contributer 10</li>
+        <li>Contributor 1</li>
+        <li>Contributor 2</li>
+        <li>Contributor 3</li>
+        <li>Contributor 4</li>
+        <li>Contributor 5</li>
+        <li>Contributor 6</li>
+        <li>Contributor 7</li>
+        <li>Contributor 8</li>
+        <li>Contributor 9</li>
+        <li>Contributor 10</li>
       </ol>
     </div>
   </div> -->
