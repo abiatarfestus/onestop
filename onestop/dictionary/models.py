@@ -91,15 +91,6 @@ class OshindongaWord(AuthAndTimeTracker):
         from django.urls import reverse
         # return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
         return reverse('dictionary:oshindonga-create')
-
-    # def save(self, *args, **kwargs):
-    #     if self.word_case == self.ABBREVIATION:
-    #         self.word.strip().upper()
-    #     elif self.word_case == self.PROPER_NOUN:
-    #         self.word.strip().capitalize()
-    #     else:
-    #         self.word.strip().lower()
-    #     super().save(*args, **kwargs)  # Call the "real" save() method.
 # --------------------------------------------------------------------------------------------------------------
 
 
@@ -135,9 +126,6 @@ class WordDefinition(AuthAndTimeTracker):
         max_length=8,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    # variants = models.JSONField(default=variants_default)
-    # plural = models.JSONField(default=plural_default)
-    # tense = models.JSONField(default=tense_default)
     synonym1 = models.CharField(max_length=50, blank=True)
     synonym2 = models.CharField(max_length=50, blank=True)
     synonym3 = models.CharField(max_length=50, blank=True)
@@ -165,7 +153,6 @@ class DefinitionExample(AuthAndTimeTracker):
     '''
     A model that adds and modifies exmples to word definitions.
     '''
-    #objects = models.Manager()
     definition = models.ForeignKey(
         WordDefinition, on_delete=models.CASCADE)
     english_example = models.CharField(max_length=255)
@@ -186,13 +173,12 @@ class OshindongaIdiom(AuthAndTimeTracker):
     '''
     A model that adds and modifies idioms for Oshindonga words.
     '''
-    #objects = models.Manager()
     word_pair = models.ForeignKey(
         OshindongaWord, on_delete=models.CASCADE)
     oshindonga_idiom = models.CharField(max_length=255)
 
     def __str__(self):
-        return "%s" % (self.oshindonga_word)
+        return "%s" % (self.word_pair)
 
     def get_absolute_url(self):
         from django.urls import reverse

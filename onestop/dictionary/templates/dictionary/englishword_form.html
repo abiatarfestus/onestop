@@ -8,6 +8,15 @@
   <br>
 {% endblock %}
 <br>
+{% block left %}
+  <h6>Newly added words:</h6>
+  <ul class='newly-added-words'>
+    {% for word in newly_added_words %}
+      <li class='n-added'><a href='#'>{{ word.word }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
 {% block centre %}
 <h5>{{ operation }}</h5>
 <form action="" method="post">
@@ -45,10 +54,5 @@
 </form>
 {% endblock %}
 {% block right %}
-<h6>Newly added words:</h6>
-<ul class='newly-added-words'>
-  {% for word in newly_added_words %}
-    <li class='n-added'><a href='#'>{{ word.word }}</a></li>
-  {% endfor %}
-</ul>
+  <h6>Right sidebar</h6>
 {% endblock %}

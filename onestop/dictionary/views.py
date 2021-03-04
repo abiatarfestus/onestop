@@ -8,9 +8,45 @@ from .classes import SearchDefinition, HistoryRecord
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm
 from django.views import generic
+import random
 
 
 english_words = EnglishWord.objects.order_by('-time_added')[:10]
+oshindonga_words = OshindongaWord.objects.order_by('-time_added')[:10]
+defined_words = WordDefinition.objects.order_by('-time_added')[:10]
+exemplified_definitions = DefinitionExample.objects.order_by(
+    '-time_added')[:10]
+oshindonga_idioms = OshindongaIdiom.objects.order_by(
+    '-time_added')[:10]
+
+
+def get_untranslated_words():
+    all_english = EnglishWord.objects.all()
+    # Ids of all English words
+    all_english_ids = [word.id for word in all_english]
+    all_oshindonga = OshindongaWord.objects.all()
+    # Ids of all English words ranslated
+    all_translated_ids = [word.english_word_id for word in all_oshindonga]
+    untranslated_ids = [
+        i for i in all_english_ids if i not in all_translated_ids]
+    random.shuffle(untranslated_ids)
+    untranslated_words = []
+    for i in untranslated_ids[:10]:
+        untranslated_words.append(EnglishWord.objects.get(id=i))
+    return untranslated_words
+
+
+def get_undefined_words():
+    all_word_pairs = OshindongaWord.objects.all()
+    word_pair_ids = [pair.id for pair in all_word_pairs]
+    all_definitions = WordDefinition.objects.all()
+    defined_ids = [definition.word_pair_id for definition in all_definitions]
+    undefined_ids = [i for i in word_pair_ids if i not in defined_ids]
+    random.shuffle(undefined_ids)
+    undefined_word_pairs = []
+    for i in undefined_ids[:10]:
+        undefined_word_pairs.append(OshindongaWord.objects.get(id=i))
+    return undefined_word_pairs
 
 
 def index(request):
@@ -56,7 +92,8 @@ class EnglishWordCreate(SuccessMessageMixin, CreateView):
 class OshindongaWordCreate(SuccessMessageMixin, CreateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
-    extra_context = {'operation': 'Gwedha mo oshitya shOshindonga oshipe'}
+    extra_context = {'operation': 'Gwedha mo oshitya shOshindonga oshipe',
+                     'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
     success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
@@ -64,21 +101,24 @@ class WordDefinitionCreate(SuccessMessageMixin, CreateView):
     # Uses the form class defined in forms.py which allows customization
     form_class = WordDefinitionForm
     model = WordDefinition
-    extra_context = {'operation': 'Add a new word definition'}
+    extra_context = {'operation': 'Add a new word definition',
+                     'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
 
 
 class DefinitionExampleCreate(SuccessMessageMixin, CreateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
-    extra_context = {'operation': 'Add a new definition example'}
+    extra_context = {'operation': 'Add a new definition example',
+                     'newly_added_examples': exemplified_definitions}
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
 
 class OshindongaIdiomCreate(SuccessMessageMixin, CreateView):
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
-    extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe'}
+    extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe',
+                     'newly_added_idioms': oshindonga_idioms}
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
@@ -97,7 +137,8 @@ class OshindongaWordUpdate(SuccessMessageMixin, UpdateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
     extra_context = {
-        'operation': 'Pukulula oshitya shOshindonga shi li mo nale'}
+        'operation': 'Pukulula oshitya shOshindonga shi li mo nale',
+                     'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
 
@@ -105,14 +146,16 @@ class WordDefinitionUpdate(SuccessMessageMixin, UpdateView):
     # Uses the form class defined in forms.py which allows customization
     form_class = WordDefinitionForm
     model = WordDefinition
-    extra_context = {'operation': 'Update an existing word definition'}
+    extra_context = {'operation': 'Update an existing word definition',
+                     'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
 
 
 class DefinitionExampleUpdate(SuccessMessageMixin, UpdateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
-    extra_context = {'operation': 'Update an existing definition example'}
+    extra_context = {'operation': 'Update an existing definition example',
+                     'newly_added_examples': exemplified_definitions}
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
 

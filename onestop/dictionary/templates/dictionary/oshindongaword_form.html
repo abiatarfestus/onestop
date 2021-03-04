@@ -9,12 +9,11 @@
 {% endblock %}
 <br>
 {% block left %}
+<h6>Newly added words:</h6>
 <ul class='newly-added-words'>
-  <li class='n-added-words-heading'><h6>Newly added words:</h6></li>
-  <li class='n-added'><a href='#'>egumbo</a></li>
-  <li class='n-added'><a href='#'>uudhindoli</a></li>
-  <li class='n-added'><a href='#'>omuthigululwakalo</a></li>
-  <li class='n-added'><a href='#'>ohole</a></li>
+  {% for word in newly_added_words %}
+    <li class='n-added'><a href='#'>{{ word.word }}</a></li>
+  {% endfor %}
 </ul>
 {% endblock %}
 
@@ -59,11 +58,10 @@
 </form>
 {% endblock %}
 {% block right %}
+<h6>Untranslated English words:</h6>
 <ul class='untranslated-words'>
-    <li class='untranslated-heading'><h6>English words without translations::</h6></li>
-    <li class='untranslated'><a href='#'>building</a></li>
-    <li class='untranslated'><a href='#'>geology</a></li>
-    <li class='untranslated'><a href='#'>computer</a></li>
-    <li class='untranslated'><a href='#'>solar</a></li>
+  {% for word in untranslated_words %}
+    <li class='n-added'><a href='#'>{{ word }}</a></li>
+  {% endfor %}
 </ul>
 {% endblock %}

@@ -65,6 +65,7 @@ p {
 #suggested-searches,
 .newly-added-words,
 .untranslated-words,
+.newly-defined-words,
 .undefined-words {
 	list-style-type: none;
 	margin: 0;
