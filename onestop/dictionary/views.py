@@ -25,7 +25,7 @@ def get_untranslated_words():
     # Ids of all English words
     all_english_ids = [word.id for word in all_english]
     all_oshindonga = OshindongaWord.objects.all()
-    # Ids of all English words ranslated
+    # Ids of all English words translated
     all_translated_ids = [word.english_word_id for word in all_oshindonga]
     untranslated_ids = [
         i for i in all_english_ids if i not in all_translated_ids]
@@ -47,6 +47,19 @@ def get_undefined_words():
     for i in undefined_ids[:10]:
         undefined_word_pairs.append(OshindongaWord.objects.get(id=i))
     return undefined_word_pairs
+
+
+def get_unexemplified():
+    all_definitions = WordDefinition.objects.all()
+    definition_ids = [definition.id for definition in all_definitions]
+    all_examples = DefinitionExample.objects.all()
+    exemplified_ids = [example.definition_id for example in all_examples]
+    unexemplified_ids = [i for i in definition_ids if i not in exemplified_ids]
+    random.shuffle(unexemplified_ids)
+    unexemplified = []
+    for i in unexemplified_ids[:10]:
+        unexemplified.append(WordDefinition.objects.get(id=i))
+    return unexemplified
 
 
 def index(request):
@@ -110,7 +123,7 @@ class DefinitionExampleCreate(SuccessMessageMixin, CreateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
     extra_context = {'operation': 'Add a new definition example',
-                     'newly_added_examples': exemplified_definitions}
+                     'newly_added_examples': exemplified_definitions, 'unexemplified_definitions': get_unexemplified}
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
 

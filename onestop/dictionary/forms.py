@@ -106,4 +106,5 @@ class OshindongaIdiomForm(ModelForm):
         model = OshindongaIdiom
         fields = '__all__'
         widgets = {'oshindonga_idiom': forms.TextInput(
+            attrs={'class': 'form-control form-control-lg mb-2'}), 'meaning': forms.TextInput(
             attrs={'class': 'form-control form-control-lg mb-2'})}

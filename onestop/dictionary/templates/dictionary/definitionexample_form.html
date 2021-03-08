@@ -58,11 +58,10 @@
 {% endblock %}
 
 {% block right %}
-<h6>Undefined words:</h6>
-<ul class='undefined-words'>
-    <li class='undefined'><a href='#'>building</a></li>
-    <li class='undefined'><a href='#'>geology</a></li>
-    <li class='undefined'><a href='#'>computer</a></li>
-    <li class='undefined'><a href='#'>solar</a></li>
+<h6>Unexemplified definitions:</h6>
+<ul class='unexemplified'>
+  {% for definition in unexemplified_definitions %}
+  <li class='u-exemplified'><a href='#'>{{ definition }}</a></li>
+{% endfor %}
 </ul>
 {% endblock %}

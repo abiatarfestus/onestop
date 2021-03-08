@@ -36,19 +36,11 @@
     </div>
   {% endfor %}
   <input class="btn btn-outline-primary" type="submit" value="Submit">
-  <!-- <table>
-    <tr>
-      <td> <label for="{{ form.oshindonga_word.id_for_label }}">Word pair:</label></td>
-      <td>{{ form.oshindonga_word }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.oshindonga_idiom.id_for_label }}">Oshindonga idiom:</label></td>
-      <td>{{ form.oshindonga_idiom }}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input type="submit" value="Submit"></td>
-    </tr>
-  </table>   -->
 </form>
+{% endblock %}
+{% block right %}
+<h6>Random idiom:</h6>
+<ul class='newly-added-idioms'>  
+    <li class='n-added'><a href='#'>idiom.word_pair</a></li>
+</ul>
 {% endblock %}

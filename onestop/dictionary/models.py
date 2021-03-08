@@ -176,6 +176,7 @@ class OshindongaIdiom(AuthAndTimeTracker):
     word_pair = models.ForeignKey(
         OshindongaWord, on_delete=models.CASCADE)
     oshindonga_idiom = models.CharField(max_length=255)
+    meaning = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return "%s" % (self.word_pair)

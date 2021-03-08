@@ -65,7 +65,10 @@ p {
 #suggested-searches,
 .newly-added-words,
 .untranslated-words,
+.newly-added-examples,
+.newly-added-idioms,
 .newly-defined-words,
+.unexemplified,
 .undefined-words {
 	list-style-type: none;
 	margin: 0;
