@@ -299,3 +299,96 @@ class HistoryRecord():
         contributors.sort(key=getKey, reverse=True)
         top_contributors = contributors[:num]
         return top_contributors
+
+
+
+
+# <h3>Search for a word</h3>
+#   <form action="" method="get">
+#     <div class="row">
+#       <div class="col-2 gx-0" id="input-language">
+#         {{ form.input_language }}
+#       </div>
+#       <div class="col-6 gx-0">
+#     <div class="input-group mb-3">
+      
+#       {{ form.search_word }}
+#       <input class="btn btn-outline-primary" type="submit" value="Search" id="button-addon2"></input>
+#     </div>
+#       </div>
+#       <div class="col-4"></div>
+#     </div>
+#   </form>
+#   <ul id='suggested-searches'>
+#     <li id='s-search-heading'><h6>Suggested searches:</h6></li>
+#     <li class='s-searches'><a href='#'>home</a></li>
+#     <li class='s-searches'><a href='#'>science</a></li>
+#     <li class='s-searches'><a href='#'>tradition</a></li>
+#     <li class='s-searches'><a href='#'>love</a></li>
+#   </ul>
+#   <br>
+#   <h4>Search Results:</h4>
+#   <div class="row">
+#     <div class="col-8 columns">
+#       {% if searched_word %}
+#         <ol class="search-results-list">
+#         {% for item in searched_word %} 
+#             <li>{{ item }}</li>
+#         {% endfor %}
+#       </ol>
+#       <h5 class='definition'>Definitions</h5>
+#         {% else %}
+#           <p>No search was performed</p>
+#         {% endif %}
+#       {% for definition_object in definitions %}
+#         <hr>
+#         <h6 class='definition-object'>{{ definition_object }}</h6>
+#         <hr>
+#         {% if definition_object != 'No definition found' %} 
+#         <div class='div-english-definitions'><p><i class='definitions-heading'>English definitions</i></p>
+#           <p>>{{ definition_object.english_definition }}</p></div>
+#         <div class="examples-div">
+#           <p><i class='examples-heading'>Examples:</i></p>
+#           <ol class='examples-list'>
+#             {% for example_object in examples %}
+#               {% if example_object.definition_id == definition_object.id %}
+#                 <li><i>{{ example_object.english_example }}</i></li>
+#               {% elif example_object == 'No example found' %}
+#                 <li><i>{{ example_object }}</i></li>
+#               {% endif %}
+#             {% endfor %}
+#           </ol>
+#         </div>
+#         <div class="div-oshindonga-examples"><p><i class='definitions-heading'>Efatululo mOshindonga</i></p>
+#           <p>>{{ definition_object.oshindonga_definition }}</p></div>
+#           <div class="examples-div">
+#             <p><i class='examples-heading'>Iiholelwa:</i></p>
+#             <ol class='examples-list'>
+#               {% for example_object in examples %}
+#                 {% if example_object.definition_id == definition_object.id %}
+#                   <li><i>{{ example_object.oshindonga_example }}</i></li>
+#                 {% elif example_object == 'No example found' %}
+#                   <li><i>Inapu monika oshiholelwa</i></li>
+#                 {% endif %}
+#               {% endfor %}
+#             </ol>
+#           </div>  
+#         {% endif %}
+#       {% endfor%} 
+#     </div>
+#     <div class="col-4 columns">
+#       <h5><strong>Top Contributors: </strong></h5>
+#       <ol>
+#         <li>Contributor 1</li>
+#         <li>Contributor 2</li>
+#         <li>Contributor 3</li>
+#         <li>Contributor 4</li>
+#         <li>Contributor 5</li>
+#         <li>Contributor 6</li>
+#         <li>Contributor 7</li>
+#         <li>Contributor 8</li>
+#         <li>Contributor 9</li>
+#         <li>Contributor 10</li>
+#       </ol>
+#     </div>
+#   </div>

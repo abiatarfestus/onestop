@@ -125,7 +125,7 @@ class SearchDefinition():
         self.history = HistoryRecord()
         self.context = {'form': '', 'searched_word': '',
                         'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10],
-                        'top_contributors': self.history.get_contributors(10)}
+                        'top_contributors': self.history.get_contributors(10), 'idioms':''}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):
@@ -154,6 +154,15 @@ class SearchDefinition():
         '''
             Takes in a list pks of word pairs and return a list of pks of all definitions found.
         '''
+        #----------Idiom------------#
+        self.idiom_querysets = []
+        for self.pair_pk in self.word_pairs_pks:
+            self.idiom_queryset = OshindongaIdiom.objects.filter(word_pair_id=self.pair_pk)
+            # If no definition found, an empty queryset is appended
+            self.idiom_querysets.append(self.idiom_queryset) 
+        self.context['idioms'] = self.idiom_querysets
+        
+        #----------Definition------------#
         self.definition_querysets = []
         for self.pair_pk in self.word_pairs_pks:
             self.definition_queryset = WordDefinition.objects.filter(
