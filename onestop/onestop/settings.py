@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from django.contrib.messages import constants as messages #Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+# Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,7 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'audit_log.middleware.UserLoggingMiddleware',
+    # 'audit_log.middleware.UserLoggingMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'onestop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,8 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
-#Changes the default string representation (message tags) of messages to Bootstrap classes
+# Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
+# Changes the default string representation (message tags) of messages to Bootstrap classes
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -144,3 +145,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = 'registration/logged_out.html'
