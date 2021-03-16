@@ -15,7 +15,18 @@
     {% endif %}
   {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
+  <div class="form-group">
+  <form method="post" action="/accounts/login/">
+    {% csrf_token %}
+      <label for="id_username">Username:</label>
+      <input class="form-control form-control-lg mb-3" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+      <label for="id_password">Password:</label>
+      <input class="form-control form-control-lg mb-3" type="password" name="password" autocomplete="current-password" required id="id_password">
+      <input class="btn btn-outline-primary mb-3" type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+</div>
+  <!-- <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <table>
       <tr>
@@ -29,7 +40,7 @@
     </table>
     <input type="submit" value="login" />
     <input type="hidden" name="next" value="{{ next }}" />
-  </form>
+  </form> -->
 
   {# Assumes you setup the password_reset view in your URLconf #}
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>

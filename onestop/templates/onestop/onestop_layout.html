@@ -57,15 +57,15 @@
           </ul>
           <span>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="http://127.0.0.1:8000/admin/">Log in</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">|</a> 
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Register</a>
-              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="#">User: {{ user.get_username }}</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
+                <li class="nav-item"><a class="nav-link"a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+              {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+              {% endif %} 
             </ul>
           </span>
         </div>
