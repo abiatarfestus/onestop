@@ -147,4 +147,4 @@ MESSAGE_TAGS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
-# LOGOUT_REDIRECT_URL = 'registration/logged_out.html'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

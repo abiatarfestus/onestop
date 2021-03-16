@@ -64,7 +64,7 @@ def get_unexemplified():
 
 def index(request):
     context = {}
-    return render(request, 'dictionary/index.html', context)
+    return render(request, 'onestop/index.html', context)
 
 
 def thankyou(request):
