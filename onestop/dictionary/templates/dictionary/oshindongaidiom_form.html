@@ -1,17 +1,17 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h3>Contribute to the dictionary by adding a new Oshindonga idiom or updating an existing one.</h3>
-  <br>
-  <h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
-  <hr>
-  <br>
+<h3>Contribute to the dictionary by adding a new Oshindonga idiom or updating an existing one.</h3>
+<br>
+<h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
+<hr>
+<br>
 {% endblock %}
 {% block left %}
 <h6>Newly added idioms:</h6>
 <ul class='newly-added-idioms'>
   {% for idiom in newly_added_idioms %}
-    <li class='n-added'><a href='#'>{{ idiom.word_pair }}</a></li>
+  <li class='n-added'><a href='#'>{{ idiom.word_pair }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -20,27 +20,25 @@
 <br>
 <form action="" method="post">
   {% csrf_token %}
-  <!-- {{form.errors}}
-  {{ form.as_p }} -->
   {% for field in form %}
-    <div class="fieldWrapper">
-      {% if field.errors %}
-        <div class="alert alert-warning" role="alert">
-          {{ field.errors }} 
-        </div>
-      {% endif %}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
+  <div class="fieldWrapper">
+    {% if field.errors %}
+    <div class="alert alert-warning" role="alert">
+      {{ field.errors }}
     </div>
+    {% endif %}
+    {{ field.label_tag }} {{ field }}
+    {% if field.help_text %}
+    <p class="help">{{ field.help_text|safe }}</p>
+    {% endif %}
+  </div>
   {% endfor %}
   <input class="btn btn-outline-primary" type="submit" value="Submit">
 </form>
 {% endblock %}
 {% block right %}
 <h6>Random idiom:</h6>
-<ul class='newly-added-idioms'>  
-    <li class='n-added'><a href='#'>idiom.word_pair</a></li>
+<ul class='newly-added-idioms'>
+  <li class='n-added'><a href='#'>idiom.word_pair</a></li>
 </ul>
 {% endblock %}

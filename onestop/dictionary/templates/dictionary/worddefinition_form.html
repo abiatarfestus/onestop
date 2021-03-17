@@ -1,17 +1,17 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h3>Contribute to the dictionary by adding a new definition or updating an existing one.</h3>
-  <br>
-  <h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
-  <hr>
-  <br>
+<h3>Contribute to the dictionary by adding a new definition or updating an existing one.</h3>
+<br>
+<h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
+<hr>
+<br>
 {% endblock %}
 {% block left %}
 <h6>Newly defined words:</h6>
 <ul class='newly-defined-words'>
   {% for word in newly_defined_words %}
-    <li class='n-added'><a href='#'>{{ word }}</a></li>
+  <li class='n-added'><a href='#'>{{ word }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -33,43 +33,43 @@
   </div>
   <div class="row">
     <div class="col">
-    <label for="{{ form.synonym1.id_for_label }}">Synonym1 (Oshindonga):</label>
-    {{ form.synonym1 }}
-    <label for="{{ form.synonym2.id_for_label }}">Synonym2 (Oshindonga):</label>
-    {{ form.synonym2 }}
-  </div>
-  <div class="col">
-    <label for="{{ form.synonym3.id_for_label }}">Synonym3 (Oshindonga):</label>
-    {{ form.synonym3 }}
-    <label for="{{ form.synonym4.id_for_label }}">Synonym4 (Oshindonga):</label>
-    {{ form.synonym4 }}
-  </div>
+      <label for="{{ form.synonym1.id_for_label }}">Synonym1 (Oshindonga):</label>
+      {{ form.synonym1 }}
+      <label for="{{ form.synonym2.id_for_label }}">Synonym2 (Oshindonga):</label>
+      {{ form.synonym2 }}
+    </div>
+    <div class="col">
+      <label for="{{ form.synonym3.id_for_label }}">Synonym3 (Oshindonga):</label>
+      {{ form.synonym3 }}
+      <label for="{{ form.synonym4.id_for_label }}">Synonym4 (Oshindonga):</label>
+      {{ form.synonym4 }}
+    </div>
   </div>
   <div class="row" style="display: none;" id="tense">
     <p style="text-align: center;"><strong>Tense forms</strong></p>
     <div class="col gx-3">
-    <label for="{{ form.simple_present.id_for_label }}">Simple present (Oshindonga):</label>
-    {{ form.simple_present }}
-    <label for="{{ form.present_participle.id_for_label }}">Present participle (Oshindonga):</label>
-    {{ form.present_participle }}
-  </div>
-  <div class="col gx-3">
-    <label for="{{ form.simple_past.id_for_label }}">Simple past (Oshindonga):</label>
-    {{ form.simple_past }}
-    <label for="{{ form.past_participle.id_for_label }}">Past participle: (Oshindonga):</label>
-    {{ form.past_participle }}
-  </div>
+      <label for="{{ form.simple_present.id_for_label }}">Simple present (Oshindonga):</label>
+      {{ form.simple_present }}
+      <label for="{{ form.present_participle.id_for_label }}">Present participle (Oshindonga):</label>
+      {{ form.present_participle }}
+    </div>
+    <div class="col gx-3">
+      <label for="{{ form.simple_past.id_for_label }}">Simple past (Oshindonga):</label>
+      {{ form.simple_past }}
+      <label for="{{ form.past_participle.id_for_label }}">Past participle: (Oshindonga):</label>
+      {{ form.past_participle }}
+    </div>
   </div>
   <div class="row" style="display: none;" id="plural">
     <p style="text-align: center;"><strong>Plural forms</strong></p>
     <div class="col gx-3">
-    <label for="{{ form.plural1.id_for_label }}">Plural1 (Oshindonga):</label>
-    {{ form.plural1 }}
-  </div>
-  <div class="col gx-3">
-    <label for="{{ form.plural2.id_for_label }}">Plural2 (Oshindonga):</label>
-    {{ form.plural2 }}
-  </div>
+      <label for="{{ form.plural1.id_for_label }}">Plural1 (Oshindonga):</label>
+      {{ form.plural1 }}
+    </div>
+    <div class="col gx-3">
+      <label for="{{ form.plural2.id_for_label }}">Plural2 (Oshindonga):</label>
+      {{ form.plural2 }}
+    </div>
   </div>
   <div>
     <label for="{{ form.english_definition.id_for_label }}">English definition:</label>
@@ -88,13 +88,13 @@
 <h6>Undefined words:</h6>
 <ul class='undefined-words'>
   {% for word in undefined_words %}
-    <li class='n-added'><a href='#'>{{ word }}</a></li>
+  <li class='n-added'><a href='#'>{{ word }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
 
 {% block scripts %}
-  <script>
-    window.onload = displayPluralOrTense; //Calls the displayPluralOrTense when the page re/loads
-  </script>
+<script>
+  window.onload = displayPluralOrTense; //Calls the displayPluralOrTense when the page re/loads
+</script>
 {% endblock %}

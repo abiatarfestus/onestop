@@ -1,17 +1,17 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h3>Contribute to the dictionary by adding a new word usage example or updating an existing one.</h3>
-  <br>
-  <h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
-  <hr>
-  <br>
+<h3>Contribute to the dictionary by adding a new word usage example or updating an existing one.</h3>
+<br>
+<h4>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h4>
+<hr>
+<br>
 {% endblock %}
 {% block left %}
 <h6>Newly added examples:</h6>
 <ul class='newly-added-examples'>
   {% for word in newly_added_examples %}
-    <li class='n-added'><a href='#'>{{ word.definition }}</a></li>
+  <li class='n-added'><a href='#'>{{ word.definition }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -23,37 +23,19 @@
   <!-- {{form.errors}}
   {{ form.as_p }} -->
   {% for field in form %}
-    <div class="fieldWrapper">
-      {% if field.errors %}
-        <div class="alert alert-warning" role="alert">
-          {{ field.errors }} 
-        </div>
-      {% endif %}
-        {{ field.label_tag }} {{ field }}
-        {% if field.help_text %}
-        <p class="help">{{ field.help_text|safe }}</p>
-        {% endif %}
+  <div class="fieldWrapper">
+    {% if field.errors %}
+    <div class="alert alert-warning" role="alert">
+      {{ field.errors }}
     </div>
+    {% endif %}
+    {{ field.label_tag }} {{ field }}
+    {% if field.help_text %}
+    <p class="help">{{ field.help_text|safe }}</p>
+    {% endif %}
+  </div>
   {% endfor %}
   <input class="btn btn-outline-primary" type="submit" value="Submit">
-  <!-- <table>
-    <tr>
-      <td> <label for="{{ form.definition.id_for_label }}">Definition:</label></td>
-      <td>{{ form.definition }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.english_example.id_for_label }}">English example:</label></td>
-      <td>{{ form.english_example }}</td>
-    </tr>
-    <tr>
-      <td><label for="{{ form.oshindonga_example.id_for_label }}">Oshindonga example:</label></td>
-      <td>{{ form.oshindonga_example }}</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><input type="submit" value="Submit"></td>
-    </tr>
-  </table>   -->
 </form>
 {% endblock %}
 
@@ -62,6 +44,6 @@
 <ul class='unexemplified'>
   {% for definition in unexemplified_definitions %}
   <li class='u-exemplified'><a href='#'>{{ definition }}</a></li>
-{% endfor %}
+  {% endfor %}
 </ul>
 {% endblock %}

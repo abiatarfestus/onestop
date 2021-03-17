@@ -2,36 +2,40 @@
 <!-- {% load admin_urls %} -->
 <!doctype html>
 <html lang="en">
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'dictionary/css/onestop.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>One Stop</title>
   </head>
+
   <body>
-<!-- TOP NAVIGATION BAR -->
+    <!-- TOP NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
         <a href="" class="navbar-brand">One Stop</a>
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </form>
-        </div>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
       </div>
     </nav>
 
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'dictionary:index' %}">
           <img src="{% static 'dictionary/images/logo_festus_the_writer.png' %}" alt="" width="50" height="50">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -58,134 +62,135 @@
           <span>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="#">User: {{ user.get_username }}</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
-                <li class="nav-item"><a class="nav-link"a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">User: {{ user.get_username }}</a></li>
+              <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
+              <li class="nav-item"><a class="nav-link" a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
               {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
-              {% endif %} 
+              <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+              <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
+              <li class="nav-item"><a class="nav-link" href="#">Register</a></li>
+              {% endif %}
             </ul>
           </span>
         </div>
       </div>
     </nav>
-  {% block secondarynav %}{% endblock %}
+    {% block secondarynav %}{% endblock %}
     <div class="container page-headings">
-    {% block welcome %}{% endblock %}
+      {% block welcome %}{% endblock %}
     </div>
     <div class="container">
       <!-- Bootstrap-formatted messages -->
       {% if messages %}
-        {% for message in messages %}
-          <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-            </button>
-            {{ message }}
-          </div>
-        {% endfor %}
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+        </button>
+        {{ message }}
+      </div>
+      {% endfor %}
       {% endif %}
-      
-    <div class="container px-1">
-      <div class="row">
-        <div class="col-2 gx-3" id="left-sidebar">
-          {% block left %}{% endblock %}
-        </div>
-        <div class="col gx-3" id="centre-area">
-          {% block centre %}{% endblock %}
-        </div>
-        <div class="col-2 gx-3" id="right-sidebar">
-          {% block right %}{% endblock %}
+
+      <div class="container px-1">
+        <div class="row">
+          <div class="col-2 gx-3" id="left-sidebar">
+            {% block left %}{% endblock %}
+          </div>
+          <div class="col gx-3" id="centre-area">
+            {% block centre %}{% endblock %}
+          </div>
+          <div class="col-2 gx-3" id="right-sidebar">
+            {% block right %}{% endblock %}
+          </div>
         </div>
       </div>
     </div>
-    </div>
-  <div class="container">
-    {%block one %}{% endblock %}
-</div>
-<!-- Footer section -->
-  <footer class="mainfooter" role="contentinfo">
-    <div class="footer-middle">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-6">
-          <!--Column1-->
-          <div class="footer-pad">
-            <h4>Resource</h4>
-            <ul class="list-unstyled">
-              <li><a href="#"></a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Books</a></li>
-              <li><a href="#">Dictionary</a></li>
-              <li><a href="#">Editing</a></li>
-              <li><a href="#">Events</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <!--Column2-->
-          <div class="footer-pad">
-            <h4>Useful links</h4>
-            <ul class="list-unstyled">
-              <li><a href="#">Website Tutorial</a></li>
-              <li><a href="#">Disclaimer</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Cookies</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <!--Column3-->
-          <div class="footer-pad">
-            <h4>Support</h4>
-            <ul class="list-unstyled">
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Contact us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li>
-                <a href="#"></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <h4>Follow Us</h4>
+      {%block one %}{% endblock %}
+    </div>
+    <!-- Footer section -->
+    <footer class="mainfooter" role="contentinfo">
+      <div class="footer-middle">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <!--Column1-->
+              <div class="footer-pad">
+                <h4>Resource</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#"></a></li>
+                  <li><a href="#">Blog</a></li>
+                  <li><a href="#">Books</a></li>
+                  <li><a href="#">Dictionary</a></li>
+                  <li><a href="#">Editing</a></li>
+                  <li><a href="#">Events</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <!--Column2-->
+              <div class="footer-pad">
+                <h4>Useful links</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#">Website Tutorial</a></li>
+                  <li><a href="#">Disclaimer</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="#">Cookies</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <!--Column3-->
+              <div class="footer-pad">
+                <h4>Support</h4>
+                <ul class="list-unstyled">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Contact us</a></li>
+                  <li><a href="#">FAQs</a></li>
+                  <li>
+                    <a href="#"></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <h4>Follow Us</h4>
               <ul class="social-network social-circle">
                 <li><a href="#" class="icoFacebook" title="Facebook"><i class="bi bi-facebook"></i></a></li>
                 <li><a href="#" class="icoTwitter" title="Twitter"><i class="bi bi-twitter"></i></a></li>
-              </ul>				
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 copy">
+              <p class="text-center">&copy; Copyright 2021 - One Stop. All rights reserved.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-    <div class="row">
-      <div class="col-md-12 copy">
-        <p class="text-center">&copy; Copyright 2021 - One Stop.  All rights reserved.</p>
-      </div>
-    </div>
-    </div>
-    </div>
-  </footer> 
+    </footer>
 
-<!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-  <script>
-    function displayPluralOrTense() {
-      var partOfSpeech = document.getElementById("id_part_of_speech").value;
-      console.log( partOfSpeech );
-      if (partOfSpeech == 'Noun [C]') {
-        document.getElementById("tense").style.display = 'none';
-        document.getElementById("plural").style.display = 'flex';
-      }
-      else if (partOfSpeech == 'Verb') {
-        document.getElementById("tense").style.display = 'flex';
-        document.getElementById("plural").style.display = 'none';
-      }
-      else {
-        document.getElementById("tense").style.display = 'none';
-        document.getElementById("plural").style.display = 'none';
-      }
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+    </script>
+    <script>
+      function displayPluralOrTense() {
+        var partOfSpeech = document.getElementById("id_part_of_speech").value;
+        console.log(partOfSpeech);
+        if (partOfSpeech == 'Noun [C]') {
+          document.getElementById("tense").style.display = 'none';
+          document.getElementById("plural").style.display = 'flex';
+        } else if (partOfSpeech == 'Verb') {
+          document.getElementById("tense").style.display = 'flex';
+          document.getElementById("plural").style.display = 'none';
+        } else {
+          document.getElementById("tense").style.display = 'none';
+          document.getElementById("plural").style.display = 'none';
         }
+      }
     </script>
     {% block scripts %}{% endblock %}
   </body>
+
 </html>

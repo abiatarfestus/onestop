@@ -224,15 +224,19 @@ class HistoryRecord():
         return
 
     def english_history(self):
-        self.english = EnglishWord.history.all() # Holds user ids of historical_users (created/modifiers)
+        # Holds user ids of historical_users (created/modifiers)
+        self.english = EnglishWord.history.all()
         self.user_ids = []
         for queryset in self.english:  # Loops through the querysets and take the user id if it's not null/none
-            if queryset.history_user_id != None: # Appends the the user id to user_ids list
+            if queryset.history_user_id != None:  # Appends the the user id to user_ids list
                 self.user_ids.append(queryset.history_user_id)
         for user_id in self.user_ids:  # Loops through user ids and matches them to users to obtain usernames
-            user = User.objects.get(id=user_id) # Holds querysets of users from the User model
-            self.usernames.append(user.username) # Appends the username to the usernames list
-        self.unique_usernames.update(self.usernames) # Updates the unique_usernames set with usernames
+            # Holds querysets of users from the User model
+            user = User.objects.get(id=user_id)
+            # Appends the username to the usernames list
+            self.usernames.append(user.username)
+        # Updates the unique_usernames set with usernames
+        self.unique_usernames.update(self.usernames)
         return self.english  # Returns a a queryset of EnglishWord historical objects/records
 
     def oshindonga_history(self):
@@ -301,8 +305,6 @@ class HistoryRecord():
         return top_contributors
 
 
-
-
 # <h3>Search for a word</h3>
 #   <form action="" method="get">
 #     <div class="row">
@@ -311,7 +313,7 @@ class HistoryRecord():
 #       </div>
 #       <div class="col-6 gx-0">
 #     <div class="input-group mb-3">
-      
+
 #       {{ form.search_word }}
 #       <input class="btn btn-outline-primary" type="submit" value="Search" id="button-addon2"></input>
 #     </div>
@@ -332,7 +334,7 @@ class HistoryRecord():
 #     <div class="col-8 columns">
 #       {% if searched_word %}
 #         <ol class="search-results-list">
-#         {% for item in searched_word %} 
+#         {% for item in searched_word %}
 #             <li>{{ item }}</li>
 #         {% endfor %}
 #       </ol>
@@ -344,7 +346,7 @@ class HistoryRecord():
 #         <hr>
 #         <h6 class='definition-object'>{{ definition_object }}</h6>
 #         <hr>
-#         {% if definition_object != 'No definition found' %} 
+#         {% if definition_object != 'No definition found' %}
 #         <div class='div-english-definitions'><p><i class='definitions-heading'>English definitions</i></p>
 #           <p>>{{ definition_object.english_definition }}</p></div>
 #         <div class="examples-div">
@@ -372,9 +374,9 @@ class HistoryRecord():
 #                 {% endif %}
 #               {% endfor %}
 #             </ol>
-#           </div>  
+#           </div>
 #         {% endif %}
-#       {% endfor%} 
+#       {% endfor%}
 #     </div>
 #     <div class="col-4 columns">
 #       <h5><strong>Top Contributors: </strong></h5>
@@ -392,3 +394,31 @@ class HistoryRecord():
 #       </ol>
 #     </div>
 #   </div>
+
+# "beautify.language": {
+
+
+#         "js": {
+#             "type": [
+#                 "javascript",
+#                 "json",
+#                 "jsonc"
+#             ],
+#             "filename": [
+#                 ".jshintrc",
+#                 ".jsbeautifyrc"
+#             ]
+#         },
+#         "css": [
+#             "css",
+#             "less",
+#             "scss"
+#         ],
+#         "html": [
+#             "htm",
+#             "html"
+#         ]
+#     },
+#     "beautify.ignore": "",
+#     "beautify.config": ""
+# }

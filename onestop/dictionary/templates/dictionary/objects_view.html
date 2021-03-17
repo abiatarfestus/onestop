@@ -1,76 +1,76 @@
 {% extends "dictionary/search.html" %}
 {% block welcome %}
 <br>
-  <h4>{{ heading }}</h4>
-  <hr>
-  <br>
+<h4>{{ heading }}</h4>
+<hr>
+<br>
 {% endblock %}
 {% block left %}{% endblock %}
 {% block centre %}
 <!-- English ListView -->
 {% if englishword_list %}
-  <ol>
+<ol>
   {% for word in englishword_list %}
-    
-    <li> {{ word}} [{{ word.id }}] </li>
-    
+
+  <li> {{ word}} [{{ word.id }}] </li>
+
   {% endfor %}
-  </ol>
-  <!-- Oshindonga ListView -->
+</ol>
+<!-- Oshindonga ListView -->
 {% elif oshindongaword_list %}
 <ol>
   {% for word in oshindongaword_list %}
-    
-    <li> {{ word}} [{{ word.id }}]</li>
-    
+
+  <li> {{ word}} [{{ word.id }}]</li>
+
   {% endfor %}
-  </ol>
+</ol>
 <!-- Oshindonga Idiom ListView -->
 {% elif oshindongaidiom_list %}
 <ol>
   {% for idiom in oshindongaidiom_list %}
-    
-    <li> {{ idiom.oshindonga_word }}: {{ idiom.oshindonga_idiom }} </li>
-    
+
+  <li> {{ idiom.oshindonga_word }}: {{ idiom.oshindonga_idiom }} </li>
+
   {% endfor %}
-  </ol>
+</ol>
 <!-- English word DetailView -->
 {% elif englishword %}
 
-    <p><strong>Word: </strong> {{ englishword }} (ID: {{ englishword.id }}) </p>
-    <p><strong>Date added: </strong> {{ englishword.time_added }} </p>
-    <p><strong>Added by: </strong>{{ englishword.history }} </p>
-    
-  
+<p><strong>Word: </strong> {{ englishword }} (ID: {{ englishword.id }}) </p>
+<p><strong>Date added: </strong> {{ englishword.time_added }} </p>
+<p><strong>Added by: </strong>{{ englishword.history }} </p>
+
+
 <!-- Oshindonga word DeatilView -->
 {% elif oshindongaword %}
-    
-    <p><strong> Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
-    <p><strong>Date added: </strong>{{ oshindongaword.time_added }} </p>
-    
+
+<p><strong> Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
+<p><strong>Date added: </strong>{{ oshindongaword.time_added }} </p>
+
 <!-- Word definition DeatilView -->
 {% elif worddefinition %}
-    
-    <p><strong> Definition for: </strong>{{ worddefinition }}</p>
-    <p><strong>Part of speech: </strong>{{ worddefinition.part_of_speech }} </p>
-    <p><strong>Synonyms: </strong>{{ worddefinition.synonym1 }} | {{ worddefinition.synonym2 }} |
-      {{ worddefinition.synonym3 }} | {{ worddefinition.synonym4 }} </p>
-    <p><strong>Plural: </strong>{{ worddefinition.plural1 }} | {{ worddefinition.plural2 }} </p>
-    <p><strong>Tense: </strong>{{ worddefinition.simple_present }} | {{ worddefinition.present_participle }} |
-      {{ worddefinition.simple_past }} | {{ worddefinition.past_participle }} </p>
-    <p><strong>English definition: </strong>{{ worddefinition.english_definition }} </p>
-    <p><strong>Oshindonga definition: </strong>{{ worddefinition.oshindonga_definition }} </p>
-    <p><strong>Date added: </strong>{{ worddefinition.time_added }} </p>
-        
+
+<p><strong> Definition for: </strong>{{ worddefinition }}</p>
+<p><strong>Part of speech: </strong>{{ worddefinition.part_of_speech }} </p>
+<p><strong>Synonyms: </strong>{{ worddefinition.synonym1 }} | {{ worddefinition.synonym2 }} |
+  {{ worddefinition.synonym3 }} | {{ worddefinition.synonym4 }} </p>
+<p><strong>Plural: </strong>{{ worddefinition.plural1 }} | {{ worddefinition.plural2 }} </p>
+<p><strong>Tense: </strong>{{ worddefinition.simple_present }} | {{ worddefinition.present_participle }} |
+  {{ worddefinition.simple_past }} | {{ worddefinition.past_participle }} </p>
+<p><strong>English definition: </strong>{{ worddefinition.english_definition }} </p>
+<p><strong>Oshindonga definition: </strong>{{ worddefinition.oshindonga_definition }} </p>
+<p><strong>Date added: </strong>{{ worddefinition.time_added }} </p>
+
 <!-- Definition example DeatilView -->
 {% elif definitionexample %}
-    
-    <p><strong> Example for: </strong>{{ definitionexample.definition }}</p>
-    <p><strong>English example: </strong>{{ definitionexample.english_example }} </p>
-    <p><strong>Oshindonga example: </strong>{{ definitionexample.oshindonga_example }} </p>
-    <p><strong>Date added: </strong>{{ definitionexample.time_added }} </p>
-        
-    
+
+<p><strong> Example for: </strong>{{ definitionexample.definition }}</p>
+<p><strong>English example: </strong>{{ definitionexample.english_example }} </p>
+<p><strong>Oshindonga example: </strong>{{ definitionexample.oshindonga_example }} </p>
+<p><strong>Date added: </strong>{{ definitionexample.time_added }} </p>
+
+
 <!-- Oshindonga idiom DetailView -->
 {% elif oshindongaidiom %}
 <p><strong> Idiom for: </strong>{{ oshindongaidiom.word_pair }}</p>
@@ -80,7 +80,7 @@
 
 {% else %}
 
-  <p>There are no objects to display.</p>
+<p>There are no objects to display.</p>
 
 {% endif %}
 {% endblock %}

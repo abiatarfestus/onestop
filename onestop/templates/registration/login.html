@@ -1,48 +1,32 @@
-{% extends "onestop/onestop_layout.html" %}
+{% extends "onestop/onestop_layout.html" %} {% block one %}
+<div class="row">
+	<div class="col-md-6">
+		{% if form.errors %}
+		<p>Your username and password didn't match. Please try again.</p>
+		{% endif %} {% if next %} {% if user.is_authenticated %}
+		<p>
+			Your account doesn't have access to this page. To proceed, please login
+			with an account that has access.
+		</p>
+		{% else %}
+		<p>Please login to see this page.</p>
+		{% endif %} {% endif %}
 
-{% block one %}
-
-  {% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
-
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-
-  <div class="form-group">
-  <form method="post" action="/accounts/login/">
-    {% csrf_token %}
-      <label for="id_username">Username:</label>
-      <input class="form-control form-control-lg mb-3" type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
-      <label for="id_password">Password:</label>
-      <input class="form-control form-control-lg mb-3" type="password" name="password" autocomplete="current-password" required id="id_password">
-      <input class="btn btn-outline-primary mb-3" type="submit" value="login" />
-      <input type="hidden" name="next" value="{{ next }}" />
-  </form>
+		<div class="form-group">
+			<form method="post" action="/accounts/login/">
+				{% csrf_token %}
+				<label for="id_username">Username:</label>
+				<input class="form-control form-control-lg mb-3" type="text" name="username" autofocus
+					autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username" />
+				<label for="id_password">Password:</label>
+				<input class="form-control form-control-lg mb-3" type="password" name="password"
+					autocomplete="current-password" required id="id_password" />
+				<input class="btn btn-outline-primary mb-3" type="submit" value="login" />
+				<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+		{# Assumes you setup the password_reset view in your URLconf #}
+		<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+	</div>
 </div>
-  <!-- <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>{{ form.username.label_tag }}</td>
-        <td>{{ form.username }}</td>
-      </tr>
-      <tr>
-        <td>{{ form.password.label_tag }}</td>
-        <td>{{ form.password }}</td>
-      </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-  </form> -->
-
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
 {% endblock %}
