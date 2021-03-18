@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import login
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView
@@ -7,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .classes import SearchDefinition, HistoryRecord
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
-from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm
+from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm
 from django.views import generic
 import random
 
@@ -61,6 +62,20 @@ def get_unexemplified():
     for i in unexemplified_ids[:10]:
         unexemplified.append(WordDefinition.objects.get(id=i))
     return unexemplified
+
+
+def register(request):
+    if request.method == "GET":
+        return render(
+            request, "dictionary/register.html",
+            {"form": ContributorCreationForm}
+        )
+    elif request.method == "POST":
+        form = ContributorCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse("index"))
 
 
 def index(request):

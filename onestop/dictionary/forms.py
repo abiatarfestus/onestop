@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import ModelForm
+from django.forms import Form, ModelForm
+from django.contrib.auth.forms import UserCreationForm
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 
 
@@ -11,7 +12,7 @@ class SearchWordForm(forms.Form):
         (OSHINDONGA, 'Oshindonga'),
     ]
     input_language = forms.ChoiceField(widget=forms.Select(
-        attrs={'class': "form-select form-select-lg", 'id': "inputGroupSelect01", 'style':'max-width:21%;'}), choices=INPUT_LANGUAGE)
+        attrs={'class': "form-select form-select-lg", 'id': "inputGroupSelect01", 'style': 'max-width:21%;'}), choices=INPUT_LANGUAGE)
     search_word = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control form-control-lg', 'placeholder': 'Search word'}), max_length=50)
 
@@ -48,7 +49,7 @@ class OshindongaWordForm(ModelForm):
         widgets = {'word': forms.TextInput(
             attrs={'class': 'form-control form-control-lg mb-2', 'placeholder': 'Shanga oshitya shOshindonga'}), 'word_case': forms.Select(
             attrs={'class': 'form-select form-select-lg mb-2'})}
-    
+
     def clean(self):
         cleaned_data = super().clean()
         word_case = cleaned_data.get('word_case')
@@ -59,6 +60,7 @@ class OshindongaWordForm(ModelForm):
             self.cleaned_data['word'] = word.strip().capitalize()
         else:
             self.cleaned_data['word'] = word.strip().lower()
+
 
 class WordDefinitionForm(ModelForm):
     word_pair = forms.ModelChoiceField(
@@ -108,3 +110,20 @@ class OshindongaIdiomForm(ModelForm):
         widgets = {'oshindonga_idiom': forms.TextInput(
             attrs={'class': 'form-control form-control-lg mb-2'}), 'meaning': forms.TextInput(
             attrs={'class': 'form-control form-control-lg mb-2'})}
+
+
+class ContributorCreationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ("email",)
+        # widgets = {'username': forms.TextInput(
+        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'email': forms.EmailInput(
+        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'password1': forms.PasswordInput(
+        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'password2': forms.PasswordInput(
+        #     attrs={'class': 'form-control form-control-lg mb-2'})}
+    
+    def __init__(self, *args, **kwargs):
+        super(ContributorCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs = {'class': 'form-control form-control-lg mb-2', 'placeholder': 'Username'}
+        self.fields['email'].widget.attrs = {'class': 'form-control form-control-lg mb-2', 'placeholder': 'Email address'}
+        self.fields['password1'].widget.attrs = {'class': 'form-control form-control-lg mb-2', 'placeholder': 'Password'}
+        self.fields['password2'].widget.attrs = {'class': 'form-control form-control-lg mb-2','placeholder': 'Confirm password'}

@@ -5,7 +5,8 @@ app_name = 'dictionary'
 urlpatterns = [
     path('', views.index, name="index"),
     path('search/', views.search_word, name='search'),
-    path('thankyou', views.thankyou, name='thankyou'),
+    path('thankyou/', views.thankyou, name='thankyou'),
+    path('register/', views.register, name='register'),
     #Create Views
     path('english/create/',
          views.EnglishWordCreate.as_view(), name='english-create'),

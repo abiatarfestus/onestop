@@ -1,0 +1,28 @@
+{% extends "onestop/onestop_layout.html" %}
+{% block one %}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Register</h2>
+        <div class="form-group">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="fieldWrapper">
+                    {% if field.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ field.errors }}
+                    </div>
+                    {% endif %}
+                    <!-- {{ field.label_tag }} --> {{ field }}
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <input class="btn btn-outline-primary mb-3" type="submit" value="Register">
+            </form>
+        </div>
+        <a href="{% url 'login' %}">Back to login</a>
+    </div>
+</div>
+{% endblock %}
