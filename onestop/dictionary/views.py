@@ -201,6 +201,7 @@ objects_view = 'dictionary/objects_view.html'
 
 
 class EnglishWordListView(generic.ListView):
+    paginate_by = 10
     model = EnglishWord
     template_name = objects_view
 
@@ -219,6 +220,7 @@ class EnglishWordListView(generic.ListView):
 
 
 class OshindongaWordListView(generic.ListView):
+    paginate_by = 10
     model = OshindongaWord
     template_name = objects_view
 
@@ -233,6 +235,7 @@ class OshindongaWordListView(generic.ListView):
 
 
 class OshindongaIdiomListView(generic.ListView):
+    paginate_by = 10
     model = OshindongaIdiom
     template_name = objects_view
 
