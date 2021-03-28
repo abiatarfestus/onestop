@@ -196,14 +196,15 @@ class OshindongaIdiomUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
 
 
 # List View
-# A template for displating List and Detail views dynamically
-objects_view = 'dictionary/objects_view.html'
+# Templates for displaying List and Detail views
+list_view = 'dictionary/list_view.html'
+detail_view = 'dictionary/detail_view.html'
 
 
 class EnglishWordListView(generic.ListView):
     paginate_by = 10
     model = EnglishWord
-    template_name = objects_view
+    template_name = list_view
 
     # Override the default get_queryset()
     def get_queryset(self):
@@ -222,7 +223,7 @@ class EnglishWordListView(generic.ListView):
 class OshindongaWordListView(generic.ListView):
     paginate_by = 10
     model = OshindongaWord
-    template_name = objects_view
+    template_name = list_view
 
     def get_queryset(self):
         return OshindongaWord.objects.all().order_by('word')
@@ -237,7 +238,7 @@ class OshindongaWordListView(generic.ListView):
 class OshindongaIdiomListView(generic.ListView):
     paginate_by = 10
     model = OshindongaIdiom
-    template_name = objects_view
+    template_name = list_view
 
     def get_queryset(self):
         return OshindongaIdiom.objects.all().order_by('oshindonga_idiom')
@@ -253,7 +254,7 @@ class OshindongaIdiomListView(generic.ListView):
 
 class EnglishWordDetailView(generic.DetailView):
     model = EnglishWord
-    template_name = objects_view
+    template_name = detail_view
 
     def get_context_data(self, **kwargs):
         context = super(EnglishWordDetailView, self).get_context_data(**kwargs)
@@ -263,7 +264,7 @@ class EnglishWordDetailView(generic.DetailView):
 
 class OshindongaWordDetailView(generic.DetailView):
     model = OshindongaWord
-    template_name = objects_view
+    template_name = detail_view
 
     def get_context_data(self, **kwargs):
         context = super(OshindongaWordDetailView,
@@ -274,7 +275,7 @@ class OshindongaWordDetailView(generic.DetailView):
 
 class WordDefinitionDetailView(generic.DetailView):
     model = WordDefinition
-    template_name = objects_view
+    template_name = detail_view
 
     def get_context_data(self, **kwargs):
         context = super(WordDefinitionDetailView,
@@ -285,7 +286,7 @@ class WordDefinitionDetailView(generic.DetailView):
 
 class DefinitionExampleDetailView(generic.DetailView):
     model = DefinitionExample
-    template_name = objects_view
+    template_name = detail_view
 
     def get_context_data(self, **kwargs):
         context = super(DefinitionExampleDetailView,
@@ -296,7 +297,7 @@ class DefinitionExampleDetailView(generic.DetailView):
 
 class OshindongaIdiomDetailView(generic.DetailView):
     model = OshindongaIdiom
-    template_name = objects_view
+    template_name = detail_view
 
     def get_context_data(self, **kwargs):
         context = super(OshindongaIdiomDetailView,

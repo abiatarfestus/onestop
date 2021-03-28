@@ -1,0 +1,67 @@
+{% extends "dictionary/search.html" %}
+{% block welcome %}
+<br>
+<h4>{{ heading }}</h4>
+<hr>
+<br>
+{% endblock %}
+{% block left %}{% endblock %}
+{% block centre %}
+<!-- English ListView -->
+{% if englishword_list %}
+<ol>
+  {% for word in englishword_list %}
+
+  <li> {{ word}} [{{ word.id }}] </li>
+
+  {% endfor %}
+</ol>
+
+<!-- Oshindonga ListView -->
+{% elif oshindongaword_list %}
+<ol>
+  {% for word in oshindongaword_list %}
+
+  <li> {{ word}} [{{ word.id }}]</li>
+
+  {% endfor %}
+</ol>
+<!-- Oshindonga Idiom ListView -->
+{% elif oshindongaidiom_list %}
+<ol>
+  {% for idiom in oshindongaidiom_list %}
+
+  <li> {{ idiom.word_pair }}: {{ idiom.oshindonga_idiom }} </li>
+
+  {% endfor %}
+</ol>
+
+{% else %}
+
+<p>There are no objects to display.</p>
+
+
+{% endif %}
+
+<div class="pagination pagination-lg">
+  <span class="page-link"> <!-- step-link from django change to page-link  bootstrap class -->
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>
+
+{% endblock %}
+{% block right %}
+{% endblock %}
+{% block one %}{% endblock %}

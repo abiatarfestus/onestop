@@ -7,36 +7,8 @@
 {% endblock %}
 {% block left %}{% endblock %}
 {% block centre %}
-<!-- English ListView -->
-{% if englishword_list %}
-<ol>
-  {% for word in englishword_list %}
-
-  <li> {{ word}} [{{ word.id }}] </li>
-
-  {% endfor %}
-</ol>
-
-<!-- Oshindonga ListView -->
-{% elif oshindongaword_list %}
-<ol>
-  {% for word in oshindongaword_list %}
-
-  <li> {{ word}} [{{ word.id }}]</li>
-
-  {% endfor %}
-</ol>
-<!-- Oshindonga Idiom ListView -->
-{% elif oshindongaidiom_list %}
-<ol>
-  {% for idiom in oshindongaidiom_list %}
-
-  <li> {{ idiom.oshindonga_word }}: {{ idiom.oshindonga_idiom }} </li>
-
-  {% endfor %}
-</ol>
 <!-- English word DetailView -->
-{% elif englishword %}
+{% if englishword %}
 
 <p><strong>Word: </strong> {{ englishword }} (ID: {{ englishword.id }}) </p>
 <p><strong>Date added: </strong> {{ englishword.time_added }} </p>
@@ -86,23 +58,7 @@
 
 {% endif %}
 
-<div class="pagination pagination-lg">
-  <span class="page-link"> <!-- step-link from django change to page-link  bootstrap class -->
-      {% if page_obj.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-      {% endif %}
 
-      <span class="current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-      </span>
-
-      {% if page_obj.has_next %}
-          <a href="?page={{ page_obj.next_page_number }}">next</a>
-          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-      {% endif %}
-  </span>
-</div>
 {% endblock %}
 {% block right %}
 {% endblock %}

@@ -21,8 +21,15 @@
 <h5>{{ operation }}</h5>
 <form action="" method="post">
   {% csrf_token %}
+  <!-- Non-field errors, e.g., UnequeConstraint error -->
+  {% if form.non_field_errors %}
+  <div class="alert alert-warning" role="alert">
+    {{ form.non_field_errors }}
+  </div>
+  {% endif %}
   {% for field in form %}
   <div class="fieldWrapper">
+    <!-- Field errors -->
     {% if field.errors %}
     <div class="alert alert-warning" role="alert">
       {{ field.errors }}

@@ -84,6 +84,10 @@ class OshindongaWord(AuthAndTimeTracker):
         choices=WORD_CASE, default=NORMAL, help_text='Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.'
     )
 
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['english_word', 'word', 'word_case'], name='unique_word_pair')]
+
     def __str__(self):
         return "%s | %s" % (self.english_word, self.word)
 
