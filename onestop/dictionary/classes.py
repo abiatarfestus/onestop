@@ -125,7 +125,7 @@ class SearchDefinition():
         self.history = HistoryRecord()
         self.context = {'form': '', 'searched_word': '',
                         'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10],
-                        'top_contributors': self.history.get_contributors(10), 'idioms':''}
+                        'top_contributors': self.history.get_contributors(10), 'idioms': ''}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):
@@ -148,7 +148,7 @@ class SearchDefinition():
             else:
                 self.example_objects.append(self.no_example_found)
         self.context['examples'] = self.example_objects
-        return render(self.request, 'dictionary/search.html', self.context)
+        # return render(self.request, 'dictionary/search.html', self.context)
 
     def search_definitions(self, word_pairs_pks):
         '''
@@ -157,11 +157,12 @@ class SearchDefinition():
         #----------Idiom------------#
         self.idiom_querysets = []
         for self.pair_pk in self.word_pairs_pks:
-            self.idiom_queryset = OshindongaIdiom.objects.filter(word_pair_id=self.pair_pk)
+            self.idiom_queryset = OshindongaIdiom.objects.filter(
+                word_pair_id=self.pair_pk)
             # If no definition found, an empty queryset is appended
-            self.idiom_querysets.append(self.idiom_queryset) 
+            self.idiom_querysets.append(self.idiom_queryset)
         self.context['idioms'] = self.idiom_querysets
-        
+
         #----------Definition------------#
         self.definition_querysets = []
         for self.pair_pk in self.word_pairs_pks:
@@ -187,7 +188,7 @@ class SearchDefinition():
 
     def search_word_pairs(self, eng_word_pk):
         '''
-            Using the English word pk (foreignkey id) search if for English|Oshindonga pairs and return a list of pks of all pair objects found.
+            Using the English word pk (foreignkey id) search for English|Oshindonga pairs and return a list of pks of all pair objects found.
         '''
         # Return a queryset of all word pairs with the searched word
         self.word_pairs = OshindongaWord.objects.filter(
@@ -195,7 +196,7 @@ class SearchDefinition():
         if len(self.word_pairs) == 0:
             self.context['searched_word'] = [
                 'The word you searched is not yet translated into Oshindonga.']
-            return render(self.request, 'dictionary/search.html', self.context)
+            # return render(self.request, 'dictionary/search.html', self.context)
         else:
             self.context['searched_word'] = self.word_pairs
             # Extract pk/id of each pair and save them in a list
@@ -225,21 +226,43 @@ class SearchDefinition():
                 except EnglishWord.DoesNotExist:
                     self.context['searched_word'] = [
                         'The word you searched was not found.']
-                    return render(self.request, 'dictionary/search.html', self.context)
+                    # return render(self.request, 'dictionary/search.html', self.context)
                 self.search_word_pairs(self.eng_word_pk)
-                return render(self.request, 'dictionary/search.html', self.context)
+                # return render(self.request, 'dictionary/search.html', self.context)
             else:
                 self.word_pairs = OshindongaWord.objects.filter(
                     word=self.word)  # Search in OshindongaWord using the word
                 if len(self.word_pairs) == 0:
                     self.context['searched_word'] = [
                         'Oshitya shi wa kongo ina shi monika.']
-                    return render(self.request, 'dictionary/search.html', self.context)
+                    # return render(self.request, 'dictionary/search.html', self.context)
                 else:
                     self.context['searched_word'] = self.word_pairs
                     # Extract pk/id of each pair and save them in a list
                     self.word_pairs_pks = [
                         self.word_pair.id for self.word_pair in self.word_pairs]
                     self.search_definitions(self.word_pairs_pks)
-        else:
+        # else:
+        #     return render(self.request, 'dictionary/search.html', self.context)
+
+
+    # Search for a suggested word
+    def search_suggested(self, pk):
+        '''
+            Search for a word from suggested searches
+        '''
+        self.form = SearchWordForm(self.request.GET)
+        self.context['form'] = self.form
+        # Return a queryset of all word pairs with the searched word
+        self.word_pairs = OshindongaWord.objects.filter(
+            english_word_id=pk)
+        if len(self.word_pairs) == 0:
+            self.context['searched_word'] = [
+                'The word you searched is not yet translated into Oshindonga.']
             return render(self.request, 'dictionary/search.html', self.context)
+        else:
+            self.context['searched_word'] = self.word_pairs
+            # Extract pk/id of each pair and save them in a list
+            self.word_pairs_pks = [
+                self.word_pair.id for self.word_pair in self.word_pairs]
+            self.search_definitions(self.word_pairs_pks)

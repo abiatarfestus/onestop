@@ -54,7 +54,8 @@
   </li>
   {% if suggested_searches %}
   {% for word in suggested_searches %}
-  <li class='s-searches'><a href='{{ word.get_absolute_url }}'>{{ word }}</a></li>
+  <li class='s-searches'><a href="{% url 'dictionary:search-suggested-word' word.id %}">{{ word }}</a></li>
+  <!-- <li class='s-searches'><a href='{{ word.get_absolute_url }}'>{{ word }}</a></li> -->
   {% endfor %}
   {% endif %}
 </ul>

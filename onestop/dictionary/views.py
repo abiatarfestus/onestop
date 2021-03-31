@@ -1,8 +1,8 @@
 from django.contrib.auth import login
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -98,6 +98,24 @@ def search_word(request):
     return render(request, 'dictionary/search.html', context)
 
 
+# class SearchSuggestedWord(FormView):
+#     form_class = SearchWordForm
+#     template_name = 'search.html'
+
+#     def get_initial(self):
+#         initial = super(SearchSuggestedWord, self).get_initial()
+#         initial.update({'input_language': 'English', 'search_word': ''})
+#         return initial
+#     pass
+
+
+def search_suggested_word(request, pk):
+    word_instance = get_object_or_404(EnglishWord, pk=pk)
+    search_object = SearchDefinition(request)
+    search_object.search_suggested(word_instance.id)
+    context = search_object.context
+    return render(request, 'dictionary/search.html', context)
+
 # GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
 
 # from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -109,6 +127,7 @@ def search_word(request):
 #     model = Author
 #     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 #     initial = {'date_of_death': '11/06/2020'}
+
 
 class EnglishWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = EnglishWordForm
