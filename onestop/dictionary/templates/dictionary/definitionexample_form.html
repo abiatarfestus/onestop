@@ -11,7 +11,7 @@
 <h6>Newly added examples:</h6>
 <ul class='newly-added-examples'>
   {% for word in newly_added_examples %}
-  <li class='n-added'><a href='#'>{{ word.definition }}</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word.definition }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -43,7 +43,7 @@
 <h6>Unexemplified definitions:</h6>
 <ul class='unexemplified'>
   {% for definition in unexemplified_definitions %}
-  <li class='u-exemplified'><a href='#'>{{ definition }}</a></li>
+  <li class='u-exemplified'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ definition.get_absolute_url }}'>{{ definition }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

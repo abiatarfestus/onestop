@@ -124,7 +124,7 @@ class SearchDefinition():
         self.request = request
         self.history = HistoryRecord()
         self.context = {'form': '', 'searched_word': '',
-                        'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:10],
+                        'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:8],
                         'top_contributors': self.history.get_contributors(10), 'idioms': ''}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 

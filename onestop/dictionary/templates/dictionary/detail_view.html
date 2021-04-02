@@ -13,6 +13,8 @@
 <p><strong>Word: </strong> {{ englishword }} (ID: {{ englishword.id }}) </p>
 <p><strong>Date added: </strong> {{ englishword.time_added }} </p>
 <p><strong>Added by: </strong>{{ englishword.history }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:english-create' %}">Add another word</a></p>
 
 
 <!-- Oshindonga word DeatilView -->
@@ -20,6 +22,8 @@
 
 <p><strong> Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
 <p><strong>Date added: </strong>{{ oshindongaword.time_added }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-create' %}">Gwedha mo oshitya</a></p>
 
 <!-- Word definition DeatilView -->
 {% elif worddefinition %}
@@ -34,6 +38,8 @@
 <p><strong>English definition: </strong>{{ worddefinition.english_definition }} </p>
 <p><strong>Oshindonga definition: </strong>{{ worddefinition.oshindonga_definition }} </p>
 <p><strong>Date added: </strong>{{ worddefinition.time_added }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:definition-create' %}">Add another definition</a></p>
 
 <!-- Definition example DeatilView -->
 {% elif definitionexample %}
@@ -42,6 +48,8 @@
 <p><strong>English example: </strong>{{ definitionexample.english_example }} </p>
 <p><strong>Oshindonga example: </strong>{{ definitionexample.oshindonga_example }} </p>
 <p><strong>Date added: </strong>{{ definitionexample.time_added }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:example-create' %}">Add another example</a></p>
 
 
 <!-- Oshindonga idiom DetailView -->
@@ -50,6 +58,8 @@
 <p><strong>Idiom: </strong>{{ oshindongaidiom.oshindonga_idiom }} </p>
 <p><strong>Meaning: </strong>{{ oshindongaidiom.meaning }} </p>
 <p><strong>Date added: </strong>{{ oshindongaidiom.time_added }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-idiom-create' %}">Gwedha mo oshipopiwamayele</a></p>
 
 {% else %}
 

@@ -93,8 +93,8 @@ class OshindongaWord(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        # return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
-        return reverse('dictionary:oshindonga-create')
+        return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
+        # return reverse('dictionary:oshindonga-create')
 # --------------------------------------------------------------------------------------------------------------
 
 

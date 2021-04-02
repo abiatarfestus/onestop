@@ -11,7 +11,7 @@
 <h6>Newly defined words:</h6>
 <ul class='newly-defined-words'>
   {% for word in newly_defined_words %}
-  <li class='n-added'><a href='#'>{{ word }}</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -79,7 +79,7 @@
     <label for="{{ form.oshindonga_definition.id_for_label }}">Oshindonga definition:</label>
     {{ form.oshindonga_definition }}
   </div>
-  <input class="btn btn-outline-primary" type="submit" value="Submit">
+  <input class="btn btn-outline-primary mb-2" type="submit" value="Submit">
 </form>
 <!-- <br> -->
 {% endblock %}
@@ -88,7 +88,7 @@
 <h6>Undefined words:</h6>
 <ul class='undefined-words'>
   {% for word in undefined_words %}
-  <li class='n-added'><a href='#'>{{ word }}</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}

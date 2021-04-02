@@ -41,7 +41,7 @@
 
 {% block centre %}
 <h3>Search for a word</h3>
-<form action="" method="get">
+<form action="{% url 'dictionary:search' %}" method="get">
   <div class="input-group mb-3">
     {{ form.input_language }}
     {{ form.search_word }}
@@ -54,7 +54,8 @@
   </li>
   {% if suggested_searches %}
   {% for word in suggested_searches %}
-  <li class='s-searches'><a href="{% url 'dictionary:search-suggested-word' word.id %}">{{ word }}</a></li>
+  <li class='s-searches'><a class="badge bg-info"
+      href="{% url 'dictionary:search-suggested-word' word.id %}">{{ word }}</a></li>
   <!-- <li class='s-searches'><a href='{{ word.get_absolute_url }}'>{{ word }}</a></li> -->
   {% endfor %}
   {% endif %}
@@ -73,16 +74,28 @@
         </ol>
       </div>
       <div class="col">
-        <h6>Oshindonga idioms:</h6>
+        <h6>Iipopiwamayele:</h6>
         {% if idioms %}
-        <ol>
+        <!-- <ol> -->
           {% for item in idioms %}
           {% for object in item %}
-          <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
+          <p>
+            <a class="badge bg-secondary" data-bs-toggle="collapse" href="#idiom{{ object.id }}" role="button"
+              aria-expanded="false" aria-controls="idiom{{ object.id }}">
+              {{ object }}
+            </a>
+          </p>
+          <div class="collapse" id="idiom{{ object.id }}">
+            <div class="card card-body">
+              <p><strong>Oshipopiwamayele: </strong>{{ object.oshindonga_idiom }} </p>
+              <p><strong>Efatululo: </strong>{{ object.meaning }} </p>
+            </div>
+          </div>
+          <!-- <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li> -->
           {% endfor %}
           {% endfor %}
-        {% endif %}
-        </ol>
+          {% endif %}
+        <!-- </ol> -->
       </div>
     </div>
     <!-- <div class="row px-3"> px (padding x, horizontal) for rows and div. gx (gutter x, hor) for colums -->
@@ -186,25 +199,28 @@
 {% block right %}
 <h5><strong>Top Contributors: </strong></h5>
 {% if top_contributors %}
-<div class="row">
+<!-- <div class="row">
   <div class="col-7">
     <h6>User</h6>
   </div>
   <div class="col-5">
     <h6>Updates</h6>
   </div>
-</div>
+</div> -->
 <ol>
   {% for contributor in top_contributors %}
   <li>
-    <div class="row">
+    <button type="button" class="btn btn-primary btn-sm mb-1">{{ contributor.1 }}<span
+        class="badge bg-danger ms-1">{{ contributor.0 }}</span>
+    </button>
+    <!-- <div class="row">
       <div class="col-9">
         {{ contributor.1 }}:
       </div>
       <div class="col-3 gx-1">
         {{ contributor.0 }}
       </div>
-    </div>
+    </div> -->
   </li>
   {% endfor %}
 </ol>

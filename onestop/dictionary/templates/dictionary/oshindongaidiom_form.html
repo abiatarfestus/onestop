@@ -11,7 +11,7 @@
 <h6>Newly added idioms:</h6>
 <ul class='newly-added-idioms'>
   {% for idiom in newly_added_idioms %}
-  <li class='n-added'><a href='#'>{{ idiom.word_pair }}</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -38,7 +38,11 @@
 {% endblock %}
 {% block right %}
 <h6>Random idiom:</h6>
+{% if random_idioms %}
+{% for idiom in random_idioms %}
 <ul class='newly-added-idioms'>
-  <li class='n-added'><a href='#'>idiom.word_pair</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
+  {% endfor %}
+  {% endif %}
 </ul>
 {% endblock %}

@@ -166,7 +166,7 @@ class OshindongaIdiomCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
     extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe',
-                     'newly_added_idioms': oshindonga_idioms}
+                     'newly_added_idioms': oshindonga_idioms, 'random_idioms':OshindongaIdiom.objects.order_by('?')[:10]}
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
