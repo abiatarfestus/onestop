@@ -5,19 +5,15 @@ from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExamp
 
 
 class HistoryRecord():
-    '''Queries the history model of the datatbase and returns query sets of each model
+    '''Queries the history model of the datatbase and returns querysets of each model
     '''
 
     def __init__(self):
-        # A queryset of all history entries from EnglishWord (historicalenglishword) database
+        # A queryset of all history entries from EnglishWord (historicalenglishword) table (same applies below)
         self.english = []
-        # A queryset of all history entries from OshindongaWord (historicaloshindongaword) database
         self.oshindonga = []
-        # A queryset of all history entries from WordDefinition (historicalenglisworddefinition) database
         self.definition = []
-        # A queryset of all history entries from DefinitionExample (historicaldefinitionexample) database
         self.example = []
-        # A queryset of all history entries from OshindongaIdiom (historicalenglishwordoshindongaidiom) database
         self.idiom = []
         self.usernames = []  # Holds all usernames from all history entries
         self.unique_usernames = set()  # Holds unique usernames (set) from the usernames list
@@ -33,28 +29,27 @@ class HistoryRecord():
         return
 
     def english_history(self):
-        # Holds user ids of historical_users (created/modifiers)
         self.english = EnglishWord.history.all()
-        self.user_ids = []
+        user_ids = [] # Holds user ids of historical_users (created/modifiers)
         for queryset in self.english:  # Loops through the querysets and take the user id if it's not null/none
             if queryset.history_user_id != None:  # Appends the the user id to user_ids list
-                self.user_ids.append(queryset.history_user_id)
-        for user_id in self.user_ids:  # Loops through user ids and matches them to users to obtain usernames
-            # Holds querysets of users from the User model
+                user_ids.append(queryset.history_user_id)
+        for user_id in user_ids:  # Loops through user ids and matches them to users to obtain usernames
+            # Holds a user object from the User model
             user = User.objects.get(id=user_id)
             # Appends the username to the usernames list
             self.usernames.append(user.username)
         # Updates the unique_usernames set with usernames
         self.unique_usernames.update(self.usernames)
-        return self.english  # Returns a a queryset of EnglishWord historical objects/records
+        return self.english  # Returns a queryset of EnglishWord historical objects/records
 
     def oshindonga_history(self):
         self.oshindonga = OshindongaWord.history.all()
-        self.user_ids = []
+        user_ids = []
         for queryset in self.oshindonga:
             if queryset.history_user_id != None:
-                self.user_ids.append(queryset.history_user_id)
-        for user_id in self.user_ids:
+                user_ids.append(queryset.history_user_id)
+        for user_id in user_ids:
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
@@ -62,11 +57,11 @@ class HistoryRecord():
 
     def definition_history(self):
         self.definition = WordDefinition.history.all()
-        self.user_ids = []
+        user_ids = []
         for queryset in self.definition:
             if queryset.history_user_id != None:
-                self.user_ids.append(queryset.history_user_id)
-        for user_id in self.user_ids:
+                user_ids.append(queryset.history_user_id)
+        for user_id in user_ids:
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
@@ -74,11 +69,11 @@ class HistoryRecord():
 
     def example_history(self):
         self.example = DefinitionExample.history.all()
-        self.user_ids = []
+        user_ids = []
         for queryset in self.example:
             if queryset.history_user_id != None:
-                self.user_ids.append(queryset.history_user_id)
-        for user_id in self.user_ids:
+                user_ids.append(queryset.history_user_id)
+        for user_id in user_ids:
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
@@ -86,11 +81,11 @@ class HistoryRecord():
 
     def idiom_history(self):
         self.idiom = OshindongaIdiom.history.all()
-        self.user_ids = []
+        user_ids = []
         for queryset in self.idiom:
             if queryset.history_user_id != None:
-                self.user_ids.append(queryset.history_user_id)
-        for user_id in self.user_ids:
+                user_ids.append(queryset.history_user_id)
+        for user_id in user_ids:
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
@@ -103,14 +98,14 @@ class HistoryRecord():
         self.definition_history()
         self.example_history()
         self.idiom_history()
-        contributors = []
+        contributors = [] #Holds a list of tuples of (#of modifications, username)
         for username in self.unique_usernames:
             contributors.append((self.usernames.count(username), username))
 
         def getKey(item):
             return item[0]
-        contributors.sort(key=getKey, reverse=True)
-        top_contributors = contributors[:num]
+        contributors.sort(key=getKey, reverse=True) #Reverse sorts the list of tuples by 1st tuple item (#of mod..)
+        top_contributors = contributors[:num] #num determines the #of contributors to display
         return top_contributors
 
 
