@@ -13,39 +13,94 @@ nav {
 	background: #587283;
 	color: black;
 }
-/*BODY*/
-body {
-	/* background-color: #afcff886; */
-}
 
 .page-headings {
 	text-align: center;
 }
 
-/* RETURNED RESULTS */
-.returned-results-list {
-	list-style-type: circle;
-	font-size: medium;
-}
-/* --------------- */
-.col,
-.definition-row,
-.col-2,
-.columns {
-	background-color: #f5fcfcbe;
-	/* font-weight: bold; */
-	/* font-size: 3rem; */
-	border: solid;
-	border-radius: 1%;
-	border-width: thin;
-	/* border-style: solid; */
-	border-color: rgb(182, 178, 178);
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+body {
+	/* background-color: #afcff886; */
 }
 
-/* .div-english-definitions, */
-.definition-row {
-	background-color: rgba(46, 48, 53, 0.164);
-	border-style: solid;
+/* -------------------------------------------------LEFT-SIDEBAR-------------------------------------------- */
+
+#left-sidebar {
+	background: linear-gradient(to right, #f7f7f76b, #abd3d3be);
+}
+
+/* -------------------------------------------------CENTRE-AREA-------------------------------------------- */
+
+/* Background for centre-area */
+#centre-area {
+	background: linear-gradient(  #abd3d3be, #f7f7f76b);
+}
+
+/* Background for definition and idioms, word pair and tense/plural row */
+.row-word-tense-plural,
+.row-def-idiom {
+	background-color: rgba(97, 99, 104, 0.164);
+}
+/* Background of the search area: white*/
+#s-area {
+	background: whitesmoke;
+}
+/* Headings colours and background colours */
+.definition,
+.definition-object {
+	color: blue;
+}
+.definitions-heading {
+	color: brown;
+	background-color: rgba(179, 214, 195, 0.212);
+	/* background-color: linear-gradient(to left, rgb(184, 26, 26),black); */
+}
+.examples-heading {
+	color: green;
+	background-color: rgba(209, 170, 170, 0.253);
+}
+
+/* Borders */
+#centre-area,
+.div-eng-def,
+.div-eng-ex,
+.div-osh-def,
+.div-osh-ex,
+/* .row-def-idiom, */
+.col-def,
+.col-idiom,
+/* .row-word-tense-plural, */
+.col-tense-plural,
+.col-word,
+.col-extras2 {
+	border: solid;
+	border-color: grey;
+	border-radius: 0.5%;
+	border-width: thin;
+}
+
+/* Remove borders */
+.div-eng-def,
+.div-eng-ex,
+.div-osh-def,
+.div-osh-ex {
+	border-bottom: none;
+	border-right: none;
+	border-color: grey;
+	border-radius: 0.5%;
+	border-width: thin;
+}
+
+
+
+.tenses-list,
+.plural-list {
+	list-style: none;
+}
+/* -------------------------------------------------RIGHT-SIDEBAR-------------------------------------------- */
+
+#right-sidebar {
+	background: linear-gradient(to left, #f7f7f76b, #abd3d3be);
 }
 
 /* #input-language {
@@ -69,7 +124,8 @@ p {
 .newly-added-idioms,
 .newly-defined-words,
 .unexemplified,
-.undefined-words {
+.undefined-words,
+.view-lists {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
@@ -98,25 +154,7 @@ ol {
 	font-size: medium;
 }
 
-/* SEARCH RESULTS */
-.part-of-speech {
-	color: red;
-}
-.definition,
-.definition-object {
-	color: blue;
-}
-.definitions-heading {
-	color: brown;
-}
-.examples-heading {
-	color: green;
-}
 
-.tenses-list,
-.plural-list {
-	list-style: none;
-}
 
 /* li a {
 	display: block;

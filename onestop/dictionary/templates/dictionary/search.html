@@ -36,7 +36,20 @@
 {% endblock %}
 
 {% block left %}
-<p>Left sidebar</p>
+<h5><strong>View listed entries: </strong></h5>
+<ul class='view-lists'>
+  <li class='english-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a>
+  </li>
+  <li class='oshidonga-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+      words</a>
+  </li>
+  <li class='idiom-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+      idioms</a>
+  </li>
+</ul>
 {% endblock %}
 
 {% block centre %}
@@ -56,59 +69,57 @@
   {% for word in suggested_searches %}
   <li class='s-searches'><a class="badge bg-info"
       href="{% url 'dictionary:search-suggested-word' word.id %}">{{ word }}</a></li>
-  <!-- <li class='s-searches'><a href='{{ word.get_absolute_url }}'>{{ word }}</a></li> -->
   {% endfor %}
   {% endif %}
 </ul>
 <br>
 <h4>Search Results:</h4>
-<div class="row px-2 py-2">
-  <div class="col">
+<hr>
+<div class="row px-2 row-search-results-area">
+  <div class="col col-search-results-area" id="s-area">
     {% if searched_word %}
-    <div class="row">
-      <div class="col">
+    <div class="row row-def-idiom">
+      <div class="col col-def">
         <ol class="search-results-list">
           {% for item in searched_word %}
           <li>{{ item }}</li>
           {% endfor %}
         </ol>
       </div>
-      <div class="col">
+      <div class="col col-idiom">
         <h6>Iipopiwamayele:</h6>
         {% if idioms %}
-        <!-- <ol> -->
-          {% for item in idioms %}
-          {% for object in item %}
-          <p>
-            <a class="badge bg-secondary" data-bs-toggle="collapse" href="#idiom{{ object.id }}" role="button"
-              aria-expanded="false" aria-controls="idiom{{ object.id }}">
-              {{ object }}
-            </a>
-          </p>
-          <div class="collapse" id="idiom{{ object.id }}">
-            <div class="card card-body">
-              <p><strong>Oshipopiwamayele: </strong>{{ object.oshindonga_idiom }} </p>
-              <p><strong>Efatululo: </strong>{{ object.meaning }} </p>
-            </div>
+        {% for item in idioms %}
+        {% for object in item %}
+        <p>
+          <a class="badge bg-secondary" data-bs-toggle="collapse" href="#idiom{{ object.id }}" role="button"
+            aria-expanded="false" aria-controls="idiom{{ object.id }}">
+            {{ object }}
+          </a>
+        </p>
+        <div class="collapse" id="idiom{{ object.id }}">
+          <div class="card card-body mb-2">
+            <p><strong>Oshipopiwamayele: </strong>{{ object.oshindonga_idiom }} </p>
+            <p><strong>Efatululo: </strong>{{ object.meaning }} </p>
           </div>
-          <!-- <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li> -->
-          {% endfor %}
-          {% endfor %}
-          {% endif %}
-        <!-- </ol> -->
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
       </div>
     </div>
     <!-- <div class="row px-3"> px (padding x, horizontal) for rows and div. gx (gutter x, hor) for colums -->
+    <br>
     <h5 class='definition'>Definitions</h5>
     {% else %}
     <p>No search was performed</p>
     {% endif %}
     {% for definition_object in definitions %}
-    <div class="row px-3 definition-row">
-      <div class="col">
-        <h6 class='definition-object'>{{ definition_object }}</h6>
+    <div class="row mb-2 row-word-tense-plural">
+      <div class="col col-word">
+        <h6 class='definition-object'>{{forloop.counter}}. {{ definition_object }}</h6>
       </div>
-      <div class="col">
+      <div class="col col-tense-plural">
         {% if definition_object.part_of_speech == 'Noun [C]' %}
         <ul class="plural-list">
           <li><strong>Plural: </strong></li>
@@ -125,31 +136,33 @@
         </ul>
         {% endif %}
       </div>
-      <div class="col">Extras2</div>
+      <div class="col col-extras2">Extras2</div>
     </div>
     {% if definition_object != 'No definition found' %}
-    <div class='row div-english-definitions px-3'>
-      <p><i class='definitions-heading'>English definitions</i></p>
-      <div class="col row-english-definitions">
-        <p>
-          >{{ definition_object.english_definition }}
-        </p>
+    <div class="div-eng-def">
+      <p class='definitions-heading'><strong>English definition:</strong></p>
+      <div class='row px-3 row-english-def '>
+        <div class="col col-eng-def">
+          <p>
+            >{{ definition_object.english_definition }}
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-1">
+          <a href="{% url 'dictionary:definition-update' definition_object.id %}">
+            <input class="btn btn-outline-secondary" type="button" value="Edit">
+          </a>
+        </div>
+        {% endif %}
       </div>
-      {% if user.is_authenticated %}
-      <div class="col-1">
-        <a href="{% url 'dictionary:definition-update' definition_object.id %}">
-          <input class="btn btn-outline-secondary" type="button" value="Edit">
-        </a>
-      </div>
-      {% endif %}
     </div>
-    <div class="examples-div">
-      <p><i class='examples-heading'>Examples:</i></p>
-      <ol class='examples-list'>
+    <div class="div-eng-ex">
+      <p class='examples-heading'><strong>Examples:</strong></p>
+      <ul class='examples-list'>
         {% for example_object in examples %}
         {% if example_object.definition_id == definition_object.id %}
-        <div class="row px-3">
-          <div class="col">
+        <div class="row px-3 row-eng-ex">
+          <div class="col col-eng-ex">
             <li><i>{{ example_object.english_example }}</i></li>
           </div>
           {% if user.is_authenticated %}
@@ -162,28 +175,30 @@
         </div>
         {% endif %}
         {% endfor %}
-      </ol>
+      </ul>
     </div>
-    <div class="row div-oshindonga-examples px-3">
-      <p><i class='definitions-heading'>Efatululo mOshindonga</i></p>
-      <div class="col">
-        <p>>{{ definition_object.oshindonga_definition }}</p>
+    <div class="div-osh-def">
+      <p class='definitions-heading'><strong>Efatululo mOshindonga:</strong></p>
+      <div class="row px-3 row-osh-def">
+        <div class="col col-osh-def">
+          <p>>{{ definition_object.oshindonga_definition }}</p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-1">
+          <a href="{% url 'dictionary:definition-update' definition_object.id %}">
+            <input class="btn btn-outline-secondary" type="button" value="Edit">
+          </a>
+        </div>
+        {% endif %}
       </div>
-      {% if user.is_authenticated %}
-      <div class="col-1">
-        <a href="{% url 'dictionary:definition-update' definition_object.id %}">
-          <input class="btn btn-outline-secondary" type="button" value="Edit">
-        </a>
-      </div>
-      {% endif %}
     </div>
-    <div class="examples-div">
-      <p><i class='examples-heading'>Iiholelwa:</i></p>
-      <ol class='examples-list'>
+    <div class="div-osh-ex">
+      <p class='examples-heading'><strong>Iiholelwa:</strong></p>
+      <ul class='examples-list'>
         {% for example_object in examples %}
         {% if example_object.definition_id == definition_object.id %}
-        <div class="row px-3">
-          <div class="col">
+        <div class="row px-3 row-osh-ex">
+          <div class="col col-osh-ex">
             <li><i>{{ example_object.oshindonga_example }}</i></li>
           </div>
           {% if user.is_authenticated %}
@@ -196,7 +211,7 @@
         </div>
         {% endif %}
         {% endfor %}
-      </ol>
+      </ul>
     </div>
     {% endif %}
     {% endfor%}
@@ -207,28 +222,12 @@
 {% block right %}
 <h5><strong>Top Contributors: </strong></h5>
 {% if top_contributors %}
-<!-- <div class="row">
-  <div class="col-7">
-    <h6>User</h6>
-  </div>
-  <div class="col-5">
-    <h6>Updates</h6>
-  </div>
-</div> -->
 <ol>
   {% for contributor in top_contributors %}
   <li>
     <button type="button" class="btn btn-primary btn-sm mb-1">{{ contributor.1 }}<span
         class="badge bg-danger ms-1">{{ contributor.0 }}</span>
     </button>
-    <!-- <div class="row">
-      <div class="col-9">
-        {{ contributor.1 }}:
-      </div>
-      <div class="col-3 gx-1">
-        {{ contributor.0 }}
-      </div>
-    </div> -->
   </li>
   {% endfor %}
 </ol>
