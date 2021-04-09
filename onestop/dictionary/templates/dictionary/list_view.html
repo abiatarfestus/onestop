@@ -5,7 +5,22 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}{% endblock %}
+{% block left %}
+<h5><strong>View listed entries: </strong></h5>
+<ul class='view-lists'>
+  <li class='english-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a>
+  </li>
+  <li class='oshidonga-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+      words</a>
+  </li>
+  <li class='idiom-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+      idioms</a>
+  </li>
+</ul>
+{% endblock %}
 {% block centre %}
 <!-- English ListView -->
 {% if englishword_list %}

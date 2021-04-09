@@ -221,7 +221,7 @@ detail_view = 'dictionary/detail_view.html'
 
 
 class EnglishWordListView(generic.ListView):
-    paginate_by = 10
+    paginate_by = 50
     model = EnglishWord
     template_name = list_view
 
@@ -240,7 +240,7 @@ class EnglishWordListView(generic.ListView):
 
 
 class OshindongaWordListView(generic.ListView):
-    paginate_by = 10
+    paginate_by = 50
     model = OshindongaWord
     template_name = list_view
 
