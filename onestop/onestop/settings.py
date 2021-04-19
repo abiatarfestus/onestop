@@ -146,5 +146,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' #https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
 LOGIN_REDIRECT_URL = '/'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

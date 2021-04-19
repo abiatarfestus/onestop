@@ -16,11 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from dictionary import views
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('help/',
+         views.TemplateView.as_view(template_name="onestop/help.html"), name='help'),
     path('dictionary/', include('dictionary.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

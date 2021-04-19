@@ -2,6 +2,7 @@ from django.contrib.auth import login
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -115,6 +116,12 @@ def search_suggested_word(request, pk):
     search_object.search_suggested(word_instance.id)
     context = search_object.context
     return render(request, 'dictionary/search.html', context)
+
+# Template class-based views
+
+
+class HelpView(TemplateView):
+    template_name = "onestop/help.html"
 
 # GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
 

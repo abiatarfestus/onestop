@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.db.models import F  # For referencing fields on the same model
 from simple_history.models import HistoricalRecords
 
@@ -56,12 +57,36 @@ class EnglishWord(AuthAndTimeTracker):
         return self.word
 
     def get_absolute_url(self):
-        from django.urls import reverse
+        #from django.urls import reverse
         return reverse('dictionary:english-word-detail', args=[str(self.id)])
         # return reverse('dictionary:english-create')
 
 
 # --------------------------------------------------------------------------------------------------------------
+
+class OshindongaPhonetic(AuthAndTimeTracker):
+    '''
+    A model that adds and modifies Oshindonga word phonetic characteristics in the database
+    '''
+
+    #objects = models.Manager()
+    oshindonga_word = models.CharField(max_length=50)
+    pronunciation = models.FileField(upload_to='pronunciations') #Takes pronunciation audio
+    phonetics = models.CharField(max_length=100) #Takes phonetic transcription
+
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['oshindonga_word', 'phonetics', ], name='unique_phonetics')]
+
+    def __str__(self):
+        return "%s | %s" % (self.oshindonga_word, self.phonetics)
+
+    def get_absolute_url(self):
+        #from django.urls import reverse
+        return reverse('dictionary:oshindonga-phonetic-detail', args=[str(self.id)]) #url pattern/template not yet implemented
+        # return reverse('dictionary:oshindonga-create')
+
+# ---------------------------------------------------------------------------------------------------------------
 
 
 class OshindongaWord(AuthAndTimeTracker):
@@ -83,6 +108,7 @@ class OshindongaWord(AuthAndTimeTracker):
         max_length=12,
         choices=WORD_CASE, default=NORMAL, help_text='Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.'
     )
+    word_phonetics = models.ForeignKey(OshindongaPhonetic, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         constraints = [models.UniqueConstraint(
@@ -92,7 +118,7 @@ class OshindongaWord(AuthAndTimeTracker):
         return "%s | %s" % (self.english_word, self.word)
 
     def get_absolute_url(self):
-        from django.urls import reverse
+        #from django.urls import reverse
         return reverse('dictionary:oshindonga-word-detail', args=[str(self.id)])
         # return reverse('dictionary:oshindonga-create')
 # --------------------------------------------------------------------------------------------------------------
@@ -147,7 +173,7 @@ class WordDefinition(AuthAndTimeTracker):
         return "%s (%s) [%s]" % (self.word_pair, self.part_of_speech, self.id)
 
     def get_absolute_url(self):
-        from django.urls import reverse
+        #from django.urls import reverse
         return reverse('dictionary:word-definition-detail', args=[str(self.id)])
 
 # --------------------------------------------------------------------------------------------------------------
@@ -166,7 +192,7 @@ class DefinitionExample(AuthAndTimeTracker):
         return "%s" % (self.definition)
 
     def get_absolute_url(self):
-        from django.urls import reverse
+        #from django.urls import reverse
         # return reverse('dictionary:example-update', args=[str(self.id)])
         return reverse('dictionary:definition-example-detail', args=[str(self.id)])
 
@@ -186,5 +212,5 @@ class OshindongaIdiom(AuthAndTimeTracker):
         return "%s" % (self.word_pair)
 
     def get_absolute_url(self):
-        from django.urls import reverse
+        #from django.urls import reverse
         return reverse('dictionary:oshindonga-idiom-detail', args=[str(self.id)])
