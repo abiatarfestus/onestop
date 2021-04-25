@@ -33,7 +33,7 @@ body {
 
 /* Background for centre-area */
 #centre-area {
-	background: linear-gradient(  #abd3d3be, #f7f7f76b);
+	background: linear-gradient(#abd3d3be, #f7f7f76b);
 }
 
 /* Background for definition and idioms, word pair and tense/plural row */
@@ -91,10 +91,9 @@ body {
 	border-width: thin;
 }
 
-
-
 .tenses-list,
-.plural-list {
+.plural-list,
+.synonym-list {
 	list-style: none;
 }
 /* -------------------------------------------------RIGHT-SIDEBAR-------------------------------------------- */
@@ -153,8 +152,6 @@ p {
 ol {
 	font-size: medium;
 }
-
-
 
 /* li a {
 	display: block;

@@ -118,7 +118,7 @@
     <div class="row mb-2 row-word-tense-plural">
       <div class="col col-word">
         <h6 class='definition-object'>{{forloop.counter}}. {{ definition_object }}</h6>
-      </div>
+      </div> <!--forloo.counter is used for numbering-->
       <div class="col col-tense-plural">
         {% if definition_object.part_of_speech == 'Noun [C]' %}
         <ul class="plural-list">
@@ -136,7 +136,15 @@
         </ul>
         {% endif %}
       </div>
-      <div class="col col-extras2">Extras2</div>
+      <div class="col col-extras2">
+        <ul class="synonym-list">
+          <li><strong>Synonyms: </strong></li>
+          <li><i>{{ definition_object.synonym1}}</i></li>
+          <li><i>{{ definition_object.synonym2}}</i></li>
+          <li><i>{{ definition_object.synonym3}}</i></li>
+          <li><i>{{ definition_object.synonym4}}</i></li>
+        </ul>
+      </div>
     </div>
     {% if definition_object != 'No definition found' %}
     <div class="div-eng-def">

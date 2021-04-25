@@ -84,9 +84,9 @@ def index(request):
     return render(request, 'onestop/index.html', context)
 
 
-def thankyou(request):
+def under_construction(request):
     context = {}
-    return render(request, 'dictionary/thankyou.html', context)
+    return render(request, 'onestop/under_construction.html', context)
 
 
 def search_word(request):
