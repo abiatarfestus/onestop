@@ -26,5 +26,6 @@ urlpatterns = [
     path('help/',
          views.TemplateView.as_view(template_name="onestop/help.html"), name='help'),
     path('dictionary/', include('dictionary.urls')),
+    path('blog/', include('blog.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 ]
