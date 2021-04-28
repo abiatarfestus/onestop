@@ -1,0 +1,52 @@
+{% extends "onestop/onestop_layout.html" %}
+{% block secondarynav %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(128, 38%, 66%);" id='dictionary-nav'>
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'blog:post-list' %}">Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Add a New Post</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block welcome %}
+<h1>Welcome to OneStop Blogs</h1>
+<h2>Where the community talks all things language, culture, and literature</h2>
+<hr>
+<br>
+{% endblock %}
+
+{% block left %}
+<h5><strong>Categories: </strong></h5>
+<ul class='view-lists'>
+    <li class='english-list'>
+        <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category1</a>
+    </li>
+    <li class='oshidonga-list'>
+        <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category2</a>
+    </li>
+    <li class='idiom-list'>
+        <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block centre %}
+<div class="card mb-4  mt-3 left  top">
+    <div class="card-body">
+        <h1>{% block title %} {{ object.title }} {% endblock title %}</h1>
+        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+        <p class="card-text ">{{ object.content | safe }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block right %}
+{% endblock %}

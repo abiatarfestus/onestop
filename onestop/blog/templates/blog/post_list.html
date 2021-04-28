@@ -6,7 +6,7 @@
       <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'blog:blog' %}">Blogs</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'blog:post-list' %}">Blogs</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Add a New Post</a>
@@ -39,23 +39,21 @@
 {% endblock %}
 
 {% block centre %}
-<div class="container">
-  <div class="row">
-    <!-- Blog Entries Column -->
-    <div class="col-md-8 mt-3 left">
-      {% for post in post_list %}
-      <div class="card mb-4">
-        <div class="card-body">
-          <h2 class="card-title">{{ post.title }}</h2>
-          <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-          <p class="card-text">{{post.content|slice:":200" }}</p>
-          <a href="#" class="btn btn-primary">Read More &rarr;</a>
-          <!-- {% url 'post_detail' post.slug  %} -->
-        </div>
+<!-- <div class="row">
+  <div class="col-md-8 mt-3 left"> -->
+<div class="row row row-cols-1 row-cols-md-2">
+  {% for post in post_list %}
+  <div class="col">
+    <div class="card mt-2 mb-2">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+        <p class="card-text">{{post.content|slice:":200" }}</p>
+        <a href="{% url 'blog:post-detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
       </div>
-      {% endfor %}
     </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}
 
