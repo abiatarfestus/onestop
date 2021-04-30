@@ -11,20 +11,41 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 # Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
 from django.contrib.messages import constants as messages
 
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_URL = '/static/'
+# Where static files will be collected (by manage.py collectstatic) during deployment
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Location of static files
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ] A list of directories with statics files, usually out of the default search path of Django
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!jv8v9y)03)0@_k62gk1elyzs5w@$f04g&mqh5md*t02whjvgt'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -44,6 +65,7 @@ INSTALLED_APPS = [
     'dictionary',
     'simple_history',
     'blog',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -93,11 +115,11 @@ WSGI_APPLICATION = 'onestop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'onestop',
-        'USER': 'root',
-        'PASSWORD': 'Uugwanga2012',
-        'HOST': '127.0.0.1',
-        'PORT': '',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
     }
 }
 
@@ -135,11 +157,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = '/static/'
-
 # Added from https://simpleisbetterthancomplex.com/tips/2016/09/06/django-tip-14-messages-framework.html
 # Changes the default string representation (message tags) of messages to Bootstrap classes
 MESSAGE_TAGS = {
@@ -150,6 +167,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField' #https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+# https://docs.djangoproject.com/en/3.2/releases/3.2/#customizing-type-of-auto-created-primary-keys
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 LOGIN_REDIRECT_URL = '/'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_THEME = 'bs4'  # Show summernote with Bootstrap4
