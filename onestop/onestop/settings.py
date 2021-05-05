@@ -121,6 +121,14 @@ DATABASES = {
         'HOST': env("DATABASE_HOST"),
         'PORT': env("DATABASE_PORT"),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'festusab_ss_dbnamec6e',
+    #     'USER': 'festusab_django',
+    #     'PASSWORD': 'Uugwanga2012',
+    #     'HOST': 'box2198.bluehost.com',
+    #     'PORT': '3306',
+    # }
 }
 
 

@@ -1,13 +1,16 @@
 from django.views import generic
 from .models import Post
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from django.shortcuts import render, get_object_or_404
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, FormView
 
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'post_list.html'
-    paginate_by = 3
+    paginate_by = 4
 
 
 # class PostDetail(generic.DetailView):
@@ -38,3 +41,9 @@ def post_detail(request, slug):
                                            'comments': comments,
                                            'new_comment': new_comment,
                                            'comment_form': comment_form})
+
+class PostCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = PostForm
+    model = Post
+    extra_context = {'operation': 'Add a new post'}
+    success_message = "Your post has been created and awaits publication"

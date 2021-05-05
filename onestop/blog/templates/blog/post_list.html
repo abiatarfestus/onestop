@@ -9,7 +9,7 @@
           <a class="nav-link active" aria-current="page" href="{% url 'blog:post-list' %}">Blogs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Add a New Post</a>
+          <a class="nav-link" href="{% url 'blog:create-post' %}">Add a New Post</a>
         </li>
       </ul>
     </div>
@@ -39,9 +39,7 @@
 {% endblock %}
 
 {% block centre %}
-<!-- <div class="row">
-  <div class="col-md-8 mt-3 left"> -->
-<div class="row row row-cols-1 row-cols-md-2">
+<div class="row row-cols-1 row-cols-md-2">
   {% for post in post_list %}
   <div class="col">
     <div class="card mt-2 mb-2">
@@ -56,21 +54,35 @@
   </div>
   {% endfor %}
 </div>
-{% if is_paginated %}
-<nav aria-label="Page navigation conatiner"></nav>
-<ul class="pagination justify-content-center">
-  {% if page_obj.has_previous %}
-  <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-  {% endif %}
-  {% if page_obj.has_next %}
-  <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-
-  {% endif %}
-</ul>
-</nav>
+<div class="row">
+  <div class="col">
+    {% if is_paginated %}
+    <nav aria-label="Page navigation conatiner"></nav>
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+      {% endif %}
+    </ul>
+    </nav>
+    {% endif %}
+  </div>
 </div>
-{% endif %}
 {% endblock %}
 
 {% block right %}
+<h5><strong>Categories: </strong></h5>
+<ul class='view-lists'>
+  <li class='english-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category1</a>
+  </li>
+  <li class='oshidonga-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category2</a>
+  </li>
+  <li class='idiom-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a>
+  </li>
+</ul>
 {% endblock %}
