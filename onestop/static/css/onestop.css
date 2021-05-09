@@ -19,9 +19,9 @@ nav {
 }
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>BODY<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-body {
-	/* background-color: #afcff886; */
-}
+/* body {
+	background-color: #afcff886; 
+} */
 
 /* -------------------------------------------------LEFT-SIDEBAR-------------------------------------------- */
 
@@ -96,6 +96,14 @@ body {
 .synonym-list {
 	list-style: none;
 }
+
+/* Post featured images */
+.featured-image {
+	/* object-fit: cover; */
+	max-width: 100%;
+  	height: auto;
+}
+
 /* -------------------------------------------------RIGHT-SIDEBAR-------------------------------------------- */
 
 #right-sidebar {

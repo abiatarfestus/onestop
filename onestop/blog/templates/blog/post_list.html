@@ -11,6 +11,12 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'blog:create-post' %}">Add a New Post</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:category-list' %}">View Category List</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'blog:create-category' %}">Add a New Category</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -44,9 +50,12 @@
   <div class="col">
     <div class="card mt-2 mb-2">
       <div class="card-body">
-        <h2 class="card-title">{{ post.title }}</h2>
+        <h4 class="card-title">{{ post.title }}</h4>
         <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
-        <p class="card-text">{{post.content | safe | slice:":200" }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top featured-image" alt="{{ post.title }}">
+        {% endif %}
+        <p class="card-text">{{post.content | safe | slice:":300" }}</p>
         <!-- use | safe filter in template to prevent html from escaping-->
         <a href="{% url 'blog:post-detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
       </div>
@@ -54,21 +63,25 @@
   </div>
   {% endfor %}
 </div>
-<div class="row">
+<div class="row row-cols-1">
   <div class="col">
+    <hr>
     {% if is_paginated %}
-    <nav aria-label="Page navigation conatiner"></nav>
+    <!-- <nav aria-label="Page navigation conatiner"> -->
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}
       <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
       {% endif %}
       {% if page_obj.has_next %}
       <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-      {% endif %}
-    </ul>
-    </nav>
-    {% endif %}
-  </div>
+      {% else %}
+      <!-- Fixes the alignment problem by adding another closing div -->
+  </div> <!-- a better fix needed -->
+  {% endif %}
+  </ul>
+  <!-- </nav> -->
+  {% endif %}
+</div>
 </div>
 {% endblock %}
 

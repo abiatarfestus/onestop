@@ -1,0 +1,41 @@
+{% extends "blog/post_list.html" %}
+{% block welcome %}
+<h1>You're at OneStop Blogs: Categories</h1>
+<h2>Below id a list post categories defined. <a href="{% url 'blog:create-category' %}"> Define new categories here.</a>
+</h2>
+<hr>
+<br>
+{% endblock %}
+
+{% block centre %}
+<h4>Post category list:</h4>
+<br>
+{% for category in category_list %}
+<div class="row">
+    <div class="col">
+        <h5 class="card-title">{{ category.name }}</h5>
+        <hr>
+    </div>
+    <div class="col">
+        <a class="btn btn-primary btn-sm mb-1" href="{% url 'blog:category-detail' category.id %}">View posts</a>
+    </div>
+</div>
+{% endfor %}
+<div class="row row-cols-1">
+    <div class="col">
+        <hr>
+        {% if is_paginated %}
+        <!-- <nav aria-label="Page navigation conatiner"> -->
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+        <!-- </nav> -->
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

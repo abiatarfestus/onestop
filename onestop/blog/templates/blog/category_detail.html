@@ -1,0 +1,49 @@
+{% extends "blog/post_list.html" %}
+{% block welcome %}
+<h1>Welcome to OneStop Blogs</h1>
+<h2>Where the community talks all things language, culture, and literature</h2>
+<hr>
+<br>
+{% endblock %}
+
+{% block centre %}
+<h4>Category: {{ category.name }}</h4>
+<div class="row row-cols-1 row-cols-md-2">
+  {% if not posts %}
+  <p>There are no posts in this category.</p>
+  {% else %}
+  {% for post in posts %}
+  <div class="col">
+    <div class="card mt-2 mb-2">
+      <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} </p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top featured-image" alt="{{ post.title }}">
+        {% endif %}
+        <p class="card-text">{{post.content | safe | slice:":200" }}</p>
+        <!-- use | safe filter in template to prevent html from escaping-->
+        <a href="{% url 'blog:post-detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="row">
+  <div class="col">
+    {% if is_paginated %}
+    <nav aria-label="Page navigation conatiner"></nav>
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+      {% endif %}
+    </ul>
+    </nav>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

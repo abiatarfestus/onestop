@@ -71,8 +71,10 @@ class OshindongaPhonetic(AuthAndTimeTracker):
 
     #objects = models.Manager()
     oshindonga_word = models.CharField(max_length=50)
-    pronunciation = models.FileField(upload_to='pronunciations') #Takes pronunciation audio
-    phonetics = models.CharField(max_length=100) #Takes phonetic transcription
+    pronunciation = models.FileField(
+        upload_to='pronunciations')  # Takes pronunciation audio
+    # Takes phonetic transcription
+    phonetics = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         constraints = [models.UniqueConstraint(
@@ -83,7 +85,8 @@ class OshindongaPhonetic(AuthAndTimeTracker):
 
     def get_absolute_url(self):
         #from django.urls import reverse
-        return reverse('dictionary:oshindonga-phonetic-detail', args=[str(self.id)]) #url pattern/template not yet implemented
+        # url pattern/template not yet implemented
+        return reverse('dictionary:oshindonga-phonetic-detail', args=[str(self.id)])
         # return reverse('dictionary:oshindonga-create')
 
 # ---------------------------------------------------------------------------------------------------------------
@@ -108,7 +111,8 @@ class OshindongaWord(AuthAndTimeTracker):
         max_length=12,
         choices=WORD_CASE, default=NORMAL, help_text='Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.'
     )
-    word_phonetics = models.ForeignKey(OshindongaPhonetic, null=True, blank=True, on_delete=models.SET_NULL)
+    word_phonetics = models.ForeignKey(
+        OshindongaPhonetic, null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         constraints = [models.UniqueConstraint(
