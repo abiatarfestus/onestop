@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import Form, ModelForm
 from django.contrib.auth.forms import UserCreationForm
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
 
 
@@ -38,13 +39,30 @@ class EnglishWordForm(ModelForm):
             self.cleaned_data['word'] = word.strip().lower()
 
 
+class OshindongaPhoneticForm(ModelForm):
+    class Meta:
+        model = OshindongaPhonetic
+        fields = '__all__'
+        widgets = {'oshindonga_word': forms.TextInput(
+            attrs={'class': 'form-control form-control-lg mb-2', 'placeholder': 'Shanga oshitya shOshindonga'}), 'phonetics': SummernoteWidget(
+            attrs={'class': 'form-select form-select-lg mb-2', 'summernote': {'width': '100%', 'height': '150px'}}), 'pronunciation': forms.FileInput(
+            attrs={'class': 'form-select form-select-lg mb-2'})}
+
+    def clean(self):
+        cleaned_data = super().clean()
+        oshindonga_word = cleaned_data.get('oshindonga_word')
+        phonetics = cleaned_data.get('phonetics')
+        self.cleaned_data['oshindonga_word'] = oshindonga_word.strip().lower()
+        #self.cleaned_data['phonetics'] = phonetics.strip()
+
+
 class OshindongaWordForm(ModelForm):
     english_word = forms.ModelChoiceField(
         queryset=EnglishWord.objects.all().order_by('word'), empty_label='Select the English word',
         widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2'}))
     word_phonetics = forms.ModelChoiceField(
         queryset=OshindongaPhonetic.objects.all().order_by('oshindonga_word'), empty_label='Select Oshindonga word phonetics',
-        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2'}))
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2', 'required': 'False'}))
 
     class Meta:
         model = OshindongaWord

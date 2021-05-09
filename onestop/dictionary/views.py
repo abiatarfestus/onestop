@@ -8,8 +8,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .classes import SearchDefinition, HistoryRecord
-from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
-from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm
+from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
+from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm, OshindongaPhoneticForm
 from django.views import generic
 import random
 
@@ -144,6 +144,14 @@ class EnglishWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
 
+class OshindongaPhoneticCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = OshindongaPhoneticForm
+    model = OshindongaPhonetic
+    extra_context = {'operation': 'Gwedha mo omawi gOshindonga'}
+    success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
+    # Add these to context: 'newly_added_phonetics': oshindonga_words, 'untranslated_words': get_untranslated_words
+
+
 class OshindongaWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = OshindongaWordForm
     model = OshindongaWord
@@ -173,7 +181,7 @@ class OshindongaIdiomCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
     extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe',
-                     'newly_added_idioms': oshindonga_idioms, 'random_idioms':OshindongaIdiom.objects.order_by('?')[:10]}
+                     'newly_added_idioms': oshindonga_idioms, 'random_idioms': OshindongaIdiom.objects.order_by('?')[:10]}
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
 
@@ -187,6 +195,13 @@ class EnglishWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
                      'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
 
+class OshindongaPhoneticUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    form_class = OshindongaPhoneticForm
+    model = OshindongaPhonetic
+    extra_context = {
+        'operation': 'Pukulula ewi lyoshitya shOshindonga li li mo nale'}
+    success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya lundululwa nawa. Tangi ku sho wa gandja!"
+    #Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
 
 class OshindongaWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = OshindongaWordForm
@@ -246,6 +261,20 @@ class EnglishWordListView(generic.ListView):
         return context
 
 
+class OshindongaPhoneticListView(generic.ListView):
+    paginate_by = 50
+    model = OshindongaPhonetic
+    template_name = list_view
+
+    def get_queryset(self):
+        return OshindongaPhonetic.objects.all().order_by('oshindonga_word')
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaPhoneticListView,
+                        self).get_context_data(**kwargs)
+        context['heading'] = 'List of Oshindonga phonetics in the dictionary'
+        return context
+
 class OshindongaWordListView(generic.ListView):
     paginate_by = 50
     model = OshindongaWord
@@ -285,6 +314,16 @@ class EnglishWordDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(EnglishWordDetailView, self).get_context_data(**kwargs)
         context['heading'] = 'English word detail view'
+        return context
+
+class OshindongaPhoneticDetailView(generic.DetailView):
+    model = OshindongaPhonetic
+    template_name = detail_view
+
+    def get_context_data(self, **kwargs):
+        context = super(OshindongaPhoneticDetailView,
+                        self).get_context_data(**kwargs)
+        context['heading'] = 'Oshindonga phonetic detail view'
         return context
 
 

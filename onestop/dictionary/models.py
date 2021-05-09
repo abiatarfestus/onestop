@@ -17,6 +17,9 @@ def plural_default():
 def tense_default():
     return {'present simple': '', 'present participle': '', 'past simple': '', 'past participle': ''}
 
+def get_phonetics_default_id():
+    return 1
+
 
 class AuthAndTimeTracker(models.Model):
     '''
@@ -70,11 +73,11 @@ class OshindongaPhonetic(AuthAndTimeTracker):
     '''
 
     #objects = models.Manager()
-    oshindonga_word = models.CharField(max_length=50)
+    oshindonga_word = models.CharField(max_length=50, null=False, blank=False)
     pronunciation = models.FileField(
-        upload_to='pronunciations')  # Takes pronunciation audio
+        upload_to='pronunciations', null=True, blank=True)  # Takes pronunciation audio
     # Takes phonetic transcription
-    phonetics = models.CharField(max_length=100, blank=True, null=True)
+    phonetics = models.CharField(max_length=255, blank=True, null=True, verbose_name='Phonetic trascription')
 
     class Meta:
         constraints = [models.UniqueConstraint(
@@ -112,7 +115,7 @@ class OshindongaWord(AuthAndTimeTracker):
         choices=WORD_CASE, default=NORMAL, help_text='Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.'
     )
     word_phonetics = models.ForeignKey(
-        OshindongaPhonetic, null=True, blank=True, on_delete=models.SET_NULL)
+        OshindongaPhonetic, null=True, blank=True, on_delete=models.SET_NULL, default=get_phonetics_default_id)
 
     class Meta:
         constraints = [models.UniqueConstraint(

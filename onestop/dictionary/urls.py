@@ -10,6 +10,8 @@ urlpatterns = [
     #Create Views
     path('english/create/',
          views.EnglishWordCreate.as_view(), name='english-create'),
+     path('oshindonga-phonetic/create/',
+         views.OshindongaPhoneticCreate.as_view(), name='oshindonga-phonetic-create'),
     path('oshindonga/create/',
          views.OshindongaWordCreate.as_view(), name='oshindonga-create'),
     path('definition/create/',
@@ -21,6 +23,8 @@ urlpatterns = [
          #Update Views
     path('english/<int:pk>/update/',
          views.EnglishWordUpdate.as_view(), name='english-update'),
+     path('oshindonga-phonetic/<int:pk>/update/',
+         views.OshindongaPhoneticUpdate.as_view(), name='oshindonga-phonetic-update'),
     path('oshindonga/<int:pk>/update/',
          views.OshindongaWordUpdate.as_view(), name='oshindonga-update'),
     path('definition/<int:pk>/update/',
@@ -32,6 +36,8 @@ urlpatterns = [
          #List Views
      path('english-words/',
          views.EnglishWordListView.as_view(), name='english-words'),
+     path('oshindonga-phonetics/',
+         views.OshindongaPhoneticListView.as_view(), name='oshindonga-phonetics'),
     path('oshindonga-words/',
          views.OshindongaWordListView.as_view(), name='oshindonga-words'),
     path('oshindonga-idioms/', views.OshindongaIdiomListView.as_view(),
@@ -39,6 +45,8 @@ urlpatterns = [
          #Detail Views
      path('english-word/<int:pk>',
          views.EnglishWordDetailView.as_view(), name='english-word-detail'),
+     path('oshindonga-phonetic/<int:pk>',
+         views.OshindongaPhoneticDetailView.as_view(), name='oshindonga-phonetic-detail'),
     path('oshindonga-word/<int:pk>',
          views.OshindongaWordDetailView.as_view(), name='oshindonga-word-detail'),
      path('word-definition/<int:pk>', views.WordDefinitionDetailView.as_view(),

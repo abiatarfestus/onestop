@@ -15,6 +15,9 @@
           <a class="nav-link" href="{% url 'dictionary:oshindonga-create' %}">Add Oshindonga Words</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'dictionary:oshindonga-phonetic-create' %}">Add Oshindonga Phonetics</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'dictionary:definition-create' %}">Add Definitions</a>
         </li>
         <li class="nav-item">
@@ -118,7 +121,8 @@
     <div class="row mb-2 row-word-tense-plural">
       <div class="col col-word">
         <h6 class='definition-object'>{{forloop.counter}}. {{ definition_object }}</h6>
-      </div> <!--forloo.counter is used for numbering-->
+      </div>
+      <!--forloo.counter is used for numbering-->
       <div class="col col-tense-plural">
         {% if definition_object.part_of_speech == 'Noun [C]' %}
         <ul class="plural-list">

@@ -17,6 +17,17 @@
 <p><a class="btn btn-outline-primary" href="{% url 'dictionary:english-create' %}">Add another word</a></p>
 
 
+<!-- Oshindonga phonetic DeatilView -->
+{% elif oshindongaphonetic %}
+
+<p><strong> Oshindonga word: </strong>{{ oshindongaphonetic.oshindonga_word }} (ID: {{ oshindongaphonetic.id }}) </p>
+<p><strong> Phonetic transcription: </strong>{{ oshindongaphonetic.phonetics | safe }} </p>
+<p><strong> Pronunctionation: </strong>{{ oshindongaphonetic.pronunciation }}</p>
+<p><strong>Date added: </strong>{{ oshindongaphonetic.time_added }} </p>
+<br>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-phonetic-create' %}">Gwedha mo ewi</a></p>
+
+
 <!-- Oshindonga word DeatilView -->
 {% elif oshindongaword %}
 
