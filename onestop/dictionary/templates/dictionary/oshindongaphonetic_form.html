@@ -8,10 +8,11 @@
 <br>
 {% endblock %}
 {% block left %}
-<h6>Newly added idioms:</h6>
-<ul class='newly-added-idioms'>
-  {% for idiom in newly_added_idioms %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
+<h6>Newly added phonetics:</h6>
+<ul class='new-phonetics'>
+  {% for phonetic in new_phonetics %}
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
+      href='{{ phonetic.get_absolute_url }}'>{{ phonetic.oshindonga_word }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -37,11 +38,12 @@
 </form>
 {% endblock %}
 {% block right %}
-<h6>Random idiom:</h6>
-{% if random_idioms %}
-{% for idiom in random_idioms %}
-<ul class='newly-added-idioms'>
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
+<h6>Random unphonetised:</h6>
+{% if random_unphonetised %}
+{% for word in random_unphonetised %}
+<ul class='rundom-unphonetised'>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
+      href='{{ word.get_absolute_url }}'>{{ word.word }}</a></li>
   {% endfor %}
   {% endif %}
 </ul>

@@ -1,7 +1,7 @@
 # from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm
-import sys
-from django.contrib.auth.models import User
-from dictionary.models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
+# import sys
+# from django.contrib.auth.models import User
+# from dictionary.models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
 
 # TEST SEARCH FUNCTIONS
 # context = {'form': '', 'searched_word': '',
@@ -423,20 +423,45 @@ from dictionary.models import EnglishWord, OshindongaWord, WordDefinition, Defin
 #     "beautify.ignore": "",
 #     "beautify.config": ""
 # }
-from datetime import datetime
+# from datetime import datetime
 
-def add_new():
-    print("STARTED:", datetime.now())
-    count = 0
-    with open("english.txt", 'r', encoding='utf-8') as f:
-        for line in f:
-            try:
-                word = line.strip()
-                new_word = EnglishWord(word=word)
-                new_word.save()
-                count += 1
-            except:
-                print(sys.exc_info()[0], "occurred.")
-    print(count, "New words were added)")
-    print("ENDED:", datetime.now())
-    return
+# def add_new():
+#     print("STARTED:", datetime.now())
+#     count = 0
+#     with open("english.txt", 'r', encoding='utf-8') as f:
+#         for line in f:
+#             try:
+#                 word = line.strip()
+#                 new_word = EnglishWord(word=word)
+#                 new_word.save()
+#                 count += 1
+#             except:
+#                 print(sys.exc_info()[0], "occurred.")
+#     print(count, "New words were added)")
+#     print("ENDED:", datetime.now())
+#     return
+
+class MyLinkedList():
+    def __init__(self, value):
+        self.head = {'value': value, 'next': None}
+        self.tail = self.head
+        self.length = 1
+        self.nodes = [self.head, self.tail]
+
+    def __str__(self):
+        return str(self.head['value']) + "--->" + str(self.head['next'['value']])
+
+    def append(self, value):
+        current_node = {'value': value, 'next': None}
+        if self.length == 1:
+            self.head['next'] = current_node
+            self.tail = current_node
+            self.length += 1
+        else:
+            self.tail['next'] = current_node
+            self.tail = current_node
+            self.length += 1
+        return self
+
+# l1 = MyLinkedList(10)
+# print(l1.apend(5))

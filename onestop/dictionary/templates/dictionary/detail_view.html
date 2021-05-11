@@ -31,7 +31,8 @@
 <!-- Oshindonga word DeatilView -->
 {% elif oshindongaword %}
 
-<p><strong> Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
+<p><strong>Word pair: </strong>{{ oshindongaword }} (ID: {{ oshindongaword.id }}) </p>
+<p><strong>Phonetic transcription: </strong>{{ oshindongaword.word_phonetics }} </p>
 <p><strong>Date added: </strong>{{ oshindongaword.time_added }} </p>
 <br>
 <p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-create' %}">Gwedha mo oshitya</a></p>
@@ -70,7 +71,8 @@
 <p><strong>Meaning: </strong>{{ oshindongaidiom.meaning }} </p>
 <p><strong>Date added: </strong>{{ oshindongaidiom.time_added }} </p>
 <br>
-<p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-idiom-create' %}">Gwedha mo oshipopiwamayele</a></p>
+<p><a class="btn btn-outline-primary" href="{% url 'dictionary:oshindonga-idiom-create' %}">Gwedha mo
+    oshipopiwamayele</a></p>
 
 {% else %}
 

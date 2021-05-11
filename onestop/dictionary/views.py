@@ -16,11 +16,16 @@ import random
 
 english_words = EnglishWord.objects.order_by('-time_added')[:10]
 oshindonga_words = OshindongaWord.objects.order_by('-time_added')[:10]
+new_phonetics = OshindongaPhonetic.objects.order_by('-time_added')[:10]
+random_unphonetised = OshindongaWord.objects.filter(
+    word_phonetics_id=1).order_by('?')[:10]
 defined_words = WordDefinition.objects.order_by('-time_added')[:10]
 exemplified_definitions = DefinitionExample.objects.order_by(
     '-time_added')[:10]
 oshindonga_idioms = OshindongaIdiom.objects.order_by(
     '-time_added')[:10]
+
+# Consider using
 
 
 def get_untranslated_words():
@@ -147,7 +152,8 @@ class EnglishWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class OshindongaPhoneticCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
-    extra_context = {'operation': 'Gwedha mo omawi gOshindonga'}
+    extra_context = {'operation': 'Gwedha mo omawi gOshindonga',
+                     'new_phonetics': new_phonetics, 'random_unphonetised': random_unphonetised}
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
     # Add these to context: 'newly_added_phonetics': oshindonga_words, 'untranslated_words': get_untranslated_words
 
@@ -195,13 +201,15 @@ class EnglishWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
                      'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
 
+
 class OshindongaPhoneticUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
     extra_context = {
-        'operation': 'Pukulula ewi lyoshitya shOshindonga li li mo nale'}
+        'operation': 'Pukulula ewi lyoshitya shOshindonga li li mo nale', 'new_phonetics': new_phonetics, 'random_unphonetised': random_unphonetised}
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya lundululwa nawa. Tangi ku sho wa gandja!"
-    #Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
+    # Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
+
 
 class OshindongaWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = OshindongaWordForm
@@ -275,6 +283,7 @@ class OshindongaPhoneticListView(generic.ListView):
         context['heading'] = 'List of Oshindonga phonetics in the dictionary'
         return context
 
+
 class OshindongaWordListView(generic.ListView):
     paginate_by = 50
     model = OshindongaWord
@@ -315,6 +324,7 @@ class EnglishWordDetailView(generic.DetailView):
         context = super(EnglishWordDetailView, self).get_context_data(**kwargs)
         context['heading'] = 'English word detail view'
         return context
+
 
 class OshindongaPhoneticDetailView(generic.DetailView):
     model = OshindongaPhonetic

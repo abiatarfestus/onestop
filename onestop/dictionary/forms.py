@@ -44,8 +44,8 @@ class OshindongaPhoneticForm(ModelForm):
         model = OshindongaPhonetic
         fields = '__all__'
         widgets = {'oshindonga_word': forms.TextInput(
-            attrs={'class': 'form-control form-control-lg mb-2', 'placeholder': 'Shanga oshitya shOshindonga'}), 'phonetics': SummernoteWidget(
-            attrs={'class': 'form-select form-select-lg mb-2', 'summernote': {'width': '100%', 'height': '150px'}}), 'pronunciation': forms.FileInput(
+            attrs={'class': 'form-control form-control-lg mb-2', 'placeholder': 'Shanga oshitya shOshindonga'}), 'phonetics': forms.TextInput(
+            attrs={'class': 'form-select form-select-lg mb-2'}), 'pronunciation': forms.FileInput(
             attrs={'class': 'form-select form-select-lg mb-2'})}
 
     def clean(self):

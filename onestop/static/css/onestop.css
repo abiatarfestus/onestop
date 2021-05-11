@@ -131,8 +131,11 @@ p {
 .newly-added-idioms,
 .newly-defined-words,
 .unexemplified,
+/* Create one class for all sidebar list items */
 .undefined-words,
-.view-lists {
+.view-lists,
+.rundom-unphonetised,
+.new-phonetics {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
