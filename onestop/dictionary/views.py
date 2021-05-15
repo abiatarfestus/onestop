@@ -2,6 +2,8 @@ from django.contrib.auth import login
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
+from django.conf import settings
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -11,6 +13,7 @@ from .classes import SearchDefinition, HistoryRecord
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
 from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm, OshindongaPhoneticForm
 from django.views import generic
+from json import dumps
 import random
 
 
@@ -73,7 +76,7 @@ def get_unexemplified():
 def register(request):
     if request.method == "GET":
         return render(
-            request, "dictionary/register.html",
+            request, "registration/register.html",
             {"form": ContributorCreationForm}
         )
     elif request.method == "POST":
@@ -81,8 +84,13 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            subject = 'Welcome to the community'
+            message = f'Hi, {user.username}, \nThank you for registering as a contributor. \nWe cannot wait to see your contribution.'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.email, 'abiatarfestus@outlook.com']
+            send_mail(subject, message, email_from, recipient_list)
             return redirect(reverse("index"))
-
+    return render(request, "registration/register.html",{"form": ContributorCreationForm})
 
 def index(request):
     context = {}
@@ -174,12 +182,15 @@ class WordDefinitionCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                      'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
 
+# Converting definitions queryset into a dictionary of {id:(engDef,oshDef)} for passing to the context.
+q = WordDefinition.objects.all()
+queryset_dict = dumps({q[i].id:(q[i].english_definition, q[i].oshindonga_definition) for i in range(len(q))})
 
 class DefinitionExampleCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = DefinitionExampleForm
     model = DefinitionExample
     extra_context = {'operation': 'Add a new definition example',
-                     'newly_added_examples': exemplified_definitions, 'unexemplified_definitions': get_unexemplified}
+                     'newly_added_examples': exemplified_definitions, 'unexemplified_definitions': get_unexemplified, 'definitions_dict':queryset_dict}
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
 
@@ -233,7 +244,7 @@ class DefinitionExampleUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
     form_class = DefinitionExampleForm
     model = DefinitionExample
     extra_context = {'operation': 'Update an existing definition example',
-                     'newly_added_examples': exemplified_definitions}
+                     'newly_added_examples': exemplified_definitions, 'definitions_dict':queryset_dict}
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
 

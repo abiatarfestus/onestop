@@ -6,7 +6,6 @@ urlpatterns = [
 #     path('', views.index, name="index"),
     path('search/', views.search_word, name='search'),
     path('search/<int:pk>', views.search_suggested_word, name='search-suggested-word'),
-    path('register/', views.register, name='register'),
     #Create Views
     path('english/create/',
          views.EnglishWordCreate.as_view(), name='english-create'),

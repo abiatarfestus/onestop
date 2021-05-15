@@ -110,7 +110,7 @@ class WordDefinitionForm(ModelForm):
 class DefinitionExampleForm(ModelForm):
     definition = forms.ModelChoiceField(
         queryset=WordDefinition.objects.all().order_by('word_pair'), empty_label='Select a definition to exemplify',
-        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2'}))
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2', 'onchange': 'displayDefinition()'}))
 
     class Meta:
         model = DefinitionExample

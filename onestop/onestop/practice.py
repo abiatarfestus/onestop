@@ -441,27 +441,41 @@
 #     print("ENDED:", datetime.now())
 #     return
 
-class MyLinkedList():
-    def __init__(self, value):
-        self.head = {'value': value, 'next': None}
-        self.tail = self.head
-        self.length = 1
-        self.nodes = [self.head, self.tail]
+# class MyLinkedList():
+#     def __init__(self, value):
+#         self.head = {'value': value, 'next': None}
+#         self.tail = self.head
+#         self.length = 1
+#         self.nodes = [self.head, self.tail]
 
-    def __str__(self):
-        return str(self.head['value']) + "--->" + str(self.head['next'['value']])
+#     def __str__(self):
+#         return str(self.head['value']) + "--->" + str(self.head['next'['value']])
 
-    def append(self, value):
-        current_node = {'value': value, 'next': None}
-        if self.length == 1:
-            self.head['next'] = current_node
-            self.tail = current_node
-            self.length += 1
-        else:
-            self.tail['next'] = current_node
-            self.tail = current_node
-            self.length += 1
-        return self
+#     def append(self, value):
+#         current_node = {'value': value, 'next': None}
+#         if self.length == 1:
+#             self.head['next'] = current_node
+#             self.tail = current_node
+#             self.length += 1
+#         else:
+#             self.tail['next'] = current_node
+#             self.tail = current_node
+#             self.length += 1
+#         return self
 
 # l1 = MyLinkedList(10)
 # print(l1.apend(5))
+# from dictionary.models import WordDefinition
+# definition_queryset = WordDefinition.objects.all()
+# queryset_dict = {q[i].id:(q[i].english_definition, q[i].oshindonga_definition) for i in range(len(q))}
+# print(q)
+# print(len(q))
+# print(q_dict)
+from django.core.mail import send_mail
+from django.conf import settings
+
+subject = 'Welcome to the community'
+message = f'Hi, Bibz, \nThank you for registering as a contributor. \nWe cannot wait to see your contribution.'
+email_from = settings.EMAIL_HOST_USER
+recipient_list = ['admin@festusabiatar.com', 'abiatarfestus@outlook.com']
+send_mail(subject, message, email_from, recipient_list)

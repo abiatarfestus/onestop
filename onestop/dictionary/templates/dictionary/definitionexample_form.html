@@ -1,4 +1,5 @@
 {% extends "dictionary/search.html" %}
+{% load static %}
 {% block welcome %}
 <br>
 <h3>Contribute to the dictionary by adding a new word usage example or updating an existing one.</h3>
@@ -11,7 +12,8 @@
 <h6>Newly added examples:</h6>
 <ul class='newly-added-examples'>
   {% for word in newly_added_examples %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word.definition }}</a></li>
+  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
+      href='{{ word.get_absolute_url }}'>{{ word.definition }}</a></li>
   {% endfor %}
 </ul>
 {% endblock %}
@@ -33,9 +35,16 @@
     {% if field.help_text %}
     <p class="help">{{ field.help_text|safe }}</p>
     {% endif %}
+    <!-- Display definition of selected entry -->
+    {% if field.name == 'definition' %}
+    <div class="alert alert-info" role="alert">
+      <p class="help" id='english_definition'></p>
+      <p class="help" id='oshindonga_definition'></p>
+    </div>
+    {% endif %}
   </div>
   {% endfor %}
-  <input class="btn btn-outline-primary" type="submit" value="Submit">
+  <input class="btn btn-outline-primary mb-2" type="submit" value="Submit">
 </form>
 {% endblock %}
 
@@ -43,7 +52,18 @@
 <h6>Unexemplified definitions:</h6>
 <ul class='unexemplified'>
   {% for definition in unexemplified_definitions %}
-  <li class='u-exemplified'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ definition.get_absolute_url }}'>{{ definition }}</a></li>
+  <li class='u-exemplified'><a class="btn btn-outline-primary btn-sm mb-1"
+      href='{{ definition.get_absolute_url }}'>{{ definition }}</a></li>
   {% endfor %}
 </ul>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var definitionsDict = JSON.parse("{{definitions_dict|escapejs}}");
+</script>
+<script src="{% static 'js/definition_displayer.js' %}"></script>
+<script>
+  window.onload = displayDefinition; //Calls the displayDefinition when the page re/loads
+</script>
 {% endblock %}

@@ -24,6 +24,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('register/', views.register, name='register'),
     path('under-construction/', views.under_construction, name='under-construction'),
     path('help/',
          views.TemplateView.as_view(template_name="onestop/help.html"), name='help'),
