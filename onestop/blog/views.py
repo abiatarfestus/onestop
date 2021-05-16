@@ -59,7 +59,11 @@ class PostCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = PostForm
     model = Post
     extra_context = {'operation': 'Add a new post'}
-    success_message = "Your post has been created and awaits publication"
+    success_message = "Your post has been created and awaits publication."
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class CategoryCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -67,3 +71,7 @@ class CategoryCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
     extra_context = {'operation': 'Add a new category'}
     success_message = "The category '%(name)s' has been added to the post categories."
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)

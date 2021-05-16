@@ -21,7 +21,7 @@
         {% if post.image %}
         <img src="{{ post.image.url }}" class="card-img-top featured-image" alt="{{ post.title }}">
         {% endif %}
-        <p class="card-text">{{post.content | safe | slice:":200" }}</p>
+        <p class="card-text">{{post.content | safe | truncatewords:50 }}</p>
         <!-- use | safe filter in template to prevent html from escaping-->
         <a href="{% url 'blog:post-detail' post.slug  %}" class="btn btn-primary">Read More &rarr;</a>
       </div>

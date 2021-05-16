@@ -75,9 +75,9 @@ class OshindongaPhonetic(AuthAndTimeTracker):
     #objects = models.Manager()
     oshindonga_word = models.CharField(max_length=50, null=False, blank=False)
     pronunciation = models.FileField(
-        upload_to='pronunciations', null=True, blank=True)  # Takes pronunciation audio
+        upload_to='pronunciations', blank=True)  # Takes pronunciation audio
     # Takes phonetic transcription
-    phonetics = models.CharField(max_length=255, blank=True, null=True, verbose_name='Phonetic trascription')
+    phonetics = models.CharField(max_length=255, blank=True, verbose_name='Phonetic trascription')
 
     class Meta:
         constraints = [models.UniqueConstraint(

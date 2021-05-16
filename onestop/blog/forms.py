@@ -7,11 +7,10 @@ from django_summernote.fields import SummernoteTextFormField, SummernoteTextFiel
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'category', 'author', 'image', 'content')
+        fields = ('title', 'category', 'image', 'content')
         prepopulated_fields = {'slug': ('title',)}
         widgets = {'title': forms.TextInput(
             attrs={'class': 'form-control form-control-lg mb-2', }), 'category': forms.SelectMultiple(
-            attrs={'class': 'form-control form-control-lg mb-2'}), 'author': forms.Select(
             attrs={'class': 'form-control form-control-lg mb-2'}), 'image': forms.FileInput(
             attrs={'class': 'form-control form-control-lg mb-2'}), 'content': SummernoteWidget(
             attrs={'class': 'form-control form-control-lg mb-2', 'summernote': {'width': '100%'}})}

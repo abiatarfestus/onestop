@@ -13,6 +13,7 @@ STATUS = (
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_categories')
 
     class Meta:
         ordering = ['name']
@@ -32,9 +33,8 @@ class Post(models.Model):
     category = models.ManyToManyField(
         Category, related_name='posts', default='Uncategorised')
     image = models.ImageField(
-        verbose_name='featured image', upload_to='featured_image/%Y/%m/%d/')
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='blog_posts')
+        verbose_name='featured image', upload_to='featured_image/%Y/%m/', blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
