@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='historicaloshindongaword',
             name='word_phonetics',
-            field=models.ForeignKey(blank=True, db_constraint=False, default=dictionary.models.get_phonetics_default_id, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='dictionary.oshindongaphonetic'),
+            field=models.ForeignKey(blank=True, db_constraint=False, default=dictionary.models.get_phonetics_default, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='+', to='dictionary.oshindongaphonetic'),
         ),
         migrations.AlterField(
             model_name='oshindongaphonetic',
@@ -40,6 +40,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='oshindongaword',
             name='word_phonetics',
-            field=models.ForeignKey(blank=True, default=dictionary.models.get_phonetics_default_id, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dictionary.oshindongaphonetic'),
+            field=models.ForeignKey(blank=True, default=dictionary.models.get_phonetics_default, null=True, on_delete=django.db.models.deletion.SET_NULL, to='dictionary.oshindongaphonetic'),
         ),
     ]

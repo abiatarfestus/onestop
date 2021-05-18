@@ -17,8 +17,9 @@ def plural_default():
 def tense_default():
     return {'present simple': '', 'present participle': '', 'past simple': '', 'past participle': ''}
 
-def get_phonetics_default_id():
-    return 1
+
+def get_phonetics_default():
+    return OshindongaPhonetic.objects.get(id=1)
 
 
 class AuthAndTimeTracker(models.Model):
@@ -77,7 +78,8 @@ class OshindongaPhonetic(AuthAndTimeTracker):
     pronunciation = models.FileField(
         upload_to='pronunciations', blank=True)  # Takes pronunciation audio
     # Takes phonetic transcription
-    phonetics = models.CharField(max_length=255, blank=True, verbose_name='Phonetic trascription')
+    phonetics = models.CharField(
+        max_length=255, blank=True, verbose_name='Phonetic trascription')
 
     class Meta:
         constraints = [models.UniqueConstraint(
@@ -115,7 +117,7 @@ class OshindongaWord(AuthAndTimeTracker):
         choices=WORD_CASE, default=NORMAL, help_text='Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.'
     )
     word_phonetics = models.ForeignKey(
-        OshindongaPhonetic, null=True, blank=True, on_delete=models.SET_NULL, default=get_phonetics_default_id)
+        OshindongaPhonetic, null=True, on_delete=models.SET_NULL, default=get_phonetics_default)
 
     class Meta:
         constraints = [models.UniqueConstraint(
@@ -123,6 +125,7 @@ class OshindongaWord(AuthAndTimeTracker):
 
     def __str__(self):
         return "%s | %s" % (self.english_word, self.word)
+# Change str methods to use f'' string formating
 
     def get_absolute_url(self):
         #from django.urls import reverse

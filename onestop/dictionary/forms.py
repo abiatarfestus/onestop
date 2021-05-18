@@ -62,7 +62,7 @@ class OshindongaWordForm(ModelForm):
         widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2'}))
     word_phonetics = forms.ModelChoiceField(
         queryset=OshindongaPhonetic.objects.all().order_by('oshindonga_word'), empty_label='Select Oshindonga word phonetics',
-        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2', 'required': 'False'}))
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-2'}))
 
     class Meta:
         model = OshindongaWord
