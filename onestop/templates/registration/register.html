@@ -19,7 +19,9 @@
                     {% endif %}
                 </div>
                 {% endfor %}
-                <input class="btn btn-outline-primary mb-3" type="submit" value="Register">
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+                <div class="g-recaptcha" data-sitekey="6LdhyRQbAAAAAJ2q5Eh85rGRxTaLuRL24vtmrBiQ"></div>
+                <input class="btn btn-outline-primary mb-3 mt-3" type="submit" value="Register">
             </form>
         </div>
         <a href="{% url 'login' %}">Back to login</a>

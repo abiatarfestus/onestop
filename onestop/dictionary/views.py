@@ -1,17 +1,21 @@
+import json
+import urllib
+from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import login
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+# from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from .classes import SearchDefinition, HistoryRecord
+# from django.urls import reverse_lazy
+from .classes import SearchDefinition
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
-from .forms import SearchWordForm, EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm, OshindongaPhoneticForm
+from .forms import EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, ContributorCreationForm, OshindongaPhoneticForm
 from django.views import generic
 from json import dumps
 import random
@@ -82,14 +86,29 @@ def register(request):
     elif request.method == "POST":
         form = ContributorCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            subject = 'Welcome to the community'
-            message = f'Hi {user.username}, \n\nThank you for registering as a contributor. \nThe site is currently being tested; hence, your feedback at this stage will be of great importance. We cannot wait to see your contribution. \n\nRegards, \nFessy'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [user.email, 'abiatarfestus@outlook.com']
-            send_mail(subject, message, email_from, recipient_list)
-            return redirect(reverse("index"))
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
+            if result['success']:
+                user = form.save()
+                login(request, user)
+                subject = 'Welcome to the community'
+                message = f'Hi {user.username}, \n\nThank you for registering as a contributor. \nThe site is currently being tested; hence, your feedback at this stage will be of great importance. We cannot wait to see your contribution. \n\nRegards, \nFessy'
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [user.email, 'abiatarfestus@outlook.com']
+                send_mail(subject, message, email_from, recipient_list)
+                messages.success(request, 'You have been registered successfully!')
+                return redirect(reverse("index"))
     return render(request, "registration/register.html", {"form": ContributorCreationForm})
 
 

@@ -1,7 +1,7 @@
 from django import forms
-from django.forms import Form, ModelForm
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
+# from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
 
 
