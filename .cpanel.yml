@@ -3,6 +3,7 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/oshizdab/onestop/
     - /bin/cp test_deploy.txt $DEPLOYPATH
+    - /bin/cp test_deploy2.txt $DEPLOYPATH
     # - /bin/cp <file_name> $DEPLOYPATH                 #Copy specific file to destination from root
     # - /bin/cp /<sub_folder>/<file_name> $DEPLOYPATH   #copy specific file from source sub folder
     # - /bin cp * $DEPLOYPATH                           #copy all from root 
