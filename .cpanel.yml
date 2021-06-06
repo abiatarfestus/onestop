@@ -12,7 +12,7 @@ deployment:
     - /bin/cp onestop/onestop/urls.py $ONESTOPPATH
     # Blog
     - /bin/cp -R onestop/blog/tests/ $BLOGPATH
-    - /bin/cp -R onestop/blog/static/ $BLOGPATH
+    # - /bin/cp -R onestop/blog/static/ $BLOGPATH
     - /bin/cp -R onestop/blog/templates/ $BLOGPATH
     - /bin/cp onestop/blog/admin.py forms.py models.py urls.py views.py $BLOGPATH
     # - /bin/cp onestop/blog/forms.py $BLOGPATH/forms.py
