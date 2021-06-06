@@ -3,7 +3,6 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/oshizdab/onestop/
     - /bin/cp onestop/requirements.txt $DEPLOYPATH
-    - /bin/cp onestop/manage.py $DEPLOYPATH
     - /bin/cp -R onestop/static/ $DEPLOYPATH
     - /bin/cp -R onestop/templates/ $DEPLOYPATH
     - /bin/cp onestop/onestop/practice.py $DEPLOYPATH/onestop/practice.py
@@ -27,6 +26,7 @@ deployment:
     - /bin/cp onestop/dictionary/models.py $DEPLOYPATH/dictionary/models.py
     - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
     - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
+    - /bin/cp onestop/manage.py $DEPLOYPATH
     # - /bin/cp test_deploy.txt $DEPLOYPATH/dictionary/
     # - /bin/cp onestop/dictionary/test_deploy2.txt $DEPLOYPATH/dictionary/
     # - /bin/cp <file_name> $DEPLOYPATH                 #Copy specific file to destination from root
