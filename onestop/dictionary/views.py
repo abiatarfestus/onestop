@@ -94,7 +94,6 @@ def register(request):
             response = urllib.request.urlopen(req)
             result = json.loads(response.read().decode())
             ''' End reCAPTCHA validation '''
-
             if result['success']:
                 user = form.save()
                 login(request, user)
@@ -109,7 +108,7 @@ def register(request):
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
     else:
         form = ContributorCreationForm()
-    return render(request, "registration/register.html", {"form": ContributorCreationForm})
+    return render(request, "registration/register.html", {"form": form})
 
 
 def index(request):

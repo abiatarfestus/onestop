@@ -6,7 +6,6 @@
         <div class="form-group">
             <form method="post">
                 {% csrf_token %}
-                {{form.errors}}
                 {% for field in form %}
                 <div class="fieldWrapper">
                     {% if field.errors %}
