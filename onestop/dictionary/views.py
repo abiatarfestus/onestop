@@ -79,12 +79,7 @@ def get_unexemplified():
 
 
 def register(request):
-    if request.method == "GET":
-        return render(
-            request, "registration/register.html",
-            {"form": ContributorCreationForm}
-        )
-    elif request.method == "POST":
+    if request.method == "POST":
         form = ContributorCreationForm(request.POST)
         if form.is_valid():
             ''' Begin reCAPTCHA validation '''
@@ -112,6 +107,8 @@ def register(request):
                 return redirect(reverse("index"))
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+    else:
+        form = ContributorCreationForm()
     return render(request, "registration/register.html", {"form": ContributorCreationForm})
 
 

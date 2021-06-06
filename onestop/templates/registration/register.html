@@ -6,6 +6,7 @@
         <div class="form-group">
             <form method="post">
                 {% csrf_token %}
+                {{form.errors}}
                 {% for field in form %}
                 <div class="fieldWrapper">
                     {% if field.errors %}
@@ -13,7 +14,7 @@
                         {{ field.errors }}
                     </div>
                     {% endif %}
-                    <!-- {{ field.label_tag }} --> {{ field }}
+                    {{ field }}
                     {% if field.help_text %}
                     <p class="help">{{ field.help_text|safe }}</p>
                     {% endif %}
