@@ -10,7 +10,7 @@ deployment:
     - /bin/cp onestop/onestop/urls.py $DEPLOYPATH/onestop/
     # Blog
     - /bin/cp onestop/blog/static/* $DEPLOYPATH/blog/static/
-    - /bin/cp -R onestop/blog/templates/* $DEPLOYPATH
+    - /bin/cp -R onestop/blog/templates/* $DEPLOYPATH/blog/templates/
     - /bin/cp onestop/blog/tests/* $DEPLOYPATH/blog/tests/
     - /bin/cp onestop/blog/admin.py $DEPLOYPATH/blog/admin.py
     - /bin/cp onestop/blog/forms.py $DEPLOYPATH/blog/forms.py
