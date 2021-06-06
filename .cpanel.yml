@@ -2,21 +2,21 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/oshizdab/onestop/
-    - /bin/cp onestop/requirements.txt $DEPLOYPATH
-    - /bin/cp onestop/manage.py $DEPLOYPATH
-    - /bin/cp onestop/static/ $DEPLOYPATH/static/
-    - /bin/cp onestop/templates/* $DEPLOYPATH/templates/
-    - /bin/cp onestop/onestop/practice.py $DEPLOYPATH/onestop/
-    - /bin/cp onestop/onestop/urls.py $DEPLOYPATH/onestop/
+    # - /bin/cp onestop/requirements.txt $DEPLOYPATH
+    # - /bin/cp onestop/manage.py $DEPLOYPATH
+    # - /bin/cp onestop/static/ $DEPLOYPATH/static/
+    # - /bin/cp onestop/templates/* $DEPLOYPATH/templates/
+    # - /bin/cp onestop/onestop/practice.py $DEPLOYPATH/onestop/
+    # - /bin/cp onestop/onestop/urls.py $DEPLOYPATH/onestop/
     # Blog
-    - /bin/cp onestop/blog/static/* $DEPLOYPATH/blog/static/
+    # - /bin/cp onestop/blog/static/* $DEPLOYPATH/blog/static/
     - /bin/cp -R onestop/blog/templates/ $DEPLOYPATH/blog/
-    - /bin/cp onestop/blog/tests/* $DEPLOYPATH/blog/tests/
-    - /bin/cp onestop/blog/admin.py $DEPLOYPATH/blog/admin.py
-    - /bin/cp onestop/blog/forms.py $DEPLOYPATH/blog/forms.py
-    - /bin/cp onestop/blog/models.py $DEPLOYPATH/blog/models.py
-    - /bin/cp onestop/blog/urls.py $DEPLOYPATH/blog/urls.py
-    - /bin/cp onestop/blog/views.py $DEPLOYPATH/blog/views.py
+    # - /bin/cp onestop/blog/tests/* $DEPLOYPATH/blog/tests/
+    # - /bin/cp onestop/blog/admin.py $DEPLOYPATH/blog/admin.py
+    # - /bin/cp onestop/blog/forms.py $DEPLOYPATH/blog/forms.py
+    # - /bin/cp onestop/blog/models.py $DEPLOYPATH/blog/models.py
+    # - /bin/cp onestop/blog/urls.py $DEPLOYPATH/blog/urls.py
+    # - /bin/cp onestop/blog/views.py $DEPLOYPATH/blog/views.py
     # Dictionary
     # - /bin/cp onestop/dictionary/static/* $DEPLOYPATH/dictionary/static/
     # - /bin/cp onestop/dictionary/templates/* $DEPLOYPATH/dictionary/templates/
