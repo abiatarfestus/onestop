@@ -20,7 +20,7 @@ deployment:
     - /bin/cp onestop/blog/urls.py $BLOGPATH
     - /bin/cp onestop/blog/views.py $BLOGPATH
     # Dictionary
-    - /bin/cp -R onestop/dictionary/static/ $DICTIONARYPATH
+    # - /bin/cp -R onestop/dictionary/static/ $DICTIONARYPATH
     - /bin/cp -R onestop/dictionary/templates/ $DICTIONARYPATH
     - /bin/cp -R onestop/dictionary/tests/ $DICTIONARYPATH
     - /bin/cp onestop/dictionary/*.py $DICTIONARYPATH
@@ -40,7 +40,7 @@ deployment:
     # - /bin/cp onestop/dictionary/models.py $DEPLOYPATH/dictionary/models.py
     # - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
     # - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
-    # - /bin/cp onestop/manage.py $DEPLOYPATH
+    - /bin/cp onestop/manage.py $DEPLOYPATH
     # - /bin/cp test_deploy.txt $DEPLOYPATH/dictionary/
     # - /bin/cp onestop/dictionary/test_deploy2.txt $DEPLOYPATH/dictionary/
     # - /bin/cp <file_name> $DEPLOYPATH                 #Copy specific file to destination from root
