@@ -1,5 +1,6 @@
 import json
-import urllib
+import urllib.request
+import urllib.parse
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login

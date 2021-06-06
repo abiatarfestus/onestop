@@ -62,7 +62,7 @@ def post_detail(request, slug):
                 new_comment.post = post
                 # Save the comment to the database
                 new_comment.save()
-                messages.success(request, 'New comment added with success!')
+                # messages.success(request, 'New comment added with success!')
             else:
                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
     else:
