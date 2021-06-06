@@ -6,22 +6,22 @@ deployment:
     - export BLOGPATH=/home/oshizdab/onestop/blog/
     - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary/
     # Non-app files
-    - /bin/cp onestop/manage.py $DEPLOYPATH
-    - /bin/cp -v onestop/requirements.txt $DEPLOYPATH
-    - /bin/cp -R onestop/static/ $DEPLOYPATH
-    - /bin/cp -R onestop/templates/ $DEPLOYPATH
-    - /bin/cp onestop/onestop/practice.py $ONESTOPPATH
-    - /bin/cp onestop/onestop/urls.py $ONESTOPPATH
+    - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
+    - /bin/cp -Ru onestop/static/ $DEPLOYPATH
+    - /bin/cp -Ru onestop/templates/ $DEPLOYPATH
+    - /bin/cp -u onestop/onestop/practice.py $ONESTOPPATH
+    - /bin/cp -u onestop/onestop/urls.py $ONESTOPPATH
     # Blog
-    - /bin/cp -R onestop/blog/tests/ $BLOGPATH
-    # - /bin/cp -R onestop/blog/static/ $BLOGPATH
-    - /bin/cp -R onestop/blog/templates/ $BLOGPATH
-    - /bin/cp onestop/blog/*.py $BLOGPATH
+    # - /bin/cp -Ru onestop/blog/static/ $BLOGPATH
+    - /bin/cp -Ru onestop/blog/tests/ $BLOGPATH
+    - /bin/cp -Ru onestop/blog/templates/ $BLOGPATH
+    - /bin/cp -u onestop/blog/*.py $BLOGPATH
     # Dictionary
-    # - /bin/cp -R onestop/dictionary/static/ $DICTIONARYPATH
-    - /bin/cp -R onestop/dictionary/templates/ $DICTIONARYPATH
-    - /bin/cp -R onestop/dictionary/tests/ $DICTIONARYPATH
-    - /bin/cp onestop/dictionary/*.py $DICTIONARYPATH
-    - /bin/cp onestop/manage.py $DEPLOYPATH
-    
+    # - /bin/cp -Ru onestop/dictionary/static/ $DICTIONARYPATH
+    - /bin/cp -Ru onestop/dictionary/templates/ $DICTIONARYPATH
+    - /bin/cp -Ru onestop/dictionary/tests/ $DICTIONARYPATH
+    - /bin/cp -u onestop/dictionary/*.py $DICTIONARYPATH
+    - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    #R for recursive copying, -u for updating (only copies when source is newer than destination)
     
