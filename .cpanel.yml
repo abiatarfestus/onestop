@@ -8,8 +8,8 @@ deployment:
     - /bin/cp onestop/onestop/practice.py $DEPLOYPATH/onestop/practice.py
     - /bin/cp onestop/onestop/urls.py $DEPLOYPATH/onestop/urls.py
     # Blog
-    - /bin/cp -R onestop/blog/static/ $DEPLOYPATH/blog/
-    - /bin/cp -R onestop/blog/templates/ $DEPLOYPATH/blog/
+    - /bin/cp -R onestop/blog/static/ $DEPLOYPATH/blog
+    - /bin/cp -R onestop/blog/templates/ $DEPLOYPATH/blog
     - /bin/cp -R onestop/blog/tests/ $DEPLOYPATH/blog/
     - /bin/cp onestop/blog/admin.py $DEPLOYPATH/blog/admin.py
     - /bin/cp onestop/blog/forms.py $DEPLOYPATH/blog/forms.py
