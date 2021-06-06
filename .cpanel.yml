@@ -1,14 +1,14 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/oshizdab/onestop/
+    - export DEPLOYPATH=/home/oshizdab/onestop
     - /bin/cp -v onestop/requirements.txt $DEPLOYPATH
     - /bin/cp -R onestop/static/ $DEPLOYPATH
     - /bin/cp -R onestop/templates/ $DEPLOYPATH
     - /bin/cp onestop/onestop/practice.py $DEPLOYPATH/onestop/practice.py
     - /bin/cp onestop/onestop/urls.py $DEPLOYPATH/onestop/urls.py
     # Blog
-    - /bin/cp -R onestop/blog/tests/ $DEPLOYPATH
+    - /bin/cp -R onestop/blog/tests/ $DEPLOYPATH/blog/
     - /bin/cp -R onestop/blog/static/ $DEPLOYPATH/blog/
     - /bin/cp -R onestop/blog/templates/ $DEPLOYPATH/blog/
     - /bin/cp onestop/blog/admin.py $DEPLOYPATH/blog/admin.py
