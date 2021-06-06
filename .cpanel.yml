@@ -14,11 +14,11 @@ deployment:
     - /bin/cp -R onestop/blog/tests/ $BLOGPATH
     # - /bin/cp -R onestop/blog/static/ $BLOGPATH
     - /bin/cp -R onestop/blog/templates/ $BLOGPATH
-    - /bin/cp onestop/blog/admin.py forms.py models.py urls.py views.py $BLOGPATH
-    # - /bin/cp onestop/blog/forms.py $BLOGPATH/forms.py
-    # - /bin/cp onestop/blog/models.py $BLOGPATH/models.py
-    # - /bin/cp onestop/blog/urls.py $DEPLOYPATH/blog/urls.py
-    # - /bin/cp onestop/blog/views.py $DEPLOYPATH/blog/views.py
+    - /bin/cp onestop/blog/admin.py $BLOGPATH
+    - /bin/cp onestop/blog/forms.py $BLOGPATH
+    - /bin/cp onestop/blog/models.py $BLOGPATH
+    - /bin/cp onestop/blog/urls.py $BLOGPATH
+    - /bin/cp onestop/blog/views.py $BLOGPATH
     # Dictionary
     - /bin/cp -R onestop/dictionary/static/ $DEPLOYPATH/dictionary/
     - /bin/cp -R onestop/dictionary/templates/ $DEPLOYPATH/dictionary/
