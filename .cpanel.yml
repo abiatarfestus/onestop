@@ -1,10 +1,10 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/oshizdab/onestop
-    - export ONESTOPPATH=/home/oshizdab/onestop/onestop
-    - export BLOGPATH=/home/oshizdab/onestop/blog
-    - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary
+    - export DEPLOYPATH=/home/oshizdab/onestop/
+    - export ONESTOPPATH=/home/oshizdab/onestop/onestop/
+    - export BLOGPATH=/home/oshizdab/onestop/blog/
+    - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary/
     - /bin/cp -v onestop/requirements.txt $DEPLOYPATH
     - /bin/cp -R onestop/static/ $DEPLOYPATH
     - /bin/cp -R onestop/templates/ $DEPLOYPATH
@@ -30,6 +30,16 @@ deployment:
     - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
     - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
     - /bin/cp onestop/manage.py $DEPLOYPATH
+    # - /bin/cp -R onestop/dictionary/static/ $DEPLOYPATH/dictionary/
+    # - /bin/cp -R onestop/dictionary/templates/ $DEPLOYPATH/dictionary/
+    # - /bin/cp -R onestop/dictionary/tests/ $DEPLOYPATH/dictionary/
+    # - /bin/cp onestop/dictionary/admin.py $DEPLOYPATH/dictionary/admin.py
+    # - /bin/cp onestop/dictionary/classes.py $DEPLOYPATH/dictionary/classes.py
+    # - /bin/cp onestop/dictionary/forms.py $DEPLOYPATH/dictionary/forms.py
+    # - /bin/cp onestop/dictionary/models.py $DEPLOYPATH/dictionary/models.py
+    # - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
+    # - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
+    # - /bin/cp onestop/manage.py $DEPLOYPATH
     # - /bin/cp test_deploy.txt $DEPLOYPATH/dictionary/
     # - /bin/cp onestop/dictionary/test_deploy2.txt $DEPLOYPATH/dictionary/
     # - /bin/cp <file_name> $DEPLOYPATH                 #Copy specific file to destination from root
