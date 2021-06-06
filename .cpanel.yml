@@ -5,6 +5,8 @@ deployment:
     - export ONESTOPPATH=/home/oshizdab/onestop/onestop/
     - export BLOGPATH=/home/oshizdab/onestop/blog/
     - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary/
+    # Non-app files
+    - /bin/cp onestop/manage.py $DEPLOYPATH
     - /bin/cp -v onestop/requirements.txt $DEPLOYPATH
     - /bin/cp -R onestop/static/ $DEPLOYPATH
     - /bin/cp -R onestop/templates/ $DEPLOYPATH
@@ -14,41 +16,12 @@ deployment:
     - /bin/cp -R onestop/blog/tests/ $BLOGPATH
     # - /bin/cp -R onestop/blog/static/ $BLOGPATH
     - /bin/cp -R onestop/blog/templates/ $BLOGPATH
-    - /bin/cp onestop/blog/admin.py $BLOGPATH
-    - /bin/cp onestop/blog/forms.py $BLOGPATH
-    - /bin/cp onestop/blog/models.py $BLOGPATH
-    - /bin/cp onestop/blog/urls.py $BLOGPATH
-    - /bin/cp onestop/blog/views.py $BLOGPATH
+    - /bin/cp onestop/blog/*.py $BLOGPATH
     # Dictionary
     # - /bin/cp -R onestop/dictionary/static/ $DICTIONARYPATH
     - /bin/cp -R onestop/dictionary/templates/ $DICTIONARYPATH
     - /bin/cp -R onestop/dictionary/tests/ $DICTIONARYPATH
     - /bin/cp onestop/dictionary/*.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/admin.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/classes.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/forms.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/models.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/urls.py $DICTIONARYPATH
-    # - /bin/cp onestop/dictionary/views.py $DICTIONARYPATH
     - /bin/cp onestop/manage.py $DEPLOYPATH
-    # - /bin/cp -R onestop/dictionary/static/ $DEPLOYPATH/dictionary/
-    # - /bin/cp -R onestop/dictionary/templates/ $DEPLOYPATH/dictionary/
-    # - /bin/cp -R onestop/dictionary/tests/ $DEPLOYPATH/dictionary/
-    # - /bin/cp onestop/dictionary/admin.py $DEPLOYPATH/dictionary/admin.py
-    # - /bin/cp onestop/dictionary/classes.py $DEPLOYPATH/dictionary/classes.py
-    # - /bin/cp onestop/dictionary/forms.py $DEPLOYPATH/dictionary/forms.py
-    # - /bin/cp onestop/dictionary/models.py $DEPLOYPATH/dictionary/models.py
-    # - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
-    # - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
-    - /bin/cp onestop/manage.py $DEPLOYPATH
-    # - /bin/cp test_deploy.txt $DEPLOYPATH/dictionary/
-    # - /bin/cp onestop/dictionary/test_deploy2.txt $DEPLOYPATH/dictionary/
-    # - /bin/cp <file_name> $DEPLOYPATH                 #Copy specific file to destination from root
-    # - /bin/cp /<sub_folder>/<file_name> $DEPLOYPATH   #copy specific file from source sub folder
-    # - /bin cp * $DEPLOYPATH                           #copy all from root 
-    # - /bin cp /<sub_folder>/* $DEPLOYPATH             #copy all from sub folder root
-    # - /bin/cp -r * $DEPLOYPATH                        #copy all recursively to $DEPLOYPATH
-    
-    #https://github.com/FrancoisGeyser/cPanel-yml/blob/master/.cpanel.yml
     
     
