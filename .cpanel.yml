@@ -20,15 +20,16 @@ deployment:
     - /bin/cp onestop/blog/urls.py $BLOGPATH
     - /bin/cp onestop/blog/views.py $BLOGPATH
     # Dictionary
-    - /bin/cp -R onestop/dictionary/static/ $DEPLOYPATH/dictionary/
-    - /bin/cp -R onestop/dictionary/templates/ $DEPLOYPATH/dictionary/
-    - /bin/cp -R onestop/dictionary/tests/ $DEPLOYPATH/dictionary/
-    - /bin/cp onestop/dictionary/admin.py $DEPLOYPATH/dictionary/admin.py
-    - /bin/cp onestop/dictionary/classes.py $DEPLOYPATH/dictionary/classes.py
-    - /bin/cp onestop/dictionary/forms.py $DEPLOYPATH/dictionary/forms.py
-    - /bin/cp onestop/dictionary/models.py $DEPLOYPATH/dictionary/models.py
-    - /bin/cp onestop/dictionary/urls.py $DEPLOYPATH/dictionary/urls.py
-    - /bin/cp onestop/dictionary/views.py $DEPLOYPATH/dictionary/views.py
+    - /bin/cp -R onestop/dictionary/static/ $DICTIONARYPATH
+    - /bin/cp -R onestop/dictionary/templates/ $DICTIONARYPATH
+    - /bin/cp -R onestop/dictionary/tests/ $DICTIONARYPATH
+    - /bin/cp onestop/dictionary/*.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/admin.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/classes.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/forms.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/models.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/urls.py $DICTIONARYPATH
+    # - /bin/cp onestop/dictionary/views.py $DICTIONARYPATH
     - /bin/cp onestop/manage.py $DEPLOYPATH
     # - /bin/cp -R onestop/dictionary/static/ $DEPLOYPATH/dictionary/
     # - /bin/cp -R onestop/dictionary/templates/ $DEPLOYPATH/dictionary/
