@@ -1,4 +1,6 @@
 {% extends "blog/post_list.html" %}
+{% load comments %}
+{% load comments_xtd %}
 {% block welcome %}
 <h1>Welcome to Oshinglish Blogs</h1>
 <h2>Where the community talks all things language, culture, and literature</h2>
@@ -17,31 +19,22 @@
         <p class="card-text ">{{ post.content | safe }}</p>
     </div>
 </div>
-{% for comment in comments %}
-<div class="comments" style="padding: 10px;">
-    <p class="font-weight-bold">
-        {{ comment.name }}
-        <span class=" text-muted font-weight-normal">
-            {{ comment.created_on }}
-        </span>
-    </p>
-    {{ comment.body | linebreaks }}
+{% get_comment_count for object as comment_count %}
+<div class="py-4 text-center">
+    <a href="{% url 'blog:post-list' %}">Back to the post list</a>
+    &nbsp;&sdot;&nbsp;
+    {{ comment_count }} comment{{ comment_count|pluralize }}
+    ha{{ comment_count|pluralize:"s,ve"}} been posted.
 </div>
-{% endfor %}
-<div class="card-body">
-    {% if new_comment %}
-    <div class="alert alert-success" role="alert">
-        Your comment is awaiting moderation
+<div class="comment">
+    <h4 class="text-center">Your comment</h4>
+    <div class="well">
+        {% render_comment_form for object %}
     </div>
-    {% else %}
-    <h3>Leave a comment</h3>
-    <form method="post" style="margin-top: 1.3em;">
-        {{ comment_form.as_p }}
-        {% csrf_token %}
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-        <div class="g-recaptcha" data-sitekey="6LdhyRQbAAAAAJ2q5Eh85rGRxTaLuRL24vtmrBiQ"></div>
-        <button type="submit" class="btn btn-primary  btn-lg mt-3">Submit</button>
-    </form>
-    {% endif %}
 </div>
+{% if comment_count %}
+<ul class="media-list">
+    {% render_xtdcomment_tree for object %}
+</ul>
+{% endif %}
 {% endblock %}

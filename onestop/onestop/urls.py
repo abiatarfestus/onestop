@@ -23,6 +23,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('comments/', include('django_comments_xtd.urls')),
     path('', views.index, name='index'),
     path('register/', views.register, name='register'),
     path('under-construction/', views.under_construction, name='under-construction'),

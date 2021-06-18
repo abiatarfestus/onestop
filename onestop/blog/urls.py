@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:pk>/', views.category_detail, name='category-detail'),
     path('<int:pk>/', views.category_detail, name='category-detail'),
     path('category-list/', views.CategoryList.as_view(), name='category-list'),
-    path('<slug:slug>/', views.post_detail, name='post-detail'), #Fix not to catch other urls
+    # path('<slug:slug>/', views.post_detail, name='post-detail'), #Fix not to catch other urls
+    path('<slug:slug>/', views.PostDetailView.as_view(), name='post-detail'),
 ]

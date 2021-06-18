@@ -17,6 +17,16 @@ class PostList(generic.ListView):
     paginate_by = 4
 
 
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(PostDetailView, self).get_context_data(**kwargs)
+    #     context['post'] = 'English word detail view'
+    #     return context
+
+
 class CategoryList(generic.ListView):
     queryset = Category.objects.all().order_by('name')
     template_name = 'category_list.html'
@@ -33,45 +43,45 @@ def category_detail(request, pk):
     return render(request, template_name, {'category': category,
                                            'posts': posts})
 
-def post_detail(request, slug):
-    template_name = 'blog/post_detail.html'
-    post = get_object_or_404(Post, slug=slug)
-    comments = post.comments.filter(active=True)
-    new_comment = None
-    # Comment posted
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            ''' Begin reCAPTCHA validation '''
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            ''' End reCAPTCHA validation '''
+# def post_detail(request, slug):
+#     template_name = 'blog/post_detail.html'
+#     post = get_object_or_404(Post, slug=slug)
+#     comments = post.comments.filter(active=True)
+#     new_comment = None
+#     # Comment posted
+#     if request.method == 'POST':
+#         comment_form = CommentForm(data=request.POST)
+#         if comment_form.is_valid():
+#             ''' Begin reCAPTCHA validation '''
+#             recaptcha_response = request.POST.get('g-recaptcha-response')
+#             url = 'https://www.google.com/recaptcha/api/siteverify'
+#             values = {
+#                 'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+#                 'response': recaptcha_response
+#             }
+#             data = urllib.parse.urlencode(values).encode()
+#             req =  urllib.request.Request(url, data=data)
+#             response = urllib.request.urlopen(req)
+#             result = json.loads(response.read().decode())
+#             ''' End reCAPTCHA validation '''
 
-            if result['success']:
-                # Create Comment object but don't save to database yet
-                new_comment = comment_form.save(commit=False)
-                # Assign the current post to the comment
-                new_comment.post = post
-                # Save the comment to the database
-                new_comment.save()
-                # messages.success(request, 'New comment added with success!')
-            else:
-                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-    else:
-        comment_form = CommentForm()
+#             if result['success']:
+#                 # Create Comment object but don't save to database yet
+#                 new_comment = comment_form.save(commit=False)
+#                 # Assign the current post to the comment
+#                 new_comment.post = post
+#                 # Save the comment to the database
+#                 new_comment.save()
+#                 # messages.success(request, 'New comment added with success!')
+#             else:
+#                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+#     else:
+#         comment_form = CommentForm()
 
-    return render(request, template_name, {'post': post,
-                                           'comments': comments,
-                                           'new_comment': new_comment,
-                                           'comment_form': comment_form})
+#     return render(request, template_name, {'post': post,
+#                                            'comments': comments,
+#                                            'new_comment': new_comment,
+#                                            'comment_form': comment_form})
 
 
 

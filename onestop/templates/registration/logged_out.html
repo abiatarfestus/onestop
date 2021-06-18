@@ -1,6 +1,6 @@
-{% extends "onestop/onestop_layout.html" %}
+{% extends "onestop/base.html" %}
 
-{% block one %}
+{% block content%}
 <p>Logged out!</p>
 <a href="{% url 'login' %}">Click here to login again.</a>
 {% endblock %}
