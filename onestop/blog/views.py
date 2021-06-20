@@ -1,8 +1,8 @@
-import json
-import urllib.request
-import urllib.parse
+# import json
+# import urllib.request
+# import urllib.parse
 from django.conf import settings
-from django.contrib import messages
+# from django.contrib import messages
 from django.views import generic
 from .models import Post, Category
 from .forms import CommentForm, PostForm, CategoryForm
@@ -10,6 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
+from django.urls import reverse
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -20,6 +21,12 @@ class PostList(generic.ListView):
 class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
+
+    #Copied from xtdcomments
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context.update({'next': reverse('comments-xtd-sent')})
+        return context
 
     # def get_context_data(self, **kwargs):
     #     context = super(PostDetailView, self).get_context_data(**kwargs)
