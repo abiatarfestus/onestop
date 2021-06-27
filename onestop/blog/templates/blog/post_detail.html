@@ -22,7 +22,7 @@
     </div>
 </div>
 <!-- Separate -->
-{% get_comment_count for object as comment_count %}
+<!-- {% get_comment_count for object as comment_count %}
 <div class="py-4 text-center">
   <a href="{% url 'blog:post-list' %}">Back to the post list</a>
   &nbsp;&sdot;&nbsp;
@@ -41,14 +41,14 @@
 <ul class="media-list">
   {% render_xtdcomment_tree for post allow_flagging allow_feedback show_feedback %}
 </ul>
-{% endif %}
+{% endif %} -->
 <!-- Separate -->
 
-<!-- <div class="py-4 text-center">
+<div class="py-4 text-center">
   <a href="{% url 'blog:post-list' %}">Back to the post list</a>
 </div>
 
-  <div id="comments"></div> -->
+  <div id="comments"></div>
 {% endblock %}
 
 {% block scripts %}
