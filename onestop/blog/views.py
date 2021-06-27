@@ -23,10 +23,10 @@ class PostDetailView(generic.DetailView):
     template_name = 'blog/post_detail.html'
 
     #Copied from xtdcomments
-    def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context.update({'next': reverse('comments-xtd-sent')})
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(PostDetailView, self).get_context_data(**kwargs)
+    #     context.update({'next': reverse('comments-xtd-sent')})
+    #     return context
 
     # def get_context_data(self, **kwargs):
     #     context = super(PostDetailView, self).get_context_data(**kwargs)

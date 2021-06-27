@@ -3,6 +3,8 @@ from django.conf import settings
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from django.contrib.auth.models import User
+# from django_comments.moderation import CommentModerator
+# from django_comments_xtd.moderation import moderator
 
 
 STATUS = (
@@ -65,3 +67,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+# class PostCommentModerator(CommentModerator):
+#     email_notification = True
+#     auto_moderate_field = 'publish'
+#     moderate_after = 365
+
+
+# moderator.register(Post, PostCommentModerator)
