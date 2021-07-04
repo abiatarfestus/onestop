@@ -7,15 +7,7 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}
-<h6>Newly added idioms:</h6>
-<ul class='newly-added-idioms'>
-  {% for idiom in newly_added_idioms %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
-  {% endfor %}
-</ul>
-{% endblock %}
-{% block centre %}
+{% block mainarea %}
 <h5>{{ operation }}</h5>
 <br>
 <form action="" method="post">
@@ -36,13 +28,30 @@
   <input class="btn btn-outline-primary" type="submit" value="Submit">
 </form>
 {% endblock %}
-{% block right %}
-<h6>Random idiom:</h6>
-{% if random_idioms %}
-{% for idiom in random_idioms %}
-<ul class='newly-added-idioms'>
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Newly added idioms
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for idiom in newly_added_idioms %}
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<br>
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Random idiom
+  </div>
+  {% if random_idioms %}
+  {% for idiom in random_idioms %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+      href='{{ idiom.get_absolute_url }}'>{{ idiom.word_pair }}</a></li>
   {% endfor %}
   {% endif %}
-</ul>
+  </ul>
+</div>
 {% endblock %}

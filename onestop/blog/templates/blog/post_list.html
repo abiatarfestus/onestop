@@ -29,7 +29,7 @@
 <br>
 {% endblock %}
 
-{% block left %}
+<!-- {% block left %}
 <h5><strong>Categories: </strong></h5>
 <ul class='view-lists'>
   <li class='english-list'>
@@ -42,9 +42,9 @@
     <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a>
   </li>
 </ul>
-{% endblock %}
+{% endblock %} -->
 
-{% block centre %}
+{% block mainarea %}
 <div class="row row-cols-1 row-cols-md-2">
   {% for post in post_list %}
   
@@ -86,17 +86,16 @@
 </div>
 {% endblock %}
 
-{% block right %}
-<h5><strong>Categories: </strong></h5>
-<ul class='view-lists'>
-  <li class='english-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category1</a>
-  </li>
-  <li class='oshidonga-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category2</a>
-  </li>
-  <li class='idiom-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a>
-  </li>
-</ul>
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Categories
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="#">Category1</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="#">Category2</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="#">Category4</a></li>
+  </ul>
+</div>
 {% endblock %}

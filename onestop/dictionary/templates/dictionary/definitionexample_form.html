@@ -8,16 +8,8 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}
-<h6>Newly added examples:</h6>
-<ul class='newly-added-examples'>
-  {% for word in newly_added_examples %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
-      href='{{ word.get_absolute_url }}'>{{ word.definition }}</a></li>
-  {% endfor %}
-</ul>
-{% endblock %}
-{% block centre %}
+
+{% block mainarea %}
 <h5>{{ operation }}</h5>
 <br>
 <form action="" method="post">
@@ -48,22 +40,38 @@
 </form>
 {% endblock %}
 
-{% block right %}
-<h6>Unexemplified definitions:</h6>
-<ul class='unexemplified'>
-  {% for definition in unexemplified_definitions %}
-  <li class='u-exemplified'><a class="btn btn-outline-primary btn-sm mb-1"
-      href='{{ definition.get_absolute_url }}'>{{ definition }}</a></li>
-  {% endfor %}
-</ul>
-{% endblock %}
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Newly added examples
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for word in newly_added_examples %}
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href='{{ word.get_absolute_url }}'>{{ word.definition }}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Unexemplified definitions
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for definition in unexemplified_definitions %}
+      <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+          href='{{ definition.get_absolute_url }}'>{{ definition }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+  {% endblock %}
 
-{% block scripts %}
-<script>
-  var definitionsDict = JSON.parse("{{definitions_dict|escapejs}}");
-</script>
-<script src="{% static 'js/definition_displayer.js' %}"></script>
-<script>
-  window.onload = displayDefinition; //Calls the displayDefinition when the page re/loads
-</script>
-{% endblock %}
+  {% block scripts %}
+  <script>
+    var definitionsDict = JSON.parse("{{definitions_dict|escapejs}}");
+  </script>
+  <script src="{% static 'js/definition_displayer.js' %}"></script>
+  <script>
+    window.onload = displayDefinition; //Calls the displayDefinition when the page re/loads
+  </script>
+  {% endblock %}

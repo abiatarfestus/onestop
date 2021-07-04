@@ -5,8 +5,7 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}{% endblock %}
-{% block centre %}
+{% block mainarea %}
 <!-- English word DetailView -->
 {% if englishword %}
 
@@ -83,6 +82,23 @@
 
 
 {% endblock %}
-{% block right %}
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Listed entries
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:english-words' %}">All English words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+        words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+        idioms</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
+        phonetics</a></li>
+  </ul>
+</div>
 {% endblock %}
-{% block content%}{% endblock %}

@@ -15,7 +15,8 @@
     <link href="{% static 'django_comments_xtd/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/onestop.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <title>Oshinglish Online</title>
     <!-- Icon generated from: https://favicon.io/favicon-generator/ font=Lily Script One -->
@@ -101,23 +102,21 @@
       {% endfor %}
       {% endif %}
 
-      <div class="container px-1">
+      <div class="container">
+        {%block content%}
         <div class="row">
-          <div class="col-2 gx-3" id="left-sidebar">
-            {% block left %}{% endblock %}
+          <div class="col-sm-9 gx-3" id="centre-area">
+            {% block mainarea %}{% endblock %}
           </div>
-          <div class="col gx-3" id="centre-area">
-            {% block centre %}{% endblock %}
-          </div>
-          <div class="col-2 gx-3" id="right-sidebar">
-            {% block right %}{% endblock %}
+          <div class="col-sm-3 gx-3" id="right-sidebar">
+            {% block sideheading%}<h5><strong></strong></h5>{% endblock %}
+            {% block rightbar %}{% endblock %}
           </div>
         </div>
+        {% endblock %}
       </div>
     </div>
-    <div class="container">
-      {%block content%}{% endblock %}
-    </div>
+
     <!-- Footer section -->
     <footer class="mainfooter" role="contentinfo">
       <div class="footer-middle">
@@ -185,37 +184,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
-
-    <!-- <script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script
-        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-    <script
-        type="text/javascript"
-        src="{% url 'javascript-catalog' %}"></script>
-    <script>
-     function set_language(event) {
-       event.preventDefault();
-       var $link = event.target;
-       $form = $('#langform');
-       $form.find('input[name=language]').val($link.dataset.code);
-       $.post('/i18n/setlang/', $form.serialize(), function(d) {
-         window.location.reload();
-       });
-     }
-     $(function() {
-       $('.dropdown-toggle').dropdown();
-       $("#selectlanguage A[data-name=language]").click(set_language);
-     });
-    </script> -->
-
     {% block scripts %}{% endblock %}
   </body>
 

@@ -7,16 +7,7 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}
-<h6>Newly added phonetics:</h6>
-<ul class='new-phonetics'>
-  {% for phonetic in new_phonetics %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
-      href='{{ phonetic.get_absolute_url }}'>{{ phonetic.oshindonga_word }}</a></li>
-  {% endfor %}
-</ul>
-{% endblock %}
-{% block centre %}
+{% block mainarea %}
 <h5>{{ operation }}</h5>
 <br>
 <form action="" method="post">
@@ -37,14 +28,30 @@
   <input class="btn btn-outline-primary mb-2" type="submit" value="Submit">
 </form>
 {% endblock %}
-{% block right %}
-<h6>Random unphonetised:</h6>
-{% if random_unphonetised %}
-{% for word in random_unphonetised %}
-<ul class='rundom-unphonetised'>
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1"
-      href='{{ word.get_absolute_url }}'>{{ word.word }}</a></li>
-  {% endfor %}
-  {% endif %}
-</ul>
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Newly added phonetics
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for phonetic in new_phonetics %}
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href='{{ phonetic.get_absolute_url }}'>{{ phonetic.oshindonga_word }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<br>
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Random unphonetised
+  </div>
+  {% if random_unphonetised %}
+  {% for word in random_unphonetised %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href='{{ word.get_absolute_url }}'>{{ word.word }}</a></li>
+    {% endfor %}
+    {% endif %}
+  </ul>
+</div>
 {% endblock %}

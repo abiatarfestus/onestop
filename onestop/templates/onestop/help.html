@@ -5,40 +5,7 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}
-<!-- <h5><strong>Find help: </strong></h5>
-<ul class='help-list'>
-    <li class='guidelines'>
-        <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">Guidelines</a>
-    </li>
-    <li class='how-to'>
-        <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">How-to</a>
-    </li>
-    <li class='placeholder'>
-        <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">Placeholder</a>
-    </li>
-</ul> -->
-{% endblock %}
-{% block centre %}
-<!-- <div id="readme" class="Box-body readme blob js-code-block-container p-5 p-xl-6 gist-border-0">
-    <article class="markdown-body entry-content container-lg" itemprop="text">
-        <h1><a id="user-content-guidelines" class="anchor" aria-hidden="true" href="#guidelines"><svg
-                    class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-                    </path>
-                </svg></a>Guidelines</h1>
-        <p>Wordset is a structured dictionary. As such, we try to follow these guidelines to create a standardized
-            resource. Our overall goal is usability.</p>
-        <h2><a id="user-content-overall" class="anchor" aria-hidden="true" href="#overall"><svg
-                    class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-                    </path>
-                </svg></a>Overall</h2>
-        <ul>
+<!--<ul>
             <li><em>Kindness</em>: We strive to be a kind community. Be nice and helpful to people, even if you're
                 frustrated. Give constructive feedback on proposals and explain why you are rejecting a proposal if
                 that’s the case.</li>
@@ -48,40 +15,6 @@
                 new words or meanings, a source for your proposal is essential. Examples of good sources include
                 nationally recognized newspapers, magazines, and academic publications.</li>
         </ul>
-        <h2><a id="user-content-meanings-and-examples" class="anchor" aria-hidden="true"
-                href="#meanings-and-examples"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
-                    width="16" height="16" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-                    </path>
-                </svg></a>Meanings and Examples</h2>
-        <ul>
-            <li>Avoid the use of gendered pronouns. Instead of using "he" or "she," employ the singular "they.” For
-                example, "They tried sushi for the first time." There is significant <a
-                    href="http://en.wikipedia.org/wiki/Singular_they" rel="nofollow">historical precedent</a> for this
-                usage.</li>
-            <li>Avoid the passive voice where possible. For example, "The dog chased the cat," is better than "The cat
-                was chased by the dog."</li>
-            <li>Start example sentences with a capital letter and end sentences with appropriate punctuation.</li>
-            <li>Start all verb definitions with the word “to.” For example, the definition of hurt might read, “to cause
-                damage or pain.”</li>
-            <li>Try to provide context in example sentences. For example, if you are defining the word umbrella, “I like
-                umbrellas,” is a bad example sentence. Someone who doesn't know what the word umbrella means would have
-                a difficult time guessing what the word means based off of that. Instead, try sentences such as, “Since
-                it was raining, I grabbed my gray umbrella to keep myself dry.”</li>
-            <li>Avoid parenthetical citations. They break up definitions and often indicate unessential or extraneous
-                information.</li>
-            <li>Use the <a href="https://en.wikipedia.org/wiki/Serial_comma" rel="nofollow">Oxford comma</a>. For
-                example, write “I want to buy a calculator, a book, and a pencil,” as opposed to writing, “I want to buy
-                a calculator, a book and a pencil.”</li>
-        </ul>
-        <h2><a id="user-content-words-and-phrases" class="anchor" aria-hidden="true" href="#words-and-phrases"><svg
-                    class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16"
-                    aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-                    </path>
-                </svg></a>Words and Phrases</h2>
         <ul>
             <li>Avoid adding phrases or groups of words that are merely "X+Y" definitions. These dictionary entries are
                 comprised of string of texts can be defined by defining each individual part of the entry. For example,
@@ -94,7 +27,7 @@
         </ul>
     </article>
 </div> -->
-
+{% block mainarea %}
 <div class="accordion accordion-flush" id="accordionExample">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
@@ -107,7 +40,8 @@
             data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <h4>What it's about</h4>
-                <p>Oshinglish Online is a website built on Django framework. This website (or project, in Django speak) is aimed to be
+                <p>Oshinglish Online is a website built on Django framework. This website (or project, in Django speak)
+                    is aimed to be
                     a one-stop site for information relating to Oshiwambo culture and language. The website comprises of
                     five main sections (or web apps, in Django speak), namely: <a href="">Blog</a>, <a
                         href="">Books</a>, <a href="{% url 'dictionary:search' %}">Dictionary</a>, <a
@@ -304,6 +238,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-{% block right %}
 {% endblock %}

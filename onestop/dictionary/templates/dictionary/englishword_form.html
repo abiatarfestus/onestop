@@ -8,16 +8,7 @@
 <br>
 {% endblock %}
 <br>
-{% block left %}
-<h6>Newly added words:</h6>
-<ul class='newly-added-words'>
-  {% for word in newly_added_words %}
-  <li class='n-added'><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word.word }}</a></li>
-  {% endfor %}
-</ul>
-{% endblock %}
-
-{% block centre %}
+{% block mainarea %}
 <h5>{{ operation }}</h5>
 <form action="" method="post">
   {% csrf_token %}
@@ -37,6 +28,15 @@
   <input class="btn btn-outline-primary" type="submit" value="Submit">
 </form>
 {% endblock %}
-{% block right %}
-<h6>Right sidebar</h6>
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Newly added words
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for word in newly_added_words %}
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href='{{ word.get_absolute_url }}'>{{ word.word }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

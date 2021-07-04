@@ -22,14 +22,14 @@ from json import dumps
 import random
 
 
-english_words = EnglishWord.objects.order_by('-time_added')[:10]
-oshindonga_words = OshindongaWord.objects.order_by('-time_added')[:10]
-new_phonetics = OshindongaPhonetic.objects.order_by('-time_added')[:10]
+english_words = EnglishWord.objects.order_by('-time_added')[:5]
+oshindonga_words = OshindongaWord.objects.order_by('-time_added')[:5]
+new_phonetics = OshindongaPhonetic.objects.order_by('-time_added')[:5]
 random_unphonetised = OshindongaWord.objects.filter(
-    word_phonetics_id=1).order_by('?')[:10]
-defined_words = WordDefinition.objects.order_by('-time_added')[:10]
+    word_phonetics_id=1).order_by('?')[:5]
+defined_words = WordDefinition.objects.order_by('-time_added')[:5]
 exemplified_definitions = DefinitionExample.objects.order_by(
-    '-time_added')[:10]
+    '-time_added')[:5]
 oshindonga_idioms = OshindongaIdiom.objects.order_by(
     '-time_added')[:10]
 
@@ -47,7 +47,7 @@ def get_untranslated_words():
         i for i in all_english_ids if i not in all_translated_ids]
     random.shuffle(untranslated_ids)
     untranslated_words = []
-    for i in untranslated_ids[:10]:
+    for i in untranslated_ids[:5]:
         untranslated_words.append(EnglishWord.objects.get(id=i))
     return untranslated_words
 
@@ -60,7 +60,7 @@ def get_undefined_words():
     undefined_ids = [i for i in word_pair_ids if i not in defined_ids]
     random.shuffle(undefined_ids)
     undefined_word_pairs = []
-    for i in undefined_ids[:10]:
+    for i in undefined_ids[:5]:
         undefined_word_pairs.append(OshindongaWord.objects.get(id=i))
     return undefined_word_pairs
 
@@ -73,7 +73,7 @@ def get_unexemplified():
     unexemplified_ids = [i for i in definition_ids if i not in exemplified_ids]
     random.shuffle(unexemplified_ids)
     unexemplified = []
-    for i in unexemplified_ids[:10]:
+    for i in unexemplified_ids[:5]:
         unexemplified.append(WordDefinition.objects.get(id=i))
     return unexemplified
 

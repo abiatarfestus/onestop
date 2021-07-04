@@ -1,45 +1,42 @@
-{% extends "base.html" %}
-{% block secondarynav %}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(210, 38%, 66%);" id='dictionary-nav'>
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'dictionary:search' %}">Search</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:english-create' %}">Add English Words</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:oshindonga-create' %}">Add Oshindonga Words</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:oshindonga-phonetic-create' %}">Add Oshindonga Phonetics</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:definition-create' %}">Add Definitions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:example-create' %}">Add Definition Examples</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'dictionary:oshindonga-idiom-create' %}">Add Oshindonga Idioms</a>
-        </li>
-      </ul>
+
+
+      <div class="container px-1">
+        <div class="row">
+          <div class="col-2 gx-3" id="left-sidebar">
+            {% block left %}{% endblock %}
+          </div>
+          <div class="col gx-3" id="centre-area">
+            {% block centre %}{% endblock %}
+          </div>
+          <div class="col-2 gx-3" id="right-sidebar">
+            {% block right %}{% endblock %}
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</nav>
-{% endblock %}
-{% block welcome %}
-<h1>Welcome to Oshinglish Dictionary</h1>
-<h2>Built by the community for the community</h2>
-<hr>
-<br>
+
+{% block left %}
+<h5><strong>View listed entries: </strong></h5>
+<ul class='view-lists'>
+  <li class='english-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a>
+  </li>
+  <li class='oshidonga-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+      words</a>
+  </li>
+  <li class='idiom-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+      idioms</a>
+  </li>
+  <li class='idiom-list'>
+    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
+      phonetics</a>
+  </li>
+</ul>
 {% endblock %}
 
-<br>
-{% block mainarea %}
+{% block centre %}
 <h3>Search for a word</h3>
 <form action="{% url 'dictionary:search' %}" method="get">
   <div class="input-group mb-3">
@@ -214,36 +211,20 @@
   </div>
 </div>
 {% endblock %}
-{% block rightbar %}
-<div class="card" style="width: 18rem;">
-  <div class="card-header">
-    Top contributors
-  </div>
-  {% if top_contributors %}
-  <ol>
-    {% for contributor in top_contributors %}
-    <li>
-      <button type="button" class="btn btn-primary btn-sm mt-1">{{ contributor.1 }}<span
-          class="badge bg-danger ms-1">{{ contributor.0 }}</span>
-      </button>
-    </li>
-    {% endfor %}
-  </ol>
-  {% endif %}
-</div>
-<br>
-<div class="card" style="width: 18rem;">
-  <div class="card-header">
-    Listed entries
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
-      words</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
-      idioms</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
-      phonetics</a></li>
-  </ul>
-</div>
+
+{% block right %}
+<h5><strong>Top Contributors: </strong></h5>
+{% if top_contributors %}
+<ol>
+  {% for contributor in top_contributors %}
+  <li>
+    <button type="button" class="btn btn-primary btn-sm mb-1">{{ contributor.1 }}<span
+        class="badge bg-danger ms-1">{{ contributor.0 }}</span>
+    </button>
+  </li>
+  {% endfor %}
+</ol>
+{% endif %}
+
 {% endblock %}
+

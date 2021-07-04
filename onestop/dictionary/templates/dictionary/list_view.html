@@ -5,27 +5,7 @@
 <hr>
 <br>
 {% endblock %}
-{% block left %}
-<h5><strong>View listed entries: </strong></h5>
-<ul class='view-lists'>
-  <li class='english-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a>
-  </li>
-  <li class='oshidonga-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
-      words</a>
-  </li>
-  <li class='idiom-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
-      idioms</a>
-  </li>
-  <li class='idiom-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
-      phonetics</a>
-  </li>
-</ul>
-{% endblock %}
-{% block centre %}
+{% block mainarea %}
 <!-- English ListView -->
 {% if englishword_list %}
 <ol>
@@ -91,6 +71,19 @@
 </div>
 
 {% endblock %}
-{% block right %}
+{% block rightbar %}
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Listed entries
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+      words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+      idioms</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
+      phonetics</a></li>
+  </ul>
+</div>
 {% endblock %}
-{% block content%}{% endblock %}
