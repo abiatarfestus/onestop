@@ -54,7 +54,7 @@
   </li>
   {% if suggested_searches %}
   {% for word in suggested_searches %}
-  <li class='s-searches'><a class="badge bg-info"
+  <li class='s-searches'><a class="badge bg-info text-dark"
       href="{% url 'dictionary:search-suggested-word' word.id %}">{{ word }}</a></li>
   {% endfor %}
   {% endif %}
