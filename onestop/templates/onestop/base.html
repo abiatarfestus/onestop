@@ -11,8 +11,10 @@
     <!-- Bootstrap CSS -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
-    <link href="{% static 'django_comments_xtd/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'django_comments_xtd/css/bootstrap.min.css' %}" rel="stylesheet"> -->
     <link rel="stylesheet" href="{% static 'css/onestop.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
@@ -30,7 +32,7 @@
     <!-- TOP NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
-        <a style="font-family: 'Lily Script One', Pristina, serif; font-size: 45px;" href="{% url 'index' %}"
+        <a style="font-family: 'Lily Script One', Pristina, serif; font-size: 35px;" href="{% url 'index' %}"
           class="navbar-brand">Oshinglish Online</a>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -40,7 +42,7 @@
       </div>
     </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4d8dc9;">
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #4d8dc9;">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'images/android-chrome-192x192.png' %}" alt="" width="50" height="50">
@@ -70,8 +72,9 @@
               <a class="nav-link" href="{% url 'under-construction' %}">Events</a>
             </li>
           </ul>
-          <span>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- <span> -->
+          <div class="container-fluid  justify-content-end">
+            <ul class="nav">
               {% if user.is_authenticated %}
               <li class="nav-item"><a class="nav-link" href="#">User: {{ user.get_username }}</a></li>
               <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
@@ -82,7 +85,8 @@
               <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
               {% endif %}
             </ul>
-          </span>
+          </div>
+          <!-- </span> -->
         </div>
       </div>
     </nav>
