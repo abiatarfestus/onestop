@@ -3,6 +3,7 @@
 {% load static %}
 {% load comments %}
 {% load comments_xtd %}
+{% load social_share %}
 {% block welcome %}
 <h1>Welcome to Oshinglish Blogs</h1>
 <h2>Where the community talks all things language, culture, and literature</h2>
@@ -12,14 +13,22 @@
 
 {% block mainarea %}
 <div class="card mb-4  mt-3 left  top">
-    <div class="card-body">
-        <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
-        <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-        {% if post.image %}
-        <img src="{{ post.image.url }}" class="card-img-top featured-image" alt="{{ post.title }}">
-        {% endif %}
-        <p class="card-text ">{{ post.content | safe }}</p>
+  <div class="card-body">
+    <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
+    <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" class="card-img-top featured-image" alt="{{ post.title }}">
+    {% endif %}
+    <p class="card-text ">{{ post.content | safe }}</p>
+  </div>
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col">Share this post on:</div>
+      <div class="col ml-3">{% post_to_facebook post " " "bi bi-facebook" %}</div>
+      <div class="col ml-3">{% post_to_twitter "" post " " "bi bi-twitter" %}</div>
+      <div class="col ml-3">{% post_to_whatsapp post " " "bi bi-whatsapp" %}</div>
     </div>
+  </div>
 </div>
 <!-- Separate -->
 <!-- {% get_comment_count for object as comment_count %}
@@ -48,41 +57,35 @@
   <a href="{% url 'blog:post-list' %}">Back to the post list</a>
 </div>
 
-  <div id="comments"></div>
+<div id="comments"></div>
 {% endblock %}
 
 {% block scripts %}
 <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <script>
- window.comments_props = {% get_commentbox_props for object %};
- window.comments_props_override = {
-     allow_comments: true,
-     allow_feedback: true,
-     show_feedback: true,
-     allow_flagging: true,
-     polling_interval: 5000  // In milliseconds.
- };
+  window.comments_props = {% get_commentbox_props for object %};
+  window.comments_props_override = {
+    allow_comments: true,
+    allow_feedback: true,
+    show_feedback: true,
+    allow_flagging: true,
+    polling_interval: 5000 // In milliseconds.
+  };
 </script>
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  crossorigin="anonymous"></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-  crossorigin="anonymous"></script>
-<script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-  crossorigin="anonymous"></script>
-<script
-  type="text/javascript"
-  src="{% url 'javascript-catalog' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+  integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
 <script src="{% static 'django_comments_xtd/js/vendor~plugin-2.9.2.js' %}"></script>
 <script src="{% static 'django_comments_xtd/js/plugin-2.9.2.js' %}"></script>
 <script>
-$(function() {
-  $('[data-toggle="tooltip"]').tooltip({html: true});
-});
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+      html: true
+    });
+  });
 </script>
 {% endblock %}

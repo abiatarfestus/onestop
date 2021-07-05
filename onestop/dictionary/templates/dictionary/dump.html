@@ -228,3 +228,14 @@
 
 {% endblock %}
 
+<!-- Social share -->
+<div class="row">
+  <ul class="social-network social-circle shares">
+    <li>
+      <h4>Share on:</h4>
+    </li>
+    <li>{% post_to_facebook object_or_url " " "bi bi-facebook" %}</li>
+    <li>{% post_to_twitter "" object_or_url " " "bi bi-twitter" %}</li>
+    <li>{% post_to_whatsapp object_or_url " " "bi bi-whatsapp" %}</li>
+  </ul>
+</div>

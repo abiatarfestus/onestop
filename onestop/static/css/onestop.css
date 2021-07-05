@@ -145,7 +145,8 @@ p {
 	overflow: hidden;
 }
 
-.s-searches
+.s-searches,
+.shares
 /* .n-added,
 .untranslated,
 .undefined */ {
