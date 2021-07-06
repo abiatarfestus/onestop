@@ -3,7 +3,7 @@
 <br>
 <h4>Contribute to the dictionary by adding a new Oshindonga word or updating an existing one.</h4>
 <br>
-<h5>Not sure how to go about it? <a href='#'>Read the instructions here.</a></h5>
+<h5>Not sure how to go about it? <a href="{% url 'help' %}">Read the instructions here.</a></h5>
 <hr>
 <br>
 {% endblock %}
@@ -53,7 +53,7 @@
     Untranslated English words
   </div>
   <ul class="list-group list-group-flush">
-    {% for word in newly_added_words %}
+    {% for word in untranslated_words %}
     <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
         href='{{ word.get_absolute_url }}'>{{ word }}</a></li>
     {% endfor %}

@@ -28,17 +28,18 @@
     </article>
 </div> -->
 {% block mainarea %}
-<div class="accordion accordion-flush" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                General guidelines
-            </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+<div class="accordion" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    General guidelines
+                </button>
+            </h2>
+        </div>
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
                 <h4>What it's about</h4>
                 <p>Oshinglish Online is a website built on Django framework. This website (or project, in Django speak)
                     is aimed to be
@@ -68,16 +69,17 @@
             </div>
         </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Oshinglish Dictionary - an overview
-            </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Oshinglish Dictionary - an overview
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
                 <h4>Oshinglish Dictionary</h4>
                 <p>Oshinglish Dictionary is a multilingual dictionary of English and Oshindonga (read Oshiwambo).
                     Considering that there is a fair share of English dictionaries online, the focus of this dictionary
@@ -96,7 +98,7 @@
                     matter, enabling the dictionary to be searchable using both English and Oshindonga words. To clarify
                     this, the process of updating the database/dictionary with new entries follows the following
                     pattern:</p>
-                <p><strong>English word --> Oshindonga word --> Definition (& or Oshindonga Idiom) --> Example</strong>
+                <p><strong>English word ==> Oshindonga word ==> Definition (& or Oshindonga Idiom) ==> Example</strong>
                     <br><br>
                     This means an English word needs to be entered first before its Oshindonga equivalent. An Oshindonga
                     word (or words) is added as a translation (or translations) of the English word that already exists
@@ -108,16 +110,17 @@
             </div>
         </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Updating the dictionary
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Updating the dictionary
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
                 Following are detailed instructions on how to add and modify entries in the dictionary (NB: Only
                 registered users are able to add and modify entries):
                 <h4>Adding English words</h4>
@@ -198,40 +201,53 @@
             </div>
         </div>
     </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                Guidelines on definitions and examples
-            </button>
-        </h2>
-        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
-            data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Guidelines on definitions and examples
+                </button>
+            </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
                 <h4>Important conventions</h4>
                 For consistency sake, it is required that contributors observe the following entry conventions:
                 <ul>
-                    <li>By convention, when entering new words (both English and Oshindonga), all ordinary/normal words
-                        will be saved in all small caps. Proper nouns are saved with the first letter capitalised while
+                    <li>By convention, when entering new words (both English and Oshindonga), all ordinary/normal
+                        words
+                        will be saved in all small caps. Proper nouns are saved with the first letter capitalised
+                        while
                         abbreviations are saved in all caps.</li>
                     <li>While the above formatting is, by large, applied automatically based on the word case option
                         chosen, contributors should always strive to enter words with appropriate casing.</li>
-                    <li>If you’ve ever been in an English class (of course, you have), you’ve probably heard that active
+                    <li>If you’ve ever been in an English class (of course, you have), you’ve probably heard that
+                        active
                         voice is better than passive voice. So why not go for the better (where possible)? In both
-                        languages, that is. For example, "The boy kicked the ball." is apparently better than "The ball
+                        languages, that is. For example, "The boy kicked the ball." is apparently better than "The
+                        ball
                         was kicked by the boy."</li>
-                    <li>Start example sentences with a capital letter and end sentences with appropriate punctuation.
+                    <li>Start example sentences with a capital letter and end sentences with appropriate
+                        punctuation.
                     </li>
                     <li>Definition entries in both languages should start with a lower case letter.</li>
-                    <li>Start all English verb definitions with the word “to.” For example, the definition of kill might
-                        read, “to end the life of…” (or something like that, really). If you think this is a ridiculous
-                        definition, wait until you start entering some yourself. Start all Oshindonga verb definitions
+                    <li>Start all English verb definitions with the word “to.” For example, the definition of kill
+                        might
+                        read, “to end the life of…” (or something like that, really). If you think this is a
+                        ridiculous
+                        definition, wait until you start entering some yourself. Start all Oshindonga verb
+                        definitions
                         with the word “oku.” For example, the definition of dhipaga might read, “oku hulitha po
                         omwenyo…” Smh…not even Oshindonga is easy.</li>
-                    <li>Avoid simplistic, stock examples. Make an effort to provide context in examples. For example, if
-                        you are defining the word okalunda (or is it okandunda), “Ondi hole okalunda,” is of little help
-                        to someone who doesn't know what the word okalunda means, and they would have a hard time making
-                        out its meaning from that. A better revision of that example would read, “Molwashoka okwa li ta
+                    <li>Avoid simplistic, stock examples. Make an effort to provide context in examples. For
+                        example, if
+                        you are defining the word okalunda (or is it okandunda), “Ondi hole okalunda,” is of little
+                        help
+                        to someone who doesn't know what the word okalunda means, and they would have a hard time
+                        making
+                        out its meaning from that. A better revision of that example would read, “Molwashoka okwa li
+                        ta
                         u lokwa, onda kutha okalunda kandje ha okaluudhe opo kandi mote/tute.”</li>
                 </ul>
             </div>
