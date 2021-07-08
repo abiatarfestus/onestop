@@ -41,28 +41,27 @@
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body">
                 <h4>What it's about</h4>
-                <p>Oshinglish Online is a website built on Django framework. This website (or project, in Django speak)
+                <p>Oshinglish Online is a website built as a practice project for Python and Django. This website (or project, in Django speak)
                     is aimed to be
-                    a one-stop site for information relating to Oshiwambo culture and language. The website comprises of
-                    five main sections (or web apps, in Django speak), namely: <a href="">Blog</a>, <a
+                    a one-stop site for information relating to Oshiwambo culture and language. The website comprises
+                    five main sections (or web apps, in Django speak), namely: <a href="{% url 'blog:post-list' %}">Blog</a>, <a
                         href="">Books</a>, <a href="{% url 'dictionary:search' %}">Dictionary</a>, <a
                         href="">Events</a>, and
                     <a href="">Editing</a>. This help page provides guidelines and helpful information on how to
                     interact with each
                     application. To view this information, click on the headings below.</p>
                 <h4>General guidelines</h4>
-                <p>This website is meant to be built a community of users and contributors; thus, it is important to
+                <p>This website is meant to be built by a community of users and contributors; thus, it is important to
                     have some guidelines, to which all users must adhere. These are general guidelines that apply across
                     the whole site. App-specific guidelines are stipulated under the help section of each app below. The
                     overall goal of Oshinglish is to build a site with reliable, educative and accessible content. Hence
                     the following principles matter:</p>
                 <ul>
                     <li><em>Kindness</em>: This is a community driven site, so by all stretch make yourself useful to
-                        other. Be nice and helpful to people, even when you share a different opinion from theirs. Give
+                        others. Be nice and helpful to fellow users, even when you share a different opinion from theirs. Give
                         constructive feedback and only add value.</li>
                     <li><em>Originality</em>: In adding definitions and examples, make an effort to be original and
-                        avoid copying directly from other sources. The same is not expected for idioms, for obvious
-                        reasons, of course.
+                        avoid copying directly from other sources. The same is expected (were possible) when providing idiom meanings.
                     </li>
                     <li><em>Generosity</em>: Be generous with your knowledge, and share what you know.</li>
                 </ul>
@@ -83,7 +82,7 @@
                 <h4>Oshinglish Dictionary</h4>
                 <p>Oshinglish Dictionary is a multilingual dictionary of English and Oshindonga (read Oshiwambo).
                     Considering that there is a fair share of English dictionaries online, the focus of this dictionary
-                    is on Oshindonga (again, read Oshiwambo). Okay, let’s clarify the issue of Oshindonga vs Oshiwambo.
+                    is Oshindonga (again, read Oshiwambo). Okay, let’s clarify the issue of Oshindonga vs Oshiwambo.
                     Oshiwambo has about eight dialects (Oshindonga, Oshikwanyama, Oshikwambi, Oshimbaantu, Oshimbadja,
                     Oshingandjera, Oshikwaluudhi, Oshikolonkadhi), but for the purpose of this application, one was
                     chosen. The reasons being: one, for standardisation purpose (that is, to have a dictionary that is
@@ -92,7 +91,7 @@
                     is made for words to be represented in various dialects through inclusion of synonyms. The good
                     part, yet again, is that this site is by no means cast in stone. That is to say suggestions for
                     changes and improvements are welcome.</p>
-                <p>While the focus of the dictionary is on Oshindonga (you can continue reading Oshiwambo), English is
+                <p>While the focus of the dictionary is Oshindonga (you can continue reading Oshiwambo), English is
                     an integral part of the dictionary by design. As a matter of fact, an English word is the first
                     point of entry for every record in the database. This is both a design choice and a convenience
                     matter, enabling the dictionary to be searchable using both English and Oshindonga words. To clarify
@@ -127,8 +126,8 @@
                 <ul>
                     <li>To add an English word click <a href="{% url 'dictionary:english-create' %}">Add English
                             Words</a> on the menu.</li>
-                    <li>English words should be unique, which mean no more than one exact same English words can be
-                        added (you will understand why, hopefully). Thus, one way to check whether an English word
+                    <li>English words should be unique, which means no more than one exact same English word can be
+                        added (you will soon understand why, hopefully). Thus, one way to check whether an English word
                         already exists, apart from search it on the search page, is by attempting to add it. If it goes
                         through, it never existed; if it exists, it will display a duplicate error message.</li>
                     <li>Enter the English word and choose the word case, that is, whether it’s a normal word,
@@ -138,12 +137,12 @@
                 </ul>
                 <h4>Adding Oshindonga words</h4>
                 <ul>
-                    <li>To add an English word click <a href="{% url 'dictionary:oshindonga-create' %}">Add English
+                    <li>To add an Oshindonga word click <a href="{% url 'dictionary:oshindonga-create' %}">Add Oshindonga
                             Words</a> on the menu.</li>
                     <li>Unlike English words, Oshindonga words don’t need to be unique. The same word can be entered
                         more than once as long as it’s linked to different English words. Thus, pairs should be unique,
-                        no more than one exact same English-Oshindonga pairs should exist. (To exemplify, the word
-                        “omweelo” can exist more than once in the following pairs: gate|omweelo & door|omweelo).</li>
+                        no more than one exact same English-Oshindonga pair should exist. (To exemplify, the word
+                        “omweelo” can exist more than once in the following pairs: <i>gate</i>|<i>omweelo</i> & <i>door</i>|<i>omweelo</i>).</li>
                     <li>When adding an Oshindonga word, first choose the corresponding English word from the dropdown
                         list (See why English words need to be entered first?). Enter the Oshindonga word, select the
                         words case as described under English section above, choose the phonetics characteristics (if
@@ -154,21 +153,21 @@
                     <li>To add a definition click <a href="{% url 'dictionary:definition-create' %}">Add Definitions</a>
                         on the menu.</li>
                     <li>To avoid duplicate definitions, first ascertain that the definition you wish to enter does not
-                        already by searching the words you wish to define on the search page.</li>
+                        already exist by searching the words you wish to define on the search page.</li>
                     <li>To add a definition first select the word pair you wish to define from the dropdown list
                         (Tips: while on this page, the right sidebar will display random word pairs that have not yet
                         been defined). </li>
                     <li>Once a word pair is selected, choose the part of speech of the definition (e.g., noun, verb,
                         etc.). Depending on the part of speech selected, extra options, such as verb tenses or noun
-                        plurals in Oshindonga, may be displayed. </li>
+                        plurals in Oshindonga, will be displayed. </li>
                     <li>Next, you may add Oshindonga synonyms of the word you’re defining (this is where you can bring
-                        in the version of that word in other dialects). </li>
+                        in the variants of that word from any other dialects). </li>
                     <li>Finally, add the English definition and the corresponding Oshindonga definition and click
                         submit to save the entry.</li>
                 </ul>
                 <h4>Adding usage examples</h4>
                 <ul>
-                    <li>To add usage examples to a definition click <a href="{% url 'dictionary:example-create' %}">Add
+                    <li>To add a usage example to a definition click <a href="{% url 'dictionary:example-create' %}">Add
                             Definitions Examples</a> on the menu.</li>
                     <li>To add an example, first select the definition you wish to exemplify from the dropdown list
                         (Tips: while on this page, the right sidebar will display random definitions that have not yet
@@ -194,7 +193,7 @@
                         words referred to above. This table is not linked to the English table, and thus it can be
                         updated with Oshindonga words regardless of whether corresponding English words exist or nah.
                         This table contains [unique] Oshindonga words with their pronunciations and phonetic
-                        transcriptions. These phonetics characteristics can then be made available to the Oshindonga
+                        transcriptions. These phonetic characteristics can then be made available to the Oshindonga
                         words in the other main table/model by means of foreign key reference to this table.</li>
                     <li>Adding entries to this table involves…</li>
                 </ul>
