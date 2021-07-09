@@ -2,7 +2,11 @@
 {% block secondarynav %}
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(128, 38%, 66%);" id='dictionary-nav'>
   <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBlog"
+      aria-controls="navbarBlog" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarBlog">
       <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -29,25 +33,10 @@
 <br>
 {% endblock %}
 
-<!-- {% block left %}
-<h5><strong>Categories: </strong></h5>
-<ul class='view-lists'>
-  <li class='english-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category1</a>
-  </li>
-  <li class='oshidonga-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category2</a>
-  </li>
-  <li class='idiom-list'>
-    <a class="btn btn-outline-primary btn-sm mb-1" href="#">Category3</a>
-  </li>
-</ul>
-{% endblock %} -->
-
 {% block mainarea %}
 <div class="row row-cols-1 row-cols-md-2">
   {% for post in post_list %}
-  
+
   <div class="col">
     <div class="card mt-2 mb-2">
       <div class="card-body">

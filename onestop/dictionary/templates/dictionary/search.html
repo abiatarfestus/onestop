@@ -2,7 +2,11 @@
 {% block secondarynav %}
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(210, 38%, 66%);" id='dictionary-nav'>
   <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarDictionary"
+      aria-controls="navbarDictionary" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarDictionary">
       <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -237,13 +241,17 @@
     Listed entries
   </div>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:english-words' %}">All English words</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
-      words</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
-      idioms</a></li>
-    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1" href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
-      phonetics</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:english-words' %}">All English words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-words' %}">All Oshindonga
+        words</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-idioms' %}">All Oshindonga
+        idioms</a></li>
+    <li class="list-group-item"><a class="btn btn-outline-primary btn-sm mb-1"
+        href="{% url 'dictionary:oshindonga-phonetics' %}">All Oshindonga
+        phonetics</a></li>
   </ul>
 </div>
 {% endblock %}

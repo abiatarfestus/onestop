@@ -13,3 +13,4 @@ __pycache__/
 #dictionary/__pycache__/
 settings.py
 media/
+media_cdn/
