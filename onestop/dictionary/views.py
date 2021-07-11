@@ -152,8 +152,12 @@ def search_suggested_word(request, pk):
 # Template class-based views
 
 
-class HelpView(TemplateView):
-    template_name = "onestop/help.html"
+# class HelpView(TemplateView):
+#     template_name = "onestop/help.html"
+
+
+# class PrivacyPolicyView(TemplateView):
+#     template_name = "onestop/privacy_policy.html"
 
 # GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
 
