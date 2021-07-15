@@ -78,39 +78,6 @@ def get_unexemplified():
     return unexemplified
 
 
-# def register(request):
-#     if request.method == "POST":
-#         form = ContributorCreationForm(request.POST)
-#         if form.is_valid():
-#             ''' Begin reCAPTCHA validation '''
-#             recaptcha_response = request.POST.get('g-recaptcha-response')
-#             url = 'https://www.google.com/recaptcha/api/siteverify'
-#             values = {
-#                 'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-#                 'response': recaptcha_response
-#             }
-#             data = urllib.parse.urlencode(values).encode()
-#             req =  urllib.request.Request(url, data=data)
-#             response = urllib.request.urlopen(req)
-#             result = json.loads(response.read().decode())
-#             ''' End reCAPTCHA validation '''
-#             if result['success']:
-#                 user = form.save()
-#                 login(request, user)
-#                 subject = 'Welcome to the community'
-#                 message = f'Hi {user.username}, \n\nThank you for registering as a contributor. \nThe site is currently being tested; hence, your feedback at this stage will be of great importance. We cannot wait to see your contribution. \n\nRegards, \nFessy'
-#                 email_from = settings.EMAIL_HOST_USER
-#                 recipient_list = [user.email, 'abiatarfestus@outlook.com']
-#                 send_mail(subject, message, email_from, recipient_list)
-#                 messages.success(request, 'You have been registered successfully!')
-#                 return redirect(reverse("index"))
-#             else:
-#                 messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-#     else:
-#         form = ContributorCreationForm()
-#     return render(request, "registration/register.html", {"form": form})
-
-
 def index(request):
     context = {}
     return render(request, 'index.html', context)
@@ -129,17 +96,6 @@ def search_word(request):
     # Pass the context of the object/instance and pass it to the context variable of this view
     context = search_object.context
     return render(request, 'dictionary/search.html', context)
-
-
-# class SearchSuggestedWord(FormView):
-#     form_class = SearchWordForm
-#     template_name = 'search.html'
-
-#     def get_initial(self):
-#         initial = super(SearchSuggestedWord, self).get_initial()
-#         initial.update({'input_language': 'English', 'search_word': ''})
-#         return initial
-#     pass
 
 
 def search_suggested_word(request, pk):

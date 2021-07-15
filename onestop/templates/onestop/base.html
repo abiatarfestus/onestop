@@ -73,7 +73,7 @@
           <div class="container-fluid  justify-content-end">
             <ul class="nav">
               {% if user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link" href="#"><img src="{{ user.url }}" class="rounded-circle" alt="..."> {{ user.get_username }}</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:profile' %}"><img src="{{ user.profile.image.url }}" class="rounded-circle" width="45" height="45" alt="..."> {{ user.get_username }}</a></li>
               <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
               <li class="nav-item"><a class="nav-link" a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
               {% else %}

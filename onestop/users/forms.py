@@ -21,15 +21,26 @@ class UserRegisterForm(UserCreationForm):
             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Confirm password'}
 
 # Create a UserUpdateForm to update username and email
+
+
 class UserUpdateForm(ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailInput()
 
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name']
+        widgets = {'first_name': forms.TextInput(
+            attrs={'class': 'form-control form-control-lg mb-2', }), 'email': forms.EmailInput(
+            attrs={'class': 'form-control form-control-lg mb-2'}), 'last_name': forms.TextInput(
+            attrs={'class': 'form-control form-control-lg mb-2'}), 'username': forms.TextInput(
+            attrs={'class': 'form-control form-control-lg mb-2', })}
 
 # Create a ProfileUpdateForm to update image
+
+
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+        widgets = {'image': forms.FileInput(
+            attrs={'class': 'form-control form-control-lg mb-2'})}

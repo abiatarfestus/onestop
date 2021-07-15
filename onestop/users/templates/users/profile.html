@@ -1,25 +1,73 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
-        </div>
-      </div>
-      <!-- FORM HERE -->
-      <form method="POST" enctype="multipart/form-data"> <!-- enctype helps saving image data-->
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ user_form }} <!-- User form -->
-            {{ profile_form }} <!-- Profile form -->
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
-        </div>
-    </form>
+{% block welcome %}
+<br>
+<h2 class="account-heading">{{ user.username }}</h2>
+<p class="text-secondary">{{ user.email }}</p>{% endblock %}
+
+{% block mainarea%}
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img mt-3 mb-3" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <!-- <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p> -->
     </div>
-{% endblock content %}
+  </div>
+</div>
+<!-- FORM HERE -->
+<form method="POST" enctype="multipart/form-data">
+  <!-- enctype helps saving image data-->
+  {% csrf_token %}
+  <fieldset class="form-group">
+    <legend class="border-bottom mb-4">Profile Info</legend>
+    {{ user_form }} <!-- User form -->
+    {{ profile_form }} <!-- Profile form -->
+  </fieldset>
+  <div class="form-group">
+    <button class="btn btn-outline-info" type="submit">Update</button>
+  </div>
+</form>
+{% endblock %}
+<!-- </div> -->
+{% block rightbar %}
+<div class="card">
+  <div class="card-header">
+    My Contribution
+  </div>
+  <ol>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">English<span
+          class="badge badge-light ml-1">{{ user_contribution.0 }}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">Oshindonga<span
+          class="badge badge-light ml-1">{{ user_contribution.1 }}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">Definitions<span
+          class="badge badge-light ml-1">{{ user_contribution.2 }}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">Examples<span
+          class="badge badge-light ml-1">{{ user_contribution.3 }}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">Idioms<span
+          class="badge badge-light ml-1">{{ user_contribution.4 }}</span>
+      </button>
+    </li>
+    <li>
+      <button type="button" class="btn btn-primary mt-1">Phonetics<span
+          class="badge badge-light ml-1">0</span>
+      </button>
+    </li>
+  </ol><div class="card-footer">
+    <p>Total Contribution: {{user_contribution.5}}</p>
+  </div>
+</div>
+{% endblock %}

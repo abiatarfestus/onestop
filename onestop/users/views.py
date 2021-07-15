@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from dictionary.classes import HistoryRecord
 # from django.views.generic import TemplateView
 # from django.views.generic.edit import CreateView, UpdateView
 # from django.contrib.messages.views import SuccessMessageMixin
@@ -21,6 +22,7 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 # import random
 
 # Create your views here.
+
 def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
@@ -55,6 +57,8 @@ def register(request):
 
 
 # Update it here
+contribution = HistoryRecord()
+
 @login_required
 def profile(request):
     if request.method == 'POST':
@@ -72,6 +76,7 @@ def profile(request):
         profile_form = ProfileUpdateForm(instance=request.user.profile)
     context = {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'user_contribution':contribution.get_user_contribution(request.user)
     }
     return render(request, 'users/profile.html', context)

@@ -41,7 +41,8 @@ class HistoryRecord():
             self.usernames.append(user.username)
         # Updates the unique_usernames set with usernames
         self.unique_usernames.update(self.usernames)
-        return self.english  # Returns a queryset of EnglishWord historical objects/records
+        # return self.english  # Returns a queryset of EnglishWord historical objects/records
+        return
 
     def oshindonga_history(self):
         self.oshindonga = OshindongaWord.history.all()
@@ -53,7 +54,8 @@ class HistoryRecord():
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
-        return self.oshindonga
+        # return self.oshindonga
+        return
 
     def definition_history(self):
         self.definition = WordDefinition.history.all()
@@ -65,7 +67,8 @@ class HistoryRecord():
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
-        return self.definition
+        # return self.definition
+        return
 
     def example_history(self):
         self.example = DefinitionExample.history.all()
@@ -77,7 +80,8 @@ class HistoryRecord():
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
-        return self.example
+        # return self.example
+        return
 
     def idiom_history(self):
         self.idiom = OshindongaIdiom.history.all()
@@ -89,7 +93,8 @@ class HistoryRecord():
             user = User.objects.get(id=user_id)
             self.usernames.append(user.username)
         self.unique_usernames.update(self.usernames)
-        return self.idiom
+        # return self.idiom
+        return
 
     def get_contributors(self, num=None):
         self.reset_history()
@@ -110,6 +115,39 @@ class HistoryRecord():
         # num determines the #of contributors to display
         top_contributors = contributors[:num]
         return top_contributors
+
+    def get_user_contribution(self, user):
+        english_contribution = 0
+        oshindonga_contribution = 0
+        definition_contribution = 0
+        example_contribution = 0
+        idiom_contribution = 0
+        current_user_id = user.id
+        self.reset_history()
+        self.english_history()
+        self.oshindonga_history()
+        self.definition_history()
+        self.example_history()
+        self.idiom_history()
+        for queryset in self.english:
+            if queryset.history_user_id == current_user_id:
+                english_contribution += 1
+        for queryset in self.oshindonga:
+            if queryset.history_user_id == current_user_id:
+                oshindonga_contribution += 1
+        for queryset in self.definition:
+            if queryset.history_user_id == current_user_id:
+                definition_contribution += 1
+        for queryset in self.example:
+            if queryset.history_user_id == current_user_id:
+                example_contribution += 1
+        for queryset in self.idiom:
+            if queryset.history_user_id == current_user_id:
+                idiom_contribution += 1
+        total = english_contribution + oshindonga_contribution + \
+            definition_contribution + example_contribution + idiom_contribution
+        return [english_contribution, oshindonga_contribution, definition_contribution,
+                example_contribution, idiom_contribution, total]
 
 
 class SearchDefinition():
@@ -225,7 +263,8 @@ class SearchDefinition():
                 except EnglishWord.DoesNotExist:
                     self.context['searched_word'] = [
                         'The word you searched was not found.']
-                    return #render(self.request, 'dictionary/search.html', self.context)
+                    # render(self.request, 'dictionary/search.html', self.context)
+                    return
                 self.search_word_pairs(eng_word_pk)
                 # return render(self.request, 'dictionary/search.html', self.context)
             else:
