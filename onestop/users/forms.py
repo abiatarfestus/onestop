@@ -1,0 +1,35 @@
+from django import forms
+from django.contrib.auth.models import User
+from django.forms import ModelForm
+from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
+
+
+class UserRegisterForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ("email",)
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegisterForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Username'}
+        self.fields['email'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Email address'}
+        self.fields['password1'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Password'}
+        self.fields['password2'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Confirm password'}
+
+# Create a UserUpdateForm to update username and email
+class UserUpdateForm(ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+# Create a ProfileUpdateForm to update image
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

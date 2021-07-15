@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 # from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
 
@@ -133,22 +133,17 @@ class OshindongaIdiomForm(ModelForm):
             attrs={'class': 'form-control form-control-lg mb-2'})}
 
 
-class ContributorCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ("email",)
-        # widgets = {'username': forms.TextInput(
-        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'email': forms.EmailInput(
-        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'password1': forms.PasswordInput(
-        #     attrs={'class': 'form-control form-control-lg mb-2'}), 'password2': forms.PasswordInput(
-        #     attrs={'class': 'form-control form-control-lg mb-2'})}
+# class ContributorCreationForm(UserCreationForm):
+#     class Meta(UserCreationForm.Meta):
+#         fields = UserCreationForm.Meta.fields + ("email",)
 
-    def __init__(self, *args, **kwargs):
-        super(ContributorCreationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs = {
-            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Username'}
-        self.fields['email'].widget.attrs = {
-            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Email address'}
-        self.fields['password1'].widget.attrs = {
-            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Password'}
-        self.fields['password2'].widget.attrs = {
-            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Confirm password'}
+#     def __init__(self, *args, **kwargs):
+#         super(ContributorCreationForm, self).__init__(*args, **kwargs)
+#         self.fields['username'].widget.attrs = {
+#             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Username'}
+#         self.fields['email'].widget.attrs = {
+#             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Email address'}
+#         self.fields['password1'].widget.attrs = {
+#             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Password'}
+#         self.fields['password2'].widget.attrs = {
+#             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Confirm password'}

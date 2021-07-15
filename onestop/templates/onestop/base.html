@@ -73,13 +73,13 @@
           <div class="container-fluid  justify-content-end">
             <ul class="nav">
               {% if user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link" href="#">User: {{ user.get_username }}</a></li>
+              <li class="nav-item"><a class="nav-link" href="#"><img src="{{ user.url }}" class="rounded-circle" alt="..."> {{ user.get_username }}</a></li>
               <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
               <li class="nav-item"><a class="nav-link" a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
               {% else %}
               <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
               <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">|</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'users:register' %}">Register</a></li>
               {% endif %}
             </ul>
           </div>
