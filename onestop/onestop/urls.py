@@ -29,7 +29,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('under-construction/', views.under_construction, name='under-construction'),
     path('help/',
-         TemplateView.as_view(template_name="users/help.html"), name='help'),
+         TemplateView.as_view(template_name="onestop/help.html"), name='help'),
     path('privacy-policy/',
          TemplateView.as_view(template_name="onestop/privacy_policy.html"), name='privacy-policy'),
     path('terms-and-conditions/',
