@@ -3,6 +3,7 @@ from django.conf import settings
 from django.urls import reverse
 from django_extensions.db.fields import AutoSlugField
 from django.contrib.auth.models import User
+from django_resized import ResizedImageField
 # from django_comments.moderation import CommentModerator
 # from django_comments_xtd.moderation import moderator
 
@@ -34,7 +35,7 @@ class Post(models.Model):
     slug = AutoSlugField(populate_from=['title'], unique=True)
     category = models.ManyToManyField(
         Category, related_name='posts', default='Uncategorised')
-    image = models.ImageField(
+    image = ResizedImageField(
         verbose_name='featured image', upload_to='featured_image/%Y/%m/', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
