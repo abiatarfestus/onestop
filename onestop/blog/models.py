@@ -36,7 +36,7 @@ class Post(models.Model):
     category = models.ManyToManyField(
         Category, related_name='posts', default='Uncategorised')
     image = ResizedImageField(
-        verbose_name='featured image', upload_to='featured_image/%Y/%m/', blank=True)
+        verbose_name='featured image', quality=100, upload_to='featured_image/%Y/%m/', blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()

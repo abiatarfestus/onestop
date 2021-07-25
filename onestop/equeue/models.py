@@ -1,8 +1,8 @@
 from django.db import models
-from django.conf import settings
-from django.urls import reverse
-from django_extensions.db.fields import AutoSlugField
-from django.contrib.auth.models import User
+# from django.conf import settings
+# from django.urls import reverse
+# from django_extensions.db.fields import AutoSlugField
+# from django.contrib.auth.models import User
 from django_resized import ResizedImageField
 
 class ServiceProvider(models.Model):
@@ -10,11 +10,11 @@ class ServiceProvider(models.Model):
     street = models.CharField(max_length=255, blank=True)
     location = models.CharField(max_length=255)
     town = models.CharField(max_length=255)
-    contact_number = models.CharField(max_length=255, unique=True)
+    contact_number = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=254, blank=True)
     website = models.CharField(max_length=255, blank=True)
     image = ResizedImageField(
-        verbose_name='logo', upload_to='service_provider_logos', blank=True)
+        verbose_name='logo', upload_to='service_provider_logos', quality=100, size=[50, 50], blank=True)
     join_date = models.DateField(auto_now_add=True)
 
     class Meta:
