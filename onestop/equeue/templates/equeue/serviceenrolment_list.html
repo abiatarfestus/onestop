@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block secondarynav %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(276, 51%, 27%);" id='equeue-nav'>
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarEqueue"
+        aria-controls="navbarEqueue" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarEqueue">
+        <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Public Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Private Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Queues</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Render Service</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+{% block welcome %}
+<h1>e-Queue Services Portal</h1>
+<h2>Welcome to the private and public service portal. Find the service you need and queue online</h2>
+<hr>
+<br>
+{% endblock %}
+
+{% block content%}
+<table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Service Provider</th>
+        <th scope="col">Service</th>
+        <th scope="col">Description</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for service in serviceenrolment_list %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{service.service_provider}}</td>
+        <td>{{service.service}}</td>
+        <td>Description</td>
+        <td>Queue</td>
+      </tr>
+      {% endfor %}
+      <!-- <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+      </tr> -->
+    </tbody>
+  </table>
+{% endblock %}
