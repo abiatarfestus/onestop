@@ -4,7 +4,7 @@ from . import views
 app_name = 'equeue'
 urlpatterns = [
 #     path('', views.index, name="index"),
-    # path('search/', views.search_word, name='search'),
+    path('queues/', views.queues, name='queues'),
     # path('search/<int:pk>', views.search_suggested_word, name='search-suggested-word'),
     # #Create Views
     # path('english/create/',

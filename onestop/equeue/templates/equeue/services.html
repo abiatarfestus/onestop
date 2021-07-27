@@ -10,7 +10,7 @@
       <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Services</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'equeue:services' %}">Services</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Public Service</a>
@@ -56,7 +56,7 @@
       <td><a tabindex="0" class="btn btn-lg btn-info" role="button" data-toggle="popover" data-placement="top"
           data-trigger="focus" title="Service description"
           data-content="{{service.service.description}}">Description</a></td>
-      <td><a class="btn btn-primary" href="#" role="button">Queue</a></td>
+      <td><a class="btn btn-primary" href="{% url 'equeue:queues' %}" role="button">Queue</a></td>
     </tr>
     {% endfor %}
     <!-- <tr>

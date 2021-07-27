@@ -28,6 +28,7 @@ class ServiceProvider(models.Model):
     )
 
     name = models.CharField(max_length=255, unique=True)
+    short_name = models.CharField(max_length=20)
     entity_type = models.CharField(
         max_length=10,  choices=ENTITY_TYPE_CHOICES,)
     street = models.CharField(max_length=255, blank=True)

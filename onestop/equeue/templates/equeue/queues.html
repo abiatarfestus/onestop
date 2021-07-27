@@ -1,0 +1,68 @@
+{% extends "equeue/services.html" %}
+{% block welcome %}
+<br>
+<h2>Service queues</h2>
+<h3>You're at the queue page for {{service}} ______ provided by _____ {{service_provider}}.</h3>
+<br><br><br>
+<hr>
+{% endblock %}
+
+{% block content %}
+<div class="row ">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Current e-queue for Passport applications {{servicec}} @ MHAISS HQ{{service_provider}}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Customer 1 {% if user == customer %} <a href="#"
+                        class="btn btn-dangerous btn-sm">Join</a>Exit queue {% endif %}</li>
+                <li class="list-group-item">Customer 2</li>
+                <li class="list-group-item">Customer 3</li>
+                <li class="list-group-item">Customer 4</li>
+                <li class="list-group-item">Customer 5</li>
+                <li class="list-group-item">Customer 6</li>
+                <li class="list-group-item">Customer 7</li>
+                <li class="list-group-item">Customer 8</li>
+                <li class="list-group-item">Customer 9</li>
+            </ul>
+            <div class="card-body justify-content-center">
+                <a href="#" class="card-link">Prev-||-Next</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col">
+        <div class="card border-danger" style="width: 18rem;">
+            <div class="card-header">
+                Next Customer
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-white bg-danger">Customer 1{{ front_customer }}</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="card border-success" style="width: 18rem;">
+            <div class="card-header">
+                Current Customer
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-white bg-success">Customer 0{{ current_customer }}</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="card border-primary text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Join The Queue</h5>
+                <p class="card-text"></p>
+                <a href="#" class="btn btn-primary btn-lg">Join</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
