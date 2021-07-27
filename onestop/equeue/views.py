@@ -16,4 +16,4 @@ from .models import ServiceProvider, Service, ServiceEnrolment, QueuedCustomer, 
 class ServiceEnrolmentList(generic.ListView):
     queryset = ServiceEnrolment.objects.all().order_by('service_provider')
     # template_name = 'services.html'
-    paginate_by = 5
+    paginate_by = 10

@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 {% block secondarynav %}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(276, 51%, 27%);" id='equeue-nav'>
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarEqueue"
-        aria-controls="navbarEqueue" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarEqueue">
-        <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Public Service</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Private Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Queues</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Render Service</a>
-          </li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: hsl(278, 9%, 18%);" id='dictionary-nav'>
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarEqueue"
+      aria-controls="navbarEqueue" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarEqueue">
+      <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Public Service</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Private Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Queues</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Render Service</a>
+        </li>
+      </ul>
     </div>
-  </nav>
-  {% endblock %}
+  </div>
+</nav>
+{% endblock %}
 {% block welcome %}
 <h1>e-Queue Services Portal</h1>
 <h2>Welcome to the private and public service portal. Find the service you need and queue online</h2>
@@ -38,26 +38,28 @@
 
 {% block content%}
 <table class="table table-hover">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Service Provider</th>
-        <th scope="col">Service</th>
-        <th scope="col">Description</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for service in serviceenrolment_list %}
-      <tr>
-        <th scope="row">{{forloop.counter}}</th>
-        <td>{{service.service_provider}}</td>
-        <td>{{service.service}}</td>
-        <td>Description</td>
-        <td>Queue</td>
-      </tr>
-      {% endfor %}
-      <!-- <tr>
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Service Provider</th>
+      <th scope="col">Service</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for service in serviceenrolment_list %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{service.service_provider}}</td>
+      <td>{{service.service}}</td>
+      <td><a tabindex="0" class="btn btn-lg btn-info" role="button" data-toggle="popover" data-placement="top"
+          data-trigger="focus" title="Service description"
+          data-content="{{service.service.description}}">Description</a></td>
+      <td><a class="btn btn-primary" href="#" role="button">Queue</a></td>
+    </tr>
+    {% endfor %}
+    <!-- <tr>
         <th scope="row">2</th>
         <td>Jacob</td>
         <td>Thornton</td>
@@ -68,6 +70,32 @@
         <td colspan="2">Larry the Bird</td>
         <td>@twitter</td>
       </tr> -->
-    </tbody>
-  </table>
+  </tbody>
+</table>
+<div class="pagination pagination-lg justify-content-center">
+  <span class="page-link">
+    <!-- step-link from django change to page-link  bootstrap class -->
+    {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+</script>
 {% endblock %}
