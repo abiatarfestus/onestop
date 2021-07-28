@@ -85,6 +85,7 @@ class ServiceEnrolment(models.Model):
 
     '''
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service_requirements = models.TextField(default='There are no requirements defined for this service.', blank=True)
     service_provider = models.ForeignKey(
         ServiceProvider, on_delete=models.CASCADE)
 
@@ -102,7 +103,7 @@ class QueuedCustomer(models.Model):
     A model for creating service queues of customers
     '''
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    # position =
+    join_time = models.DateTimeField(auto_now_add=True)
     service = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
 
     class Meta:

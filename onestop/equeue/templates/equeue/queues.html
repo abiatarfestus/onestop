@@ -2,7 +2,7 @@
 {% block welcome %}
 <br>
 <h2>Service queues</h2>
-<h3>You're at the queue page for {{service}} ______ provided by _____ {{service_provider}}.</h3>
+<h3>You're at the queue page for {{service}} provided by {{service_provider}}.</h3>
 <br><br><br>
 <hr>
 {% endblock %}
@@ -12,20 +12,23 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                Current e-queue for Passport applications {{servicec}} @ MHAISS HQ{{service_provider}}
+                Current queue for {{service}} @ {{service_provider.short_name}}
             </div>
+            {% if there_is_queue %}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Customer 1 {% if user == customer %} <a href="#"
-                        class="btn btn-dangerous btn-sm">Join</a>Exit queue {% endif %}</li>
-                <li class="list-group-item">Customer 2</li>
-                <li class="list-group-item">Customer 3</li>
-                <li class="list-group-item">Customer 4</li>
-                <li class="list-group-item">Customer 5</li>
-                <li class="list-group-item">Customer 6</li>
-                <li class="list-group-item">Customer 7</li>
-                <li class="list-group-item">Customer 8</li>
-                <li class="list-group-item">Customer 9</li>
+                {% for customer in current_queue%}
+                <li class="list-group-item">{{forloop.counter}}. {{ customer.customer }}
+                    {% if user.id == customer.customer.id %} <a href="#" class="btn btn-danger btn-sm ml-5">Exit
+                        queue</a></li>
+                {% endif %}
+                {% endfor %}
             </ul>
+            {% else %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> There is no one in the queue yet. <a href="#"
+                        class="btn btn-primary btn-sm ml-5">Start queue</a></li>
+            </ul>
+            {% endif %}
             <div class="card-body justify-content-center">
                 <a href="#" class="card-link">Prev-||-Next</a>
             </div>
@@ -39,7 +42,7 @@
                 Next Customer
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-danger">Customer 1{{ front_customer }}</li>
+                <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
             </ul>
         </div>
 
@@ -63,6 +66,44 @@
                 <a href="#" class="btn btn-primary btn-lg">Join</a>
             </div>
         </div>
+
+        <br>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg ml-2" data-toggle="modal" data-target="#requirementsModal">
+            View service requirements
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="requirementsModal" tabindex="-1" aria-labelledby="requirementsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="requirementsModalLabel">Requirements for
+                            {{service}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ requirements }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#requirements').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>
 {% endblock %}
