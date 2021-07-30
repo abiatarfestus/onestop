@@ -37,8 +37,7 @@ class ServiceProvider(models.Model):
     contact_number = models.CharField(max_length=10, unique=True)
     email = models.EmailField(max_length=254, blank=True)
     website = models.CharField(max_length=255, blank=True)
-    image = ResizedImageField(
-        verbose_name='logo', upload_to='service_provider_logos', quality=100, size=[50, 50], blank=True)
+    logo = ResizedImageField(upload_to='service_provider_logos', quality=100, size=[50, 50], blank=True)
     join_date = models.DateField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=1)
 

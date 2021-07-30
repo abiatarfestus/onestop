@@ -11,8 +11,8 @@
 <div class="row ">
     <div class="col">
         <div class="card">
-            <div class="card-header">
-                Current queue for {{service}} @ {{service_provider.short_name}}
+            <div class="card-header" style="font-weight: bold"><img src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45" alt="logo">
+                Current queue for <strong>{{service}}</strong> @ <strong>{{service_provider.short_name}}</strong>
             </div>
             {% if there_is_queue %}
             <ul class="list-group list-group-flush">
