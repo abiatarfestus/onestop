@@ -11,9 +11,9 @@ class ServiceProvider(models.Model):
     A model for reating service providers
     '''
     SELECT = ''
-    PRIVATE = 'Noun [C]'
-    PUBLIC = 'Noun [U]'
-    PARASTATAL = 'Noun [U]'
+    PRIVATE = 'Private'
+    PUBLIC = 'Public'
+    PARASTATAL = 'Parastatal'
     ENTITY_TYPE_CHOICES = [
         (SELECT, 'Select the part of speech of your definition'),
         (PRIVATE, 'Private'),
