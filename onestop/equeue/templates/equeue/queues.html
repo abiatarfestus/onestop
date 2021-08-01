@@ -11,7 +11,7 @@
 <div class="row ">
     <div class="col">
         <div class="card">
-            <div class="card-header" style="font-weight: bold"><img src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45" alt="logo">
+            <div class="card-header" style="font-weight: bold">{% if service_provider.logo %}<img src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45" alt="logo">{% endif %}
                 Current queue for <strong>{{service}}</strong> @ <strong>{{service_provider.short_name}}</strong>
             </div>
             {% if there_is_queue %}
@@ -63,7 +63,7 @@
             <div class="card-body">
                 <h5 class="card-title">Join The Queue</h5>
                 <p class="card-text"></p>
-                <a href="#" class="btn btn-primary btn-lg">Join</a>
+                <a href="{% url 'equeue:join-queue' service.id %}" class="btn btn-primary btn-lg">Join</a>
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 # import urllib.parse
 from django.conf import settings
 # from django.contrib import messages
+from django.contrib.auth.models import User
 from django.views import generic
 from .models import ServiceProvider, Service, ServiceEnrolment, QueuedCustomer, ServedCustomer, CancelledCustomer, CustomerReview
 # from .forms import CommentForm, PostForm, CategoryForm
@@ -15,7 +16,7 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 
 
-def queues(request, pk):
+def queues(request, pk, **kwargs):
     '''
     Generates a view for the current queue of any particular service enrolment. Pass in the service_enrolment (pk) based on the service clicked.
 
@@ -32,6 +33,21 @@ def queues(request, pk):
     context['service_provider'] = current_service.service_provider
     context['requirements'] = current_service.service_requirements
     return render(request, 'equeue/queues.html', context)
+
+def join_queue(request, pk):
+    context = {}
+    current_user = request.user
+    current_service = ServiceEnrolment.objects.get(id=pk)
+    current_queue = QueuedCustomer.objects.filter(service_id=pk)
+    for customer in current_queue:
+        if customer.customer == current_user:
+            join_message= 'Sorry, you\'re already queued for this service.'
+            return queues(request=request, pk=pk, join_message=join_message)
+        else:
+            new_customer = QueuedCustomer.objects.create(customer=current_user, service=current_service)
+            join_message= 'You\'ve been sucessfully entered on to this queue.'
+    return queues(request=request, pk=pk, join_message=join_message)
+    # https://book.pythontips.com/en/latest/args_and_kwargs.html
 
 
 class ServiceEnrolmentList(generic.ListView):
