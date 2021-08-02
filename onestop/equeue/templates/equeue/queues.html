@@ -8,102 +8,115 @@
 {% endblock %}
 
 {% block content %}
-<div class="row ">
-    <div class="col">
-        <div class="card">
-            <div class="card-header" style="font-weight: bold">{% if service_provider.logo %}<img src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45" alt="logo">{% endif %}
-                Current queue for <strong>{{service}}</strong> @ <strong>{{service_provider.short_name}}</strong>
-            </div>
-            {% if there_is_queue %}
-            <ul class="list-group list-group-flush">
-                {% for customer in current_queue%}
-                <li class="list-group-item">{{forloop.counter}}. {{ customer.customer }}
-                    {% if user.id == customer.customer.id %} <a href="#" class="btn btn-danger btn-sm ml-5">Exit
-                        queue</a></li>
-                {% endif %}
-                {% endfor %}
-            </ul>
-            {% else %}
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"> There is no one in the queue yet. <a href="#"
-                        class="btn btn-primary btn-sm ml-5">Start queue</a></li>
-            </ul>
-            {% endif %}
-            <div class="card-body justify-content-center">
-                <a href="#" class="card-link">Prev-||-Next</a>
-            </div>
-        </div>
+<div class="fieldWrapper">
+    {% if join_message != None %}
+    <div class="alert alert-success" role="alert">
+        {{ join_message }}
     </div>
-
-
-    <div class="col">
-        <div class="card border-danger" style="width: 18rem;">
-            <div class="card-header">
-                Next Customer
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="card border-success" style="width: 18rem;">
-            <div class="card-header">
-                Current Customer
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-success">Customer 0{{ current_customer }}</li>
-            </ul>
-        </div>
-
-        <br>
-
-        <div class="card border-primary text-center" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Join The Queue</h5>
-                <p class="card-text"></p>
-                <a href="{% url 'equeue:join-queue' service.id %}" class="btn btn-primary btn-lg">Join</a>
-            </div>
-        </div>
-
-        <br>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg ml-2" data-toggle="modal" data-target="#requirementsModal">
-            View service requirements
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="requirementsModal" tabindex="-1" aria-labelledby="requirementsModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="requirementsModalLabel">Requirements for
-                            {{service}}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {{ requirements }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
+    {% endif %}
+    <div class="row ">
+        <div class="col">
+            <div class="card">
+                <div class="card-header" style="font-weight: bold">{% if service_provider.logo %}<img
+                        src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45"
+                        alt="logo">{% endif %}
+                    Current queue for <strong>{{service}}</strong> @ <strong>{{service_provider.short_name}}</strong>
+                </div>
+                {% if there_is_queue %}
+                <ul class="list-group list-group-flush">
+                    {% for customer in current_queue %}
+                    <li class="list-group-item">{{forloop.counter}}. {{ customer.customer }}
+                        {% if user.id == customer.customer.id %} <a href="#" class="btn btn-danger btn-sm ml-5">Exit
+                            queue</a></li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> There is no one in the queue yet. <a
+                            href="#"
+                            class="btn btn-primary btn-sm ml-5">Start queue</a></li>
+                </ul>
+                {% endif %}
+                <div class="card-body justify-content-center">
+                    <a href="#" class="card-link">Prev-||-Next</a>
                 </div>
             </div>
         </div>
 
-    </div>
-</div>
-{% endblock %}
 
-{% block scripts %}
-<script>
-    $('#requirements').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-    })
-</script>
-{% endblock %}
+        <div class="col">
+            <div class="card border-danger" style="width: 18rem;">
+                <div class="card-header">
+                    Next Customer
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
+                </ul>
+            </div>
+
+            <br>
+
+            <div class="card border-success" style="width: 18rem;">
+                <div class="card-header">
+                    Current Customer
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-white bg-success">Customer 0{{ current_customer }}</li>
+                </ul>
+            </div>
+
+            <br>
+            {% if user not in queued_users %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="card border-primary text-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Join The Queue</h5>
+                        <p class="card-text"></p>
+                        <input class="btn btn-lg btn-primary" type="submit" value="Join">
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+            <br>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg ml-2" data-toggle="modal"
+                data-target="#requirementsModal">
+                View service requirements
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="requirementsModal" tabindex="-1" aria-labelledby="requirementsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="requirementsModalLabel">Requirements for
+                                {{service}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {{ requirements }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block scripts %}
+    <script>
+        $('#requirements').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+    {% endblock %}
