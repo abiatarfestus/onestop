@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<!-- Modal -->
+<!-- Join Queue Modal -->
 <div class="modal fade" id="joinQueueAlert" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="joinQueueAlertLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -22,8 +22,8 @@
             <div class="modal-body">
                 {% if join_message == 'Success' %}
                 <div class="alert alert-success" role="alert">
-                    You've been sucessfully added to the queue for {{service_enrolment.service}} @
-                    {{service_enrolment.service_provider.short_name}}.
+                    You've been sucessfully added to the queue for {{service}} @
+                    {{service_provider.short_name}}.
                 </div>
                 {% else %}
                 <div class="alert alert-danger" role="alert">
@@ -34,6 +34,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     id="closeJoinQueueAlert">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of modal -->
+<!-- Exit Queue modal -->
+<div class="modal fade" id="exitQueueAlert" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="exitQueueAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exitQueueAlertLabel">Exit Queue Alert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                    You've chosen to exit the queue for {{service}} @ {{service_provider}}. Do you want to proceed with
+                    this action?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="exitQueueButton">Yes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    id="closeExitQueueAlert">Cancel</button>
             </div>
         </div>
     </div>
@@ -52,8 +78,12 @@
             <ul class="list-group list-group-flush">
                 {% for customer in current_queue %}
                 <li class="list-group-item">{{forloop.counter}}. {{ customer.customer }}
-                    {% if user.id == customer.customer.id %} <a href="#" class="btn btn-danger btn-sm ml-5">Exit
-                        queue</a></li>
+                    {% if user.id == customer.customer.id %}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                        data-target="#exitQueueAlert">
+                        Exit queue
+                    </button></li>
                 {% endif %}
                 {% endfor %}
             </ul>
@@ -145,6 +175,7 @@
 </script>
 {% if join_message != None %}
 <script>
+    // Join queue
     $('#joinQueueAlert').modal('show') // Show join queue alert modal
 
     var queueUrl = "{% url 'equeue:queues' service_enrolment.id %}"
@@ -153,8 +184,19 @@
         window.location.href = queueUrl;
     }
 
-    var modalButton = document.getElementById("closeJoinQueueAlert"); // Find the modal button element in the page
-    modalButton.onclick = refreshQueue; // Add onclick function to element
+    var joinButton = document.getElementById("closeJoinQueueAlert"); // Find the modal button element in the page
+    joinButton.onclick = refreshQueue; // Add onclick function to element    
 </script>
 {% endif %}
+<script>
+    // Exit queue
+    var exitQueueUrl = "{% url 'equeue:exit-queue' service_enrolment.id %}"
+
+    function exitQueue(event) {
+        window.location.href = exitQueueUrl;
+    }
+
+    var exitButton = document.getElementById("exitQueueButton"); // Find the modal button element in the page
+    exitButton.onclick = exitQueue;
+</script>
 {% endblock %}

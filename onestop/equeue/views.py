@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.views import generic
 from .models import ServiceProvider, Service, ServiceEnrolment, QueuedCustomer, ServedCustomer, CancelledCustomer, CustomerReview
 # from .forms import CommentForm, PostForm, CategoryForm
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.messages.views import SuccessMessageMixin
 # from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.views.generic.edit import CreateView
@@ -18,32 +18,29 @@ from django.shortcuts import render, get_object_or_404
 
 def queues(request, pk, join_message=None):
     '''
-    Generates a view for the current queue of any particular service enrolment. Pass in the service_enrolment (pk) based on the service clicked.
-
+    If request method is GET, generate a view for the current queue of the service enrolment of the passed in pk.
+    If request method is POST, add the current user to the queue of the passed in service enrolment, if not already in queue.
     '''
     context = {}
     # Return a queryset of customers queued up for the passed in service_enrolment
-    current_service = ServiceEnrolment.objects.get(id=pk)
+    current_service_enrolment = ServiceEnrolment.objects.get(id=pk)
     current_queue = QueuedCustomer.objects.filter(
-        service_id=pk).order_by('join_time') #A queryset of queuedCustomer instances filtered by the service_id
+        service_enrolment_id=pk).order_by('join_time') #A queryset of queuedCustomer instances filtered by the service_id
     queue_length = len(current_queue)>0
-    queued_users = [customer.customer for customer in current_queue] # #A list of user objects in current_queue
+    queued_users = [customer.customer for customer in current_queue] #A list of user objects in current_queue
     context['there_is_queue'] = queue_length
     context['current_queue'] = current_queue
-    context['service'] = current_service.service
-    context['service_enrolment'] = current_service
-    context['service_provider'] = current_service.service_provider
-    context['requirements'] = current_service.service_requirements
+    context['service'] = current_service_enrolment.service
+    context['service_enrolment'] = current_service_enrolment
+    context['service_provider'] = current_service_enrolment.service_provider
+    context['requirements'] = current_service_enrolment.service_requirements
     context['queued_users'] = queued_users
     if request.method == "POST":
-        current_user = request.user
-        if current_user in queued_users:
+        if request.user in queued_users:
             join_message = 'Duplicate'
-            # join_message = 'Sorry, you\'re already queued for this service.'
         else:
-            QueuedCustomer.objects.create(customer=current_user, service=current_service)
+            QueuedCustomer.objects.create(customer=request.user, service_enrolment=current_service_enrolment)
             join_message = "Success"
-            # join_message = f'You\'ve been sucessfully added to the queue for {current_service.service} @ {current_service.service_provider.short_name}.'
     context['join_message'] = join_message
     return render(request, 'equeue/queues.html', context)
 
@@ -54,11 +51,11 @@ def exit_queue(request, pk):
     Delete the current_instance instance from the QueuedCustomer
     Return to and refresh the queue page.
     '''
-    context = {}
-    # current_user = request.user
-    current_instance = QueuedCustomer.objects.filter(service_id=pk, customer_id=request.user.id).get() 
+    
+    current_instance = QueuedCustomer.objects.filter(service_enrolment_id=pk, customer_id=request.user.id).get() 
     CancelledCustomer.objects.create(queue_id=current_instance.id, customer_id=current_instance.customer.id, cancelled_by=request.user)
     current_instance.delete()
+    return redirect('equeue:queues', pk=pk)
 
 
 class ServiceEnrolmentList(generic.ListView):

@@ -103,7 +103,7 @@ class QueuedCustomer(models.Model):
     '''
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     join_time = models.DateTimeField(auto_now_add=True)
-    service = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
+    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE) #change field name service_enrolment
 
     class Meta:
         ordering = ['id']

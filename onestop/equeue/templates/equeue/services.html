@@ -48,28 +48,17 @@
     </tr>
   </thead>
   <tbody>
-    {% for service in serviceenrolment_list %}
+    {% for service_enrolment in serviceenrolment_list %}
     <tr>
       <th scope="row">{{forloop.counter}}</th>
-      <td>{{service.service_provider}}</td>
-      <td>{{service.service}}</td>
+      <td>{{service_enrolment.service_provider}}</td>
+      <td>{{service_enrolment.service}}</td>
       <td><a tabindex="0" class="btn btn-lg btn-info" role="button" data-toggle="popover" data-placement="top"
           data-trigger="focus" title="Service description"
           data-content="{{service.service.description}}">Description</a></td>
-      <td><a class="btn btn-primary" href="{% url 'equeue:queues' service.id %}" role="button">Queue</a></td>
+      <td><a class="btn btn-primary" href="{% url 'equeue:queues' service_enrolment.id %}" role="button">Queue</a></td>
     </tr>
     {% endfor %}
-    <!-- <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr> -->
   </tbody>
 </table>
 <div class="pagination pagination-lg justify-content-center">
