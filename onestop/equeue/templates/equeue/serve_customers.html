@@ -1,0 +1,146 @@
+{% extends "equeue/services.html" %}
+{% block welcome %}
+<br>
+<h2>Serve Customers</h2>
+<h3>Serving page for {{service}} provided by {{service_provider}}.</h3>
+<br><br><br>
+<hr>
+{% endblock %}
+
+{% block content %}
+<!-- <div class="fieldWrapper">
+    {% if next_customer_message != None %}
+    <div class="alert alert-warning" role="alert">
+      {{ next_customer_message }}
+    </div>
+    {% endif %}
+  </div> -->
+
+<div class="row ">
+    <div class="col">
+        <div class="card">
+            <div class="card-header" style="font-weight: bold">{% if service_provider.logo %}<img
+                    src="{{ service_provider.logo.url }}" class="rounded-circle" width="45" height="45"
+                    alt="logo">{% endif %}
+                Current queue for <strong>{{service}}</strong> @ <strong>{{service_provider.short_name}}</strong>
+            </div>
+            {% if there_is_queue %}
+            <ul class="list-group list-group-flush">
+                {% for customer in current_queue %}
+                <li class="list-group-item">{{forloop.counter}}. {{ customer.customer }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> There are no clients waiting queue.</li>
+            </ul>
+            {% endif %}
+            <div class="card-body justify-content-center">
+                <a href="#" class="card-link">Prev-||-Next</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col">
+        <div class="card border-danger" style="width: 18rem;">
+            <div class="card-header">
+                Next Customer
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
+            </ul>
+        </div>
+
+        <br>
+
+        <div class="card border-success" style="width: 18rem;">
+            <div class="card-header">
+                Current Customer
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-white bg-success">Customer 0{{ current_customer }}</li>
+            </ul>
+        </div>
+
+        <br>
+            <div class="card border-primary text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Call Next Customer</h5>
+                    <p class="card-text"></p>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                        data-target="#nextCustomerAlert">
+                        Next
+                    </button>
+                </div>
+            </div>
+        <br>
+
+    </div>
+</div>
+
+<!-- Next Customer modal -->
+<div class="modal fade" id="nextCustomerAlert" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="nextCustomerAlertLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nextCustomerAlertLabel">Next Customer Alert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="No">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info" role="alert">
+                    The next customer in queue is {{ current_queue.0.customer }}. Is this customer present?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="yesCustomerButton">Yes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                    id="noCustomerButton">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of modal -->
+
+{% endblock %}
+
+{% block scripts %}
+
+<!-- {% if next_customer_message != None %}
+<script>
+    // Next customer message
+    $('#joinQueueAlert').modal('show') // Show join queue alert modal
+
+    var queueUrl = "{% url 'equeue:queues' service_enrolment.id %}"
+
+    function refreshQueue(event) {
+        window.location.href = queueUrl;
+    }
+
+    var joinButton = document.getElementById("closeJoinQueueAlert"); // Find the modal button element in the page
+    joinButton.onclick = refreshQueue; // Add onclick function to element    
+</script>
+{% endif %} -->
+<script>
+    // Next customer
+    var nextCustomerUrl = "{% url 'equeue:next-customer' queued_customer_instance.id %}"
+    var cancelCustomerUrl = "{% url 'equeue:cancel-customer' queued_customer_instance.id %}"
+
+    function nextCustomer(event) {
+        window.location.href = nextCustomerUrl;
+    }
+
+    function cancelCustomer(event) {
+        window.location.href = cancelCustomerUrl;
+    }
+
+    var yesButton = document.getElementById("yesCustomerButton");
+    yesButton.onclick = nextCustomer;
+
+    var noButton = document.getElementById("noCustomerButton");
+    noButton.onclick = cancelCustomer;
+</script>
+{% endblock %}

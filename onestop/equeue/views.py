@@ -5,7 +5,7 @@ from django.conf import settings
 # from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views import generic
-from .models import ServiceProvider, Service, ServiceEnrolment, QueuedCustomer, ServedCustomer, CancelledCustomer, CustomerReview
+from .models import ServiceProvider, Service, ServiceEnrolment, ServantEnrolment, QueuedCustomer, ServedCustomer, CancelledCustomer, CustomerReview
 # from .forms import CommentForm, PostForm, CategoryForm
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.messages.views import SuccessMessageMixin
@@ -56,6 +56,34 @@ def exit_queue(request, pk):
     CancelledCustomer.objects.create(queue_id=current_instance.id, customer_id=current_instance.customer.id, cancelled_by=request.user)
     current_instance.delete()
     return redirect('equeue:queues', pk=pk)
+
+
+def my_queues(request, pk):
+    context = {}
+    service_enrolment_ids = [] #A list to hold ids of the service_enrolments the current user/servant is assigned to
+    servant_enrolments = ServantEnrolment.objects.filter(servant_id=pk)
+    context['servant_enrolments'] = servant_enrolments
+    for entry in servant_enrolments: #Loops through the servant_enrolments, extract the service_enrolment ids and add them to the list
+        service_enrolment_ids.append(entry.service_enrolment_id)
+    eligible_queue = QueuedCustomer.objects.filter(service_enrolment_id__in=service_enrolment_ids) #QueuedCustomer instances with service_enrolment assigned to the current servant
+    eligible_queue_ids = []
+    for entry in eligible_queue:
+        eligible_queue_ids.append(entry.service_enrolment_id)
+    context['eligible_queue_ids'] = eligible_queue_ids
+    return render(request, 'equeue/my_queues.html', context)
+
+
+def serve_customers(request):
+    context = {'next_customer_message':None}
+    return render(request, 'equeue/serve_customers.html', context)
+
+
+def next_customer(request, pk):
+    return redirect('equeue:serve-customers', pk=pk)
+
+
+def cancel_customer(request, pk):
+    return redirect('equeue:serve-customers', pk=pk)
 
 
 class ServiceEnrolmentList(generic.ListView):

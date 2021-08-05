@@ -97,13 +97,31 @@ class ServiceEnrolment(models.Model):
         return f'{self.service_provider}: {self.service}'
 
 
+class ServantEnrolment(models.Model):
+    '''
+    A model for enrolling servants to service_enrolments. It links a user to a particular service enrolment that the user can render.
+
+    '''
+    servant = models.ForeignKey(User, on_delete=models.CASCADE)
+    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['servant']
+        constraints = [models.UniqueConstraint(
+            fields=['servant', 'service_enrolment'], name='unique_servant_enrolment')]
+
+    def __str__(self):
+        return f'{self.servant}: {self.service_enrolment}'
+
+
 class QueuedCustomer(models.Model):
     '''
     A model for creating service queues of customers
     '''
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     join_time = models.DateTimeField(auto_now_add=True)
-    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE) #change field name service_enrolment
+    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['id']
