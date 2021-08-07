@@ -2,7 +2,10 @@
 {% block welcome %}
 <br>
 <h2>Serve Customers</h2>
-<h3>Serving page for {{service}} provided by {{service_provider}}.</h3>
+<hr>
+<h4>Hello, {{request.user.first_name}}! Thanks for showing up to work today.</h4>
+<h5>You're currently serving the queue for <strong>{{service}}</strong> @ <strong>{{service_provider}}</strong>.</h5>
+<h6>Wishing you a fruitful day! Remember to be curteous and friendly.</h6>
 <br><br><br>
 <hr>
 {% endblock %}
@@ -32,7 +35,7 @@
             </ul>
             {% else %}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item"> There are no clients waiting queue.</li>
+                <li class="list-group-item"> There are no clients waiting in queue.</li>
             </ul>
             {% endif %}
             <div class="card-body justify-content-center">
@@ -48,7 +51,8 @@
                 Next Customer
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
+                <li class="list-group-item text-white bg-danger">{% if there_is_queue %}
+                    {{ current_queue.0.customer }}{% else %} The queue is empty {% endif %}</li>
             </ul>
         </div>
 
@@ -59,21 +63,23 @@
                 Current Customer
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-success">Customer 0{{ current_customer }}</li>
+                <li class="list-group-item text-white bg-success">{{ current_customer }}</li>
             </ul>
         </div>
 
         <br>
-            <div class="card border-primary text-center" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Call Next Customer</h5>
-                    <p class="card-text"></p>
-                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                        data-target="#nextCustomerAlert">
-                        Next
-                    </button>
-                </div>
+        {% if there_is_queue %}
+        <div class="card border-primary text-center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Call Next Customer</h5>
+                <p class="card-text"></p>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                    data-target="#nextCustomerAlert">
+                    Next
+                </button>
             </div>
+        </div>
+        {% endif %}
         <br>
 
     </div>
@@ -97,8 +103,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="yesCustomerButton">Yes</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal"
-                    id="noCustomerButton">No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="noCustomerButton">No</button>
             </div>
         </div>
     </div>
@@ -124,10 +129,11 @@
     joinButton.onclick = refreshQueue; // Add onclick function to element    
 </script>
 {% endif %} -->
+{% if there_is_queue %}
 <script>
     // Next customer
-    var nextCustomerUrl = "{% url 'equeue:next-customer' queued_customer_instance.id %}"
-    var cancelCustomerUrl = "{% url 'equeue:cancel-customer' queued_customer_instance.id %}"
+    var nextCustomerUrl = "{% url 'equeue:next-customer' current_queue.0.id %}"
+    var cancelCustomerUrl = "{% url 'equeue:cancel-customer' current_queue.0.id %}"
 
     function nextCustomer(event) {
         window.location.href = nextCustomerUrl;
@@ -143,4 +149,5 @@
     var noButton = document.getElementById("noCustomerButton");
     noButton.onclick = cancelCustomer;
 </script>
+{% endif %}
 {% endblock %}

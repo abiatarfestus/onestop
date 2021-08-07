@@ -3,6 +3,7 @@ from django.db import models
 # from django.urls import reverse
 # from django_extensions.db.fields import AutoSlugField
 from django.contrib.auth.models import User
+from django.db.models.fields import related
 from django_resized import ResizedImageField
 
 
@@ -83,10 +84,10 @@ class ServiceEnrolment(models.Model):
     A model for enrolling service providers to services
 
     '''
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='enrolments')
     service_requirements = models.TextField(default='There are no requirements defined for this service.', blank=True)
     service_provider = models.ForeignKey(
-        ServiceProvider, on_delete=models.CASCADE)
+        ServiceProvider, on_delete=models.CASCADE, related_name='enrolments')
 
     class Meta:
         ordering = ['service_provider']
@@ -103,8 +104,8 @@ class ServantEnrolment(models.Model):
 
     '''
     servant = models.ForeignKey(User, on_delete=models.CASCADE)
-    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
-    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE)
+    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE, related_name='enrolments')
+    service_provider = models.ForeignKey(ServiceProvider, on_delete=models.CASCADE, related_name='servants')
 
     class Meta:
         ordering = ['servant']
@@ -119,9 +120,9 @@ class QueuedCustomer(models.Model):
     '''
     A model for creating service queues of customers
     '''
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='queues')
     join_time = models.DateTimeField(auto_now_add=True)
-    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE)
+    service_enrolment = models.ForeignKey(ServiceEnrolment, on_delete=models.CASCADE, related_name='in_queue')
 
     class Meta:
         ordering = ['id']
@@ -140,9 +141,9 @@ class ServedCustomer(models.Model):
     service_enrolment_id = models.IntegerField()
     date_time_served = models.DateTimeField(auto_now_add=True)
     # Number of minutes the customer spent with the server
-    service_duration = models.IntegerField()
+    service_duration = models.IntegerField(default=0)
     # The server/User signed in
-    server = models.ForeignKey(User, on_delete=models.CASCADE)
+    served_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customers_served')
 
     class Meta:
         ordering = ['id']
@@ -159,7 +160,7 @@ class CancelledCustomer(models.Model):
     customer_id = models.IntegerField()
     date_time_cancelled = models.DateTimeField(auto_now_add=True)
     # The server/customer signed in
-    cancelled_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    cancelled_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cancelled_customers')
 
     class Meta:
         ordering = ['id']

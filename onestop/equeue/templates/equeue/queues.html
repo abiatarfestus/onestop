@@ -105,7 +105,8 @@
                 Next Customer
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-danger">{{ current_queue.0.customer }}</li>
+                <li class="list-group-item text-white bg-danger">{% if there_is_queue %}
+                    {{ current_queue.0.customer }}{% else %} The queue is empty {% endif %}</li>
             </ul>
         </div>
 

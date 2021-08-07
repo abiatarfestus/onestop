@@ -8,7 +8,7 @@ urlpatterns = [
     path('queues/<int:pk>/', views.queues, name='queues'),
     path('queues/exit-queue/<int:pk>/', views.exit_queue, name='exit-queue'),
     path('queues/my-queues/<int:pk>/', views.my_queues, name='my-queues'),
-    path('queues/serve-customers/<int:pk>/', views.serve_customers, name='serve-customers'),
+    path('queues/serve-customers/<int:pk>/<int:current_customer>/', views.serve_customers, name='serve-customers'),
     path('queues/next-customer/<int:pk>/', views.next_customer, name='next-customer'),
     path('queues/cancel-customer/<int:pk>/', views.cancel_customer, name='cancel-customer'),
 ]

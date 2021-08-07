@@ -2,7 +2,8 @@
 {% block welcome %}
 <br>
 <h2>My Queues Page</h2>
-<h4>Welcome, <strong>{{ request.user }}</strong>! Below are the queues you were registered to serve @ <strong>{{servant_enrolments.0.service_provider.short_name}}</strong>.</h4>
+<h4>Welcome, <strong>{{ request.user }}</strong>! Below are the queues you were registered to serve @
+  <strong>{{servant_enrolments.0.service_provider.short_name}}</strong>.</h4>
 <br><br><br>
 <hr>
 {% endblock %}
@@ -22,10 +23,13 @@
     <tr>
       <th scope="row">{{forloop.counter}}</th>
       <td>{{servant_enrolment.service_enrolment.service}}</td>
-      <td>{% if servant_enrolment.service_enrolment_id in eligible_queue_ids %} {{servant_enrolment.service_enrolment_id.count}} 
+      <td>{% if servant_enrolment.service_enrolment_id in eligible_queue_ids %}
+        {{eligible_queue_ids.servant_enrolment.service_enrolment_id}}
         {% else %}0{%endif%}
       </td>
-      <td><a class="btn btn-primary" href="{% url 'equeue:serve-customers' servant_enrolment.service_enrolment.id %}" role="button">Serve Customers</a></td>
+      <td><a class="btn btn-primary"
+          href="{% url 'equeue:serve-customers' pk=servant_enrolment.service_enrolment.id current_customer=0 %}"
+          role="button">Serve Customers</a></td>
     </tr>
     {% endfor %}
   </tbody>
@@ -49,4 +53,3 @@
   </span>
 </div>
 {% endblock %}
-
