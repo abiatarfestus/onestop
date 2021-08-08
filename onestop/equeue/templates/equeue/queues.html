@@ -52,7 +52,8 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" role="alert">
-                    You've chosen to exit the queue for {{service}} @ {{service_provider.short_name}}. Do you want to proceed with
+                    You've chosen to exit the queue for {{service}} @ {{service_provider.short_name}}. Do you want to
+                    proceed with
                     this action?
                 </div>
             </div>
@@ -92,8 +93,31 @@
                 <li class="list-group-item"> This queue is empty. Click <strong>Join</strong> to start the queue.</li>
             </ul>
             {% endif %}
+            {% if is_paginated %}
             <div class="card-body justify-content-center">
-                <a href="#" class="card-link">Prev-||-Next</a>
+                <div class="pagination pagination-lg justify-content-center">
+                    <span class="page-link">
+                        <!-- step-link from django change to page-link  bootstrap class -->
+                        {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                        {% endif %}
+
+                        <span class="current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            {% endif %}
+            <div class="card-footer text-muted">
+                <h6 class="float-right">Total in Queue <span class="badge badge-info">{{ queued_users|length }}</span>
+                </h6>
             </div>
         </div>
     </div>

@@ -61,6 +61,7 @@
     {% endfor %}
   </tbody>
 </table>
+{% if is_paginated %}
 <div class="pagination pagination-lg justify-content-center">
   <span class="page-link">
     <!-- step-link from django change to page-link  bootstrap class -->
@@ -79,6 +80,7 @@
     {% endif %}
   </span>
 </div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}
