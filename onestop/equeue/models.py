@@ -149,7 +149,7 @@ class ServedCustomer(models.Model):
         ordering = ['id']
 
     def __str__(self):
-        return f'{self.server}>> {self.date_time_served}'
+        return f'{self.served_by}>> {self.date_time_served}'
 
 
 class CancelledCustomer(models.Model):

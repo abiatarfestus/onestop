@@ -52,7 +52,7 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-white bg-danger">{% if there_is_queue %}
-                    {{ current_queue.0.customer }}{% else %} The queue is empty {% endif %}</li>
+                    <strong>{{ current_queue.0.customer }}</strong> {% else %} The queue is empty {% endif %}</li>
             </ul>
         </div>
 
@@ -63,7 +63,12 @@
                 Current Customer
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-white bg-success">{{ current_customer }}</li>
+                <li class="list-group-item text-white bg-success">{% if current_customer != 0 %}
+                    <strong>{{current_customer }}</strong>
+                    <div class="spinner-grow float-right">
+                    </div>
+                    {% else %} No customer is being served {% endif %}
+                </li>
             </ul>
         </div>
 
@@ -132,7 +137,7 @@
 {% if there_is_queue %}
 <script>
     // Next customer
-    var nextCustomerUrl = "{% url 'equeue:next-customer' current_queue.0.id %}"
+    var nextCustomerUrl = "{% url 'equeue:next-customer' current_queue.0.id last_served_id %}"
     var cancelCustomerUrl = "{% url 'equeue:cancel-customer' current_queue.0.id %}"
 
     function nextCustomer(event) {
