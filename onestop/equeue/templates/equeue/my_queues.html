@@ -24,8 +24,8 @@
     <tr>
       <th scope="row">{{forloop.counter}}</th>
       <td>{{servant_enrolment.service_enrolment.service}}</td>
-      <td>{% if servant_enrolment.service_enrolment_id in eligible_queue_ids %}
-        {{eligible_queue_ids|get_value:servant_enrolment.service_enrolment_id}}
+      <td>{% if servant_enrolment.service_enrolment_id in eligible_queues_ids %}
+        {{eligible_queues_ids|get_value:servant_enrolment.service_enrolment_id}}
         {% else %}0{%endif%}
       </td>
       <td><a class="btn btn-primary"

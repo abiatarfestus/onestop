@@ -203,7 +203,7 @@
     // Join queue
     $('#joinQueueAlert').modal('show') // Show join queue alert modal
 
-    var queueUrl = "{% url 'equeue:queues' service_enrolment.id %}"
+    var queueUrl = "{% url 'equeue:join-queue' service_enrolment.id %}"
 
     function refreshQueue(event) {
         window.location.href = queueUrl;
