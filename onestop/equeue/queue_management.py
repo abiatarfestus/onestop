@@ -73,7 +73,7 @@ class Customer():
         '''
 
         self.queued_instance = QueuedCustomer.objects.filter(service_enrolment_id=pk, customer_id=self.request.user.id).get()
-        CancelledCustomer.objects.create(queue_id=self.queued_instance.id, customer_id=self.queued_instance.customer.id, cancelled_by=self.request.user)
+        CancelledCustomer.objects.create(service_enrolment_id=self.queued_instance.service_enrolment_id, customer_id=self.queued_instance.customer.id, cancelled_by=self.request.user)
         self.queued_instance.delete()
         return redirect('equeue:queues', pk=pk)
 
@@ -89,6 +89,8 @@ class Servant():
         self.current_queue = None
         self.queued_users = []
         self.queue_length = 0
+        self.front_customer = None #Front QueuedCustomer instance
+        self.front_customer_id = 0
         self.service_enrolment_ids = [] # A list to hold ids of the service_enrolments the current user/servant is assigned to
 
     def my_queues(self, pk):
@@ -147,20 +149,29 @@ class Servant():
             seconds = int(duration.total_seconds())
             last_served.service_duration = seconds
             last_served.save()
-        front_customer = QueuedCustomer.objects.get(id=pk)
-        front_customer_id = front_customer.customer_id
-        ServedCustomer.objects.create(customer_id=front_customer_id,
-                                    service_enrolment_id=front_customer.service_enrolment_id, served_by=self.request.user)
+        self.front_customer = QueuedCustomer.objects.get(id=pk)
+        self.front_customer_id = self.front_customer.customer_id
+        ServedCustomer.objects.create(customer_id=self.front_customer_id,
+                                    service_enrolment_id=self.front_customer.service_enrolment_id, served_by=self.request.user)
         current_customer = ServedCustomer.objects.filter(
-            customer_id=front_customer_id, service_enrolment_id=front_customer.service_enrolment_id, served_by=self.request.user).order_by('-date_time_served')
+            customer_id=self.front_customer_id, service_enrolment_id=self.front_customer.service_enrolment_id, served_by=self.request.user).order_by('-date_time_served')
         served_id = current_customer[0].id
         QueuedCustomer.objects.filter(id=pk).delete()
-        return redirect('equeue:serve-customers', pk=front_customer.service_enrolment_id, current_customer=served_id)
+        return redirect('equeue:serve-customers', pk=self.front_customer.service_enrolment_id, current_customer=served_id)
 
 
-    def cancel_customer(request, pk):
-        
-        return redirect('equeue:serve-customers', pk=pk)
+    def cancel_customer(self, pk):
+        '''
+        Retrieve an instance of QueuedCustomer where customer_id=current_user.id and service_id=pk and save it to a variable current_instance
+        Insert in the CancelledCustomer table a new entry with queue_id and customer_id of the current_instance instance
+        Delete the current_instance instance from the QueuedCustomer
+        Return to and refresh the queue page.
+        '''
+        self.front_customer = QueuedCustomer.objects.get(id=pk)
+        self.front_customer_id = self.front_customer.customer_id
+        CancelledCustomer.objects.create(service_enrolment_id=self.front_customer.service_enrolment_id, customer_id=self.front_customer_id, cancelled_by=self.request.user)
+        self.front_customer.delete()
+        return redirect('equeue:serve-customers', pk=self.front_customer.service_enrolment_id, current_customer=0)
 
 
 

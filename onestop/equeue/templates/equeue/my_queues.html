@@ -3,7 +3,7 @@
 {% block welcome %}
 <br>
 <h2>My Queues Page</h2>
-<h4>Welcome, <strong>{{ request.user }}</strong>! Below are the queues you were registered to serve @
+<h4>Welcome, <strong>{{ request.user.first_name }}</strong>! Below are the queues you were registered to serve @
   <strong>{{servant_enrolments.0.service_provider.short_name}}</strong>.</h4>
 <br><br><br>
 <hr>

@@ -52,7 +52,8 @@ def next_customer(request, pk, last_served_id):
 
 
 def cancel_customer(request, pk):
-    return redirect('equeue:serve-customers', pk=pk)
+    servant = Servant(request)
+    return servant.cancel_customer(pk)
 
 
 class ServiceEnrolmentList(generic.ListView):

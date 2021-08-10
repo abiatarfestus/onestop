@@ -156,7 +156,7 @@ class CancelledCustomer(models.Model):
     '''
     A model for recording cancelled customers
     '''
-    queue_id = models.IntegerField()
+    service_enrolment_id = models.IntegerField()
     customer_id = models.IntegerField()
     date_time_cancelled = models.DateTimeField(auto_now_add=True)
     # The server/customer signed in
