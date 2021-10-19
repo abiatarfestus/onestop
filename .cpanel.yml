@@ -35,5 +35,6 @@ deployment:
     - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
     - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
     # - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    # To do manually: edit settings, collectstatic, run migrations
     
     
