@@ -6,6 +6,7 @@ deployment:
     - export BLOGPATH=/home/oshizdab/onestop/blog/
     - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary/
     - export USERSPATH=/home/oshizdab/onestop/users/
+    - export EQUEUEPATH=/home/oshizdab/onestop/equeue/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
     - /bin/cp -u onestop/manage.py $DEPLOYPATH
@@ -29,7 +30,10 @@ deployment:
     - /bin/cp -Ru onestop/users/templates/ $USERSPATH
     - /bin/cp -Ru onestop/users/tests/ $USERSPATH
     - /bin/cp -u onestop/users/*.py $USERSPATH
-    # 
+    # Equeue
+    - /bin/cp -Ru onestop/equeue/templates/ $EQUEUEPATH
+    - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
+    - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
     # - /bin/cp -u onestop/manage.py $DEPLOYPATH
     
     
