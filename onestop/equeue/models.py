@@ -127,10 +127,10 @@ class QueuedCustomer(models.Model):
     class Meta:
         ordering = ['id']
         constraints = [models.UniqueConstraint(
-            fields=['service', 'customer'], name='unique_queuer')]
+            fields=['service_enrolment', 'customer'], name='unique_queuer')]
 
     def __str__(self):
-        return f'{self.customer}>> {self.service}'
+        return f'{self.customer}>> {self.service_enrolment}'
 
 
 class ServedCustomer(models.Model):
