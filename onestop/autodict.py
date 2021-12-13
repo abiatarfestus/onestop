@@ -62,6 +62,8 @@ b = {'baboon':['ondjima', 'lunkima'], 'baby':['okahanona', 'omuholike'], 'back':
     'business':['uunangeshefa', 'ongeshefa'], 'businessman':['omunangeshefa'], 'busy':['sikuuka', 'ipyakidhila'], 'but':['ihe', 'ndele'],
     'butcher':['omutseli'], 'butchery':['oshilahite'], 'butter':['omagadhi','ombuta'], 'butterfly':['embiimbili', 'okambiimbili'],
     'buttock':['etako'], 'button':['ombandi', 'pata'], 'buy':['landa'], 'buyer':['omulandi'], 'by':['ku'], 
-    'bypass':['kunkula', 'kunduluka', 'dhingoloka']}
+    'bypass ':['kunkula', 'kunduluka', 'dhingoloka']}
  
- print(len(b))
+print(len(b))
+b_words = [i.strip() for i in b]
+print(b_words)
