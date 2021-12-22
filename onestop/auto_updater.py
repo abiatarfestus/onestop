@@ -1,36 +1,50 @@
 import sys
 from datetime import datetime
 # from django.contrib.auth.models import User
-import auto_updater
-from dictionary.models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
+from autodict import a, b, c, d, test_a
+from dictionary.models import EnglishWord, OshindongaWord, OshindongaPhonetic
 
-def add_eng_words(words_list):
+def add_eng_words(words_dict):
     '''Adds new English words to the dictionary from a python list'''
     print("STARTED:", datetime.now())
+    words_list = [word for word in words_dict]
     count = 0
     for word in words_list:
-        try:
-            # word = word.strip()
-            new_word = EnglishWord(word=word)
-            new_word.save()
-            count += 1
-        except:
-            print(sys.exc_info()[0], "occurred.")
+        if word[0].isupper():
+            try:
+                new_word = EnglishWord(word=word, word_case='Proper Noun')
+                new_word.save()
+                count += 1
+            except:
+                print(sys.exc_info()[0], "occurred.")
+        else:
+            try:
+                new_word = EnglishWord(word=word)
+                new_word.save()
+                count += 1
+            except:
+                print(sys.exc_info()[0], "occurred.")
     print(count, "English words were added)")
     print("ENDED:", datetime.now())
     return
 
-def add_osh_words(words_dict, words_list):
+def add_osh_words(words_dict):
     '''Adds new Oshindonga words to the dictionary from a python dictionary'''
     print("STARTED:", datetime.now())
-    english_queryset = EnglishWord.objects.all()
-    english_words = [word.word for word in english_queryset]
+    words_list = [word for word in words_dict]
     count = 0
     for word in words_list:
-        if word in english_words:
-            for osh_word in words_dict[word]:
+        for osh_word in words_dict[word]:
+            if word[0].isupper() or osh_word[0].isupper():
                 try:
-                    new_word = OshindongaWord(english_word=word, word=osh_word)
+                    new_word = OshindongaWord(english_word=EnglishWord.objects.get(word=word), word=osh_word, word_case='Proper Noun')
+                    new_word.save()
+                    count += 1
+                except:
+                    print(sys.exc_info()[0], "occurred.")
+            else:
+                try:
+                    new_word = OshindongaWord(english_word=EnglishWord.objects.get(word=word), word=osh_word)
                     new_word.save()
                     count += 1
                 except:
@@ -38,3 +52,8 @@ def add_osh_words(words_dict, words_list):
     print(count, "Oshindonga words were added)")
     print("ENDED:", datetime.now())
     return
+
+update = [a, b, c, d]
+for i in update:
+    add_eng_words(i)
+    add_osh_words(i)

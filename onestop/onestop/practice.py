@@ -625,3 +625,31 @@ send_mail(subject, message, email_from, recipient_list)
 
 # def cancel_customer(request, pk):
 #     return redirect('equeue:serve-customers', pk=pk)
+
+# def add_osh_words(words_dict):
+#     '''Adds new Oshindonga words to the dictionary from a python dictionary'''
+#     print("STARTED:", datetime.now())
+#     words_list = [word for word in words_dict]
+#     english_queryset = EnglishWord.objects.all()
+#     english_words = [word.word for word in english_queryset]
+#     count = 0
+#     for word in words_list:
+#         if word in english_words:
+#             for osh_word in words_dict[word]:
+#                 if word[0].isupper():
+#                     try:
+#                         new_word = OshindongaWord(english_word=word, word=osh_word, word_case='Proper Noun')
+#                         new_word.save()
+#                         count += 1
+#                     except:
+#                         print(sys.exc_info()[0], "occurred.")
+#                 else:
+#                     try:
+#                         new_word = OshindongaWord(english_word=word, word=osh_word)
+#                         new_word.save()
+#                         count += 1
+#                     except:
+#                         print(sys.exc_info()[0], "occurred.")
+#     print(count, "Oshindonga words were added)")
+#     print("ENDED:", datetime.now())
+#     return
