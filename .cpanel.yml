@@ -10,6 +10,8 @@ deployment:
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
     - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    - /bin/cp -u onestop/autodict.py $DEPLOYPATH
+    - /bin/cp -u onestop/auto_updater.py $DEPLOYPATH
     - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
     - /bin/cp -Ru onestop/static/ $DEPLOYPATH
     - /bin/cp -Ru onestop/templates/ $DEPLOYPATH
