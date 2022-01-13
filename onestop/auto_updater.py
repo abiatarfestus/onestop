@@ -2,7 +2,7 @@ import sys
 from datetime import datetime
 # from django.contrib.auth.models import User
 from autodict import a, b, c, d, test_a
-from dictionary.models import EnglishWord, OshindongaWord, OshindongaPhonetic
+from dictionary.models import EnglishWord, OshindongaWord
 
 def add_eng_words(words_dict):
     '''Adds new English words to the dictionary from a python list'''
