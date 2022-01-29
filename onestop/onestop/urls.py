@@ -38,6 +38,7 @@ urlpatterns = [
          TemplateView.as_view(template_name="onestop/terms_and_conditions.html"), name='terms-and-conditions'),
     path('users/', include('users.urls')),
     path('dictionary/', include('dictionary.urls')),
+    path('store', include('store.urls')),
     path('blog/', include('blog.urls')),
     path('equeue/', include('equeue.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
