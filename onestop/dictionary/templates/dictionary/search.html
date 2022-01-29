@@ -19,7 +19,8 @@
           <a class="nav-link" href="{% url 'dictionary:oshindonga-create' %}">Add Oshindonga Words</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="{% url 'dictionary:oshindonga-phonetic-create' %}">Add Oshindonga Phonetics</a>
+          <a class="nav-link disabled" href="{% url 'dictionary:oshindonga-phonetic-create' %}">Add Oshindonga
+            Phonetics</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'dictionary:definition-create' %}">Add Definitions</a>
@@ -36,24 +37,40 @@
 </nav>
 {% endblock %}
 {% block welcome %}
-<h1>Welcome to Oshinglish Dictionary</h1> 
-<h2>Built by the community for the community</h2>
+<h1>Welcome to Oshinglish Dictionary</h1>
+<h2>-Built by the community for the community-</h2>
 
 <hr>
-<button type="button" class="btn btn-primary position-relative">
-  Total English words
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-    <span class="visually-hidden"></span>
-  </span>
-</button>
-<button type="button" class="btn btn-primary position-relative">
-  Total Oshindonga words
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-    <span class="visually-hidden"></span>
-  </span>
-</button>
+<ul class="dict-content">
+  <li>
+    <h5 class="dict-content-heading">Total Counts:</h5>
+  </li>
+  <li class="dict-content-item">
+    <button type="button" class="btn btn-light">
+      Total English words <span class="badge bg-dark text-light">{{total_english}}</span>
+    </button>
+  </li>
+  <li class="dict-content-item">
+    <button type="button" class="btn btn-light">
+      Total Oshindonga words <span class="badge bg-dark text-light">{{total_oshindonga}}</span>
+    </button>
+  </li>
+  <li class="dict-content-item">
+    <button type="button" class="btn btn-light">
+      Total Definitions <span class="badge bg-dark text-light">{{total_definitions}}</span>
+    </button>
+  </li>
+  <li class="dict-content-item">
+    <button type="button" class="btn btn-light">
+      Total Examples <span class="badge bg-dark text-light">{{total_examples}}</span>
+    </button>
+  </li>
+  <li class="dict-content-item">
+    <button type="button" class="btn btn-light">
+      Total Idioms <span class="badge bg-dark text-light">{{total_idioms}}</span>
+    </button>
+  </li>
+</ul>
 <br>
 <br>
 {% endblock %}
@@ -99,7 +116,7 @@
         {% for item in idioms %}
         {% for object in item %}
         <p>
-          <a class="badge bg-secondary" data-bs-toggle="collapse" href="#idiom{{ object.id }}" role="button"
+          <a class="badge bg-secondary text-light" data-toggle="collapse" href="#idiom{{ object.id }}" role="button"
             aria-expanded="false" aria-controls="idiom{{ object.id }}">
             {{ object }}
           </a>

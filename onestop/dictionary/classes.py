@@ -162,7 +162,10 @@ class SearchDefinition():
         self.form = SearchWordForm(self.request.GET)
         self.context = {'form': '', 'searched_word': '',
                         'definitions': '', 'examples': '', 'suggested_searches': EnglishWord.objects.order_by('?')[:8],
-                        'top_contributors': self.history.get_contributors(10), 'idioms': ''}
+                        'top_contributors': self.history.get_contributors(10), 'idioms': '', 
+                        'total_english':EnglishWord.objects.count(), 'total_oshindonga':OshindongaWord.objects.count(), 
+                        'total_definitions':WordDefinition.objects.count(), 'total_examples':DefinitionExample.objects.count(),
+                        'total_idioms':OshindongaIdiom.objects.count()}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
     def search_examples(self, definitions_pks):

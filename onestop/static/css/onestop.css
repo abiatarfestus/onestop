@@ -101,7 +101,7 @@ nav {
 .featured-image {
 	/* object-fit: cover; */
 	max-width: 100%;
-  	height: auto;
+	height: auto;
 }
 
 /* -------------------------------------------------RIGHT-SIDEBAR-------------------------------------------- */
@@ -110,7 +110,7 @@ nav {
 	background: linear-gradient(to left, #f7f7f76b, #abd3d3be);
 }
 
-.card-header{
+.card-header {
 	font-weight: bold;
 }
 /* #input-language {
@@ -125,9 +125,13 @@ p {
 	background-color: cadetblue;
 }
 
+.dict-content {
+	background-color: rgb(232, 243, 243);
+}
 /* SUGGESTED SEARCHES | NEWLY ADDED WORDS | UNSTRATSLATED WORDS | UNDEFINED WORDS*/
 
 #suggested-searches,
+.dict-content,
 .newly-added-words,
 .untranslated-words,
 .newly-added-examples,
@@ -146,6 +150,7 @@ p {
 }
 
 .s-searches,
+.dict-content-item,
 .shares
 /* .n-added,
 .untranslated,
@@ -159,6 +164,7 @@ p {
 }
 
 #s-search-heading,
+.dict-content-heading,
 .n-added-words-heading,
 .untranslated-heading,
 .undefined-heading {
