@@ -7,12 +7,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 class UserRegisterForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ("email",)
+        fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name')
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs = {
             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Username'}
+        self.fields['first_name'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'First Name'}
+        self.fields['last_name'].widget.attrs = {
+            'class': 'form-control form-control-lg mb-2', 'placeholder': 'Last Name'}
         self.fields['email'].widget.attrs = {
             'class': 'form-control form-control-lg mb-2', 'placeholder': 'Email address'}
         self.fields['password1'].widget.attrs = {

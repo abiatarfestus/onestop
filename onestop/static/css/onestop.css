@@ -14,6 +14,12 @@ nav {
 	color: black;
 }
 
+#store-nav {
+	background: #ccd4da;
+	color: black;
+}
+/* style="background-color: hsl(188, 42%, 86%); */
+
 .page-headings {
 	text-align: center;
 }
