@@ -6,10 +6,12 @@ from .models import Customer
 
 @receiver(post_save, sender=User) 
 def create_customer(sender, instance, created, **kwargs):
+    print("CUSTOMER CREATION SIGNAL CALLED")
     if created:
         Customer.objects.create(user=instance, name=f'{instance.first_name} {instance.last_name}', email=instance.email)
 
 
 @receiver(post_save, sender=User)
 def save_customer(sender, instance, **kwargs):
+    print("CUSTOMER SAVE SIGNAL CALLED")
     instance.customer.save()
