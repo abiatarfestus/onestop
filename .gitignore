@@ -1,4 +1,6 @@
 env
+venv
+venv/
 .vscode
 .env
 asgi.py
