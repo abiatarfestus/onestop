@@ -4,7 +4,7 @@ test_a = {'abate': ['iota'], 'abattoir': ['okatomeno'], 'abbreviation': ['efupip
           'accompany': ['enda', 'thindikila'], 'according to': ['pa'], 'according to nature': ['paunshitwe'],
           'accordion': ['enambati'], 'accountability': ['eyalulo', 'uupulwankombo']}
 
-a = {'abate': ['iota'], 'abattoir': ['okatomeno'], 'abbreviation': ['efupipiko'], 'abdomen': ['omumpanya'],
+a_words = {'abate': ['iota'], 'abattoir': ['okatomeno'], 'abbreviation': ['efupipiko'], 'abdomen': ['omumpanya'],
      'lower abdomen': ['oshinena'], 'abduct': ['mbemba'], 'abduction': ['embembopo'], 'ability': ['evulo'],
      'able': ['pondola'], 'nose about': ['petapeta'], 'search about': ['thimbilathimbila'], 'above': ['kombanda'],
      'abscess': ['oshitumbuka'], 'absence': ['uukeepo'], 'absent': ['ke po'], 'absorb': ['nina'], 'abstain': ['idhilika'],
@@ -79,7 +79,7 @@ a = {'abate': ['iota'], 'abattoir': ['okatomeno'], 'abbreviation': ['efupipiko']
      'awake': ['penduka', 'papudhuka'], 'awakening': ['ependuko'], 'aware': ['shi', 'nongela'], 'awareness': ['enongelo'],
      'away': ['yi', 'ya'], 'awl': ['oniho'], 'axe': ['ekuya'], 'axle': ['oakiseli', 'oakisa'], 'axis': ['oakiseli']}
 
-b = {'baboon': ['ondjima', 'lunkima'], 'baby': ['okahanona', 'omuholike'], 'back': ['omugongo', 'ombunda'],
+b_words = {'baboon': ['ondjima', 'lunkima'], 'baby': ['okahanona', 'omuholike'], 'back': ['omugongo', 'ombunda'],
      'backbone': ['omugongo', 'esipa lyombunda'], 'backbite': ['hokola'], 'backbiter': ['omuhokoli'],
      'background': ['osindo'], 'backside': ['etako', 'konima'], 'bacteria': ['ombakiteli'], 'bad': ['ha'],
      'badge': ['oshihako', 'ombandi'], 'badly': ['nayi'], 'badness': ['uuwinayi'], 'bag': ['oshako', 'ondjato'],
@@ -145,7 +145,7 @@ b = {'baboon': ['ondjima', 'lunkima'], 'baby': ['okahanona', 'omuholike'], 'back
      'buttock': ['etako'], 'button': ['ombandi', 'pata'], 'buy': ['landa'], 'buyer': ['omulandi'], 'by': ['ku'],
      'bypass ': ['kunkula', 'kunduluka', 'dhingoloka']}
 
-c = {'cabinet': ['oskopa', 'osikopa', 'okabinete'], 'cackle': ['kokola', 'tetena'], 'cake': ['oshikuki'],
+c_words = {'cabinet': ['oskopa', 'osikopa', 'okabinete'], 'cackle': ['kokola', 'tetena'], 'cake': ['oshikuki'],
      'calabash': ['ombago', 'oshikola', 'ompamba'], 'calculate': ['yalula'], 'calculation': ['eyalulo'], 'calender': ['okalindela'],
      'calf': ['ontana', 'okatana'], 'call': ['ithana', 'igidha'], 'calm': ['ngungila', 'mweneka'], 'camel': ['ongamelo'],
      'camel-thorn': ['omuthiya'], 'camera': ['efano  lyokuthaneka'], 'camp': ['yunga', 'ontanda', 'okamba'],
@@ -253,7 +253,7 @@ c = {'cabinet': ['oskopa', 'osikopa', 'okabinete'], 'cackle': ['kokola', 'tetena
      'cushion': ['oshigwilo', 'oshikuusinga'], 'customer': ['okastoma'], 'cut': ['konda', 'kulula', 'teta', 'keka', 'tenga', 'lenga', 'henda'],
      'cutting': ['eteto'], 'cutworm': ['enkandyangali'], 'Cyprus': ['Ciprus'], 'Cyprian': ['Omuciprusa'], 'Czechoslovakia': ['Czechoslovakia']}
 
-d = {'dabchick': ['neyumbo', 'ondjumbu', 'neumbu', 'okaneumbu'], 'dagga': ['epangwe'], 'dagger': ['omwele'], 'daily': ['esiku kehe'],
+d_words = {'dabchick': ['neyumbo', 'ondjumbu', 'neumbu', 'okaneumbu'], 'dagga': ['epangwe'], 'dagger': ['omwele'], 'daily': ['esiku kehe'],
      'dam': ['ondama'], 'damage': ['yonagula'], 'damn': ['thinga'], 'damp': ['omuku'], 'dance': ['nyanda', 'tanta', 'tutula', 'dhana'],
      'dancer': ['omudhani'], 'danger': ['oshiponga'], 'dangerous': ['shi na oshiponga'], 'dark': ['luudha', 'wiwila'], 'darkness': ['omulema'],
      'darn': ['lapa'], 'dash': ['nipuka', 'oshidhiladhilitho'], 'date': ['enyolwasiku', 'omuye'], 
@@ -318,7 +318,7 @@ d = {'dabchick': ['neyumbo', 'ondjumbu', 'neumbu', 'okaneumbu'], 'dagga': ['epan
      'dust': ['pupula', 'ontsi'], 'duty': ['oshinakugwanithwa', 'oshilonga'], 'dwarf': ['okangongolo'], 'dweller': ['ombwiti'], 'dwelling': ['olukaiwa'],
      'dye': ['daya', 'efumika'], 'dynamite': ['ondilimani'], 'dysentery': ['oshitokota', 'oshimela shombinzi']}
 
-e = {'Eagle': ['ekwatandimba'], 'earn': ['mona'], 'earning': ['emoniko', 'okumona'], 'earth': ['evi', 'uuyuni'], 'earthing': ['fila'],
+e_words = {'Eagle': ['ekwatandimba'], 'earn': ['mona'], 'earning': ['emoniko', 'okumona'], 'earth': ['evi', 'uuyuni'], 'earthing': ['fila'],
      'earthquake': ['ekakamovi'], 'earthworm': ['oshiyokahi'], 'easier': ['pu unene'], 'east': ['uuzilo'],
      'Easter': ['Opaasa'], 'eastern': ['kuuzilo'], 'easy': ['pu'], 'eat': ['lya'], 'eavesdrop': ['ambela'],
      'eavesdropping': ['eambelo'], 'ebony': ['omwandi'], 'eclipse': ['eluudho'],      'economic': ['paliko'],
@@ -361,7 +361,7 @@ e = {'Eagle': ['ekwatandimba'], 'earn': ['mona'], 'earning': ['emoniko', 'okumon
      'extract': ['kula', 'thipa', 'kutha'], 'extraction': ['ethipo', 'ekutho'], 'exult': ['ligola'],
      'exultation': ['eligolo', 'ondigolo'], 'eye': ['eho', 'tala']} 
      
-f = {'fable': ['olungano'], 'face': ['oshipala', 'taalela'],
+f_words = {'fable': ['olungano'], 'face': ['oshipala', 'taalela'],
      'fact': ['oshitsa', 'oshili'], 'factor': ['oshinima'], 'factory': ['ofambulika', 'ofabrika'], 'fade': ['dhimeya'],
      'fail': ['ponya', 'ndopa'], 'fair': ['-yuuki'], 'fairness':['uuyuuki'], 'faint': ['kambuka', 'dhimeya'],
      'fall down': ['mbolokota', 'gwa'], 'fall short': ['kambela'], 'family': ['aanegumbo', 'omukwanezimo', 'egumbo', 'ezimo'],
@@ -416,7 +416,7 @@ f = {'fable': ['olungano'], 'face': ['oshipala', 'taalela'],
      'furniture': ['iiyopalekigumbo'], 'furrow': ['ofoola'], 'further': ['komeho'], 'fury': ['ongeyo'], 'fuse': ['ontopitha'],
      'future': ['onakuyiwa', 'konakuyiwa', 'komongula', 'uunawangula']}
 
-g = {'gale': ['oshikungulu'], 'gall': ['onyango'], 'gallop': ['ndombola', 'ohalopa'], 'gamble': ['ndombela'],
+g_words = {'gale': ['oshikungulu'], 'gall': ['onyango'], 'gallop': ['ndombola', 'ohalopa'], 'gamble': ['ndombela'],
      'gambol': ['wawanga'], 'game': ['omulowe', 'okatoma', 'uudhano', 'ekondjithathano'], 'gang': ['ongenga', 'ongundu'],
      'gaol': ['ondholongo', 'okakuma', 'ondjedhililo'], 'gap': ['ekolombongo', 'omwaka'], 'garage': ['ongalashe'],
      'garden': ['oshitsambe', 'oshikunino'], 'gardener': ['omunashikunino'], 'garment': ['onguwo'], 'gas': ['ohasa'],
@@ -452,7 +452,7 @@ g = {'gale': ['oshikungulu'], 'gall': ['onyango'], 'gallop': ['ndombola', 'ohalo
      'guinea-fowl': ['onkanga'], 'guitar': ['ekwangwangwa', 'oshiketala'], 'gulf': ['ekololo'], 'gun': ['ondjembo'],
      'gust': ['oshihomo'], 'gutter': ['oshiyakelikunguluki']}
 
-h = {'habit': ['onkalelo', 'ondjigilile', 'omukalo'], 'haft': ['omupini'], 'hail': ['ompawe', 'ompagwe'], 'hair': ['omafufu', 'efufu'],
+h_words = {'habit': ['onkalelo', 'ondjigilile', 'omukalo'], 'haft': ['omupini'], 'hail': ['ompawe', 'ompagwe'], 'hair': ['omafufu', 'efufu'],
      'hairiness': ['olufufu'], 'hairdresser': ['omukamuli', 'omupandi'], 'half': ['etata'], 'hall': ['oshinyanga'],
      'hand': ['oshikaha', 'eke'], 'handbag': ['ombuluwaka', 'ondjato yopeke'], 'handicap': ['uulema'],
      'handicapped': ['oshilema', 'omunuulema'], 'handcuffs': ['oomango', 'iiketanga'], 'handle': ['okakongo', 'onkogo', 'oshikwatitho'],
@@ -496,7 +496,7 @@ h = {'habit': ['onkalelo', 'ondjigilile', 'omukalo'], 'haft': ['omupini'], 'hail
      'hyena': ['embungu', 'onkutha', 'shimbungu', 'shidhengeni'], 'hygiene': ['uukalinawa', 'uundjolowele', 'uuyogoki'],
      'hypocrite': ['omufudhime'], 'hypocrisy': ['uufudhime']}
 
-i = {'I': ['ngame', 'ngaye'], 'ice': ['iikangwa', 'omaaisa'], 'idea': ['owino', 'ondunge', 'edhiladhilo'],
+i_words = {'I': ['ngame', 'ngaye'], 'ice': ['iikangwa', 'omaaisa'], 'idea': ['owino', 'ondunge', 'edhiladhilo'],
      'if': ['ngele', 'uuna', 'ando'], 'ignorance': ['uukwaashiwo'], 'iguana': ['ekakala'], 'iilegally': ['shaali paveta'],
      'ill health': ['oshigombo'], 'ill': ['ehama'], 'illegal': ['pwaa shi paveta'], 'illness': ['omukithi', 'uuwehame'],
      'image': ['oshifetha', 'ethano'], 'imagination': ['efekelo'], 'imagine': ['fekela'], 'imitate': ['holela'],
@@ -528,7 +528,7 @@ i = {'I': ['ngame', 'ngaye'], 'ice': ['iikangwa', 'omaaisa'], 'idea': ['owino', 
      'Israeli': ['Omwiisraeli'], 'issue': ['gandja', 'oshikumungu'], 'it': ['sho'], 'Italian': ['Omwiitalia'], 'Italy': ['Italia'],
      'itch': ['nywa', 'nyu', 'ohwehwe'], 'item': ['oshinima'], 'itself': ['sho shene']} 
 
-j = {'jack up': ['ndjeka'], 'jack': ['ondjeke'],
+j_words = {'jack up': ['ndjeka'], 'jack': ['ondjeke'],
      'jackal': ['kaandje', 'ombandje'], 'jacket': ['ombayikitha'], 'jackhammer': ['omundjini'], 'January': ['Januali'],
      'Japan': ['Japan'], 'Japanese': ['Omujapan'], 'jealous': ['tsa ondumbo', 'kodhilila', 'sa efupa'],
      'jealousy': ['efupa', 'uukodhi', 'ondumbo'], 'jeep': ['ondjipa'], 'jelly': ['omayoyo', 'oyeli'], 'jerk': ['hilagula'],
@@ -540,7 +540,7 @@ j = {'jack up': ['ndjeka'], 'jack': ['ondjeke'],
      'June': ['Juni'], 'jurist': ['omunongompango'], 'just': ['owala', '-yuuki'], 'justice': ['uuyuki'],
      'jut': ['anduka', 'pita ko', 'pita mo']}
      
-k = {'Kenya': ['Kenya'], 'key': ['oshipatululo', 'oshapi'],
+k_words = {'Kenya': ['Kenya'], 'key': ['oshipatululo', 'oshapi'],
      'kick': ['thanga', 'omuthi', 'oluna'], 'kicker': ['omuthangi'], 'kid': ['okakombwena', 'okanona'],
      'kidnap': ['mbemba po', 'kwata ombambyona'], 'kidnapping': ['embembopo', 'ekwatombambyona'],
      'kidney': ['oshitishanathigo', 'othigo'], 'kill': ['dhipaga'], 'killer': ['omudhipagi'], 'killing': ['edhipago'],
@@ -552,7 +552,7 @@ k = {'Kenya': ['Kenya'], 'key': ['oshipatululo', 'oshapi'],
      'knuckle': ['onkankonya'], 'Korea': ['Korea'], 'kraal': ['oshigunda'], 'kudu': ['oholongo'],
      'Kwangali': ['Omukwangali', 'Oshikwangali'], 'Kwanyama': ['Omukwanyama', 'Oshikwanyama', 'Uukwanyama']}
 
-l = {'laboratory': ['olabora'], 'labour': ['iilonga'], 'labourer': ['omuniilonga'], 'ladder': ['ompani', 'oshilondelo'],
+l_words = {'laboratory': ['olabora'], 'labour': ['iilonga'], 'labourer': ['omuniilonga'], 'ladder': ['ompani', 'oshilondelo'],
      'ladle': ['ompindo', 'pinda'], 'lair': ['omvugo'], 'lake': ['etale'], 'lamb': ['okanzigona'], 'lame': ['omusilombanda'],
      'lamp': ['olamba'], 'land': ['evi', 'nambela'], 'landowner': ['mwene gwevi', 'nakulikola evi'], 'language': ['elaka'],
      'large': ['-nene'], 'last': ['hugunini', 'hugunina', 'ya za ko', 'gwa za ko'], 'last long': ['kala po ethimbo'],
@@ -595,7 +595,7 @@ l = {'laboratory': ['olabora'], 'labour': ['iilonga'], 'labourer': ['omuniilonga
      'Lüderitz': ['Okakoveiwa', 'Oliindili'], 'luggage': ['omutsalo'], 'lukewarm': ['lomoka', 'ziluka'], 'lull': ['kotheka'],
      'lung': ['epunga'], 'lurch': ['funga'], 'lure': ['heka', 'eheko'], 'lynx': ['ehinga']}
  
-m = {'machine': ['eshina'], 'madam': ['efolo', 'feelani'], 'magazine': ['engandjiina', 'oshifonkundana'], 'magnet': ['engeneta'],
+m_words = {'machine': ['eshina'], 'madam': ['efolo', 'feelani'], 'magazine': ['engandjiina', 'oshifonkundana'], 'magnet': ['engeneta'],
      'magnetic': ['kwamangeneta'], 'magic': ['uumpulile'], 'magician': ['ompulile'], 'magistrate': ['mangestrata'],
      'maggot': ['othithi'], 'mahangu': ['omahangu', 'ehangu'], 'mail': ['opoosa', 'ontumwafo', 'ombapila'], 'maize': ['epungu'],
      'major': ['-nene'], 'make': ['ninga', 'oludhi'], 'maker': ['omuningi'], 'malaria': ['olwiidhi', 'omalaria'],
@@ -644,7 +644,7 @@ m = {'machine': ['eshina'], 'madam': ['efolo', 'feelani'], 'magazine': ['engandj
      'musician': ['omuhikingalo', 'nakuhikuuhumba'], 'musk cat': ['okangungumani'], 'Muslim': ['Omumoslema'],
      'must': ['na oku'], 'mutter': ['dhilomota'], 'muzzle-loader': ['engondo']}
 
-n = {'naturally': ['paunshitwe'], 'nature': ['uushitwe', 'uunshitwe', 'uukwatya'], 'naughtiness': ['uutsini', 'uupote'],
+n_words = {'naturally': ['paunshitwe'], 'nature': ['uushitwe', 'uunshitwe', 'uukwatya'], 'naughtiness': ['uutsini', 'uupote'],
      'naughty': ['pota', '-tsini'], 'nausea': ['okukunkutwa'], 'nauseate': ['mbilinga'], 'navel': ['ekuvu'],
      'Ndonga': ['Oshindonga', 'Omundonga', 'Ondonga'], 'near': ['popepi'], 'nearly': ['masiku', 'konyala', 'lunga'],
      'neat': ['opala'], 'neatness': ['uuyogoki', 'uuhaya'], 'neck': ['othingo'], 'nail': ['ondungo', 'omboha', 'oshipanyala'],
@@ -672,7 +672,7 @@ n = {'naturally': ['paunshitwe'], 'nature': ['uushitwe', 'uunshitwe', 'uukwatya'
      'number': ['omwaalu', 'onomola'], 'numerical': ['paeyenomola'], 'nurse': ['omupangi'],
      'nut': ['omuta', 'ofukwa', 'ombundufukwa', 'ehuku']}
 
-o = {'obstinate': ['omuthengalali'], 'obtain': ['likola'], 'occasion': ['ompito'], 'occasionally': ['oolumwe'],
+o_words = {'obstinate': ['omuthengalali'], 'obtain': ['likola'], 'occasion': ['ompito'], 'occasionally': ['oolumwe'],
      'occiput': ['onkome'], 'occupant': ['omukaatumbi', 'omukalimo'], 'ocean': ['efuta'], 'October': ['Kotooba'],
      'offend': ['shundula', 'ehameka', 'yemateka'], 'offering': ['eyambo', 'ondjambo'], 'office':['ombelewa'],
      'officer': ['omunambelewa'], 'official': ['omukwanepangelo', 'omunambelewa'], 'officially': ['papangelo', 'pambelewa'],
@@ -699,7 +699,7 @@ o = {'obstinate': ['omuthengalali'], 'obtain': ['likola'], 'occasion': ['ompito'
      'obedient': ['vulika', '-vuliki'], 'object': ['oshiningwa', 'omuningi', 'oshinima'], 'objectionable': ['pumpa'],
      'observation': ['ekoneko', 'ekonakono'], 'obstacle': ['oshiimbi',  'omukohongo', 'einda', 'eyinda']}
 
-p = {'painfulness': ['uuwehame'], 'painstaking': ['oshimpwiyu'], 'painter': ['omupaindi'], 'pair': ['epando'],
+p_words = {'painfulness': ['uuwehame'], 'painstaking': ['oshimpwiyu'], 'painter': ['omupaindi'], 'pair': ['epando'],
      'Pakistan': ['Pakistan'], 'palate': ['ondaathelokati'], 'pale': ['pemba'], 'Palestine': ['Palestina'],
      'Palestinian': ['Omupalestina'], 'palm': ['oshiyale', 'oshaale', 'iiyale', 'omulunga', 'eke'], 'palm frond': ['epokolo'],
      'palm fruit': ['ondunga'], 'palm leaf': ['olwaale', 'oombale'], 'palm tree': ['omulunga'], 'pan': ['ekango', 'oshipana'],
@@ -806,8 +806,8 @@ p = {'painfulness': ['uuwehame'], 'painstaking': ['oshimpwiyu'], 'painter': ['om
 #           print(word)
 # print("Done checking!")
 
-words = [i for i in d]
-for i in words:
-     if words.count(i) > 1:
-          print(i)
+words = [n for n in i_words]
+for n in words:
+     if words.count(n) > 1:
+          print(n)
 # print(words)
