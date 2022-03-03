@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime
 # from django.contrib.auth.models import User
-from autodict import a, b, c, d, test_a
+from autodict import e, f, g, h, i, j, k, l, m, n, o, p
 from dictionary.models import EnglishWord, OshindongaWord
 
 def add_eng_words(words_dict):
@@ -53,7 +53,7 @@ def add_osh_words(words_dict):
     print("ENDED:", datetime.now())
     return
 
-update = [a, b, c, d]
+update = [e, f, g, h, i, j, k, l, m, n, o, p]
 for i in update:
     add_eng_words(i)
     add_osh_words(i)
