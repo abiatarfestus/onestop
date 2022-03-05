@@ -39,9 +39,9 @@ deployment:
     - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
     - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
     # Store
-    - /bin/cp -Ru onestop/users/templates/ $STOREPATH
-    - /bin/cp -Ru onestop/users/tests/ $STOREPATH
-    - /bin/cp -u onestop/users/*.py $STOREPATH
+    - /bin/cp -Ru onestop/store/templates/ $STOREPATH
+    - /bin/cp -Ru onestop/store/tests/ $STOREPATH
+    - /bin/cp -u onestop/store/*.py $STOREPATH
     # To do manually: edit settings, collectstatic (before commit in dev??), run migrations
     
     

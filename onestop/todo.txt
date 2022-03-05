@@ -2,3 +2,4 @@
 *Upgraded Django-Comments-xtd
 Upgraded Django to 4.0
 Upgrade django-summernote
+2022-03-05 ---> upgrades done!
