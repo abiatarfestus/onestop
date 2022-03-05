@@ -7,6 +7,7 @@ deployment:
     - export DICTIONARYPATH=/home/oshizdab/onestop/dictionary/
     - export USERSPATH=/home/oshizdab/onestop/users/
     - export EQUEUEPATH=/home/oshizdab/onestop/equeue/
+    - export STOREPATH=/home/oshizdab/onestop/store/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
     - /bin/cp -u onestop/manage.py $DEPLOYPATH
@@ -37,7 +38,10 @@ deployment:
     - /bin/cp -Ru onestop/equeue/templatetags/ $EQUEUEPATH
     - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
     - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
-    # - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    # Store
+    - /bin/cp -Ru onestop/users/templates/ $STOREPATH
+    - /bin/cp -Ru onestop/users/tests/ $STOREPATH
+    - /bin/cp -u onestop/users/*.py $STOREPATH
     # To do manually: edit settings, collectstatic (before commit in dev??), run migrations
     
     
