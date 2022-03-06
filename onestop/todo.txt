@@ -8,3 +8,6 @@
 
 2022-03-06 (dev)
 1. Added UnfoudWord model, implementation in searchWord class, and signals
+
+2022-03-06 (pro)
+1. Updated all UnfoudWord functionalities
