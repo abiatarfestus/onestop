@@ -7,7 +7,10 @@ class Customer(models.Model):
 	user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
 
 	def __str__(self):
-		return f'{self.user.first_name} {self.user.last_name}'
+		if len(self.user.first_name) == 0 or len(self.user.last_name) == 0:
+			return self.user.username
+		else:
+			return f'{self.user.first_name} {self.user.last_name}'
 # Test yml update
 
 class Product(models.Model):
