@@ -653,3 +653,21 @@ send_mail(subject, message, email_from, recipient_list)
 #     print(count, "Oshindonga words were added)")
 #     print("ENDED:", datetime.now())
 #     return
+
+#Record unfund word
+# import sys
+# from django.db.models import F
+# from django.db import IntegrityError
+# from dictionary.models import UnfoundWord
+# def save_unfound_word(word, language):
+#     '''
+#         Takes in the word searched and the language input of a search that returned no word found and creates a
+#         new record in the UnfoundWord table or increment the search count if the word already exists.
+#     '''
+#     try:
+#         new_unfound = UnfoundWord(word=word.lower(), language=language)
+#         new_unfound.save()
+#     except IntegrityError:
+#         UnfoundWord.objects.filter(word=word.lower(), language=language).update(search_count = F('search_count') + 1)
+#     except:
+#         print(sys.exc_info()[0], "occurred.")

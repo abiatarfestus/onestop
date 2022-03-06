@@ -1,5 +1,10 @@
-2022-01-29
-*Upgraded Django-Comments-xtd
-Upgraded Django to 4.0
-Upgrade django-summernote
-2022-03-05 ---> upgrades done!
+2022-01-29 (dev)
+1. Upgraded Django-Comments-xtd
+2. Upgraded Django to 4.0
+3. Upgrade django-summernote
+
+2022-03-05 (pro)
+1. All upgrades done
+
+2022-03-06 (dev)
+1. Added UnfoudWord model, implementation in searchWord class, and signals

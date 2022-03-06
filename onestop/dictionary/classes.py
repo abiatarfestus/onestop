@@ -1,7 +1,10 @@
+import sys
+from django.db.models import F
+from django.db import IntegrityError
 from django.shortcuts import render
 from .forms import SearchWordForm
 from django.contrib.auth.models import User
-from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom
+from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, UnfoundWord
 
 
 class HistoryRecord():
@@ -168,6 +171,22 @@ class SearchDefinition():
                         'total_idioms':OshindongaIdiom.objects.count()}
         # Note: order_by('?') queries may be expensive and slow, depending on the database backend you’re using
 
+    def save_unfound_word(self, word, language):
+        '''
+            Takes in the word searched and the language input of a search that returned no word found and creates a
+            new record in the UnfoundWord table or increment the search count if the word already exists.
+        '''
+        try:
+            new_unfound = UnfoundWord(word=word.lower(), language=language)
+            new_unfound.save()
+        except IntegrityError:
+            UnfoundWord.objects.filter(word=word.lower(), language=language).update(search_count = F('search_count') + 1)
+            # existing_word.search_count = F('search_count') + 1
+            # existing_word.save()
+        except:
+            print(sys.exc_info()[0], "occurred.")
+
+
     def search_examples(self, definitions_pks):
         '''
             Takes in a list of pks of found definitions and search if examples exist and return example objects.
@@ -264,6 +283,7 @@ class SearchDefinition():
                     # Get the the id/pk of the word found to be used in Oshindonga model
                     eng_word_pk = eng_word.id
                 except EnglishWord.DoesNotExist:
+                    self.save_unfound_word(word, language)
                     self.context['searched_word'] = [
                         'The word you searched was not found.']
                     # render(self.request, 'dictionary/search.html', self.context)
@@ -274,6 +294,7 @@ class SearchDefinition():
                 word_pairs = OshindongaWord.objects.filter(
                     word=word)  # Search in OshindongaWord using the word
                 if len(word_pairs) == 0:
+                    self.save_unfound_word(word, language)
                     self.context['searched_word'] = [
                         'Oshitya shi wa kongo ina shi monika.']
                     # return render(self.request, 'dictionary/search.html', self.context)

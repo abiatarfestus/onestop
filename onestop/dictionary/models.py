@@ -224,3 +224,26 @@ class OshindongaIdiom(AuthAndTimeTracker):
     def get_absolute_url(self):
         #from django.urls import reverse
         return reverse('dictionary:oshindonga-idiom-detail', args=[str(self.id)])
+
+
+class UnfoundWord(models.Model):
+    '''
+    A model that records words that were searched, but no found in the dictionary.
+    '''
+    word = models.CharField(max_length=50)
+    language = models.CharField(max_length=50)
+    time_searched = models.DateTimeField(auto_now_add=True)
+    search_count = models.IntegerField(default=1)
+    added_to_dict = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['word', 'language'], name='unique_unfound_word')]
+
+    def __str__(self):
+        return f'{self.word}: {self.language}'
+
+    # def get_absolute_url(self):
+        #from django.urls import reverse
+        # return reverse('dictionary:example-update', args=[str(self.id)])
+        # return reverse('dictionary:definition-example-detail', args=[str(self.id)])
