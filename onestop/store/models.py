@@ -8,7 +8,7 @@ class Customer(models.Model):
 
 	def __str__(self):
 		return f'{self.user.first_name} {self.user.last_name}'
-
+# Test yml update
 
 class Product(models.Model):
 	name = models.CharField(max_length=200)

@@ -18,3 +18,5 @@ def save_customer(sender, instance, **kwargs):
         print("CUSTOMER SAVE SIGNAL EXECUTED")
     except Exception as e:
          print(e)
+
+# Test yml update
