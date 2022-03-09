@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from dictionary import views
+from . import views
 from django.views.generic import TemplateView
 from django.views.i18n import JavaScriptCatalog
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('comments/', include('django_comments_xtd.urls')),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('', views.index, name='index'),
+    path('access-denied/', views.access_denied, name='access-denied'),
     path('under-construction/', views.under_construction, name='under-construction'),
     path('help/',
          TemplateView.as_view(template_name="onestop/help.html"), name='help'),

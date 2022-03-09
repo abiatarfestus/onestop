@@ -1,19 +1,7 @@
-import json
-import urllib.request
-import urllib.parse
-from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import login
 from django.shortcuts import redirect, render, get_object_or_404
-from django.urls import reverse
-# from django.http import HttpResponseRedirect
-# from django.core.mail import send_mail
-from django.conf import settings
-# from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .classes import SearchDefinition
 from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
 from .forms import EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, OshindongaPhoneticForm
@@ -78,15 +66,6 @@ def get_unexemplified():
     return unexemplified
 
 
-def index(request):
-    context = {}
-    return render(request, 'index.html', context)
-
-
-def under_construction(request):
-    context = {}
-    return render(request, 'onestop/under_construction.html', context)
-
 
 def search_word(request):
     # Create an instance of the SearchDefinition calss, passing in the request
@@ -105,38 +84,22 @@ def search_suggested_word(request, pk):
     context = search_object.context
     return render(request, 'dictionary/search.html', context)
 
-# Template class-based views
 
-
-# class HelpView(TemplateView):
-#     template_name = "onestop/help.html"
-
-
-# class PrivacyPolicyView(TemplateView):
-#     template_name = "onestop/privacy_policy.html"
-
-# GENERIC EDITING VIEWS: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Forms
-
-# from django.views.generic.edit import CreateView, UpdateView, DeleteView
-# from django.urls import reverse_lazy
-
-# from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample
-
-# class AuthorCreate(CreateView):
-#     model = Author
-#     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-#     initial = {'date_of_death': '11/06/2020'}
-
-
-class EnglishWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class EnglishWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'dictionary.add_englishword'
     form_class = EnglishWordForm
     model = EnglishWord
     extra_context = {'operation': 'Add a new English word',
                      'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaPhoneticCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+class OshindongaPhoneticCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'dictionary.add_oshindongaphonetic'
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
     extra_context = {'operation': 'Gwedha mo omawi gOshindonga',
@@ -144,22 +107,36 @@ class OshindongaPhoneticCreate(LoginRequiredMixin, SuccessMessageMixin, CreateVi
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
     # Add these to context: 'newly_added_phonetics': oshindonga_words, 'untranslated_words': get_untranslated_words
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaWordCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+class OshindongaWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'dictionary.add_oshindongaword'
     form_class = OshindongaWordForm
     model = OshindongaWord
     extra_context = {'operation': 'Gwedha mo oshitya shOshindonga oshipe',
                      'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
     success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class WordDefinitionCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+class WordDefinitionCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     # Uses the form class defined in forms.py which allows customization
+    permission_required = 'dictionary.add_worddefinition'
     form_class = WordDefinitionForm
     model = WordDefinition
     extra_context = {'operation': 'Add a new word definition',
                      'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
+
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
 
 # Converting definitions queryset into a dictionary of {id:(engDef,oshDef)} for passing to the context.
@@ -168,34 +145,50 @@ queryset_dict = dumps({q[i].id: (
     q[i].english_definition, q[i].oshindonga_definition) for i in range(len(q))})
 
 
-class DefinitionExampleCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class DefinitionExampleCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'dictionary.add_definitionexample'
     form_class = DefinitionExampleForm
     model = DefinitionExample
     extra_context = {'operation': 'Add a new definition example',
                      'newly_added_examples': exemplified_definitions, 'unexemplified_definitions': get_unexemplified, 'definitions_dict': queryset_dict}
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaIdiomCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+class OshindongaIdiomCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'dictionary.add_oshindongaidiom'
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
     extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe',
                      'newly_added_idioms': oshindonga_idioms, 'random_idioms': OshindongaIdiom.objects.order_by('?')[:10]}
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
+
 
 # Update class-based views
 
 
-class EnglishWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class EnglishWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'dictionary.change_englishword'
     form_class = EnglishWordForm
     model = EnglishWord
     extra_context = {'operation': 'Update an existing English word',
                      'newly_added_words': english_words}
     success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaPhoneticUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class OshindongaPhoneticUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'dictionary.change_oshindongaphonetic'
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
     extra_context = {
@@ -203,8 +196,13 @@ class OshindongaPhoneticUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya lundululwa nawa. Tangi ku sho wa gandja!"
     # Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class OshindongaWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'dictionary.change_oshindongaword'
     form_class = OshindongaWordForm
     model = OshindongaWord
     extra_context = {
@@ -212,29 +210,48 @@ class OshindongaWordUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
                      'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class WordDefinitionUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class WordDefinitionUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     # Uses the form class defined in forms.py which allows customization
+    permission_required = 'dictionary.change_worddefinition'
     form_class = WordDefinitionForm
     model = WordDefinition
     extra_context = {'operation': 'Update an existing word definition',
                      'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class DefinitionExampleUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class DefinitionExampleUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'dictionary.change_definitionexample'
     form_class = DefinitionExampleForm
     model = DefinitionExample
     extra_context = {'operation': 'Update an existing definition example',
                      'newly_added_examples': exemplified_definitions, 'definitions_dict': queryset_dict}
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class OshindongaIdiomUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+
+class OshindongaIdiomUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'dictionary.change_oshindongaidiom'
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
     extra_context = {'operation': 'Pukulula oshipopiwamayele shi li monale'}
     success_message = "Oshipopiwamayele osha lundululwa nawa.Tangi ku sho wa gandja!"
+
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
 
 # List View

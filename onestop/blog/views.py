@@ -6,9 +6,9 @@ from django.conf import settings
 from django.views import generic
 from .models import Post, Category
 from .forms import CommentForm, PostForm, CategoryForm
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 
@@ -92,7 +92,8 @@ def category_detail(request, pk):
 
 
 
-class PostCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'blog.add_post'
     form_class = PostForm
     model = Post
     extra_context = {'operation': 'Add a new post'}
@@ -102,8 +103,13 @@ class PostCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
 
-class CategoryCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+
+class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'blog.add_category'
     form_class = CategoryForm
     model = Category
     extra_context = {'operation': 'Add a new category'}
@@ -112,3 +118,7 @@ class CategoryCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def handle_no_permission(self):
+        """ Redirect to custom access denied page """
+        return redirect('access-denied')
