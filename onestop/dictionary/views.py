@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -94,9 +95,10 @@ class EnglishWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
-
 
 class OshindongaPhoneticCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'dictionary.add_oshindongaphonetic'
@@ -108,7 +110,9 @@ class OshindongaPhoneticCreate(LoginRequiredMixin, PermissionRequiredMixin, Succ
     # Add these to context: 'newly_added_phonetics': oshindonga_words, 'untranslated_words': get_untranslated_words
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -121,7 +125,9 @@ class OshindongaWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessM
     success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -135,7 +141,9 @@ class WordDefinitionCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessM
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -154,7 +162,9 @@ class DefinitionExampleCreate(LoginRequiredMixin, PermissionRequiredMixin, Succe
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -167,7 +177,9 @@ class OshindongaIdiomCreate(LoginRequiredMixin, PermissionRequiredMixin, Success
     success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -183,7 +195,9 @@ class EnglishWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -197,7 +211,9 @@ class OshindongaPhoneticUpdate(LoginRequiredMixin, PermissionRequiredMixin, Succ
     # Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -211,7 +227,9 @@ class OshindongaWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessM
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -225,7 +243,9 @@ class WordDefinitionUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessM
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -238,7 +258,9 @@ class DefinitionExampleUpdate(LoginRequiredMixin, PermissionRequiredMixin, Succe
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -250,7 +272,9 @@ class OshindongaIdiomUpdate(LoginRequiredMixin, PermissionRequiredMixin, Success
     success_message = "Oshipopiwamayele osha lundululwa nawa.Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 

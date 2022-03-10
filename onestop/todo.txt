@@ -11,3 +11,8 @@
 
 2022-03-06 (pro)
 1. Updated all UnfoudWord functionalities
+
+2022.03.09 (dev & pro)
+1. Added permission groups (general/expert editior & blogger) and implemented authentication on views
+
+*Fix access denies vs login

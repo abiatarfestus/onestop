@@ -1,8 +1,4 @@
-# import json
-# import urllib.request
-# import urllib.parse
 from django.conf import settings
-# from django.contrib import messages
 from django.views import generic
 from .models import Post, Category
 from .forms import CommentForm, PostForm, CategoryForm
@@ -104,7 +100,9 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixi
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
 
 
@@ -120,5 +118,7 @@ class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page """
+        """ Redirect to custom access denied page if authenticated or login page if not"""
+        if not self.request.user.is_authenticated:
+            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
         return redirect('access-denied')
