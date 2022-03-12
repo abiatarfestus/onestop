@@ -19,7 +19,7 @@ class Product(models.Model):
 	description = models.TextField(null=True, blank=True)
 	price = models.FloatField()
 	digital = models.BooleanField(default=False,null=True, blank=True)
-	image = ResizedImageField(default='product_pics/placeholder.png', quality=100, size=[640, 360], upload_to='product_pics')
+	image = models.ImageField(default='product_pics/placeholder.png', upload_to='product_pics')
 
 	def __str__(self):
 		return self.name
