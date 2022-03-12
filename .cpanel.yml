@@ -20,12 +20,10 @@ deployment:
     - /bin/cp -u onestop/onestop/urls.py $ONESTOPPATH
     - /bin/cp -u onestop/onestop/views.py $ONESTOPPATH
     # Blog
-    # - /bin/cp -Ru onestop/blog/static/ $BLOGPATH
     - /bin/cp -Ru onestop/blog/tests/ $BLOGPATH
     - /bin/cp -Ru onestop/blog/templates/ $BLOGPATH
     - /bin/cp -u onestop/blog/*.py $BLOGPATH
     # Dictionary
-    # - /bin/cp -Ru onestop/dictionary/static/ $DICTIONARYPATH
     - /bin/cp -Ru onestop/dictionary/templates/ $DICTIONARYPATH
     - /bin/cp -Ru onestop/dictionary/tests/ $DICTIONARYPATH
     - /bin/cp -u onestop/dictionary/*.py $DICTIONARYPATH

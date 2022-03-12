@@ -8,14 +8,14 @@ from .models import Customer
 def create_customer(sender, instance, created, **kwargs):
     if created:
         Customer.objects.create(user=instance)
-        print("CUSTOMER CREATION SIGNAL EXECUTED")
+        # print("CUSTOMER CREATION SIGNAL EXECUTED")
 
 
 @receiver(post_save, sender=User)
 def save_customer(sender, instance, **kwargs):
     try:
         instance.customer.save()    
-        print("CUSTOMER SAVE SIGNAL EXECUTED")
+        # print("CUSTOMER SAVE SIGNAL EXECUTED")
     except Exception as e:
          print(e)
 
