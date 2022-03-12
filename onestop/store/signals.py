@@ -7,7 +7,7 @@ from .models import Customer
 @receiver(post_save, sender=User) 
 def create_customer(sender, instance, created, **kwargs):
     if created:
-        Customer.objects.create(user=instance, name=f'{instance.first_name} {instance.last_name}', email=instance.email)
+        Customer.objects.create(user=instance)
         print("CUSTOMER CREATION SIGNAL EXECUTED")
 
 
