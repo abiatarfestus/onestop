@@ -16,30 +16,30 @@ def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            ''' Begin reCAPTCHA validation '''
-            recaptcha_response = request.POST.get('g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req =  urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-            ''' End reCAPTCHA validation '''
-            if result['success']:
-                user = form.save()
-                login(request, user)
-                subject = 'Welcome to the community'
-                message = f'Hi {user.username}, \n\nThank you for registering as a contributor. \nThe site is currently being tested; hence, your feedback at this stage will be of great importance. We cannot wait to see your contribution. \n\nRegards, \nFessy'
-                email_from = settings.EMAIL_HOST_USER
-                recipient_list = [user.email, 'abiatarfestus@outlook.com']
-                send_mail(subject, message, email_from, recipient_list)
-                messages.success(request, 'You have been registered successfully!')
-                return redirect(reverse("index"))
-            else:
-                messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+            # ''' Begin reCAPTCHA validation '''
+            # recaptcha_response = request.POST.get('g-recaptcha-response')
+            # url = 'https://www.google.com/recaptcha/api/siteverify'
+            # values = {
+            #     'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            #     'response': recaptcha_response
+            # }
+            # data = urllib.parse.urlencode(values).encode()
+            # req =  urllib.request.Request(url, data=data)
+            # response = urllib.request.urlopen(req)
+            # result = json.loads(response.read().decode())
+            # ''' End reCAPTCHA validation '''
+            # if result['success']:
+            user = form.save()
+            login(request, user)
+            subject = 'Welcome to the community'
+            message = f'Hi {user.first_name}, \n\nThank you for registering as a contributor. \nThe site is currently being tested; hence, your feedback at this stage will be of great importance. We cannot wait to see your contribution. \n\nRegards, \nFessy'
+            email_from = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [user.email, 'abiatarfestus@outlook.com']
+            send_mail(subject, message, email_from, recipient_list)
+            messages.success(request, 'You have been registered successfully!')
+            return redirect(reverse("index"))
+        else:
+            messages.error(request, 'Invalid reCAPTCHA. Please try again.')
     else:
         form = UserRegisterForm()
     return render(request, "users/register.html", {"form": form})
