@@ -30,7 +30,7 @@ deployment:
     # Equeue
     - /bin/cp -Ru onestop/equeue/templates/ $EQUEUEPATH
     - /bin/cp -Ru onestop/equeue/templatetags/ $EQUEUEPATH
-    # - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
+    - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
     - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
     # Store
     - /bin/cp -Ru onestop/store/templates/ $STOREPATH
