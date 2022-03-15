@@ -69,3 +69,5 @@ def profile(request):
         'user_contribution':contribution.get_user_contribution(request.user)
     }
     return render(request, 'users/profile.html', context)
+
+# Comment added on 15.03.2022 to test deployment update
