@@ -8,17 +8,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.views.generic.edit import CreateView
 from django.urls import reverse
 
+
 class PostList(generic.ListView):
-    queryset = Post.objects.filter(status=1).order_by('-created_on')
-    template_name = 'post_list.html'
+    queryset = Post.objects.filter(status=1).order_by("-created_on")
+    template_name = "post_list.html"
     paginate_by = 4
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
+    template_name = "blog/post_detail.html"
 
-    #Copied from xtdcomments
+    # Copied from xtdcomments
     # def get_context_data(self, **kwargs):
     #     context = super(PostDetailView, self).get_context_data(**kwargs)
     #     context.update({'next': reverse('comments-xtd-sent')})
@@ -31,8 +32,8 @@ class PostDetailView(generic.DetailView):
 
 
 class CategoryList(generic.ListView):
-    queryset = Category.objects.all().order_by('name')
-    template_name = 'category_list.html'
+    queryset = Category.objects.all().order_by("name")
+    template_name = "category_list.html"
     paginate_by = 10
 
 
@@ -40,11 +41,11 @@ class CategoryList(generic.ListView):
 #     model = Post
 #     template_name = 'blog/post_detail.html'
 def category_detail(request, pk):
-    template_name = 'blog/category_detail.html'
+    template_name = "blog/category_detail.html"
     category = get_object_or_404(Category, id=pk)
     posts = category.posts.all()
-    return render(request, template_name, {'category': category,
-                                           'posts': posts})
+    return render(request, template_name, {"category": category, "posts": posts})
+
 
 # def post_detail(request, slug):
 #     template_name = 'blog/post_detail.html'
@@ -87,12 +88,13 @@ def category_detail(request, pk):
 #                                            'comment_form': comment_form})
 
 
-
-class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'blog.add_post'
+class PostCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "blog.add_post"
     form_class = PostForm
     model = Post
-    extra_context = {'operation': 'Add a new post'}
+    extra_context = {"operation": "Add a new post"}
     success_message = "Your post has been created and awaits publication."
 
     def form_valid(self, form):
@@ -100,17 +102,19 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixi
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'blog.add_category'
+class CategoryCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "blog.add_category"
     form_class = CategoryForm
     model = Category
-    extra_context = {'operation': 'Add a new category'}
+    extra_context = {"operation": "Add a new category"}
     success_message = "The category '%(name)s' has been added to the post categories."
 
     def form_valid(self, form):
@@ -118,7 +122,7 @@ class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessage
         return super().form_valid(form)
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")

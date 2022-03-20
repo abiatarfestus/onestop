@@ -1,6 +1,13 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
-from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
+from .models import (
+    EnglishWord,
+    OshindongaWord,
+    WordDefinition,
+    DefinitionExample,
+    OshindongaIdiom,
+    OshindongaPhonetic,
+)
 
 # Register your models here.
 admin.site.register(EnglishWord, SimpleHistoryAdmin)

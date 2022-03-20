@@ -4,23 +4,36 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .classes import SearchDefinition
-from .models import EnglishWord, OshindongaWord, WordDefinition, DefinitionExample, OshindongaIdiom, OshindongaPhonetic
-from .forms import EnglishWordForm, OshindongaWordForm, WordDefinitionForm, DefinitionExampleForm, OshindongaIdiomForm, OshindongaPhoneticForm
+from .models import (
+    EnglishWord,
+    OshindongaWord,
+    WordDefinition,
+    DefinitionExample,
+    OshindongaIdiom,
+    OshindongaPhonetic,
+)
+from .forms import (
+    EnglishWordForm,
+    OshindongaWordForm,
+    WordDefinitionForm,
+    DefinitionExampleForm,
+    OshindongaIdiomForm,
+    OshindongaPhoneticForm,
+)
 from django.views import generic
 from json import dumps
 import random
 
 
-english_words = EnglishWord.objects.order_by('-time_added')[:5]
-oshindonga_words = OshindongaWord.objects.order_by('-time_added')[:5]
-new_phonetics = OshindongaPhonetic.objects.order_by('-time_added')[:5]
-random_unphonetised = OshindongaWord.objects.filter(
-    word_phonetics_id=1).order_by('?')[:5]
-defined_words = WordDefinition.objects.order_by('-time_added')[:5]
-exemplified_definitions = DefinitionExample.objects.order_by(
-    '-time_added')[:5]
-oshindonga_idioms = OshindongaIdiom.objects.order_by(
-    '-time_added')[:10]
+english_words = EnglishWord.objects.order_by("-time_added")[:5]
+oshindonga_words = OshindongaWord.objects.order_by("-time_added")[:5]
+new_phonetics = OshindongaPhonetic.objects.order_by("-time_added")[:5]
+random_unphonetised = OshindongaWord.objects.filter(word_phonetics_id=1).order_by("?")[
+    :5
+]
+defined_words = WordDefinition.objects.order_by("-time_added")[:5]
+exemplified_definitions = DefinitionExample.objects.order_by("-time_added")[:5]
+oshindonga_idioms = OshindongaIdiom.objects.order_by("-time_added")[:10]
 
 # Consider using
 
@@ -32,8 +45,7 @@ def get_untranslated_words():
     all_oshindonga = OshindongaWord.objects.all()
     # Ids of all English words translated
     all_translated_ids = [word.english_word_id for word in all_oshindonga]
-    untranslated_ids = [
-        i for i in all_english_ids if i not in all_translated_ids]
+    untranslated_ids = [i for i in all_english_ids if i not in all_translated_ids]
     random.shuffle(untranslated_ids)
     untranslated_words = []
     for i in untranslated_ids[:5]:
@@ -67,7 +79,6 @@ def get_unexemplified():
     return unexemplified
 
 
-
 def search_word(request):
     # Create an instance of the SearchDefinition calss, passing in the request
     search_object = SearchDefinition(request)
@@ -75,7 +86,7 @@ def search_word(request):
     search_object.search_word()
     # Pass the context of the object/instance and pass it to the context variable of this view
     context = search_object.context
-    return render(request, 'dictionary/search.html', context)
+    return render(request, "dictionary/search.html", context)
 
 
 def search_suggested_word(request, pk):
@@ -83,205 +94,271 @@ def search_suggested_word(request, pk):
     search_object = SearchDefinition(request)
     search_object.search_suggested(word_instance.id)
     context = search_object.context
-    return render(request, 'dictionary/search.html', context)
+    return render(request, "dictionary/search.html", context)
 
 
-class EnglishWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'dictionary.add_englishword'
+class EnglishWordCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "dictionary.add_englishword"
     form_class = EnglishWordForm
     model = EnglishWord
-    extra_context = {'operation': 'Add a new English word',
-                     'newly_added_words': english_words}
+    extra_context = {
+        "operation": "Add a new English word",
+        "newly_added_words": english_words,
+    }
     success_message = "The word '%(word)s' was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
-class OshindongaPhoneticCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'dictionary.add_oshindongaphonetic'
+
+class OshindongaPhoneticCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "dictionary.add_oshindongaphonetic"
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
-    extra_context = {'operation': 'Gwedha mo omawi gOshindonga',
-                     'new_phonetics': new_phonetics, 'random_unphonetised': random_unphonetised}
+    extra_context = {
+        "operation": "Gwedha mo omawi gOshindonga",
+        "new_phonetics": new_phonetics,
+        "random_unphonetised": random_unphonetised,
+    }
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
     # Add these to context: 'newly_added_phonetics': oshindonga_words, 'untranslated_words': get_untranslated_words
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class OshindongaWordCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'dictionary.add_oshindongaword'
+class OshindongaWordCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "dictionary.add_oshindongaword"
     form_class = OshindongaWordForm
     model = OshindongaWord
-    extra_context = {'operation': 'Gwedha mo oshitya shOshindonga oshipe',
-                     'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
-    success_message = "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
+    extra_context = {
+        "operation": "Gwedha mo oshitya shOshindonga oshipe",
+        "newly_added_words": oshindonga_words,
+        "untranslated_words": get_untranslated_words,
+    }
+    success_message = (
+        "Oshitya '%(word)s' osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
+    )
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class WordDefinitionCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class WordDefinitionCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
     # Uses the form class defined in forms.py which allows customization
-    permission_required = 'dictionary.add_worddefinition'
+    permission_required = "dictionary.add_worddefinition"
     form_class = WordDefinitionForm
     model = WordDefinition
-    extra_context = {'operation': 'Add a new word definition',
-                     'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
+    extra_context = {
+        "operation": "Add a new word definition",
+        "newly_defined_words": defined_words,
+        "undefined_words": get_undefined_words,
+    }
     success_message = "Definition of '%(word_pair)s' was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
 # Converting definitions queryset into a dictionary of {id:(engDef,oshDef)} for passing to the context.
 q = WordDefinition.objects.all()
-queryset_dict = dumps({q[i].id: (
-    q[i].english_definition, q[i].oshindonga_definition) for i in range(len(q))})
+queryset_dict = dumps(
+    {
+        q[i].id: (q[i].english_definition, q[i].oshindonga_definition)
+        for i in range(len(q))
+    }
+)
 
 
-class DefinitionExampleCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'dictionary.add_definitionexample'
+class DefinitionExampleCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "dictionary.add_definitionexample"
     form_class = DefinitionExampleForm
     model = DefinitionExample
-    extra_context = {'operation': 'Add a new definition example',
-                     'newly_added_examples': exemplified_definitions, 'unexemplified_definitions': get_unexemplified, 'definitions_dict': queryset_dict}
+    extra_context = {
+        "operation": "Add a new definition example",
+        "newly_added_examples": exemplified_definitions,
+        "unexemplified_definitions": get_unexemplified,
+        "definitions_dict": queryset_dict,
+    }
     success_message = "Example of '%(definition)s' usage was successfully added to the dictionary. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class OshindongaIdiomCreate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'dictionary.add_oshindongaidiom'
+class OshindongaIdiomCreate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
+):
+    permission_required = "dictionary.add_oshindongaidiom"
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
-    extra_context = {'operation': 'Gwedha mo oshipopiwamayele oshipe',
-                     'newly_added_idioms': oshindonga_idioms, 'random_idioms': OshindongaIdiom.objects.order_by('?')[:10]}
-    success_message = "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
+    extra_context = {
+        "operation": "Gwedha mo oshipopiwamayele oshipe",
+        "newly_added_idioms": oshindonga_idioms,
+        "random_idioms": OshindongaIdiom.objects.order_by("?")[:10],
+    }
+    success_message = (
+        "Oshipopiwamayele osha gwedhwa mo nawa membwiitya. Tangi ku sho wa gandja!"
+    )
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
 # Update class-based views
 
 
-class EnglishWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'dictionary.change_englishword'
+class EnglishWordUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    permission_required = "dictionary.change_englishword"
     form_class = EnglishWordForm
     model = EnglishWord
-    extra_context = {'operation': 'Update an existing English word',
-                     'newly_added_words': english_words}
-    success_message = "The word '%(word)s' was successfully updated. Thank you for your contribution!"
+    extra_context = {
+        "operation": "Update an existing English word",
+        "newly_added_words": english_words,
+    }
+    success_message = (
+        "The word '%(word)s' was successfully updated. Thank you for your contribution!"
+    )
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class OshindongaPhoneticUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'dictionary.change_oshindongaphonetic'
+class OshindongaPhoneticUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    permission_required = "dictionary.change_oshindongaphonetic"
     form_class = OshindongaPhoneticForm
     model = OshindongaPhonetic
     extra_context = {
-        'operation': 'Pukulula ewi lyoshitya shOshindonga li li mo nale', 'new_phonetics': new_phonetics, 'random_unphonetised': random_unphonetised}
+        "operation": "Pukulula ewi lyoshitya shOshindonga li li mo nale",
+        "new_phonetics": new_phonetics,
+        "random_unphonetised": random_unphonetised,
+    }
     success_message = "Ewi lyoshitya '%(oshindonga_word)s' olya lundululwa nawa. Tangi ku sho wa gandja!"
     # Add these to context: 'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class OshindongaWordUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'dictionary.change_oshindongaword'
+class OshindongaWordUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    permission_required = "dictionary.change_oshindongaword"
     form_class = OshindongaWordForm
     model = OshindongaWord
     extra_context = {
-        'operation': 'Pukulula oshitya shOshindonga shi li mo nale',
-                     'newly_added_words': oshindonga_words, 'untranslated_words': get_untranslated_words}
+        "operation": "Pukulula oshitya shOshindonga shi li mo nale",
+        "newly_added_words": oshindonga_words,
+        "untranslated_words": get_untranslated_words,
+    }
     success_message = "Oshitya '%(word)s' osha lundululwa nawa. Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class WordDefinitionUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class WordDefinitionUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
     # Uses the form class defined in forms.py which allows customization
-    permission_required = 'dictionary.change_worddefinition'
+    permission_required = "dictionary.change_worddefinition"
     form_class = WordDefinitionForm
     model = WordDefinition
-    extra_context = {'operation': 'Update an existing word definition',
-                     'newly_defined_words': defined_words, 'undefined_words': get_undefined_words}
+    extra_context = {
+        "operation": "Update an existing word definition",
+        "newly_defined_words": defined_words,
+        "undefined_words": get_undefined_words,
+    }
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class DefinitionExampleUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'dictionary.change_definitionexample'
+class DefinitionExampleUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    permission_required = "dictionary.change_definitionexample"
     form_class = DefinitionExampleForm
     model = DefinitionExample
-    extra_context = {'operation': 'Update an existing definition example',
-                     'newly_added_examples': exemplified_definitions, 'definitions_dict': queryset_dict}
+    extra_context = {
+        "operation": "Update an existing definition example",
+        "newly_added_examples": exemplified_definitions,
+        "definitions_dict": queryset_dict,
+    }
     success_message = "Example of '%(definition)s' usage was successfully updated. Thank you for your contribution!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
-class OshindongaIdiomUpdate(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'dictionary.change_oshindongaidiom'
+class OshindongaIdiomUpdate(
+    LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, UpdateView
+):
+    permission_required = "dictionary.change_oshindongaidiom"
     form_class = OshindongaIdiomForm
     model = OshindongaIdiom
-    extra_context = {'operation': 'Pukulula oshipopiwamayele shi li monale'}
+    extra_context = {"operation": "Pukulula oshipopiwamayele shi li monale"}
     success_message = "Oshipopiwamayele osha lundululwa nawa.Tangi ku sho wa gandja!"
 
     def handle_no_permission(self):
-        """ Redirect to custom access denied page if authenticated or login page if not"""
+        """Redirect to custom access denied page if authenticated or login page if not"""
         if not self.request.user.is_authenticated:
-            return redirect(f'{settings.LOGIN_URL}?next={self.request.path}')
-        return redirect('access-denied')
+            return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
+        return redirect("access-denied")
 
 
 # List View
 # Templates for displaying List and Detail views
-list_view = 'dictionary/list_view.html'
-detail_view = 'dictionary/detail_view.html'
+list_view = "dictionary/list_view.html"
+detail_view = "dictionary/detail_view.html"
 
 
 class EnglishWordListView(generic.ListView):
@@ -291,7 +368,7 @@ class EnglishWordListView(generic.ListView):
 
     # Override the default get_queryset()
     def get_queryset(self):
-        return EnglishWord.objects.all().order_by('word')
+        return EnglishWord.objects.all().order_by("word")
 
     # Add additional context variables
     def get_context_data(self, **kwargs):
@@ -299,7 +376,7 @@ class EnglishWordListView(generic.ListView):
         context = super(EnglishWordListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context
         # Default context = englishword_list
-        context['heading'] = 'List of English words in the dictionary'
+        context["heading"] = "List of English words in the dictionary"
         return context
 
 
@@ -309,12 +386,11 @@ class OshindongaPhoneticListView(generic.ListView):
     template_name = list_view
 
     def get_queryset(self):
-        return OshindongaPhonetic.objects.all().order_by('oshindonga_word')
+        return OshindongaPhonetic.objects.all().order_by("oshindonga_word")
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaPhoneticListView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'List of Oshindonga phonetics in the dictionary'
+        context = super(OshindongaPhoneticListView, self).get_context_data(**kwargs)
+        context["heading"] = "List of Oshindonga phonetics in the dictionary"
         return context
 
 
@@ -324,12 +400,11 @@ class OshindongaWordListView(generic.ListView):
     template_name = list_view
 
     def get_queryset(self):
-        return OshindongaWord.objects.all().order_by('word')
+        return OshindongaWord.objects.all().order_by("word")
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaWordListView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'List of Oshindonga words in the dictionary'
+        context = super(OshindongaWordListView, self).get_context_data(**kwargs)
+        context["heading"] = "List of Oshindonga words in the dictionary"
         return context
 
 
@@ -339,13 +414,13 @@ class OshindongaIdiomListView(generic.ListView):
     template_name = list_view
 
     def get_queryset(self):
-        return OshindongaIdiom.objects.all().order_by('oshindonga_idiom')
+        return OshindongaIdiom.objects.all().order_by("oshindonga_idiom")
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaIdiomListView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'List of Oshindonga idioms in the dictionary'
+        context = super(OshindongaIdiomListView, self).get_context_data(**kwargs)
+        context["heading"] = "List of Oshindonga idioms in the dictionary"
         return context
+
 
 # Detail View
 
@@ -356,7 +431,7 @@ class EnglishWordDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(EnglishWordDetailView, self).get_context_data(**kwargs)
-        context['heading'] = 'English word detail view'
+        context["heading"] = "English word detail view"
         return context
 
 
@@ -365,9 +440,8 @@ class OshindongaPhoneticDetailView(generic.DetailView):
     template_name = detail_view
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaPhoneticDetailView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'Oshindonga phonetic detail view'
+        context = super(OshindongaPhoneticDetailView, self).get_context_data(**kwargs)
+        context["heading"] = "Oshindonga phonetic detail view"
         return context
 
 
@@ -376,9 +450,8 @@ class OshindongaWordDetailView(generic.DetailView):
     template_name = detail_view
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaWordDetailView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'Oshindonga word detail view'
+        context = super(OshindongaWordDetailView, self).get_context_data(**kwargs)
+        context["heading"] = "Oshindonga word detail view"
         return context
 
 
@@ -387,9 +460,8 @@ class WordDefinitionDetailView(generic.DetailView):
     template_name = detail_view
 
     def get_context_data(self, **kwargs):
-        context = super(WordDefinitionDetailView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'Word definition detail view'
+        context = super(WordDefinitionDetailView, self).get_context_data(**kwargs)
+        context["heading"] = "Word definition detail view"
         return context
 
 
@@ -398,9 +470,8 @@ class DefinitionExampleDetailView(generic.DetailView):
     template_name = detail_view
 
     def get_context_data(self, **kwargs):
-        context = super(DefinitionExampleDetailView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'Definition example detail view'
+        context = super(DefinitionExampleDetailView, self).get_context_data(**kwargs)
+        context["heading"] = "Definition example detail view"
         return context
 
 
@@ -409,7 +480,6 @@ class OshindongaIdiomDetailView(generic.DetailView):
     template_name = detail_view
 
     def get_context_data(self, **kwargs):
-        context = super(OshindongaIdiomDetailView,
-                        self).get_context_data(**kwargs)
-        context['heading'] = 'Oshindonga idiom detail view'
+        context = super(OshindongaIdiomDetailView, self).get_context_data(**kwargs)
+        context["heading"] = "Oshindonga idiom detail view"
         return context
