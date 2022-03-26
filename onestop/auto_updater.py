@@ -3,18 +3,10 @@ from datetime import datetime
 
 # from django.contrib.auth.models import User
 from autodict import (
-    e_words,
-    f_words,
-    g_words,
-    h_words,
-    i_words,
-    j_words,
-    k_words,
-    l_words,
-    m_words,
-    n_words,
-    o_words,
-    p_words,
+    t_words,
+    u_words,
+    v_words,
+    w_z_words
 )
 from dictionary.models import EnglishWord, OshindongaWord
 
@@ -77,18 +69,10 @@ def add_osh_words(words_dict):
 
 
 update = [
-    e_words,
-    f_words,
-    g_words,
-    h_words,
-    i_words,
-    j_words,
-    k_words,
-    l_words,
-    m_words,
-    n_words,
-    o_words,
-    p_words,
+    t_words,
+    u_words,
+    v_words,
+    w_z_words
 ]
 for obj in update:
     add_eng_words(obj)
