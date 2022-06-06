@@ -20,3 +20,5 @@
 2022.03.20 (dev Lappy)
 1. Installed and configured Black and iSort
 2. Upgraded virtual env python 3.8 (>python -m venv --upgrade "path/to/venv")
+
+nb; Construction of the dhaNOUN and dheNOUN words for ML translation
