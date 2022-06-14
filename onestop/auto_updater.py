@@ -2,12 +2,13 @@ import sys
 from datetime import datetime
 
 # from django.contrib.auth.models import User
-from autodict import (
-    t_words,
-    u_words,
-    v_words,
-    w_z_words
-)
+# from autodict import (
+#     t_words,
+#     u_words,
+#     v_words,
+#     w_z_words
+# )
+from new_words_one import new_words
 from dictionary.models import EnglishWord, OshindongaWord
 
 
@@ -68,12 +69,15 @@ def add_osh_words(words_dict):
     return
 
 
-update = [
-    t_words,
-    u_words,
-    v_words,
-    w_z_words
-]
-for obj in update:
-    add_eng_words(obj)
-    add_osh_words(obj)
+# update = [
+#     t_words,
+#     u_words,
+#     v_words,
+#     w_z_words
+# ]
+# for obj in update:
+#     add_eng_words(obj)
+#     add_osh_words(obj)
+
+add_eng_words(new_words)
+add_osh_words(new_words)
