@@ -10,10 +10,13 @@ deployment:
     - export STOREPATH=/home/oshizdab/onestop/store/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
-    - /bin/cp -u onestop/manage.py $DEPLOYPATH
-    - /bin/cp -u onestop/autodict.py $DEPLOYPATH
-    - /bin/cp -u onestop/auto_updater.py $DEPLOYPATH
-    - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
+    # - /bin/cp -u onestop/manage.py $DEPLOYPATH
+    # - /bin/cp -u onestop/autodict.py $DEPLOYPATH
+    # - /bin/cp -u onestop/new_words_one.py $DEPLOYPATH
+    # - /bin/cp -u onestop/auto_updater.py $DEPLOYPATH
+    # - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
+    - /bin/cp -u onestop/*.py $DEPLOYPATH
+    - /bin/cp -u onestop/*.txt $DEPLOYPATH
     - /bin/cp -Ru onestop/static/ $DEPLOYPATH
     - /bin/cp -Ru onestop/templates/ $DEPLOYPATH
     - /bin/cp -u onestop/onestop/practice.py $ONESTOPPATH
