@@ -11,7 +11,7 @@ class Translation():
         '''Takes the source text and processes it with spaCy pipline to tokenize and tag it (convert it to Doc)
         Para: None
         Return: None'''
-        if self.src_language == "EN":
+        if self.src_language == "English":
             nlp = spacy.load("en_core_web_sm", exclude=["ner", "parser", "lemmatizer"])
             doc = nlp(self.src_text)
             for token in doc:
@@ -27,7 +27,7 @@ class Translation():
         Para: None
         Return: A list of tuples of (source word, target word), defaults to -1 if no target word found'''
         word_pairs = []
-        if self.src_language == "EN":
+        if self.src_language == "English":
             for src_token in self.tagged_src_tokens:
                 target_word = -1
                 try:
@@ -68,6 +68,7 @@ class Translation():
         output_text = self.process_target_text()
         print("Output text ***************************************")
         print(output_text)
+        return output_text
 
-# new_translation = Translation("EN", "Apple is looking at buying U.K. startup for $1 billion")
+# new_translation = Translation("English", "Apple is looking at buying U.K. startup for $1 billion")
 txt = "No part of this book may be reproduced in any written, electronic, recording, or photocopying without written permission of the author. The exception would be in the case of brief quotations embodied in the critical articles or reviews and pages where permission is specifically granted by the author."

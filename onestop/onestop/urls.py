@@ -47,6 +47,7 @@ urlpatterns = [
     path("store", include("store.urls")),
     path("blog/", include("blog.urls")),
     path("equeue/", include("equeue.urls")),
+    path("translation/", include("translation.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("summernote/", include("django_summernote.urls")),
 ]
