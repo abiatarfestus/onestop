@@ -1,0 +1,13 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+You're receing this email because you or someone registered as a user at Oshinglish Online. To confirm your registration, please click on the link below:
+
+http://{{ domain }}{% url 'users:activate' uidb64=uid token=token %}
+
+Ignore this email if you do not wish to proceed with this registration.
+
+Regards,
+
+Admin
+{% endautoescape %}

@@ -18,6 +18,11 @@ nav {
 	background: #ccd4da;
 	color: black;
 }
+
+#translation-nav {
+	background: #d8bfd6;
+	color: black;
+}
 /* style="background-color: hsl(188, 42%, 86%); */
 
 .page-headings {

@@ -474,14 +474,14 @@
 from django.core.mail import send_mail
 from django.conf import settings
 
-subject = 'Welcome to the community'
-message = f'Hi, Bibz, \nThank you for registering as a contributor. \nWe cannot wait to see your contribution.'
+subject = "Welcome to the community"
+message = f"Hi, Bibz, \nThank you for registering as a contributor. \nWe cannot wait to see your contribution."
 email_from = settings.EMAIL_HOST_USER
-recipient_list = ['admin@festusabiatar.com', 'abiatarfestus@outlook.com']
+recipient_list = ["admin@festusabiatar.com", "abiatarfestus@outlook.com"]
 send_mail(subject, message, email_from, recipient_list)
 
 
-#eQueue#
+# eQueue#
 
 # def queues(request, pk, join_message=None):
 #     '''
@@ -498,7 +498,7 @@ send_mail(subject, message, email_from, recipient_list)
 #     if queue_length:
 #         # A list of user objects in current_queue
 #         queued_users = [customer.customer for customer in current_queue]
-#     context['queued_users'] = queued_users    
+#     context['queued_users'] = queued_users
 #     context['there_is_queue'] = queue_length
 #     context['current_queue'] = current_queue
 #     context['service'] = current_service_enrolment.service
@@ -653,3 +653,21 @@ send_mail(subject, message, email_from, recipient_list)
 #     print(count, "Oshindonga words were added)")
 #     print("ENDED:", datetime.now())
 #     return
+
+# Record unfund word
+# import sys
+# from django.db.models import F
+# from django.db import IntegrityError
+# from dictionary.models import UnfoundWord
+# def save_unfound_word(word, language):
+#     '''
+#         Takes in the word searched and the language input of a search that returned no word found and creates a
+#         new record in the UnfoundWord table or increment the search count if the word already exists.
+#     '''
+#     try:
+#         new_unfound = UnfoundWord(word=word.lower(), language=language)
+#         new_unfound.save()
+#     except IntegrityError:
+#         UnfoundWord.objects.filter(word=word.lower(), language=language).update(search_count = F('search_count') + 1)
+#     except:
+#         print(sys.exc_info()[0], "occurred.")
