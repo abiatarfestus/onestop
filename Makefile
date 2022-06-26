@@ -23,5 +23,5 @@ runserver: #Run the Django localhost server
 djangoshell: #Open the Django interactive shell
 	python $(DJANGO) shell
 
-# Pipfile.lock: Pipfile #Update Pipfile.lock file
-# 	pipenv lock
+Pipfile.lock: Pipfile #Update Pipfile.lock file
+	pipenv lock

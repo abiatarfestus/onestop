@@ -8,6 +8,7 @@ deployment:
     - export USERSPATH=/home/oshizdab/onestop/users/
     - export EQUEUEPATH=/home/oshizdab/onestop/equeue/
     - export STOREPATH=/home/oshizdab/onestop/store/
+    - export TRANSLATIONPATH=/home/oshizdab/onestop/translation/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
     # - /bin/cp -u onestop/manage.py $DEPLOYPATH
@@ -40,6 +41,10 @@ deployment:
     - /bin/cp -Ru onestop/store/templates/ $STOREPATH
     - /bin/cp -Ru onestop/store/tests/ $STOREPATH
     - /bin/cp -u onestop/store/*.py $STOREPATH
+    # Translation
+    - /bin/cp -Ru onestop/store/templates/ $TRANSLATIONPATH
+    - /bin/cp -Ru onestop/store/tests/ $TRANSLATIONPATH
+    - /bin/cp -u onestop/store/*.py $TRANSLATIONPATH
     # Users
     - /bin/cp -Ru onestop/users/templates/ $USERSPATH
     - /bin/cp -Ru onestop/users/tests/ $USERSPATH
