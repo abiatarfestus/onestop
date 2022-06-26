@@ -1,24 +1,34 @@
+from string import punctuation
 import spacy
 from dictionary.models import EnglishWord, OshindongaWord
 
 
 class Translation:
+    punctuation = [".", ",", ":", "?", ";", "!", ")", "]", "}", '"',]
     def __init__(self, src_lang, src_text):
         self.src_language = src_lang
         self.src_text = src_text
         self.tagged_src_tokens = []
+        if src_lang == "English":
+            self.nonexist = ["the", "a", "an"]
+        else:
+            self.nonexist = []
 
     def process_src_text(self):
         """Takes the source text and processes it with spaCy pipline to tokenize and tag it (convert it to Doc)
         Para: None
         Return: None"""
         if self.src_language == "English":
-            nlp = spacy.load("en_core_web_sm", exclude=["ner", "parser", "lemmatizer"])
+            nlp = spacy.load("en_core_web_sm", exclude=["ner", "lemmatizer"])
             doc = nlp(self.src_text)
             for token in doc:
                 current_token = [token.text, token.pos_, token.tag_]
                 self.tagged_src_tokens.append(current_token)
-            # print(self.tagged_src_tokens)
+            # print("Before: ", self.tagged_src_tokens)
+            for token in self.tagged_src_tokens:
+                if token[0].lower() in self.nonexist:
+                    self.tagged_src_tokens.remove(token)
+            # print("After: ", self.tagged_src_tokens)
         else:
             pass
         return
@@ -62,6 +72,9 @@ class Translation:
     def process_target_text(self):
         translated_list = [token[0] for token in self.tagged_src_tokens]
         translated_string = " ".join(translated_list)
+        for punct in punctuation:
+            if f" {punct}" in translated_string:
+                translated_string = translated_string.replace(f" {punct}", f"{punct}")
         return translated_string
 
     def translate(self):
@@ -69,8 +82,8 @@ class Translation:
         word_pairs = self.match_src_to_target()
         self.replace_src_with_target(word_pairs)
         output_text = self.process_target_text()
-        print("Output text ***************************************")
-        print(output_text)
+        # print("Output text ***************************************")
+        # print("\n\n")
         return output_text
 
 

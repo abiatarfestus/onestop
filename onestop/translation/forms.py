@@ -25,7 +25,7 @@ class TextForm(forms.Form):
                 "class": "form-control auto-expand",
                 "id": "inputTextarea",
                 "rows": "3",
-                # "data-min-rows": "3",
+                "data-min-rows": "1",
                 "placeholder": "Enter Your Input Text Here...",
             }
         ),

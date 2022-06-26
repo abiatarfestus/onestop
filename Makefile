@@ -20,7 +20,7 @@ migrate: #Run migrations
 runserver: #Run the Django localhost server
 	python $(DJANGO) runserver
 
-djangshell: #Open the Django interactive shell
+djangoshell: #Open the Django interactive shell
 	python $(DJANGO) shell
 
 # Pipfile.lock: Pipfile #Update Pipfile.lock file

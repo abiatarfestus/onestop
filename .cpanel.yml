@@ -15,6 +15,7 @@ deployment:
     # - /bin/cp -u onestop/new_words_one.py $DEPLOYPATH
     # - /bin/cp -u onestop/auto_updater.py $DEPLOYPATH
     # - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
+    - /bin/cp -u Pipfile.lock $DEPLOYPATH
     - /bin/cp -u onestop/*.py $DEPLOYPATH
     - /bin/cp -u onestop/*.txt $DEPLOYPATH
     - /bin/cp -Ru onestop/static/ $DEPLOYPATH
