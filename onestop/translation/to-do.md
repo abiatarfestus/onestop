@@ -12,3 +12,4 @@ See the section on disabling pipeline components for more details and examples.
 
 Use senter rather than parser for fast sentence segmentation
 If you need fast sentence segmentation without dependency parses, disable the parser use the senter component instead:
+

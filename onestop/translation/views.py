@@ -6,7 +6,7 @@ from .translator import Translation
 def translate_text(request):
     form = TextForm(request.GET)
     context = {"output_text": "Your translation will appear here...", "form": form}
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TextForm(data=request.POST)
         if form.is_valid():
             input_language = form.cleaned_data["input_language"]

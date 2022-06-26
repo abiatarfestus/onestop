@@ -1,5 +1,6 @@
 from django import forms
 
+
 class TextForm(forms.Form):
     ENGLISH = "English"
     OSHINDONGA = "Oshindonga"
@@ -8,12 +9,23 @@ class TextForm(forms.Form):
         (OSHINDONGA, "Oshindonga"),
     ]
     input_language = forms.ChoiceField(
-        widget=forms.RadioSelect(attrs={"class": "form-check form-check-inline", "type": "radio",}), choices=INPUT_LANGUAGE)
+        widget=forms.RadioSelect(
+            attrs={
+                "class": "form-check form-check-inline",
+                "style": "margin-left:10px;",
+                "type": "radio",
+            }
+        ),
+        choices=INPUT_LANGUAGE,
+    )
 
     input_text = forms.CharField(
         widget=forms.Textarea(
             attrs={
-                "class": "form-control", "rows": "10",
+                "class": "form-control auto-expand",
+                "id": "inputTextarea",
+                "rows": "3",
+                # "data-min-rows": "3",
                 "placeholder": "Enter Your Input Text Here...",
             }
         ),
