@@ -43,7 +43,7 @@ deployment:
     - /bin/cp -u onestop/store/*.py $STOREPATH
     # Translation
     - /bin/cp -Ru onestop/translation/templates/ $TRANSLATIONPATH
-    - /bin/cp -Ru onestop/translation/tests/ $TRANSLATIONPATH
+    # - /bin/cp -Ru onestop/translation/tests/ $TRANSLATIONPATH
     - /bin/cp -u onestop/translation/*.py $TRANSLATIONPATH
     # Users
     - /bin/cp -Ru onestop/users/templates/ $USERSPATH
