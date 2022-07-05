@@ -24,11 +24,11 @@ class Translation:
             for token in doc:
                 current_token = [token.text, token.pos_, token.tag_]
                 self.tagged_src_tokens.append(current_token)
-            # print("Before: ", self.tagged_src_tokens)
+            print("Before: ", self.tagged_src_tokens)
             for token in self.tagged_src_tokens:
                 if token[0].lower() in self.nonexist:
                     self.tagged_src_tokens.remove(token)
-            # print("After: ", self.tagged_src_tokens)
+            print("After: ", self.tagged_src_tokens)
         else:
             pass
         return
