@@ -161,7 +161,7 @@ class OshindongaWord(AuthAndTimeTracker):
         ]
 
     def __str__(self):
-        return "%s | %s" % (self.english_word, self.word)
+        return f"{self.english_word} | {self.word}"
 
     # Change str methods to use f'' string formating
 
@@ -199,27 +199,30 @@ class WordDefinition(AuthAndTimeTracker):
     X = "other"
     PART_OF_SPEECH_CHOICES = [
         (SELECT, "Select the part of speech of your definition"),
-        (ADJ, "adjective"),
-        (ADP, "adposition"),
-        (ADV, "adverb"),
-        (AUX, "auxiliary"),
-        (CCONJ, "coordinating conjunction"),
-        (DET, "determiner"),
-        (INTJ, "interjection"),
-        (NOUN, "noun"),
-        (NUM, "numeral"),
-        (PART, "particle"),
-        (PRON, "pronoun"),
-        (PROPN, "proper noun"),
-        (PUNCT, "punctuation"),
-        (SCONJ, "subordinating conjunction"),
-        (SYM, "symbol"),
-        (VERB, "verb"),
-        (X, "other"),
+        (ADJ, "Adjective"),
+        (ADP, "Adposition"),
+        (ADV, "Adverb"),
+        (AUX, "Auxiliary"),
+        (CCONJ, "Coordinating conjunction"),
+        (DET, "Determiner"),
+        (INTJ, "Interjection"),
+        (NOUN, "Noun"),
+        (NUM, "Numeral"),
+        (PART, "Particle"),
+        (PRON, "Pronoun"),
+        (PROPN, "Proper noun"),
+        (PUNCT, "Punctuation"),
+        (SCONJ, "Subordinating conjunction"),
+        (SYM, "Symbol"),
+        (VERB, "Verb"),
+        (X, "Other"),
     ]
 
-    word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE, related_name="definitions")
-    part_of_speech = models.CharField(max_length=25,
+    word_pair = models.ForeignKey(
+        OshindongaWord, on_delete=models.CASCADE, related_name="definitions"
+    )
+    part_of_speech = models.CharField(
+        max_length=25,
         choices=PART_OF_SPEECH_CHOICES,
     )
     synonyms = models.ManyToManyField(OshindongaWord, related_name="synonyms")
@@ -233,7 +236,7 @@ class WordDefinition(AuthAndTimeTracker):
     oshindonga_definition = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return (f"{self.word_pair, self.part_of_speech, [self.id]}")
+        return f"{self.word_pair}: {self.part_of_speech} {[self.id]}"
 
     def get_absolute_url(self):
         # from django.urls import reverse

@@ -4,7 +4,19 @@ from dictionary.models import EnglishWord, OshindongaWord
 
 
 class Translation:
-    punctuation = [".", ",", ":", "?", ";", "!", ")", "]", "}", '"',]
+    punctuation = [
+        ".",
+        ",",
+        ":",
+        "?",
+        ";",
+        "!",
+        ")",
+        "]",
+        "}",
+        '"',
+    ]
+
     def __init__(self, src_lang, src_text):
         self.src_language = src_lang
         self.src_text = src_text

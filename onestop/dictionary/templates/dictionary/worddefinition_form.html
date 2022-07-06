@@ -22,19 +22,15 @@
     <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label>
     {{ form.part_of_speech }}
   </div>
-  <div class="row px-3">
-    <div class="col">
-      <label for="{{ form.synonym1.id_for_label }}">Synonym1 (Oshindonga):</label>
-      {{ form.synonym1 }}
-      <label for="{{ form.synonym2.id_for_label }}">Synonym2 (Oshindonga):</label>
-      {{ form.synonym2 }}
-    </div>
-    <div class="col">
-      <label for="{{ form.synonym3.id_for_label }}">Synonym3 (Oshindonga):</label>
-      {{ form.synonym3 }}
-      <label for="{{ form.synonym4.id_for_label }}">Synonym4 (Oshindonga):</label>
-      {{ form.synonym4 }}
-    </div>
+  <div>
+    <label for="{{ form.synonyms.id_for_label }}">Synonyms:</label>
+    {{ form.synonyms }}
+  </div>
+  <br>
+  <div class="alert alert-info" role="alert">
+    <strong>Selected synonyms:</strong> 
+    <ol id="synonymList">
+    </ol>
   </div>
   <div class="row px-3" style="display: none;" id="tense">
     <p style="text-align: center;"><strong>Tense forms</strong></p>
@@ -105,10 +101,10 @@
   function displayPluralOrTense() {
     var partOfSpeech = document.getElementById("id_part_of_speech").value;
     // console.log(partOfSpeech);
-    if (partOfSpeech == 'Noun [C]') {
+    if (partOfSpeech == 'noun') {
       document.getElementById("tense").style.display = 'none';
       document.getElementById("plural").style.display = 'block';
-    } else if (partOfSpeech == 'Verb') {
+    } else if (partOfSpeech == 'verb') {
       document.getElementById("tense").style.display = 'block';
       document.getElementById("plural").style.display = 'none';
     } else {
@@ -116,8 +112,34 @@
       document.getElementById("plural").style.display = 'none';
     }
   }
+
+  function createListItem(synonym) {
+    // alert(synonym)
+    const synonymList = document.querySelector('#synonymList');
+    const listItem = document.createElement('li');
+        synonymList.appendChild(listItem);
+        listItem.innerHTML = listItem.innerHTML + synonym;
+
+  }
+
+  function displaySynonyms() {
+    // alert("OK")
+    var selected = [];
+    
+    for (var option of document.getElementById('synonyms').options) {
+      if (option.selected) {
+        selected.push(option.value);
+      }
+    }
+    document.getElementById("synonymList").innerHTML = "";
+    selected.forEach(createListItem);
+    }
 </script>
 <script>
-  window.onload = displayPluralOrTense; //Calls the displayPluralOrTense when the page re/loads
+  window.onload = (displayPluralOrTense, displaySynonyms); //Calls the displayPluralOrTense when the page re/loads
+  document.getElementById('synonyms').addEventListener('change', displaySynonyms);
+</script>
+<script>
+
 </script>
 {% endblock %}

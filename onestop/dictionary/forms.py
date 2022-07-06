@@ -4,13 +4,15 @@ from django.forms import ModelForm
 # from django.contrib.auth.forms import UserCreationForm
 # from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import (
-    EnglishWord,
-    OshindongaWord,
-    WordDefinition,
     DefinitionExample,
+    EnglishWord,
     OshindongaIdiom,
     OshindongaPhonetic,
+    OshindongaWord,
+    WordDefinition,
 )
+
+WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")[:10]
 
 
 class SearchWordForm(forms.Form):
@@ -138,9 +140,13 @@ class OshindongaWordForm(ModelForm):
 
 class WordDefinitionForm(ModelForm):
     word_pair = forms.ModelChoiceField(
-        queryset=OshindongaWord.objects.all().order_by("word"),
+        queryset=WORD_PAIR_CHOICES,
         empty_label="Select a word pair to define",
         widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2"}),
+    )
+    synonyms = forms.MultipleChoiceField(
+        widget=forms.SelectMultiple(attrs={"class": "custom-select", "id":"synonyms"}),
+        choices=[(pair, f"{pair.word}<>{pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
     )
 
     class Meta:
@@ -153,18 +159,15 @@ class WordDefinitionForm(ModelForm):
                     "onchange": "displayPluralOrTense()",
                 }
             ),
-            "synonym1": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
-            "synonym2": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
-            "synonym3": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
-            "synonym4": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
+            # "synonym2": forms.TextInput(
+            #     attrs={"class": "form-control form-control-lg mb-2"}
+            # ),
+            # "synonym3": forms.TextInput(
+            #     attrs={"class": "form-control form-control-lg mb-2"}
+            # ),
+            # "synonym4": forms.TextInput(
+            #     attrs={"class": "form-control form-control-lg mb-2"}
+            # ),
             "simple_present": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
