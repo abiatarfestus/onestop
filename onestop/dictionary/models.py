@@ -163,8 +163,6 @@ class OshindongaWord(AuthAndTimeTracker):
     def __str__(self):
         return f"{self.english_word} | {self.word}"
 
-    # Change str methods to use f'' string formating
-
     def get_absolute_url(self):
         # from django.urls import reverse
         return reverse("dictionary:oshindonga-word-detail", args=[str(self.id)])
@@ -225,7 +223,7 @@ class WordDefinition(AuthAndTimeTracker):
         max_length=25,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    synonyms = models.ManyToManyField(OshindongaWord, related_name="synonyms")
+    synonyms = models.ManyToManyField(OshindongaWord, blank=True, related_name="synonyms")
     simple_present = models.CharField(max_length=50, blank=True)
     present_participle = models.CharField(max_length=50, blank=True)
     simple_past = models.CharField(max_length=50, blank=True)

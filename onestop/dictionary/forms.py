@@ -146,7 +146,7 @@ class WordDefinitionForm(ModelForm):
     )
     synonyms = forms.MultipleChoiceField(
         widget=forms.SelectMultiple(attrs={"class": "custom-select", "id":"synonyms"}),
-        choices=[(pair, f"{pair.word}<>{pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
+        choices=[(pair.id, f"{pair.word}<>{pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
     )
 
     class Meta:
@@ -159,15 +159,6 @@ class WordDefinitionForm(ModelForm):
                     "onchange": "displayPluralOrTense()",
                 }
             ),
-            # "synonym2": forms.TextInput(
-            #     attrs={"class": "form-control form-control-lg mb-2"}
-            # ),
-            # "synonym3": forms.TextInput(
-            #     attrs={"class": "form-control form-control-lg mb-2"}
-            # ),
-            # "synonym4": forms.TextInput(
-            #     attrs={"class": "form-control form-control-lg mb-2"}
-            # ),
             "simple_present": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),

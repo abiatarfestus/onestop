@@ -28,9 +28,19 @@
   </div>
   <br>
   <div class="alert alert-info" role="alert">
-    <strong>Selected synonyms:</strong> 
+    <strong>Selected synonyms:</strong>
     <ol id="synonymList">
     </ol>
+    <strong>Existing synonyms:</strong>
+    {% if not worddefinition.synonyms.all %}
+    <p>None</p>
+    {% else %}
+    <ol>
+      {% for synonym in worddefinition.synonyms.all %}
+      <li>{{ synonym }}</li>
+      {% endfor %}
+    </ol>
+    {% endif %}
   </div>
   <div class="row px-3" style="display: none;" id="tense">
     <p style="text-align: center;"><strong>Tense forms</strong></p>
@@ -117,23 +127,23 @@
     // alert(synonym)
     const synonymList = document.querySelector('#synonymList');
     const listItem = document.createElement('li');
-        synonymList.appendChild(listItem);
-        listItem.innerHTML = listItem.innerHTML + synonym;
+    synonymList.appendChild(listItem);
+    listItem.innerHTML = listItem.innerHTML + synonym;
 
   }
 
   function displaySynonyms() {
     // alert("OK")
     var selected = [];
-    
+
     for (var option of document.getElementById('synonyms').options) {
       if (option.selected) {
-        selected.push(option.value);
+        selected.push(option.label);
       }
     }
     document.getElementById("synonymList").innerHTML = "";
     selected.forEach(createListItem);
-    }
+  }
 </script>
 <script>
   window.onload = (displayPluralOrTense, displaySynonyms); //Calls the displayPluralOrTense when the page re/loads
