@@ -305,12 +305,21 @@ class WordDefinitionUpdate(
     permission_required = "dictionary.change_worddefinition"
     form_class = WordDefinitionForm
     model = WordDefinition
-    extra_context = {
-        "operation": "Update an existing word definition",
-        "newly_defined_words": defined_words,
-        "undefined_words": get_undefined_words,
-    }
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
+    # extra_context = {
+    #     "operation": "Update an existing word definition",
+    #     "newly_defined_words": defined_words,
+    #     "undefined_words": get_undefined_words,
+    # }
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        synonyms = self.object.synonyms.all()
+        context["synonym_list"] = [str(synonym.id) for synonym in synonyms]
+        context["operation"] = "Update an existing word definition",
+        context["newly_defined_words"] = defined_words,
+        context["undefined_words"] = get_undefined_words,
+        return context
 
     def handle_no_permission(self):
         """Redirect to custom access denied page if authenticated or login page if not"""

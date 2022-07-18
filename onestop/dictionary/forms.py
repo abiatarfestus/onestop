@@ -12,7 +12,7 @@ from .models import (
     WordDefinition,
 )
 
-WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")[:10]
+WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")#[:10]
 
 
 class SearchWordForm(forms.Form):
@@ -145,8 +145,8 @@ class WordDefinitionForm(ModelForm):
         widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2"}),
     )
     synonyms = forms.MultipleChoiceField(
-        widget=forms.SelectMultiple(attrs={"class": "custom-select", "id":"synonyms"}),
-        choices=[(pair.id, f"{pair.word}<>{pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
+        widget=forms.SelectMultiple(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"synonyms"}),
+        choices=[(pair.id, f"{pair.word} | {pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
     )
 
     class Meta:

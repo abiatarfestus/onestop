@@ -1,4 +1,5 @@
 {% extends "dictionary/search.html" %}
+{% load static %}
 {% block welcome %}
 <br>
 <h3>Contribute to the dictionary by adding a new definition or updating an existing one.</h3>
@@ -22,26 +23,11 @@
     <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label>
     {{ form.part_of_speech }}
   </div>
-  <div>
+  <div class="synonym">
     <label for="{{ form.synonyms.id_for_label }}">Synonyms:</label>
     {{ form.synonyms }}
   </div>
   <br>
-  <div class="alert alert-info" role="alert">
-    <strong>Selected synonyms:</strong>
-    <ol id="synonymList">
-    </ol>
-    <strong>Existing synonyms:</strong>
-    {% if not worddefinition.synonyms.all %}
-    <p>None</p>
-    {% else %}
-    <ol>
-      {% for synonym in worddefinition.synonyms.all %}
-      <li>{{ synonym }}</li>
-      {% endfor %}
-    </ol>
-    {% endif %}
-  </div>
   <div class="row px-3" style="display: none;" id="tense">
     <p style="text-align: center;"><strong>Tense forms</strong></p>
     <div class="col gx-3">
@@ -123,33 +109,98 @@
     }
   }
 
-  function createListItem(synonym) {
-    // alert(synonym)
-    const synonymList = document.querySelector('#synonymList');
-    const listItem = document.createElement('li');
-    synonymList.appendChild(listItem);
-    listItem.innerHTML = listItem.innerHTML + synonym;
+  // function createListItem(synonym) {
+  //   // alert(synonym)
+  //   const synonymList = document.querySelector('#synonymList');
+  //   const listItem = document.createElement('li');
+  //   synonymList.appendChild(listItem);
+  //   listItem.innerHTML = listItem.innerHTML + synonym;
 
-  }
+  // }
 
-  function displaySynonyms() {
-    // alert("OK")
-    var selected = [];
+  // function displaySynonyms() {
+  //   // alert("OK")
+  //   var selected = [];
 
-    for (var option of document.getElementById('synonyms').options) {
-      if (option.selected) {
-        selected.push(option.label);
-      }
+  //   for (var option of document.getElementById('synonyms').options) {
+  //     if (option.selected) {
+  //       selected.push(option.label);
+  //     }
+  //   }
+  //   document.getElementById("synonymList").innerHTML = "";
+  //   selected.forEach(createListItem);
+  // }
+</script>
+<script>
+  window.onload = (displayPluralOrTense); //, displaySynonyms Calls the displayPluralOrTense when the page re/loads
+  // document.getElementById('synonyms').addEventListener('change', displaySynonyms);
+</script>
+<!-- <script src="//code.jquery.com/jquery.min.js"></script> -->
+<link rel="stylesheet" href="{% static 'dictionary/css/jquery.dropdown.css' %}">
+<script src="{% static 'dictionary/js/jquery.dropdown.js' %}"></script>
+<script>
+  $('.synonym').dropdown({
+  multipleMode: 'label',
+  limitCount: 5,
+  limitCountErrorMessage:'Maximum 5 synonyms allowed!',
+});
+</script>
+<script>
+  console.log(`{{synonym_list|safe}}`);
+  window.onload = (event) => {
+    const select = document.getElementById('synonyms')
+  const selectValues = `{{synonym_list|safe}}`;
+
+  /* Iterate options of select element */
+  for (const option of document.querySelectorAll('#synonyms option')) {
+
+    /* Parse value to integer */
+    const value = Number.parseInt(option.value);
+
+    /* If option value contained in values, set selected attribute */
+    if (selectValues.indexOf(value) !== -1) {
+      option.setAttribute('selected', 'selected');
+      console.log("Selected", value);
     }
-    document.getElementById("synonymList").innerHTML = "";
-    selected.forEach(createListItem);
+    /* Otherwise ensure no selected attribute on option */
+    else {
+      option.removeAttribute('selected');
+      // console.log("Deselected", value);
+    }
   }
-</script>
-<script>
-  window.onload = (displayPluralOrTense, displaySynonyms); //Calls the displayPluralOrTense when the page re/loads
-  document.getElementById('synonyms').addEventListener('change', displaySynonyms);
-</script>
-<script>
+  };
+  </script>
 
+
+<script>
+  function setSelectedIndex(s, valsearch)
+
+{
+
+// Loop through all the items in drop down list
+
+for (i = 0; i< s.options.length; i++)
+
+{ 
+
+if (s.options[i].value == valsearch)
+
+{
+
+// Item is found. Set its property and exit
+
+s.options[i].selected = true;
+
+break;
+
+}
+
+}
+
+return;
+
+}
+
+setSelectedIndex(document.getElementById("ddl_example5"),"BB");
 </script>
 {% endblock %}
