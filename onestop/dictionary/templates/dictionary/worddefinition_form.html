@@ -15,7 +15,7 @@
   {% csrf_token %}
   <!-- {{ form.as_p }} -->
   {{form.errors}}
-  <div>
+  <div class="word-pairs">
     <label for="{{ form.word_pair.id_for_label }}">Word pair:</label>
     {{ form.word_pair }}
   </div>
@@ -23,7 +23,7 @@
     <label for="{{ form.part_of_speech.id_for_label }}">Part of speech:</label>
     {{ form.part_of_speech }}
   </div>
-  <div class="synonym">
+  <div class="synonyms">
     <label for="{{ form.synonyms.id_for_label }}">Synonyms:</label>
     {{ form.synonyms }}
   </div>
@@ -139,68 +139,24 @@
 <link rel="stylesheet" href="{% static 'dictionary/css/jquery.dropdown.css' %}">
 <script src="{% static 'dictionary/js/jquery.dropdown.js' %}"></script>
 <script>
-  $('.synonym').dropdown({
-  multipleMode: 'label',
-  limitCount: 5,
-  limitCountErrorMessage:'Maximum 5 synonyms allowed!',
-});
-</script>
-<script>
-  console.log(`{{synonym_list|safe}}`);
-  window.onload = (event) => {
-    const select = document.getElementById('synonyms')
-  const selectValues = `{{synonym_list|safe}}`;
+  // Convert the word pairs select into a searchable dropdown
+  $('.word-pairs').dropdown({
+    readOnly: 'label',
+  });
 
-  /* Iterate options of select element */
-  for (const option of document.querySelectorAll('#synonyms option')) {
+  // Convert the synonyms select into a searchable dropdown of input tags
+  $('.synonyms').dropdown({
+    multipleMode: 'label',
+    limitCount: 5,
+    limitCountErrorMessage: 'Maximum 5 synonyms allowed!',
+  });
 
-    /* Parse value to integer */
-    const value = Number.parseInt(option.value);
-
-    /* If option value contained in values, set selected attribute */
-    if (selectValues.indexOf(value) !== -1) {
-      option.setAttribute('selected', 'selected');
-      console.log("Selected", value);
-    }
-    /* Otherwise ensure no selected attribute on option */
-    else {
-      option.removeAttribute('selected');
-      // console.log("Deselected", value);
-    }
-  }
+  // Pre-select existing synonyms
+  if ("{{synonym_list}}") {
+    const synonyms = JSON.parse("{{synonym_list}}");
+    synonyms.forEach(function (synonym) {
+      $('.synonyms').data().dropdown.choose(synonym);
+    });
   };
-  </script>
-
-
-<script>
-  function setSelectedIndex(s, valsearch)
-
-{
-
-// Loop through all the items in drop down list
-
-for (i = 0; i< s.options.length; i++)
-
-{ 
-
-if (s.options[i].value == valsearch)
-
-{
-
-// Item is found. Set its property and exit
-
-s.options[i].selected = true;
-
-break;
-
-}
-
-}
-
-return;
-
-}
-
-setSelectedIndex(document.getElementById("ddl_example5"),"BB");
 </script>
 {% endblock %}

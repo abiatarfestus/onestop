@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
@@ -306,19 +307,19 @@ class WordDefinitionUpdate(
     form_class = WordDefinitionForm
     model = WordDefinition
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
-    # extra_context = {
-    #     "operation": "Update an existing word definition",
-    #     "newly_defined_words": defined_words,
-    #     "undefined_words": get_undefined_words,
-    # }
+    extra_context = {
+        "operation": "Update an existing word definition",
+        "newly_defined_words": defined_words,
+        "undefined_words": get_undefined_words,
+    }
     
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(WordDefinitionUpdate, self).get_context_data(**kwargs)
         synonyms = self.object.synonyms.all()
-        context["synonym_list"] = [str(synonym.id) for synonym in synonyms]
-        context["operation"] = "Update an existing word definition",
-        context["newly_defined_words"] = defined_words,
-        context["undefined_words"] = get_undefined_words,
+        context["synonym_list"] = json.dumps([synonym.id for synonym in synonyms])
+        # context["operation"] = "Update an existing word definition",
+        # context["newly_defined_words"] = defined_words,
+        # context["undefined_words"] = get_undefined_words,
         return context
 
     def handle_no_permission(self):

@@ -142,7 +142,7 @@ class WordDefinitionForm(ModelForm):
     word_pair = forms.ModelChoiceField(
         queryset=WORD_PAIR_CHOICES,
         empty_label="Select a word pair to define",
-        widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2"}),
+        widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"word_pairs"}),
     )
     synonyms = forms.MultipleChoiceField(
         widget=forms.SelectMultiple(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"synonyms"}),
