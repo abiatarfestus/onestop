@@ -1,4 +1,5 @@
 {% extends "dictionary/search.html" %}
+{% load static %}
 {% block welcome %}
 <br>
 <h4>Contribute to the dictionary by adding a new Oshindonga word or updating an existing one.</h4>
@@ -11,8 +12,8 @@
 {% block mainarea %}
 <h5>{{ operation }}</h5>
 <form action="" method="post">
-  {% csrf_token %}
-  <!-- Non-field errors, e.g., UnequeConstraint error -->
+  <!-- {% csrf_token %}
+  Non-field errors, e.g., UnequeConstraint error
   {% if form.non_field_errors %}
   <div class="alert alert-warning" role="alert">
     {{ form.non_field_errors }}
@@ -20,7 +21,7 @@
   {% endif %}
   {% for field in form %}
   <div class="fieldWrapper">
-    <!-- Field errors -->
+    Field errors
     {% if field.errors %}
     <div class="alert alert-warning" role="alert">
       {{ field.errors }}
@@ -32,6 +33,25 @@
     {% endif %}
   </div>
   {% endfor %}
+  <input class="btn btn-outline-primary mb-2" type="submit" value="Submit"> -->
+  {% csrf_token %}
+  {{form.errors}}
+  <div class="english-words">
+    <label for="{{ form.english_word.id_for_label }}">English word:</label>
+    {{ form.english_word }}
+  </div>
+  <div>
+    <label for="{{ form.part_of_speech.id_for_label }}">Oshindonga word:</label>
+    {{ form.word }}
+  </div>
+  <div>
+    <label for="{{ form.word_case.id_for_label }}">Word case:</label>
+    {{ form.word_case }}
+  </div>
+  <div>
+    <label for="{{ form.word_phonetics.id_for_label }}">Word phonetics:</label>
+    {{ form.word_phonetics }}
+  </div>
   <input class="btn btn-outline-primary mb-2" type="submit" value="Submit">
 </form>
 {% endblock %}
@@ -59,4 +79,14 @@
     {% endfor %}
   </ul>
 </div>
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'dictionary/css/jquery.dropdown.css' %}">
+<script src="{% static 'dictionary/js/jquery.dropdown.js' %}"></script>
+<script>
+  // Convert the English words select into a searchable dropdown
+  $('.english-words').dropdown({
+    readOnly: 'label',
+  });
+  </script>
 {% endblock %}
