@@ -3,7 +3,7 @@
 - Activate venv: pipenv shell
 - Run in venv without launching a shell: pipenv run <command>
 - General installs: pipenv install <package>
-- Installing for dev onl: pipenv install <pakage> --dev
+- Installing for dev only: pipenv install <pakage> --dev
 - Lock environment: pipenv lock
 - Install from Pipfile: pipenv install --dev
 - Install from .lock: pipenv install --ignore-pipfile

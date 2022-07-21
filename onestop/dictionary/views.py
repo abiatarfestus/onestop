@@ -312,7 +312,7 @@ class WordDefinitionUpdate(
         "newly_defined_words": defined_words,
         "undefined_words": get_undefined_words,
     }
-    
+
     def get_context_data(self, **kwargs):
         context = super(WordDefinitionUpdate, self).get_context_data(**kwargs)
         synonyms = self.object.synonyms.all()

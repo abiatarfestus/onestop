@@ -12,7 +12,7 @@ from .models import (
     WordDefinition,
 )
 
-WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")#[:10]
+WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")  # [:10]
 
 
 class SearchWordForm(forms.Form):
@@ -103,7 +103,13 @@ class OshindongaWordForm(ModelForm):
     english_word = forms.ModelChoiceField(
         queryset=EnglishWord.objects.all().order_by("word"),
         empty_label="Select the English word",
-        widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"englishWords"}),
+        widget=forms.Select(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                "style": "display:none",
+                "id": "englishWords",
+            }
+        ),
     )
     word_phonetics = forms.ModelChoiceField(
         queryset=OshindongaPhonetic.objects.all().order_by("oshindonga_word"),
@@ -142,11 +148,26 @@ class WordDefinitionForm(ModelForm):
     word_pair = forms.ModelChoiceField(
         queryset=WORD_PAIR_CHOICES,
         empty_label="Select a word pair to define",
-        widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"word_pairs"}),
+        widget=forms.Select(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                "style": "display:none",
+                "id": "word_pairs",
+            }
+        ),
     )
     synonyms = forms.MultipleChoiceField(
-        widget=forms.SelectMultiple(attrs={"class": "form-control form-control-lg mb-2", "style":"display:none", "id":"synonyms"}),
-        choices=[(pair.id, f"{pair.word} | {pair.english_word.word}") for pair in WORD_PAIR_CHOICES],
+        widget=forms.SelectMultiple(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                "style": "display:none",
+                "id": "synonyms",
+            }
+        ),
+        choices=[
+            (pair.id, f"{pair.word} | {pair.english_word.word}")
+            for pair in WORD_PAIR_CHOICES
+        ],
     )
 
     class Meta:

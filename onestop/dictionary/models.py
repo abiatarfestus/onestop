@@ -223,7 +223,9 @@ class WordDefinition(AuthAndTimeTracker):
         max_length=25,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    synonyms = models.ManyToManyField(OshindongaWord, blank=True, related_name="synonyms")
+    synonyms = models.ManyToManyField(
+        OshindongaWord, blank=True, related_name="synonyms"
+    )
     simple_present = models.CharField(max_length=50, blank=True)
     present_participle = models.CharField(max_length=50, blank=True)
     simple_past = models.CharField(max_length=50, blank=True)
