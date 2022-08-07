@@ -41,3 +41,7 @@ Check the correct spelling of:
 8. dhipagii po vs dhipagiipo
 
 ************************************************************************************
+"7561": ["paunafaalama", "agricultural", "Normal", "noun"],
+    "7562": ["paunamapya nuuniimuna", "agricultural", "Normal", "noun"],
+    "7563": ["uunamapya nuuniimuna", "agriculture", "Normal", "noun"],
+    "7564": ["uunafaalama", "agriculture", "Normal", "noun"],
