@@ -178,23 +178,20 @@ class WordDefinition(AuthAndTimeTracker):
     """
     # https://machinelearningknowledge.ai/tutorial-on-spacy-part-of-speech-pos-tagging/
     SELECT = ""
-    ADJ = "adjective"
-    ADP = "adposition"
-    ADV = "adverb"
-    AUX = "auxiliary"
-    CCONJ = "coordinating conjunction"
-    DET = "determiner"
-    INTJ = "interjection"
-    NOUN = "noun"
-    NUM = "numeral"
-    PART = "particle"
-    PRON = "pronoun"
-    PROPN = "proper noun"
-    PUNCT = "punctuation"
-    SCONJ = "subordinating conjunction"
-    SYM = "symbol"
-    VERB = "verb"
-    X = "other"
+    ADJ = "ADJ"
+    ADP = "ADP"
+    ADV = "ADV"
+    AUX = "AUX"
+    CCONJ = "CCONJ"
+    DET = "DET"
+    INTJ = "INTJ"
+    NOUN = "NOUN"
+    NUM = "NUM"
+    PART = "PART"
+    PRON = "PRON"
+    PROPN = "PROPN"
+    SCONJ = "SCONJ"
+    VERB = "VERB"
     PART_OF_SPEECH_CHOICES = [
         (SELECT, "Select the part of speech of your definition"),
         (ADJ, "Adjective"),
@@ -209,11 +206,8 @@ class WordDefinition(AuthAndTimeTracker):
         (PART, "Particle"),
         (PRON, "Pronoun"),
         (PROPN, "Proper noun"),
-        (PUNCT, "Punctuation"),
         (SCONJ, "Subordinating conjunction"),
-        (SYM, "Symbol"),
         (VERB, "Verb"),
-        (X, "Other"),
     ]
 
     word_pair = models.ForeignKey(
