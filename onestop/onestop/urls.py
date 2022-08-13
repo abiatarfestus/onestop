@@ -50,6 +50,7 @@ urlpatterns = [
     path("translation/", include("translation.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("summernote/", include("django_summernote.urls")),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
 # To serve media files in developmnt:

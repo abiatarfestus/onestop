@@ -22,6 +22,7 @@ spacy = "*"
 urllib3 = "*"
 whitenoise = "*"
 django-extensions = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

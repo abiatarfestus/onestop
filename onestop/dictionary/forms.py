@@ -12,7 +12,7 @@ from .models import (
     WordDefinition,
 )
 
-WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word")  # [:10]
+WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word").select_related("english_word")  # [:10]
 
 
 class SearchWordForm(forms.Form):
