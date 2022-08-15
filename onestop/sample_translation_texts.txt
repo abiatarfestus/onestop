@@ -3,4 +3,19 @@
 Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.
 
 A Chinese businessman was robbed of N$1,1 million at gunpoint at his home in Windhoek's Hochland Park by six men on Wednesday morning.
+
 Omunangeshefa omuChiina okwa yugwa omiliyona N$1,1 komulungu gondjembo kaalumentu yahaano pegumbo lye moHochland Park shaVenduka.
+
+Before:  [['A', 'DET', 'DT'], ['Chinese', 'ADJ', 'JJ'], ['businessman', 'NOUN', 'NN'], ['was', 'AUX', 'VBD'], ['robbed', 'VERB', 'VBN'], 
+['of', 'ADP', 'IN'], ['N$1,1', 'ADV', 'RB'], ['million', 'NUM', 'CD'], ['at', 'ADP', 'IN'], ['gunpoint', 'NOUN', 'NN'], ['at', 'ADP', 'IN'], 
+['his', 'PRON', 'PRP$'], ['home', 'NOUN', 'NN'], ['in', 'ADP', 'IN'], ['Windhoek', 'PROPN', 'NNP'], ["'s", 'PART', 'POS'], ['Hochland', 
+'PROPN', 'NNP'], ['Park', 'PROPN', 'NNP'], ['by', 'ADP', 'IN'], ['six', 'NUM', 'CD'], ['men', 'NOUN', 'NNS'], ['on', 'ADP', 'IN'], 
+['Wednesday', 'PROPN', 'NNP'], ['morning', 'NOUN', 'NN'], ['.', 'PUNCT', '.']]
+
+After:  [['Chinese', 'ADJ', 'JJ'], ['businessman', 'NOUN', 'NN'], ['was', 'AUX', 'VBD'], ['robbed', 'VERB', 'VBN'], ['of', 'ADP', 'IN'], 
+['N$1,1', 'ADV', 'RB'], ['million', 'NUM', 'CD'], ['at', 'ADP', 'IN'], ['gunpoint', 'NOUN', 'NN'], ['at', 'ADP', 'IN'], 
+['his', 'PRON', 'PRP$'], ['home', 'NOUN', 'NN'], ['in', 'ADP', 'IN'], ['Windhoek', 'PROPN', 'NNP'], ["'s", 'PART', 'POS'], 
+['Hochland', 'PROPN', 'NNP'], ['Park', 'PROPN', 'NNP'], ['by', 'ADP', 'IN'], ['six', 'NUM', 'CD'], ['men', 'NOUN', 'NNS'], 
+['on', 'ADP', 'IN'], ['Wednesday', 'PROPN', 'NNP'], ['morning', 'NOUN', 'NN'], ['.', 'PUNCT', '.']]
+
+Omukiina omunangeshefa was robbed dha N$1,1 omiliyona p- gunpoint p- ye home m- Ovenduka&#x27;s Hochland Park ku hamano aalumentu k- Etitatu ongula.

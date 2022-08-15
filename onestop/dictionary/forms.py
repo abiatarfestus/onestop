@@ -215,7 +215,7 @@ class WordDefinitionForm(ModelForm):
 
 class DefinitionExampleForm(ModelForm):
     definition = forms.ModelChoiceField(
-        queryset=WordDefinition.objects.all().order_by("word_pair"),
+        queryset=WordDefinition.objects.all().order_by("word_pair").select_related("word_pair__english_word") ,
         empty_label="Select a definition to exemplify",
         widget=forms.Select(
             attrs={

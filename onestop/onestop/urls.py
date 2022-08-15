@@ -25,7 +25,7 @@ from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("staff/", admin.site.urls),
     path("comments/", include("django_comments_xtd.urls")),
     path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("", views.index, name="index"),

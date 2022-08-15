@@ -68,7 +68,7 @@ class Translation:
                         matched_word_pairs_id = [pair.id for pair in matched_word_pairs]
                         # pairs_with_matched_pos = [pair for pair in matched_word_pairs]
                         # A queryset of definitions with the POS matching the current token
-                        definitions_with_matched_pos = WordDefinition.objects.filter(Q(word_pair_id__in=matched_word_pairs_id) & Q(part_of_speech=src_token[1]))
+                        definitions_with_matched_pos = WordDefinition.objects.filter(Q(word_pair_id__in=matched_word_pairs_id) & Q(part_of_speech=src_token[1])).select_related("word_pair")
                         # print(f"DEFINITIONS: {definitions_with_matched_pos}")
                         # Oshindonga word from the first definition in the queryset
                         target_word = definitions_with_matched_pos[0].word_pair.word
