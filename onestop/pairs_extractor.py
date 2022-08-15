@@ -126,7 +126,7 @@ word_pairs = {
     "140": ["afternoon", "komatango", "Normal", "NOUN"],
     "141": ["again", "ishewe", "Normal", "ADV"],
     "142": ["again", "natango", "Normal", "ADV"],
-    "143": ["against", "pooha", "Normal", "ADP"], #preposition
+    "143": ["against", "pooha", "Normal", "ADP"],  # preposition
     "144": ["age", "uukokele", "Normal", "NOUN"],
     "145": ["agenda", "oagenda", "Normal", "NOUN"],
     "146": ["agenda", "elandulathano", "Normal", "NOUN"],

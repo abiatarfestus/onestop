@@ -176,6 +176,7 @@ class WordDefinition(AuthAndTimeTracker):
     """
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     """
+
     # https://machinelearningknowledge.ai/tutorial-on-spacy-part-of-speech-pos-tagging/
     SELECT = ""
     ADJ = "ADJ"

@@ -12,7 +12,9 @@ from .models import (
     WordDefinition,
 )
 
-WORD_PAIR_CHOICES = OshindongaWord.objects.all().order_by("word").select_related("english_word")  # [:10]
+WORD_PAIR_CHOICES = (
+    OshindongaWord.objects.all().order_by("word").select_related("english_word")
+)  # [:10]
 
 
 class SearchWordForm(forms.Form):
@@ -215,7 +217,9 @@ class WordDefinitionForm(ModelForm):
 
 class DefinitionExampleForm(ModelForm):
     definition = forms.ModelChoiceField(
-        queryset=WordDefinition.objects.all().order_by("word_pair").select_related("word_pair__english_word") ,
+        queryset=WordDefinition.objects.all()
+        .order_by("word_pair")
+        .select_related("word_pair__english_word"),
         empty_label="Select a definition to exemplify",
         widget=forms.Select(
             attrs={

@@ -11,6 +11,7 @@ from .models import (
 
 # Register your models here.
 
+
 class WordDefinitionAdmin(SimpleHistoryAdmin):
     # list_display = ["id", "name", "status"]
     # history_list_display = ["status"]
@@ -20,15 +21,23 @@ class WordDefinitionAdmin(SimpleHistoryAdmin):
     list_display = ("word_pair", "part_of_speech", "id")
     list_filter = ("part_of_speech",)
     ordering = ("word_pair",)
-    raw_id_fields = ("word_pair", "synonyms",)
+    raw_id_fields = (
+        "word_pair",
+        "synonyms",
+    )
     # prepopulated_fields = {"slug": ("title",)}
-    search_fields = ("word_pair__word", "word_pair__english_word__word",)
+    search_fields = (
+        "word_pair__word",
+        "word_pair__english_word__word",
+    )
+
 
 class EnglishWordAdmin(SimpleHistoryAdmin):
     date_hierarchy = "time_added"
     list_display = ("word", "id")
     ordering = ("word",)
-    search_fields = ("word", )
+    search_fields = ("word",)
+
 
 class OshindongaWordWordAdmin(SimpleHistoryAdmin):
     date_hierarchy = "time_added"
@@ -36,14 +45,22 @@ class OshindongaWordWordAdmin(SimpleHistoryAdmin):
     list_filter = ("word_case",)
     ordering = ("english_word",)
     raw_id_fields = ("english_word",)
-    search_fields = ("english_word__word", "word",)
+    search_fields = (
+        "english_word__word",
+        "word",
+    )
+
 
 class DefinitionExampleAdmin(SimpleHistoryAdmin):
     date_hierarchy = "time_added"
     list_display = ("definition", "id")
     ordering = ("definition",)
     raw_id_fields = ("definition",)
-    search_fields = ("definition__word_pair__word", "definition__word_pair__english_word__word",)
+    search_fields = (
+        "definition__word_pair__word",
+        "definition__word_pair__english_word__word",
+    )
+
 
 admin.site.register(EnglishWord, EnglishWordAdmin)
 admin.site.register(OshindongaWord, OshindongaWordWordAdmin)

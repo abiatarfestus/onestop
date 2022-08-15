@@ -1,5 +1,6 @@
 from django.db.models import Q
 from string import punctuation
+
 # from onestop.dictionary.models import WordDefinition
 import spacy
 from dictionary.models import EnglishWord, OshindongaWord, WordDefinition
@@ -60,7 +61,7 @@ class Translation:
                     matched_word_pairs = OshindongaWord.objects.filter(
                         english_word_id=EnglishWord.objects.get(word=src_token[0])
                     )
-                    
+
                     # if len(matched_word_pairs) > 0:
                     if matched_word_pairs:
                         # print(f"MATCH FOUND: {matched_word_pairs}")
@@ -68,7 +69,10 @@ class Translation:
                         matched_word_pairs_id = [pair.id for pair in matched_word_pairs]
                         # pairs_with_matched_pos = [pair for pair in matched_word_pairs]
                         # A queryset of definitions with the POS matching the current token
-                        definitions_with_matched_pos = WordDefinition.objects.filter(Q(word_pair_id__in=matched_word_pairs_id) & Q(part_of_speech=src_token[1])).select_related("word_pair")
+                        definitions_with_matched_pos = WordDefinition.objects.filter(
+                            Q(word_pair_id__in=matched_word_pairs_id)
+                            & Q(part_of_speech=src_token[1])
+                        ).select_related("word_pair")
                         # print(f"DEFINITIONS: {definitions_with_matched_pos}")
                         # Oshindonga word from the first definition in the queryset
                         target_word = definitions_with_matched_pos[0].word_pair.word
