@@ -23,6 +23,7 @@ urllib3 = "*"
 whitenoise = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
+django-jazzmin = "*"
 
 [dev-packages]
 

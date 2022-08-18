@@ -39,7 +39,7 @@ class EnglishWordAdmin(SimpleHistoryAdmin):
     search_fields = ("word",)
 
 
-class OshindongaWordWordAdmin(SimpleHistoryAdmin):
+class OshindongaWordAdmin(SimpleHistoryAdmin):
     date_hierarchy = "time_added"
     list_display = ("english_word", "word", "word_case", "id")
     list_filter = ("word_case",)
@@ -61,12 +61,22 @@ class DefinitionExampleAdmin(SimpleHistoryAdmin):
         "definition__word_pair__english_word__word",
     )
 
+class OshindongaIdiomAdmin(SimpleHistoryAdmin):
+    date_hierarchy = "time_added"
+    list_display = ("word_pair", "oshindonga_idiom", "id")
+    ordering = ("word_pair",)
+    raw_id_fields = ("word_pair",)
+    search_fields = (
+        "word_pair__word",
+        "word_pair__english_word__word",
+    )
+
 
 admin.site.register(EnglishWord, EnglishWordAdmin)
-admin.site.register(OshindongaWord, OshindongaWordWordAdmin)
+admin.site.register(OshindongaWord, OshindongaWordAdmin)
 admin.site.register(WordDefinition, WordDefinitionAdmin)
 admin.site.register(DefinitionExample, DefinitionExampleAdmin)
-admin.site.register(OshindongaIdiom, SimpleHistoryAdmin)
+admin.site.register(OshindongaIdiom, OshindongaIdiomAdmin)
 admin.site.register(OshindongaPhonetic, SimpleHistoryAdmin)
 
 # admin.site.register(EnglishWord, SimpleHistoryAdmin)
