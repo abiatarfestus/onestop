@@ -10,19 +10,27 @@ deployment:
     - export STOREPATH=/home/oshizdab/onestop/store/
     - export TRANSLATIONPATH=/home/oshizdab/onestop/translation/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
-    - /bin/cp -Ru onestop/ $DEPLOYPATH
+    # Non-app files
+    - /bin/cp -u Pipfile.lock $DEPLOYPATH
+    - /bin/cp -u onestop/*.py $DEPLOYPATH
+    - /bin/cp -u onestop/*.txt $DEPLOYPATH
+    - /bin/cp -Ru onestop/static/ $DEPLOYPATH
+    - /bin/cp -Ru onestop/templates/ $DEPLOYPATH
+    - /bin/cp -u onestop/onestop/practice.py $ONESTOPPATH
+    - /bin/cp -u onestop/onestop/urls.py $ONESTOPPATH
+    - /bin/cp -u onestop/onestop/views.py $ONESTOPPATH
     # Blog
-    # - /bin/cp -Ru onestop/blog/* $BLOGPATH
+    - /bin/cp -Ru onestop/blog/* $BLOGPATH
     # Dictionary
-    # - /bin/cp -Ru onestop/dictionary/* $DICTIONARYPATH
+    - /bin/cp -Ru onestop/dictionary/* $DICTIONARYPATH
     # Equeue
-    # - /bin/cp -Ru onestop/equeue/* $EQUEUEPATH
+    - /bin/cp -Ru onestop/equeue/* $EQUEUEPATH
     # Store
-    # - /bin/cp -Ru onestop/store/* $STOREPATH
+    - /bin/cp -Ru onestop/store/* $STOREPATH
     # Translation
-    # - /bin/cp -Ru onestop/translation/* $TRANSLATIONPATH
+    - /bin/cp -Ru onestop/translation/* $TRANSLATIONPATH
     # Users
-    # - /bin/cp -Ru onestop/users/* $USERSPATH
+    - /bin/cp -Ru onestop/users/* $USERSPATH
     # To do manually: edit settings, collectstatic (before commit in dev??), run migrations, Users views if changed
     
     
