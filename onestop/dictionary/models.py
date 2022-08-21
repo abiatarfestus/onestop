@@ -176,33 +176,35 @@ class WordDefinition(AuthAndTimeTracker):
     """
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     """
+
     PART_OF_SPEECH_CHOICES = [
         ("", "Select the part of speech of your definition"),
+        ("JJ", "Adjective"),
+        ("JJR", "Adjective, comparative"),
+        ("JJS", "Adjective, superlative"),
+        ("RB", "Adverb"),
+        ("RBR", "Adverb, comparative"),
+        ("RBS", "Adverb, superlative"),
         ("CC", "Coordinating conjunction"),
         ("CD", "Cardinal digit"),
         ("DT", "Determiner"),
         ("EX", "Existential there [e.g., there is]"),
         ("FW", "Foreign word"),
-        ("IN", "Preposition/Subordinating conjunction"),
-        ("JJ", "Adjective"),
-        ("JJR", "Adjective, comparative"),
-        ("JJS", "Adjective, superlative"),
+        ("UH", "Interjection"),
         ("LS", "List marker"),
         ("MD", "Modal"),
         ("NN", "Noun, singular"),
         ("NNS", "Noun, plural"),
+        ("RP", "Particle [e.g., come in/up/over]"),
+        ("PDT", "Predeterminer"),
+        ("IN", "Preposition/Subordinating conjunction"),
+        ("PRP", "Personal pronoun"),
+        ("POS", "Possessive ending [e.g., parent's]"),
+        ("PRP$", "Possessive pronoun"),
+        ("WP$", "Possessive wh-pronoun [e.g., whose]"),
         ("NNP", "Proper noun, singular"),
         ("NNPS", "Proper noun, plural"),
-        ("PDT", "Predeterminer"),
-        ("POS", "Possessive ending [e.g., parent's]"),
-        ("PRP", "Personal pronoun"),
-        ("PRP$", "Possessive pronoun"),
-        ("RB", "Adverb"),
-        ("RBR", "Adverb, comparative"),
-        ("RBS", "Adverb, superlative"),
-        ("RP", "Particle [e.g., come in/up/over]"),
         ("TO", "To [e.g., to + verb]"),
-        ("UH", "Interjection"),
         ("VB", "Verb, base form"),
         ("VBD", "Verb, past tense"),
         ("VBG", "Verb, gerund/present participle"),
@@ -211,7 +213,6 @@ class WordDefinition(AuthAndTimeTracker):
         ("VBZ", "Verb, 3rd person sing. Present"),
         ("WDT", "Wh-determiner [e.g., which]"),
         ("WP", "Wh-pronoun [e.g., who, what]"),
-        ("WP$", "Possessive wh-pronoun [e.g., whose]"),
         ("WRB", "Wh-abverb where [e.g., when]"),
     ]
 
@@ -229,9 +230,7 @@ class WordDefinition(AuthAndTimeTracker):
     present_participle = models.CharField(max_length=50, blank=True)
     simple_past = models.CharField(max_length=50, blank=True)
     past_participle = models.CharField(max_length=50, blank=True)
-    plurals = models.ManyToManyField(
-        OshindongaWord, blank=True, related_name="plurals"
-    )
+    plurals = models.ManyToManyField(OshindongaWord, blank=True, related_name="plurals")
     english_definition = models.CharField(max_length=255, blank=True)
     oshindonga_definition = models.CharField(max_length=255, blank=True)
 

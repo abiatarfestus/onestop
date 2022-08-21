@@ -10,7 +10,7 @@ class Translation:
         self.src_text = src_text
         self.tagged_src_tokens = []
         self.translated_list = []
-        
+
     def process_src_text(self):
         """Takes the source text and processes it with spaCy pipline to tokenize and tag it (convert it to Doc)
         Para: None
@@ -102,6 +102,3 @@ class Translation:
 
 # new_translation = Translation("English", "Apple is looking at buying U.K. startup for $1 billion")
 txt = "No part of this book may be reproduced in any written, electronic, recording, or photocopying without written permission of the author. The exception would be in the case of brief quotations embodied in the critical articles or reviews and pages where permission is specifically granted by the author."
-
-
-

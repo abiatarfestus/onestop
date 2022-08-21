@@ -59,6 +59,7 @@ class DefinitionExampleAdmin(SimpleHistoryAdmin):
         "definition__word_pair__english_word__word",
     )
 
+
 class OshindongaIdiomAdmin(SimpleHistoryAdmin):
     date_hierarchy = "time_added"
     list_display = ("word_pair", "oshindonga_idiom", "id")

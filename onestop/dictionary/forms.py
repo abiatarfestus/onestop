@@ -172,7 +172,8 @@ class WordDefinitionForm(ModelForm):
         ],
     )
 
-    plurals = forms.MultipleChoiceField(required=False,
+    plurals = forms.MultipleChoiceField(
+        required=False,
         widget=forms.SelectMultiple(
             attrs={
                 "class": "form-control form-control-lg mb-2",
