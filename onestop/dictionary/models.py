@@ -176,39 +176,43 @@ class WordDefinition(AuthAndTimeTracker):
     """
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     """
-
-    # https://machinelearningknowledge.ai/tutorial-on-spacy-part-of-speech-pos-tagging/
-    SELECT = ""
-    ADJ = "ADJ"
-    ADP = "ADP"
-    ADV = "ADV"
-    AUX = "AUX"
-    CCONJ = "CCONJ"
-    DET = "DET"
-    INTJ = "INTJ"
-    NOUN = "NOUN"
-    NUM = "NUM"
-    PART = "PART"
-    PRON = "PRON"
-    PROPN = "PROPN"
-    SCONJ = "SCONJ"
-    VERB = "VERB"
     PART_OF_SPEECH_CHOICES = [
-        (SELECT, "Select the part of speech of your definition"),
-        (ADJ, "Adjective"),
-        (ADP, "Adposition"),
-        (ADV, "Adverb"),
-        (AUX, "Auxiliary"),
-        (CCONJ, "Coordinating conjunction"),
-        (DET, "Determiner"),
-        (INTJ, "Interjection"),
-        (NOUN, "Noun"),
-        (NUM, "Numeral"),
-        (PART, "Particle"),
-        (PRON, "Pronoun"),
-        (PROPN, "Proper noun"),
-        (SCONJ, "Subordinating conjunction"),
-        (VERB, "Verb"),
+        ("", "Select the part of speech of your definition"),
+        ("CC", "Coordinating conjunction"),
+        ("CD", "Cardinal digit"),
+        ("DT", "Determiner"),
+        ("EX", "Existential there [e.g., there is]"),
+        ("FW", "Foreign word"),
+        ("IN", "Preposition/Subordinating conjunction"),
+        ("JJ", "Adjective"),
+        ("JJR", "Adjective, comparative"),
+        ("JJS", "Adjective, superlative"),
+        ("LS", "List marker"),
+        ("MD", "Modal"),
+        ("NN", "Noun, singular"),
+        ("NNS", "Noun, plural"),
+        ("NNP", "Proper noun, singular"),
+        ("NNPS", "Proper noun, plural"),
+        ("PDT", "Predeterminer"),
+        ("POS", "Possessive ending [e.g., parent's]"),
+        ("PRP", "Personal pronoun"),
+        ("PRP$", "Possessive pronoun"),
+        ("RB", "Adverb"),
+        ("RBR", "Adverb, comparative"),
+        ("RBS", "Adverb, superlative"),
+        ("RP", "Particle [e.g., come in/up/over]"),
+        ("TO", "To [e.g., to + verb]"),
+        ("UH", "Interjection"),
+        ("VB", "Verb, base form"),
+        ("VBD", "Verb, past tense"),
+        ("VBG", "Verb, gerund/present participle"),
+        ("VBN", "Verb, past participle"),
+        ("VBP", "Verb, sing. present, non-3d"),
+        ("VBZ", "Verb, 3rd person sing. Present"),
+        ("WDT", "Wh-determiner [e.g., which]"),
+        ("WP", "Wh-pronoun [e.g., who, what]"),
+        ("WP$", "Possessive wh-pronoun [e.g., whose]"),
+        ("WRB", "Wh-abverb where [e.g., when]"),
     ]
 
     word_pair = models.ForeignKey(

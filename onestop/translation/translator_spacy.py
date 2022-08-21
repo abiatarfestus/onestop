@@ -1,26 +1,47 @@
 from django.db.models import Q
 from string import punctuation
-from textblob import TextBlob
+
+# from onestop.dictionary.models import WordDefinition
+import spacy
 from dictionary.models import EnglishWord, OshindongaWord, WordDefinition
 
 
 class Translation:
+    punctuation = [
+        ".",
+        ",",
+        ":",
+        "?",
+        ";",
+        "!",
+        ")",
+        "]",
+        "}",
+        '"',
+    ]
+
     def __init__(self, src_lang, src_text):
         self.src_language = src_lang
         self.src_text = src_text
         self.tagged_src_tokens = []
-        self.translated_list = []
-        
+        if src_lang == "English":
+            self.nonexist = ["the", "a", "an"]
+        else:
+            self.nonexist = []
+
     def process_src_text(self):
         """Takes the source text and processes it with spaCy pipline to tokenize and tag it (convert it to Doc)
         Para: None
         Return: None"""
         if self.src_language == "English":
-            blob = TextBlob(self.src_text)
-            self.tagged_src_tokens = blob.tags
+            nlp = spacy.load("en_core_web_sm", exclude=["ner", "lemmatizer"])
+            doc = nlp(self.src_text)
+            for token in doc:
+                current_token = [token.text, token.pos_, token.tag_]
+                self.tagged_src_tokens.append(current_token)
             print("Before: ", self.tagged_src_tokens)
             for token in self.tagged_src_tokens:
-                if token[1] in ["DT", "RP"]:
+                if token[0].lower() in self.nonexist:
                     self.tagged_src_tokens.remove(token)
             print("After: ", self.tagged_src_tokens)
         else:
@@ -72,19 +93,15 @@ class Translation:
         """Loops through word pairs and update the tagged tokens with target language
         Para: word_pairs, list
         Return: None"""
-        print(f"WORD PAIRS: {word_pairs}")
         for i in range(len(word_pairs) - 1):
             if word_pairs[i][1] != -1:
-                # self.tagged_src_tokens[i][0] = word_pairs[i][1]
-                self.translated_list.append(word_pairs[i][1])
-            else:
-                self.translated_list.append(self.tagged_src_tokens[i][0])
+                self.tagged_src_tokens[i][0] = word_pairs[i][1]
         # print(self.tagged_src_tokens)
         return
 
     def process_target_text(self):
-        # translated_list = [token[0] for token in self.tagged_src_tokens]
-        translated_string = " ".join(self.translated_list)
+        translated_list = [token[0] for token in self.tagged_src_tokens]
+        translated_string = " ".join(translated_list)
         for punct in punctuation:
             if f" {punct}" in translated_string:
                 translated_string = translated_string.replace(f" {punct}", f"{punct}")
@@ -102,6 +119,3 @@ class Translation:
 
 # new_translation = Translation("English", "Apple is looking at buying U.K. startup for $1 billion")
 txt = "No part of this book may be reproduced in any written, electronic, recording, or photocopying without written permission of the author. The exception would be in the case of brief quotations embodied in the critical articles or reviews and pages where permission is specifically granted by the author."
-
-
-
