@@ -43,16 +43,9 @@
       {{ form.past_participle }}
     </div>
   </div>
-  <div class="row px-3" style="display: none;" id="plural">
-    <p style="text-align: center;"><strong>Plural forms</strong></p>
-    <div class="col gx-3">
-      <label for="{{ form.plural1.id_for_label }}">Plural1 (Oshindonga):</label>
-      {{ form.plural1 }}
-    </div>
-    <div class="col gx-3">
-      <label for="{{ form.plural2.id_for_label }}">Plural2 (Oshindonga):</label>
-      {{ form.plural2 }}
-    </div>
+  <div class="plurals" style="display: none;" id="plurals">
+    <label for="{{ form.plurals.id_for_label }}">Plurals:</label>
+    {{ form.plurals }}
   </div>
   <div>
     <label for="{{ form.english_definition.id_for_label }}">English definition:</label>
@@ -97,15 +90,18 @@
   function displayPluralOrTense() {
     var partOfSpeech = document.getElementById("id_part_of_speech").value;
     // console.log(partOfSpeech);
-    if (partOfSpeech == 'noun') {
+    let nouns = ['NN', 'NNS', 'NNP', 'NNPS']
+    let verbs = ['VB', 'VBD', 'VBG', 'VBN', 'VBZ', 'VBP']
+    // document.getElementById("plurals").removeAttribute("required");
+    if (nouns.includes(partOfSpeech)) {
       document.getElementById("tense").style.display = 'none';
-      document.getElementById("plural").style.display = 'block';
-    } else if (partOfSpeech == 'verb') {
+      document.getElementById("plurals").style.display = 'block';
+    } else if (verbs.includes(partOfSpeech)) {
       document.getElementById("tense").style.display = 'block';
-      document.getElementById("plural").style.display = 'none';
+      document.getElementById("plurals").style.display = 'none';
     } else {
       document.getElementById("tense").style.display = 'none';
-      document.getElementById("plural").style.display = 'none';
+      document.getElementById("plurals").style.display = 'none';
     }
   }
 
@@ -144,18 +140,31 @@
     readOnly: 'label',
   });
 
-  // Convert the synonyms select into a searchable dropdown of input tags
+  // Convert the synonyms & plurals select into a searchable dropdown of input tags
   $('.synonyms').dropdown({
     multipleMode: 'label',
     limitCount: 5,
     limitCountErrorMessage: 'Maximum 5 synonyms allowed!',
   });
 
-  // Pre-select existing synonyms
+  $('.plurals').dropdown({
+    multipleMode: 'label',
+    limitCount: 5,
+    limitCountErrorMessage: 'Maximum 5 synonyms allowed!',
+  });
+
+  // Pre-select existing synonyms & plurals
   if ("{{synonym_list}}") {
     const synonyms = JSON.parse("{{synonym_list}}");
     synonyms.forEach(function (synonym) {
       $('.synonyms').data().dropdown.choose(synonym);
+    });
+  };
+
+  if ("{{plural_list}}") {
+    const plurals = JSON.parse("{{plural_list}}");
+    plurals.forEach(function (plural) {
+      $('.plurals').data().dropdown.choose(plural);
     });
   };
 </script>

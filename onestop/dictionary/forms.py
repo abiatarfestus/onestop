@@ -162,8 +162,22 @@ class WordDefinitionForm(ModelForm):
         widget=forms.SelectMultiple(
             attrs={
                 "class": "form-control form-control-lg mb-2",
-                "style": "display:none",
-                "id": "synonyms",
+                # "style": "display:none",
+                # "id": "synonyms",
+            }
+        ),
+        choices=[
+            (pair.id, f"{pair.word} | {pair.english_word.word}")
+            for pair in WORD_PAIR_CHOICES
+        ],
+    )
+
+    plurals = forms.MultipleChoiceField(required=False,
+        widget=forms.SelectMultiple(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                # "style": "display:none",
+                # "id": "plurals",
             }
         ),
         choices=[
@@ -192,12 +206,6 @@ class WordDefinitionForm(ModelForm):
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
             "past_participle": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
-            "plural1": forms.TextInput(
-                attrs={"class": "form-control form-control-lg mb-2"}
-            ),
-            "plural2": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
             "english_definition": forms.TextInput(

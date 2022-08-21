@@ -229,8 +229,9 @@ class WordDefinition(AuthAndTimeTracker):
     present_participle = models.CharField(max_length=50, blank=True)
     simple_past = models.CharField(max_length=50, blank=True)
     past_participle = models.CharField(max_length=50, blank=True)
-    plural1 = models.CharField(max_length=50, blank=True)
-    plural2 = models.CharField(max_length=50, blank=True)
+    plurals = models.ManyToManyField(
+        OshindongaWord, blank=True, related_name="plurals"
+    )
     english_definition = models.CharField(max_length=255, blank=True)
     oshindonga_definition = models.CharField(max_length=255, blank=True)
 

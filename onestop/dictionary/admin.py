@@ -13,9 +13,6 @@ from .models import (
 
 
 class WordDefinitionAdmin(SimpleHistoryAdmin):
-    # list_display = ["id", "name", "status"]
-    # history_list_display = ["status"]
-    # search_fields = ['name', 'user__username']
     date_hierarchy = "time_added"
     # inlines = [ReviewInline]
     list_display = ("word_pair", "part_of_speech", "id")
@@ -24,6 +21,7 @@ class WordDefinitionAdmin(SimpleHistoryAdmin):
     raw_id_fields = (
         "word_pair",
         "synonyms",
+        "plurals",
     )
     # prepopulated_fields = {"slug": ("title",)}
     search_fields = (

@@ -316,7 +316,9 @@ class WordDefinitionUpdate(
     def get_context_data(self, **kwargs):
         context = super(WordDefinitionUpdate, self).get_context_data(**kwargs)
         synonyms = self.object.synonyms.all()
+        plurals = self.object.plurals.all()
         context["synonym_list"] = json.dumps([synonym.id for synonym in synonyms])
+        context["plural_list"] = json.dumps([plural.id for plural in plurals])
         # context["operation"] = "Update an existing word definition",
         # context["newly_defined_words"] = defined_words,
         # context["undefined_words"] = get_undefined_words,
