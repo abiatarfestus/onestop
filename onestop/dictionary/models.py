@@ -226,10 +226,10 @@ class WordDefinition(AuthAndTimeTracker):
     synonyms = models.ManyToManyField(
         OshindongaWord, blank=True, related_name="synonyms"
     )
-    simple_present = models.CharField(max_length=50, blank=True)
-    present_participle = models.CharField(max_length=50, blank=True)
-    simple_past = models.CharField(max_length=50, blank=True)
-    past_participle = models.CharField(max_length=50, blank=True)
+    simple_present = models.CharField(max_length=50, blank=True, help_text="Enter tense in Oshindonga")
+    present_participle = models.CharField(max_length=50, blank=True, help_text="Enter tense in Oshindonga")
+    simple_past = models.CharField(max_length=50, blank=True, help_text="Enter tense in Oshindonga")
+    past_participle = models.CharField(max_length=50, blank=True, help_text="Enter tense in Oshindonga")
     plurals = models.ManyToManyField(OshindongaWord, blank=True, related_name="plurals")
     english_definition = models.CharField(max_length=255, blank=True)
     oshindonga_definition = models.CharField(max_length=255, blank=True)
