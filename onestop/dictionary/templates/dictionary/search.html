@@ -145,13 +145,14 @@
       </div>
       <!--forloo.counter is used for numbering-->
       <div class="col col-tense-plural">
-        {% if definition_object.part_of_speech == 'Noun [C]' %}
+        {% if definition_object.part_of_speech in nouns_list %}
         <ul class="plural-list">
-          <li><strong>Plural: </strong></li>
-          <li><i>{{ definition_object.plural1}}</i></li>
-          <li><i>{{ definition_object.plural2}}</i></li>
+          <li><strong>Plurals: </strong></li>
+          {% for plural in definition_object.plurals.all %}
+          <li>{{ plural }}</li>
+          {% endfor %}
         </ul>
-        {% elif definition_object.part_of_speech == 'verb' %}
+        {% elif definition_object.part_of_speech in verbs_list %}
         <ul class="tenses-list">
           <li><strong>Tenses: </strong></li>
           <li>Simple present: <i>{{ definition_object.simple_present }}</i></li>
@@ -164,10 +165,9 @@
       <div class="col col-extras2">
         <ul class="synonym-list">
           <li><strong>Synonyms: </strong></li>
-          <li><i>{{ definition_object.synonym1}}</i></li>
-          <li><i>{{ definition_object.synonym2}}</i></li>
-          <li><i>{{ definition_object.synonym3}}</i></li>
-          <li><i>{{ definition_object.synonym4}}</i></li>
+          {% for synonym in definition_object.synonyms.all %}
+          <li>{{ synonym }}</li>
+          {% endfor %}
         </ul>
       </div>
     </div>

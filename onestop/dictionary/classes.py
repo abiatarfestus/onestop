@@ -27,9 +27,7 @@ class HistoryRecord:
         self.example = []
         self.idiom = []
         self.usernames = []  # Holds all usernames from all history entries
-        self.unique_usernames = (
-            set()
-        )  # Holds unique usernames (set) from the usernames list
+        self.unique_usernames = set()  # Holds unique usernames (set) from the usernames list
 
     def reset_history(self):
         self.english = []
@@ -46,18 +44,12 @@ class HistoryRecord:
         user_ids = []  # Holds user ids of historical_users (created/modifiers)
         for (
             queryset
-        ) in (
-            self.english
-        ):  # Loops through the querysets and take the user id if it's not null/none
-            if (
-                queryset.history_user_id != None
-            ):  # Appends the the user id to user_ids list
+        ) in self.english:  # Loops through the querysets and take the user id if it's not null/none
+            if queryset.history_user_id != None:  # Appends the the user id to user_ids list
                 user_ids.append(queryset.history_user_id)
         for (
             user_id
-        ) in (
-            user_ids
-        ):  # Loops through user ids and matches them to users to obtain usernames
+        ) in user_ids:  # Loops through user ids and matches them to users to obtain usernames
             # Holds a user object from the User model
             user = User.objects.get(id=user_id)
             # Appends the username to the usernames list
@@ -234,9 +226,7 @@ class SearchDefinition:
         """
         example_querysets = []
         for definition_pk in definitions_pks:
-            example_queryset = DefinitionExample.objects.filter(
-                definition_id=definition_pk
-            )
+            example_queryset = DefinitionExample.objects.filter(definition_id=definition_pk)
             # If no definition found, an empty queryset is appended
             example_querysets.append(example_queryset)
         example_objects = []
@@ -278,6 +268,8 @@ class SearchDefinition:
             else:
                 definition_objects.append(no_definition_found)
         self.context["definitions"] = definition_objects
+        self.context["nouns_list"] = ["NN", "NNS", "NNP", "NNPS"]
+        self.context["verbs_list"] = ["VB", "VBD", "VBG", "VBN", "VBZ", "VBP"]
         definitions_pks = []
         for i in range(len(definition_objects)):
             if definition_objects[i] != no_definition_found:
@@ -322,9 +314,7 @@ class SearchDefinition:
                     eng_word_pk = eng_word.id
                 except EnglishWord.DoesNotExist:
                     self.save_unfound_word(word, language)
-                    self.context["searched_word"] = [
-                        "The word you searched was not found."
-                    ]
+                    self.context["searched_word"] = ["The word you searched was not found."]
                     # render(self.request, 'dictionary/search.html', self.context)
                     return
                 self.search_word_pairs(eng_word_pk)
@@ -335,9 +325,7 @@ class SearchDefinition:
                 )  # Search in OshindongaWord using the word
                 if len(word_pairs) == 0:
                     self.save_unfound_word(word, language)
-                    self.context["searched_word"] = [
-                        "Oshitya shi wa kongo ina shi monika."
-                    ]
+                    self.context["searched_word"] = ["Oshitya shi wa kongo ina shi monika."]
                     # return render(self.request, 'dictionary/search.html', self.context)
                 else:
                     self.context["searched_word"] = word_pairs
