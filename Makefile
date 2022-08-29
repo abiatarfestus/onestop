@@ -13,6 +13,10 @@ format: #Format code with Black and isort
 	black onestop
 	isort --profile black onestop
 
+test: # Run tests with pytest
+	cd onestop
+	pytest
+
 migrate: #Run migrations
 	python $(DJANGO) makemigrations
 	python $(DJANGO) migrate

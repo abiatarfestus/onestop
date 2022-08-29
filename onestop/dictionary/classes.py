@@ -16,10 +16,17 @@ from .models import (
 )
 
 OSHINDONGA_WORD_QUERYSET = OshindongaWord.objects.all().select_related("english_word")
-OSHINDONGA_WORD_HISTORY_QUERYSET = OshindongaWord.history.all().select_related("history_user", "english_word")
-WORD_DEFINITION_QUERYSET = WordDefinition.objects.all().select_related("word_pair__english_word")
-WORD_DEFINITION_HISTORY_QUERYSET = WordDefinition.history.all().select_related("history_user", "word_pair__english_word")
+OSHINDONGA_WORD_HISTORY_QUERYSET = OshindongaWord.history.all().select_related(
+    "history_user", "english_word"
+)
+WORD_DEFINITION_QUERYSET = WordDefinition.objects.all().select_related(
+    "word_pair__english_word"
+)
+WORD_DEFINITION_HISTORY_QUERYSET = WordDefinition.history.all().select_related(
+    "history_user", "word_pair__english_word"
+)
 # USER_QUERYSET = User.objects.all()
+
 
 class HistoryRecord:
     """Queries the history model of the datatbase and returns querysets of each model"""
@@ -32,7 +39,9 @@ class HistoryRecord:
         self.example = []
         self.idiom = []
         self.usernames = []  # Holds all usernames from all history entries
-        self.unique_usernames = set()  # Holds unique usernames (set) from the usernames list
+        self.unique_usernames = (
+            set()
+        )  # Holds unique usernames (set) from the usernames list
 
     def reset_history(self):
         self.english = []
@@ -49,12 +58,18 @@ class HistoryRecord:
         user_ids = []  # Holds user ids of historical_users (created/modifiers)
         for (
             queryset
-        ) in self.english:  # Loops through the querysets and take the user id if it's not null/none
-            if queryset.history_user_id != None:  # Appends the the user id to user_ids list
+        ) in (
+            self.english
+        ):  # Loops through the querysets and take the user id if it's not null/none
+            if (
+                queryset.history_user_id != None
+            ):  # Appends the the user id to user_ids list
                 user_ids.append(queryset.history_user_id)
         for (
             user_id
-        ) in user_ids:  # Loops through user ids and matches them to users to obtain usernames
+        ) in (
+            user_ids
+        ):  # Loops through user ids and matches them to users to obtain usernames
             # Holds a user object from the User model
             user = User.objects.get(id=user_id)
             # Appends the username to the usernames list
@@ -205,9 +220,13 @@ class SearchDefinition:
             # "total_oshindonga": OshindongaWord.objects.count(),
             "total_oshindonga": OSHINDONGA_WORD_QUERYSET.count(),
             # "total_definitions": WordDefinition.objects.filter(~Q(oshindonga_definition="") | ~Q(english_definition="")).count(),
-            "total_definitions": WORD_DEFINITION_QUERYSET.filter(~Q(oshindonga_definition="") | ~Q(english_definition="")).count(),
+            "total_definitions": WORD_DEFINITION_QUERYSET.filter(
+                ~Q(oshindonga_definition="") | ~Q(english_definition="")
+            ).count(),
             # "total_POS_tags": WordDefinition.objects.filter(~Q(part_of_speech="")).count(),
-            "total_POS_tags": WORD_DEFINITION_QUERYSET.filter(~Q(part_of_speech="")).count(),
+            "total_POS_tags": WORD_DEFINITION_QUERYSET.filter(
+                ~Q(part_of_speech="")
+            ).count(),
             "total_examples": DefinitionExample.objects.count(),
             "total_idioms": OshindongaIdiom.objects.count(),
         }
@@ -236,7 +255,9 @@ class SearchDefinition:
         """
         example_querysets = []
         for definition_pk in definitions_pks:
-            example_queryset = DefinitionExample.objects.filter(definition_id=definition_pk)
+            example_queryset = DefinitionExample.objects.filter(
+                definition_id=definition_pk
+            )
             # If no definition found, an empty queryset is appended
             example_querysets.append(example_queryset)
         example_objects = []
@@ -326,7 +347,9 @@ class SearchDefinition:
                     eng_word_pk = eng_word.id
                 except EnglishWord.DoesNotExist:
                     self.save_unfound_word(word, language)
-                    self.context["searched_word"] = ["The word you searched was not found."]
+                    self.context["searched_word"] = [
+                        "The word you searched was not found."
+                    ]
                     # render(self.request, 'dictionary/search.html', self.context)
                     return
                 self.search_word_pairs(eng_word_pk)
@@ -340,7 +363,9 @@ class SearchDefinition:
                 )  # Search in OshindongaWord using the word
                 if len(word_pairs) == 0:
                     self.save_unfound_word(word, language)
-                    self.context["searched_word"] = ["Oshitya shi wa kongo ina shi monika."]
+                    self.context["searched_word"] = [
+                        "Oshitya shi wa kongo ina shi monika."
+                    ]
                     # return render(self.request, 'dictionary/search.html', self.context)
                 else:
                     self.context["searched_word"] = word_pairs
