@@ -19,7 +19,10 @@ from .tokens import account_activation_token
 from dictionary.classes import HistoryRecord
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 
 def register(request):
     if request.method == "POST":
@@ -39,6 +42,7 @@ def register(request):
             """ End reCAPTCHA validation """
             if result["success"]:
                 user = form.save(commit=False)
+<<<<<<< HEAD
                 user.is_active = False # Deactivate account till it is confirmed
                 user.save()
                 current_site = get_current_site(request)
@@ -55,6 +59,29 @@ def register(request):
                 messages.success(request, ('Please Confirm your email to complete registration.'))
                 # return redirect(reverse("index"))
                 return redirect('login')
+=======
+                user.is_active = False  # Deactivate account till it is confirmed
+                user.save()
+                current_site = get_current_site(request)
+                subject = "Activate Your Oshinglish Account"
+                message = render_to_string(
+                    "registration/account_activation_email.html",
+                    {
+                        "user": user,
+                        "domain": current_site.domain,
+                        "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                        "token": account_activation_token.make_token(user),
+                    },
+                )
+                email_from = settings.DEFAULT_FROM_EMAIL
+                recipient_list = [user.email]
+                send_mail(subject, message, email_from, recipient_list)
+                messages.success(
+                    request, ("Please Confirm your email to complete registration.")
+                )
+                # return redirect(reverse("index"))
+                return redirect("login")
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
             else:
                 messages.error(request, "Invalid reCAPTCHA. Please try again.")
     else:
@@ -102,8 +129,21 @@ class ActivateAccount(View):
             # user.profile.email_confirmed = True
             user.save()
             login(request, user)
+<<<<<<< HEAD
             messages.success(request, ('Your account has been confirmed.'))
             return redirect('index')
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
             return redirect('index')
+=======
+            messages.success(request, ("Your account has been confirmed."))
+            return redirect("index")
+        else:
+            messages.warning(
+                request,
+                (
+                    "The confirmation link was invalid, possibly because it has already been used."
+                ),
+            )
+            return redirect("index")
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17

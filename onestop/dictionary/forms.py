@@ -4,6 +4,7 @@ from django.forms import ModelForm
 # from django.contrib.auth.forms import UserCreationForm
 # from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import (
+<<<<<<< HEAD
     EnglishWord,
     OshindongaWord,
     WordDefinition,
@@ -11,6 +12,19 @@ from .models import (
     OshindongaIdiom,
     OshindongaPhonetic,
 )
+=======
+    DefinitionExample,
+    EnglishWord,
+    OshindongaIdiom,
+    OshindongaPhonetic,
+    OshindongaWord,
+    WordDefinition,
+)
+
+WORD_PAIR_CHOICES = (
+    OshindongaWord.objects.all().order_by("word").select_related("english_word")
+)  # [:10]
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 
 
 class SearchWordForm(forms.Form):
@@ -101,7 +115,17 @@ class OshindongaWordForm(ModelForm):
     english_word = forms.ModelChoiceField(
         queryset=EnglishWord.objects.all().order_by("word"),
         empty_label="Select the English word",
+<<<<<<< HEAD
         widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2"}),
+=======
+        widget=forms.Select(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                "style": "display:none",
+                "id": "englishWords",
+            }
+        ),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     )
     word_phonetics = forms.ModelChoiceField(
         queryset=OshindongaPhonetic.objects.all().order_by("oshindonga_word"),
@@ -138,9 +162,49 @@ class OshindongaWordForm(ModelForm):
 
 class WordDefinitionForm(ModelForm):
     word_pair = forms.ModelChoiceField(
+<<<<<<< HEAD
         queryset=OshindongaWord.objects.all().order_by("word"),
         empty_label="Select a word pair to define",
         widget=forms.Select(attrs={"class": "form-control form-control-lg mb-2"}),
+=======
+        queryset=WORD_PAIR_CHOICES,
+        empty_label="Select a word pair to define",
+        widget=forms.Select(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                "style": "display:none",
+                "id": "word_pairs",
+            }
+        ),
+    )
+    synonyms = forms.MultipleChoiceField(
+        widget=forms.SelectMultiple(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                # "style": "display:none",
+                # "id": "synonyms",
+            }
+        ),
+        choices=[
+            (pair.id, f"{pair.word} | {pair.english_word.word}")
+            for pair in WORD_PAIR_CHOICES
+        ],
+    )
+
+    plurals = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.SelectMultiple(
+            attrs={
+                "class": "form-control form-control-lg mb-2",
+                # "style": "display:none",
+                # "id": "plurals",
+            }
+        ),
+        choices=[
+            (pair.id, f"{pair.word} | {pair.english_word.word}")
+            for pair in WORD_PAIR_CHOICES
+        ],
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     )
 
     class Meta:
@@ -153,6 +217,7 @@ class WordDefinitionForm(ModelForm):
                     "onchange": "displayPluralOrTense()",
                 }
             ),
+<<<<<<< HEAD
             "synonym1": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
@@ -165,6 +230,8 @@ class WordDefinitionForm(ModelForm):
             "synonym4": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
+=======
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
             "simple_present": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
@@ -177,12 +244,15 @@ class WordDefinitionForm(ModelForm):
             "past_participle": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
+<<<<<<< HEAD
             "plural1": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
             "plural2": forms.TextInput(
                 attrs={"class": "form-control form-control-lg mb-2"}
             ),
+=======
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
             "english_definition": forms.TextInput(
                 attrs={
                     "class": "form-control form-control-lg mb-2",
@@ -200,7 +270,13 @@ class WordDefinitionForm(ModelForm):
 
 class DefinitionExampleForm(ModelForm):
     definition = forms.ModelChoiceField(
+<<<<<<< HEAD
         queryset=WordDefinition.objects.all().order_by("word_pair"),
+=======
+        queryset=WordDefinition.objects.all()
+        .order_by("word_pair")
+        .select_related("word_pair__english_word"),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
         empty_label="Select a definition to exemplify",
         widget=forms.Select(
             attrs={

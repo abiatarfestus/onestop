@@ -1,7 +1,7 @@
 function displayDefinition() {
 var selectedDef = document.getElementById("id_definition").value;
-console.log(selectedDef);
-console.log(definitionsDict);
+// console.log(selectedDef);
+// console.log(definitionsDict);
 if (selectedDef != '') {
     var defIndex = selectedDef;
     var engDef = definitionsDict[defIndex][0];

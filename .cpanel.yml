@@ -8,13 +8,10 @@ deployment:
     - export USERSPATH=/home/oshizdab/onestop/users/
     - export EQUEUEPATH=/home/oshizdab/onestop/equeue/
     - export STOREPATH=/home/oshizdab/onestop/store/
+    - export TRANSLATIONPATH=/home/oshizdab/onestop/translation/
     #R for recursive copying, -u for updating (only copies when source is newer than destination)
     # Non-app files
-    # - /bin/cp -u onestop/manage.py $DEPLOYPATH
-    # - /bin/cp -u onestop/autodict.py $DEPLOYPATH
-    # - /bin/cp -u onestop/new_words_one.py $DEPLOYPATH
-    # - /bin/cp -u onestop/auto_updater.py $DEPLOYPATH
-    # - /bin/cp -u onestop/requirements.txt $DEPLOYPATH
+    - /bin/cp -u Pipfile.lock $DEPLOYPATH
     - /bin/cp -u onestop/*.py $DEPLOYPATH
     - /bin/cp -u onestop/*.txt $DEPLOYPATH
     - /bin/cp -Ru onestop/static/ $DEPLOYPATH
@@ -23,26 +20,17 @@ deployment:
     - /bin/cp -u onestop/onestop/urls.py $ONESTOPPATH
     - /bin/cp -u onestop/onestop/views.py $ONESTOPPATH
     # Blog
-    - /bin/cp -Ru onestop/blog/tests/ $BLOGPATH
-    - /bin/cp -Ru onestop/blog/templates/ $BLOGPATH
-    - /bin/cp -u onestop/blog/*.py $BLOGPATH
+    - /bin/cp -Ru onestop/blog/* $BLOGPATH
     # Dictionary
-    - /bin/cp -Ru onestop/dictionary/templates/ $DICTIONARYPATH
-    - /bin/cp -Ru onestop/dictionary/tests/ $DICTIONARYPATH
-    - /bin/cp -u onestop/dictionary/*.py $DICTIONARYPATH
+    - /bin/cp -Ru onestop/dictionary/* $DICTIONARYPATH
     # Equeue
-    - /bin/cp -Ru onestop/equeue/templates/ $EQUEUEPATH
-    - /bin/cp -Ru onestop/equeue/templatetags/ $EQUEUEPATH
-    - /bin/cp -Ru onestop/equeue/tests/ $EQUEUEPATH
-    - /bin/cp -u onestop/equeue/*.py $EQUEUEPATH
+    - /bin/cp -Ru onestop/equeue/* $EQUEUEPATH
     # Store
-    - /bin/cp -Ru onestop/store/templates/ $STOREPATH
-    - /bin/cp -Ru onestop/store/tests/ $STOREPATH
-    - /bin/cp -u onestop/store/*.py $STOREPATH
+    - /bin/cp -Ru onestop/store/* $STOREPATH
+    # Translation
+    - /bin/cp -Ru onestop/translation/* $TRANSLATIONPATH
     # Users
-    - /bin/cp -Ru onestop/users/templates/ $USERSPATH
-    - /bin/cp -Ru onestop/users/tests/ $USERSPATH
-    - /bin/cp -u onestop/users/*.py $USERSPATH
+    - /bin/cp -Ru onestop/users/* $USERSPATH
     # To do manually: edit settings, collectstatic (before commit in dev??), run migrations, Users views if changed
     
     

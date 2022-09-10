@@ -161,9 +161,13 @@ class OshindongaWord(AuthAndTimeTracker):
         ]
 
     def __str__(self):
+<<<<<<< HEAD
         return "%s | %s" % (self.english_word, self.word)
 
     # Change str methods to use f'' string formating
+=======
+        return f"{self.english_word} | {self.word}"
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 
     def get_absolute_url(self):
         # from django.urls import reverse
@@ -179,6 +183,7 @@ class WordDefinition(AuthAndTimeTracker):
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     """
 
+<<<<<<< HEAD
     SELECT = ""
     NOUN_C = "Noun [C]"
     NOUN_U = "Noun [U]"
@@ -200,28 +205,75 @@ class WordDefinition(AuthAndTimeTracker):
         (PREPOSITION, "Preposition"),
         (CONJUNCTION, "Conjunction"),
         (INTERJECTION, "Interjection"),
+=======
+    PART_OF_SPEECH_CHOICES = [
+        ("", "Select the part of speech of your definition"),
+        ("JJ", "Adjective"),
+        ("JJR", "Adjective, comparative"),
+        ("JJS", "Adjective, superlative"),
+        ("RB", "Adverb"),
+        ("RBR", "Adverb, comparative"),
+        ("RBS", "Adverb, superlative"),
+        ("CC", "Coordinating conjunction"),
+        ("CD", "Cardinal digit"),
+        ("DT", "Determiner"),
+        ("EX", "Existential there [e.g., there is]"),
+        ("FW", "Foreign word"),
+        ("UH", "Interjection"),
+        ("LS", "List marker"),
+        ("MD", "Modal"),
+        ("NN", "Noun, singular"),
+        ("NNS", "Noun, plural"),
+        ("RP", "Particle [e.g., come in/up/over]"),
+        ("PDT", "Predeterminer"),
+        ("IN", "Preposition/Subordinating conjunction"),
+        ("PRP", "Personal pronoun"),
+        ("POS", "Possessive ending [e.g., parent's]"),
+        ("PRP$", "Possessive pronoun"),
+        ("WP$", "Possessive wh-pronoun [e.g., whose]"),
+        ("NNP", "Proper noun, singular"),
+        ("NNPS", "Proper noun, plural"),
+        ("TO", "To [e.g., to + verb]"),
+        ("VB", "Verb, base form"),
+        ("VBD", "Verb, past tense"),
+        ("VBG", "Verb, gerund/present participle"),
+        ("VBN", "Verb, past participle"),
+        ("VBP", "Verb, sing. present, non-3d"),
+        ("VBZ", "Verb, 3rd person sing. Present"),
+        ("WDT", "Wh-determiner [e.g., which]"),
+        ("WP", "Wh-pronoun [e.g., who, what]"),
+        ("WRB", "Wh-abverb where [e.g., when]"),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     ]
 
-    word_pair = models.ForeignKey(OshindongaWord, on_delete=models.CASCADE)
+    word_pair = models.ForeignKey(
+        OshindongaWord, on_delete=models.CASCADE, related_name="definitions"
+    )
     part_of_speech = models.CharField(
-        max_length=8,
+        max_length=25,
         choices=PART_OF_SPEECH_CHOICES,
     )
-    synonym1 = models.CharField(max_length=50, blank=True)
-    synonym2 = models.CharField(max_length=50, blank=True)
-    synonym3 = models.CharField(max_length=50, blank=True)
-    synonym4 = models.CharField(max_length=50, blank=True)
-    simple_present = models.CharField(max_length=50, blank=True)
-    present_participle = models.CharField(max_length=50, blank=True)
-    simple_past = models.CharField(max_length=50, blank=True)
-    past_participle = models.CharField(max_length=50, blank=True)
-    plural1 = models.CharField(max_length=50, blank=True)
-    plural2 = models.CharField(max_length=50, blank=True)
-    english_definition = models.CharField(max_length=255)
-    oshindonga_definition = models.CharField(max_length=255)
+    synonyms = models.ManyToManyField(
+        OshindongaWord, blank=True, related_name="synonyms"
+    )
+    simple_present = models.CharField(
+        max_length=50, blank=True, help_text="Enter tense in Oshindonga"
+    )
+    present_participle = models.CharField(
+        max_length=50, blank=True, help_text="Enter tense in Oshindonga"
+    )
+    simple_past = models.CharField(
+        max_length=50, blank=True, help_text="Enter tense in Oshindonga"
+    )
+    past_participle = models.CharField(
+        max_length=50, blank=True, help_text="Enter tense in Oshindonga"
+    )
+    plurals = models.ManyToManyField(OshindongaWord, blank=True, related_name="plurals")
+    english_definition = models.CharField(max_length=255, blank=True)
+    oshindonga_definition = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return "%s (%s) [%s]" % (self.word_pair, self.part_of_speech, self.id)
+        return f"{self.word_pair}: {self.part_of_speech} {[self.id]}"
 
     def get_absolute_url(self):
         # from django.urls import reverse

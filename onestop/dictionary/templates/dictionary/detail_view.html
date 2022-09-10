@@ -41,9 +41,20 @@
 
 <p><strong> Definition for: </strong>{{ worddefinition }}</p>
 <p><strong>Part of speech: </strong>{{ worddefinition.part_of_speech }} </p>
-<p><strong>Synonyms: </strong>{{ worddefinition.synonym1 }} | {{ worddefinition.synonym2 }} |
-  {{ worddefinition.synonym3 }} | {{ worddefinition.synonym4 }} </p>
-<p><strong>Plural: </strong>{{ worddefinition.plural1 }} | {{ worddefinition.plural2 }} </p>
+<p><strong>Synonyms: </strong>
+  <ol>
+    {% for synonym in worddefinition.synonyms.all %}
+    <li>{{ synonym }}</li>
+    {% endfor %}
+  </ol>
+</p>
+<p><strong>Plurals: </strong>
+  <ol>
+    {% for plural in worddefinition.plurals.all %}
+    <li>{{ plural }}</li>
+    {% endfor %}
+  </ol>
+</p>
 <p><strong>Tense: </strong>{{ worddefinition.simple_present }} | {{ worddefinition.present_participle }} |
   {{ worddefinition.simple_past }} | {{ worddefinition.past_participle }} </p>
 <p><strong>English definition: </strong>{{ worddefinition.english_definition }} </p>

@@ -2,7 +2,11 @@ import sys
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+<<<<<<< HEAD
 from django.db.models import F
+=======
+from django.db.models import F, Q
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 from django.shortcuts import render
 
 from .forms import SearchWordForm
@@ -15,7 +19,22 @@ from .models import (
     WordDefinition,
 )
 
+OSHINDONGA_WORD_QUERYSET = OshindongaWord.objects.all().select_related("english_word")
+OSHINDONGA_WORD_HISTORY_QUERYSET = OshindongaWord.history.all().select_related(
+    "history_user", "english_word"
+)
+WORD_DEFINITION_QUERYSET = WordDefinition.objects.all().select_related(
+    "word_pair__english_word"
+)
+WORD_DEFINITION_HISTORY_QUERYSET = WordDefinition.history.all().select_related(
+    "history_user", "word_pair__english_word"
+)
+# USER_QUERYSET = User.objects.all()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class HistoryRecord:
     """Queries the history model of the datatbase and returns querysets of each model"""
 
@@ -68,7 +87,7 @@ class HistoryRecord:
         return
 
     def oshindonga_history(self):
-        self.oshindonga = OshindongaWord.history.all()
+        self.oshindonga = OSHINDONGA_WORD_HISTORY_QUERYSET
         user_ids = []
         for queryset in self.oshindonga:
             if queryset.history_user_id != None:
@@ -81,7 +100,8 @@ class HistoryRecord:
         return
 
     def definition_history(self):
-        self.definition = WordDefinition.history.all()
+        # self.definition = WordDefinition.history.all()
+        self.definition = WORD_DEFINITION_HISTORY_QUERYSET
         user_ids = []
         for queryset in self.definition:
             if queryset.history_user_id != None:
@@ -204,8 +224,21 @@ class SearchDefinition:
             "top_contributors": self.history.get_contributors(10),
             "idioms": "",
             "total_english": EnglishWord.objects.count(),
+<<<<<<< HEAD
             "total_oshindonga": OshindongaWord.objects.count(),
             "total_definitions": WordDefinition.objects.count(),
+=======
+            # "total_oshindonga": OshindongaWord.objects.count(),
+            "total_oshindonga": OSHINDONGA_WORD_QUERYSET.count(),
+            # "total_definitions": WordDefinition.objects.filter(~Q(oshindonga_definition="") | ~Q(english_definition="")).count(),
+            "total_definitions": WORD_DEFINITION_QUERYSET.filter(
+                ~Q(oshindonga_definition="") | ~Q(english_definition="")
+            ).count(),
+            # "total_POS_tags": WordDefinition.objects.filter(~Q(part_of_speech="")).count(),
+            "total_POS_tags": WORD_DEFINITION_QUERYSET.filter(
+                ~Q(part_of_speech="")
+            ).count(),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
             "total_examples": DefinitionExample.objects.count(),
             "total_idioms": OshindongaIdiom.objects.count(),
         }
@@ -266,7 +299,12 @@ class SearchDefinition:
         # ----------Definition------------#
         definition_querysets = []
         for pair_pk in word_pairs_pks:
+<<<<<<< HEAD
             definition_queryset = WordDefinition.objects.filter(word_pair_id=pair_pk)
+=======
+            # definition_queryset = WordDefinition.objects.filter(word_pair_id=pair_pk)
+            definition_queryset = WORD_DEFINITION_QUERYSET.filter(word_pair_id=pair_pk)
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
             # If no definition found, an empty queryset is appended
             definition_querysets.append(definition_queryset)
         definition_objects = []
@@ -278,6 +316,11 @@ class SearchDefinition:
             else:
                 definition_objects.append(no_definition_found)
         self.context["definitions"] = definition_objects
+<<<<<<< HEAD
+=======
+        self.context["nouns_list"] = ["NN", "NNS", "NNP", "NNPS"]
+        self.context["verbs_list"] = ["VB", "VBD", "VBG", "VBN", "VBZ", "VBP"]
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
         definitions_pks = []
         for i in range(len(definition_objects)):
             if definition_objects[i] != no_definition_found:
@@ -289,7 +332,12 @@ class SearchDefinition:
         Using the English word pk (foreignkey id) search for English|Oshindonga pairs and return a list of pks of all pair objects found.
         """
         # Return a queryset of all word pairs with the searched word
+<<<<<<< HEAD
         word_pairs = OshindongaWord.objects.filter(english_word_id=eng_word_pk)
+=======
+        # word_pairs = OshindongaWord.objects.filter(english_word_id=eng_word_pk)
+        word_pairs = OSHINDONGA_WORD_QUERYSET.filter(english_word_id=eng_word_pk)
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
         if len(word_pairs) == 0:
             self.context["searched_word"] = [
                 "The word you searched is not yet translated into Oshindonga."
@@ -330,7 +378,14 @@ class SearchDefinition:
                 self.search_word_pairs(eng_word_pk)
                 # return render(self.request, 'dictionary/search.html', self.context)
             else:
+<<<<<<< HEAD
                 word_pairs = OshindongaWord.objects.filter(
+=======
+                # word_pairs = OshindongaWord.objects.filter(
+                #     word=word
+                # )  # Search in OshindongaWord using the word
+                word_pairs = OSHINDONGA_WORD_QUERYSET.filter(
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
                     word=word
                 )  # Search in OshindongaWord using the word
                 if len(word_pairs) == 0:
@@ -356,7 +411,12 @@ class SearchDefinition:
         # self.form = SearchWordForm(self.request.GET)
         self.context["form"] = self.form
         # Return a queryset of all word pairs with the searched word
+<<<<<<< HEAD
         word_pairs = OshindongaWord.objects.filter(english_word_id=pk)
+=======
+        # word_pairs = OshindongaWord.objects.filter(english_word_id=pk)
+        word_pairs = OSHINDONGA_WORD_QUERYSET.filter(english_word_id=pk)
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
         if len(word_pairs) == 0:
             self.context["searched_word"] = [
                 "The word you searched is not yet translated into Oshindonga."

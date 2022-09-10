@@ -25,7 +25,11 @@ from django.views.i18n import JavaScriptCatalog
 
 
 urlpatterns = [
+<<<<<<< HEAD
     path("admin/", admin.site.urls),
+=======
+    path("staff/", admin.site.urls),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     path("comments/", include("django_comments_xtd.urls")),
     path("jsi18n/", JavaScriptCatalog.as_view(), name="javascript-catalog"),
     path("", views.index, name="index"),
@@ -50,6 +54,10 @@ urlpatterns = [
     path("translation/", include("translation.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("summernote/", include("django_summernote.urls")),
+<<<<<<< HEAD
+=======
+    path("__debug__/", include("debug_toolbar.urls")),
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 ]
 
 # To serve media files in developmnt:

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import json
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
@@ -95,8 +99,13 @@ def search_suggested_word(request, pk):
     search_object.search_suggested(word_instance.id)
     context = search_object.context
     return render(request, "dictionary/search.html", context)
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class EnglishWordCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -114,8 +123,13 @@ class EnglishWordCreate(
         if not self.request.user.is_authenticated:
             return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
         return redirect("access-denied")
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class OshindongaPhoneticCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -135,8 +149,13 @@ class OshindongaPhoneticCreate(
         if not self.request.user.is_authenticated:
             return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
         return redirect("access-denied")
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class OshindongaWordCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -305,12 +324,31 @@ class WordDefinitionUpdate(
     permission_required = "dictionary.change_worddefinition"
     form_class = WordDefinitionForm
     model = WordDefinition
+<<<<<<< HEAD
     extra_context = {
         "operation": "Update an existing word definition",
         "newly_defined_words": defined_words,
         "undefined_words": get_undefined_words,
     }
+=======
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
+    extra_context = {
+        "operation": "Update an existing word definition",
+        "newly_defined_words": defined_words,
+        "undefined_words": get_undefined_words,
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super(WordDefinitionUpdate, self).get_context_data(**kwargs)
+        synonyms = self.object.synonyms.all()
+        plurals = self.object.plurals.all()
+        context["synonym_list"] = json.dumps([synonym.id for synonym in synonyms])
+        context["plural_list"] = json.dumps([plural.id for plural in plurals])
+        # context["operation"] = "Update an existing word definition",
+        # context["newly_defined_words"] = defined_words,
+        # context["undefined_words"] = get_undefined_words,
+        return context
 
     def handle_no_permission(self):
         """Redirect to custom access denied page if authenticated or login page if not"""

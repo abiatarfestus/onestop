@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+black = "*"
+django = "*"
+django-comments-xtd = "*"
+django-environ = "*"
+django-resized = "*"
+django-simple-history = "==3.0.0"
+django-social-share = "*"
+django-summernote = "*"
+djangorestframework = "*"
+isort = "*"
+mysqlclient= "*"
+pillow = "*"
+requests = "*"
+six = "*"
+spacy = "*"
+urllib3 = "*"
+whitenoise = "*"
+django-extensions = "*"
+django-debug-toolbar = "*"
+django-jazzmin = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

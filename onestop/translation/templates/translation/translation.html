@@ -3,6 +3,7 @@
 
 
 {% block content %}
+<<<<<<< HEAD
       <!-- <form>
         <h5>Select Input Language:</h5> 
         <div class="form-check form-check-inline">
@@ -26,10 +27,19 @@
       {% for field in form %}
       <div class="fieldWrapper">
         <!-- {% if field.errors %}
+=======
+<h6>Select Input Language</h6>
+<form action="" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+  <div class="fieldWrapper">
+    <!-- {% if field.errors %}
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
         <div class="alert alert-warning" role="alert">
           {{ field.errors }}
         </div>
         {% endif %} -->
+<<<<<<< HEAD
         {{ field }}
       </div>
       {% endfor %}
@@ -44,4 +54,87 @@
       </div>
       <a class="btn btn-outline-danger" href="{% url 'translation:translate' %}" role="button">Reset</a>
   </form>
+=======
+    {{ field }}
+  </div>
+  {% endfor %}
+  <input class="btn btn-outline-primary mt-2" type="submit" value="Translate">
+</form>
+<br>
+<h5>Output Text</h5>
+<form>
+  <div class="form-group">
+    <!-- <label for="exampleFormControlTextarea1"><strong>Output Text</strong></label> -->
+    <textarea class="form-control auto-expand" id="outputTextarea" rows='3' data-min-rows="3" readonly></textarea>
+  </div>
+  <a class="btn btn-outline-danger" href="{% url 'translation:translate' %}" role="button">Reset</a>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var output_text = `{{output_text}}`;
+
+  function getScrollHeight(elm) {
+    var savedValue = elm.value
+    elm.value = ''
+    elm._baseScrollHeight = elm.scrollHeight
+    elm.value = savedValue
+  }
+
+  function onExpandableTextareaInput({
+    target: elm
+  }) {
+    // make sure the input event originated from a textarea and it's desired to be auto-expandable
+    if (!elm.classList.contains('auto-expand')) return
+
+    var minRows = elm.getAttribute('data-min-rows') | 0,
+      rows;
+    !elm._baseScrollHeight && getScrollHeight(elm)
+
+    elm.rows = minRows
+    rows = Math.ceil((elm.scrollHeight - elm._baseScrollHeight) / 16)
+    elm.rows = minRows + rows
+  }
+
+  function adjustInputTextArea() {
+    // console.log('ENTERED: adjustInputTextArea');
+    var inputTextArea = document.getElementById("inputTextarea");
+    var minRows = inputTextArea.getAttribute('data-min-rows') | 0,
+      rows;
+    !inputTextArea._baseScrollHeight && getScrollHeight(inputTextArea)
+
+    inputTextArea.rows = minRows
+    rows = Math.ceil((inputTextArea.scrollHeight - inputTextArea._baseScrollHeight) / 16)
+    inputTextArea.rows = minRows + rows
+  }
+
+  function adjustOutputTextArea() {
+    var outputTextArea = document.getElementById("outputTextarea");
+    var minRows = outputTextArea.getAttribute('data-min-rows') | 0,
+      rows;
+    !outputTextArea._baseScrollHeight && getScrollHeight(outputTextArea)
+
+    outputTextArea.rows = minRows
+    rows = Math.ceil((outputTextArea.scrollHeight - outputTextArea._baseScrollHeight) / 16)
+    outputTextArea.rows = minRows + rows
+  }
+
+  function setOutputTextAreaValue() {
+    console.log("Setting text area value")
+    var outputTextArea = document.getElementById("outputTextarea");
+    outputTextArea.value = output_text;
+  }
+
+  function callUponLoad(){
+    setOutputTextAreaValue();
+    adjustInputTextArea();
+    adjustOutputTextArea();
+  }
+
+  // global delegated event listener
+  window.onload = callUponLoad;
+  document.addEventListener('input', onExpandableTextareaInput);
+</script>
+>>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 {% endblock %}
