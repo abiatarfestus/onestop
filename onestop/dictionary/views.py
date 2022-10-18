@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import json
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 from django.conf import settings
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
@@ -99,13 +96,8 @@ def search_suggested_word(request, pk):
     search_object.search_suggested(word_instance.id)
     context = search_object.context
     return render(request, "dictionary/search.html", context)
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class EnglishWordCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -123,13 +115,8 @@ class EnglishWordCreate(
         if not self.request.user.is_authenticated:
             return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
         return redirect("access-denied")
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class OshindongaPhoneticCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -149,13 +136,8 @@ class OshindongaPhoneticCreate(
         if not self.request.user.is_authenticated:
             return redirect(f"{settings.LOGIN_URL}?next={self.request.path}")
         return redirect("access-denied")
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 class OshindongaWordCreate(
     LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, CreateView
 ):
@@ -324,14 +306,6 @@ class WordDefinitionUpdate(
     permission_required = "dictionary.change_worddefinition"
     form_class = WordDefinitionForm
     model = WordDefinition
-<<<<<<< HEAD
-    extra_context = {
-        "operation": "Update an existing word definition",
-        "newly_defined_words": defined_words,
-        "undefined_words": get_undefined_words,
-    }
-=======
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     success_message = "Definition of '%(word_pair)s' was successfully updated. Thank you for your contribution!"
     extra_context = {
         "operation": "Update an existing word definition",

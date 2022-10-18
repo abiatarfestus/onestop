@@ -161,13 +161,7 @@ class OshindongaWord(AuthAndTimeTracker):
         ]
 
     def __str__(self):
-<<<<<<< HEAD
-        return "%s | %s" % (self.english_word, self.word)
-
-    # Change str methods to use f'' string formating
-=======
         return f"{self.english_word} | {self.word}"
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
 
     def get_absolute_url(self):
         # from django.urls import reverse
@@ -183,29 +177,6 @@ class WordDefinition(AuthAndTimeTracker):
     A model for the parts of speech/word catgories to be used to provid choices when adding dfinitions.
     """
 
-<<<<<<< HEAD
-    SELECT = ""
-    NOUN_C = "Noun [C]"
-    NOUN_U = "Noun [U]"
-    PRONOUN = "Pron."
-    VERB = "Verb"
-    ADJECTIVE = "Adj."
-    ADVERB = "Adv."
-    PREPOSITION = "Prep."
-    CONJUNCTION = "Conj."
-    INTERJECTION = "Int."
-    PART_OF_SPEECH_CHOICES = [
-        (SELECT, "Select the part of speech of your definition"),
-        (NOUN_C, "Noun [C]"),
-        (NOUN_U, "Noun [U]"),
-        (PRONOUN, "Pronoun"),
-        (VERB, "Verb"),
-        (ADJECTIVE, "Adjective"),
-        (ADVERB, "Adverb"),
-        (PREPOSITION, "Preposition"),
-        (CONJUNCTION, "Conjunction"),
-        (INTERJECTION, "Interjection"),
-=======
     PART_OF_SPEECH_CHOICES = [
         ("", "Select the part of speech of your definition"),
         ("JJ", "Adjective"),
@@ -243,7 +214,6 @@ class WordDefinition(AuthAndTimeTracker):
         ("WDT", "Wh-determiner [e.g., which]"),
         ("WP", "Wh-pronoun [e.g., who, what]"),
         ("WRB", "Wh-abverb where [e.g., when]"),
->>>>>>> ffe87787d1f395e67cf9792d6212b81a8f2b0e17
     ]
 
     word_pair = models.ForeignKey(
