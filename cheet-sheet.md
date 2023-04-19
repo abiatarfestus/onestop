@@ -16,6 +16,7 @@
 - Open a package in the default editor: pipenv open flask
 - Show dependecy graph: pipenv graph
 - Show reverse dependecy graph: pipenv graph --reverse
+- Create a requiremnts.txt: pipenv requirements > requirements.txt
 
 
 # H1

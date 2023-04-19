@@ -24,6 +24,7 @@ whitenoise = "*"
 django-extensions = "*"
 django-debug-toolbar = "*"
 django-jazzmin = "*"
+flake8 = "*"
 
 [dev-packages]
 
