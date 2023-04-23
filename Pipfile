@@ -7,7 +7,6 @@ name = "pypi"
 black = "*"
 django = "*"
 django-comments-xtd = "*"
-django-environ = "*"
 django-resized = "*"
 django-simple-history = "==3.0.0"
 django-social-share = "*"
@@ -25,6 +24,7 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 django-jazzmin = "*"
 flake8 = "*"
+python-decouple = "*"
 
 [dev-packages]
 

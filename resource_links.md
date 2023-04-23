@@ -20,3 +20,4 @@ Django error: RecursionError: maximum recursion depth exceeded
 [NLTK POS tagging](https://www.learntek.org/blog/categorizing-pos-tagging-nltk-python/)
 [Facebook Opensource Machine Translation](https://github.com/facebookresearch/fairseq)
 [Pytest-Fatoryboy](https://schegel.net/posts/simplied-django-tests-with-pytest-and-pytest-factoryboy/)
+[Setup Django with Mysql using docker](https://skonik.me/setup-django-with-mysql-using/)
