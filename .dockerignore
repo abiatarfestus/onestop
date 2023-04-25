@@ -145,6 +145,6 @@ diagrams/
 #Added by Fessy
 .git
 .vscode
-migrations/
-media/
-staticfiles/
+# migrations/
+# media/
+# staticfiles/

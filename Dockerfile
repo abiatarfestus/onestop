@@ -1,6 +1,6 @@
 FROM python:3.9-buster
 
-COPY . /app
+COPY . /app/
 WORKDIR /app
 ENV PYTHONUNBUFFERED 1
 

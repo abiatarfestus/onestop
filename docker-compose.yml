@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   mysql_db:
@@ -6,12 +6,20 @@ services:
     cap_add:
       - SYS_NICE
     restart: always
-    env_file: onestop/onestop/.env
+    env_file: .env
     ports:
       - '3306:3306'
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=''
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
     volumes:
-      - oshinglish-mysql-data:/var/lib/mysql
+      - /tmp/app/mysqld:/var/run/mysqld
+      - oshinglish-data:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin:latest
     restart: unless-stopped
@@ -23,14 +31,16 @@ services:
       - "8080:80"
   oshinglish:
     build: .
+    image: oshinglish:0.1.0
     # command: python onestop/manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     volumes:
       - .:/app
+      - /tmp/app/mysqld:/run/mysqld
     entrypoint: ["./wait.sh"]
     depends_on:
       - mysql_db
 
 volumes:
-  oshinglish-mysql-data:
+  oshinglish-data:
