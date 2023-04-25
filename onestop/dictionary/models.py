@@ -24,8 +24,8 @@ def tense_default():
     }
 
 
-def get_phonetics_default():
-    return OshindongaPhonetic.objects.get(id=1)
+# def get_phonetics_default():
+#     return OshindongaPhonetic.objects.get(id=1)
 
 
 class AuthAndTimeTracker(models.Model):
@@ -149,8 +149,7 @@ class OshindongaWord(AuthAndTimeTracker):
     word_phonetics = models.ForeignKey(
         OshindongaPhonetic,
         null=True,
-        on_delete=models.SET_NULL,
-        default=get_phonetics_default,
+        on_delete=models.SET_NULL
     )
 
     class Meta:

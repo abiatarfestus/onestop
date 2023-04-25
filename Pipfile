@@ -25,6 +25,7 @@ django-debug-toolbar = "*"
 django-jazzmin = "*"
 flake8 = "*"
 python-decouple = "*"
+textblob = "*"
 
 [dev-packages]
 
