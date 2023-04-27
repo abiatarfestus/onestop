@@ -147,9 +147,7 @@ class OshindongaWord(AuthAndTimeTracker):
         help_text="Ulika ngele oshitya wa shanga oshowala, efupipiko nenge oshityadhinalela.",
     )
     word_phonetics = models.ForeignKey(
-        OshindongaPhonetic,
-        null=True,
-        on_delete=models.SET_NULL
+        OshindongaPhonetic, null=True, on_delete=models.SET_NULL
     )
 
     class Meta:

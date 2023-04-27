@@ -36,16 +36,16 @@ nav {
 
 /* -------------------------------------------------LEFT-SIDEBAR-------------------------------------------- */
 
-#left-sidebar {
+/* #left-sidebar {
 	background: linear-gradient(to right, #f7f7f76b, #abd3d3be);
-}
+} */
 
 /* -------------------------------------------------CENTRE-AREA-------------------------------------------- */
 
 /* Background for centre-area */
-#centre-area {
+/* #centre-area {
 	background: linear-gradient(#abd3d3be, #f7f7f76b);
-}
+} */
 
 /* Background for definition and idioms, word pair and tense/plural row */
 .row-word-tense-plural,
@@ -72,7 +72,7 @@ nav {
 }
 
 /* Borders */
-#centre-area,
+/* #centre-area, */
 .div-eng-def,
 .div-eng-ex,
 .div-osh-def,
@@ -131,9 +131,9 @@ nav {
   }
 /* -------------------------------------------------RIGHT-SIDEBAR-------------------------------------------- */
 
-#right-sidebar {
+/* #right-sidebar {
 	background: linear-gradient(to left, #f7f7f76b, #abd3d3be);
-}
+} */
 
 .card-header {
 	font-weight: bold;

@@ -1,16 +1,17 @@
 from dictionary.models import EnglishWord
 
+
 def test_new_english_word(new_english_word):
     # print(new_english_word.word)
     print(EnglishWord.objects.all().count())
     assert True
+
 
 def test_new_oshindonga_word(new_oshindonga_word):
     print(new_oshindonga_word)
     assert True
 
 
-    
 # def test_word_case_label(new_english_word):
 #     field_label = new_english_word._meta.get_field("word_case").verbose_name
 #     assert field_label == "word case"

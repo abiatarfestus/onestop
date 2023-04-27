@@ -26,21 +26,25 @@ def new_english_word(db, english_word_factory):
     # print(new_word.word)
     return new_word
 
+
 @pytest.fixture
 def new_oshindonga_word(db, oshindonga_word_factory):
     new_word = oshindonga_word_factory.create()
     # print(new_word.word)
     return new_word
 
+
 @pytest.fixture
 def new_word_definition(word_definition_factory):
     new_definition = word_definition_factory.build()
     return new_definition
 
+
 @pytest.fixture
 def new_definition_example(definition_example_factory):
     new_example = definition_example_factory.build()
     return new_example
+
 
 @pytest.fixture
 def new_oshindonga_idiom(oshindonga_idiom_factory):

@@ -27,6 +27,7 @@ WORD_DEFINITION_HISTORY_QUERYSET = WordDefinition.history.all().select_related(
 )
 # USER_QUERYSET = User.objects.all()
 
+
 class HistoryRecord:
     """Queries the history model of the datatbase and returns querysets of each model"""
 

@@ -1,5 +1,5 @@
 difficult_words = {
-    # "aadhiginini"], 
+    # "aadhiginini"],
     # "aadibon"],
     # "aadikla"],
     # "aaebal"],
@@ -321,7 +321,7 @@ difficult_words = {
     # "" :["dhamuka"],
     # "" :["dhanakapipi"],
     # "" :["dhandhenga"], dhenga mbanda
-    #construction for dhaNOUN and dheNOUN
+    # construction for dhaNOUN and dheNOUN
     # "" :["dhene"],
     # "" :["dhenedhene"],
     # "" :["dhi"],

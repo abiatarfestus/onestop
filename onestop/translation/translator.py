@@ -30,7 +30,8 @@ class Translation:
     def match_src_to_target(self):
         """Loops through tagged words and try to find matching words from the target language
         Para: None
-        Return: A list of tuples of (source word, target word), defaults to -1 if no target word found"""
+        Return: A list of tuples of (source word, target word), defaults to -1 if no target word found
+        """
         word_pairs = []
         if self.src_language == "English":
             for src_token in self.tagged_src_tokens:

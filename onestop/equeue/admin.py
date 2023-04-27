@@ -10,6 +10,7 @@ from .models import (
     CustomerReview,
 )
 
+
 # Register your models here.
 @admin.register(ServiceProvider)
 class ServiceProviderAdmin(admin.ModelAdmin):

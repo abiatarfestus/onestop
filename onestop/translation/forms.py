@@ -1,5 +1,6 @@
 from django import forms
 
+
 class TextForm(forms.Form):
     ENGLISH = "English"
     OSHINDONGA = "Oshindonga"
