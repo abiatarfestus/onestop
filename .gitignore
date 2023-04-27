@@ -13,6 +13,6 @@ __pycache__/
 #onestop/__pycache__/
 #dictionary/migrations/
 #dictionary/__pycache__/
-settings.py
+# settings.py
 media/
 staticfiles/
