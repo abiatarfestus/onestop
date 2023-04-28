@@ -207,6 +207,7 @@ LOGIN_REDIRECT_URL = "/"
 # Either enable sending mail messages to the console:
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Using oshinglish email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config("_EMAIL_HOST")
 EMAIL_USE_SSL = True
