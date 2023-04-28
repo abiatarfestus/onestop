@@ -38,9 +38,8 @@ services:
     volumes:
       - .:/app
       - /tmp/app/mysqld:/run/mysqld
-    entrypoint: ["./wait.sh"]
+    entrypoint: ["./start-server.sh"]
     depends_on:
       - mysql_db
-
 volumes:
   oshinglish-data:
