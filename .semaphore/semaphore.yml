@@ -39,3 +39,5 @@ blocks:
           commands:
             - pip install flake8
             - flake8 onestop/ --max-line-length=127
+      secrets:
+        - name: Oshinglish secrets
