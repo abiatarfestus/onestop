@@ -21,3 +21,4 @@ Django error: RecursionError: maximum recursion depth exceeded
 [Facebook Opensource Machine Translation](https://github.com/facebookresearch/fairseq)
 [Pytest-Fatoryboy](https://schegel.net/posts/simplied-django-tests-with-pytest-and-pytest-factoryboy/)
 [Setup Django with Mysql using docker](https://skonik.me/setup-django-with-mysql-using/)
+[Deploy django app with docker on Fly.io](https://testdriven.io/blog/django-fly/)
