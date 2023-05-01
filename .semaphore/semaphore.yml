@@ -20,7 +20,7 @@ blocks:
     task:
       prologue:
         commands:
-          - sem-version python 3.
+          - sem-version python 3.9
           - sem-service start mysql
           - checkout
           - cache restore
