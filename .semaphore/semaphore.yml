@@ -25,3 +25,6 @@ blocks:
             - 'docker pull $DOCKER_USERNAME/oshinglish:latest || true'
             - 'docker build --cache-from=$DOCKER_USERNAME/oshinglish:latest -t $DOCKER_USERNAME/oshinglish:latest .'
             - 'docker push $DOCKER_USERNAME/oshinglish:latest'
+      secrets:
+        - name: Oshinglish secrets
+        - name: dockerhub
