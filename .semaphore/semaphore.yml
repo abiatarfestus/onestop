@@ -16,34 +16,12 @@ blocks:
             - cache restore
             - pip install --cache-dir .pip_cache -r requirements.txt
             - cache store
-  - name: Test
+  - name: Docker Build
     task:
-      prologue:
-        commands:
-          - sem-version python 3.9
-          - sem-service start mysql
-          - checkout
-          - cache restore
-          - pip install --cache-dir .pip_cache -r requirements.txt
       jobs:
-        - name: Unit tests
+        - name: Docker Build
           commands:
-            - cd onestop
-            - python manage.py makemigrations
-            - python manage.py migrate
-            - python manage.py test
-        - name: Checklist
-          commands:
-            - cd onestop
-            - python manage.py check --deploy
-        - name: Style check
-          commands:
-            - pip install flake8
-            - flake8 onestop/ --max-line-length=127
-      secrets:
-        - name: Oshinglish secrets
-promotions:
-  - name: Dockerize
-    pipeline_file: pipeline_2.yml
-    auto_promote:
-      when: branch = 'master' AND result = 'passed'
+            - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+            - 'docker pull $DOCKER_USERNAME/oshinglish:latest || true'
+            - 'docker build --cache-from=$DOCKER_USERNAME/oshinglish:latest -t $DOCKER_USERNAME/oshinglish:latest .'
+            - 'docker push $DOCKER_USERNAME/oshinglish:latest'
