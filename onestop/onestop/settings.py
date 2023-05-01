@@ -143,7 +143,7 @@ DATABASES = {
     "default": {
         # 'ENGINE': 'mysql.connector.django',
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config("MYSQL_DATABASE"),
+        # "NAME": config("MYSQL_DATABASE"),
         "USER": config("MYSQL_ROOT_USER", default='root'),
         "PASSWORD": config("MYSQL_ROOT_PASSWORD", default=""),
         "HOST": config("MYSQL_HOST", default='localhost'),
