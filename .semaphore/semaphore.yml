@@ -22,8 +22,7 @@ blocks:
         - name: Docker Build
           commands:
             - 'echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin'
-            - 'docker pull $DOCKER_USERNAME/oshinglish:latest || true'
-            - 'docker build --cache-from=$DOCKER_USERNAME/oshinglish:latest -t $DOCKER_USERNAME/oshinglish:latest .'
+            - 'docker-compose --build -t $DOCKER_USERNAME/oshinglish:latest .'
             - 'docker push $DOCKER_USERNAME/oshinglish:latest'
       secrets:
         - name: Oshinglish secrets
