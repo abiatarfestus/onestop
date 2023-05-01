@@ -145,7 +145,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": config("MYSQL_DATABASE"),
         "USER": config("MYSQL_ROOT_USER", default='root'),
-        "PASSWORD": config("MYSQL_ROOT_PASSWORD"),
+        "PASSWORD": config("MYSQL_ROOT_PASSWORD", default=""),
         "HOST": config("MYSQL_HOST", default='localhost'),
         "PORT": config("MYSQL_PORT", default=3306, cast=int),
         "OPTIONS": {
