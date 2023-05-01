@@ -144,8 +144,8 @@ DATABASES = {
         # 'ENGINE': 'mysql.connector.django',
         "ENGINE": "django.db.backends.mysql",
         "NAME": config("MYSQL_DATABASE"),
-        "USER": config("MYSQL_USER"),
-        "PASSWORD": config("MYSQL_PASSWORD"),
+        "USER": config("MYSQL_ROOT_USER", default='root'),
+        "PASSWORD": config("MYSQL_ROOT_PASSWORD"),
         "HOST": config("MYSQL_HOST", default='localhost'),
         "PORT": config("MYSQL_PORT", default=3306, cast=int),
         "OPTIONS": {
