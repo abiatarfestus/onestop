@@ -44,6 +44,7 @@ urlpatterns = [
     ),
     path("users/", include("users.urls")),
     path("dictionary/", include("dictionary.urls")),
+    path("dictionary/", include("dictionary.rest_urls")),
     path("store", include("store.urls")),
     path("blog/", include("blog.urls")),
     path("equeue/", include("equeue.urls")),
