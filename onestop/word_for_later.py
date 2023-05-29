@@ -471,4 +471,10 @@ difficult_words = {
     "": ["ehalakano"],
     "": ["ehambulo"],
     "": ["ehanganokwatheli"],
+    "": ["ehukulalakano"],
+    "": ["ehungaelo"],
+    "": ["ehunga"],
+    "": ["ehungo"],
+    "": ["ehwahwamekohungi"],
+    "": ["ehwamo"],
 }
