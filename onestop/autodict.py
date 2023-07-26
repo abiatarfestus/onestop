@@ -3072,7 +3072,6 @@ r_words = {
     "route": ["olweendo", "ondjila"],
     "rove": ["endagula", "puka"],
     "row": ["ombongola", "omukweyo", "ompola"],
-    "royal": ["-kwaniilwa"],
     "rub": ["goga", "thethenga"],
     "rubber": ["okadhimitho", "ongumi", "ekenya"],
     "rubbish": ["onyata", "okambondi", "oshiyagaya"],
@@ -3695,7 +3694,6 @@ t_words = {
     "thank you": ["tangi"],
     "thanks": ["tangi"],
     "thanksgiving": ["ehambelelo"],
-    "that": ["kutya", "shoka", "shono", "ngoka", "ngono"],
     "thatch": ["kumba"],
     "thatcher": ["omukumbi"],
     "their": ["-wo"],
@@ -4175,7 +4173,7 @@ w_z_words = {
 #           print(word)
 # print("Done checking!")
 
-words = [n for n in i_words]
+words = [n for n in d_k_words]
 for n in words:
     if words.count(n) > 1:
         print(n)

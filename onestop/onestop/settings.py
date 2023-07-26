@@ -52,7 +52,7 @@ SECRET_KEY = config("SECRET_KEY")
 GOOGLE_RECAPTCHA_SECRET_KEY = config("GOOGLE_RECAPTCHA_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 INTERNAL_IPS = [
@@ -61,15 +61,19 @@ INTERNAL_IPS = [
 
 if DEBUG:
     import socket  # only if you haven't already imported this
+
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
+        "127.0.0.1",
+        "10.0.2.2",
+    ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     # 'whitenoise.runserver_nostatic',
-    'jazzmin',
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -144,9 +148,9 @@ DATABASES = {
         # 'ENGINE': 'mysql.connector.django',
         "ENGINE": "django.db.backends.mysql",
         "NAME": config("MYSQL_DATABASE"),
-        "USER": config("MYSQL_ROOT_USER", default='root'),
+        "USER": config("MYSQL_ROOT_USER", default="root"),
         "PASSWORD": config("MYSQL_ROOT_PASSWORD", default=""),
-        "HOST": config("MYSQL_HOST", default='localhost'),
+        "HOST": config("MYSQL_HOST", default="localhost"),
         "PORT": config("MYSQL_PORT", default=3306, cast=int),
         "OPTIONS": {
             # "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -231,7 +235,9 @@ COMMENTS_XTD_MAX_THREAD_LEVEL_BY_APP_MODEL = {
 # COMMENTS_XTD_LIST_ORDER = ('thread_id', 'order')
 COMMENTS_XTD_CONFIRM_EMAIL = True
 #  To help obfuscating comments before they are sent for confirmation.
-COMMENTS_XTD_SALT = b"Timendi causa est nescire. " b"Aequam memento rebus in arduis servare mentem."
+COMMENTS_XTD_SALT = (
+    b"Timendi causa est nescire. " b"Aequam memento rebus in arduis servare mentem."
+)
 
 # Source mail address used for notifications.
 COMMENTS_XTD_FROM_EMAIL = "noreply@oshinglish.com"
@@ -251,11 +257,11 @@ DJANGORESIZED_DEFAULT_SIZE = [700, 500]
 JAZZMIN_SETTINGS = {
     # "site_title": "Oshinglish Admin",
     "site_brand": "Oshinglish Admin",
-    "show_ui_builder":True,
+    "show_ui_builder": True,
     "site_logo": "images/favicon.ico",
     "login_logo": "images/favicon.ico",
     # "user_avatar": "user.profile.image.url"
-    }
+}
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
@@ -285,13 +291,13 @@ JAZZMIN_UI_TWEAKS = {
         "info": "btn-outline-info",
         "warning": "btn-outline-warning",
         "danger": "btn-outline-danger",
-        "success": "btn-outline-success"
-    }
+        "success": "btn-outline-success",
+    },
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 }
 
 # MANAGERS = (

@@ -8,7 +8,7 @@ from datetime import datetime
 #     v_words,
 #     w_z_words
 # )
-from new_words_one import new_words
+# from new_words_one import d_k_words
 from dictionary.models import EnglishWord, OshindongaWord
 
 
@@ -79,5 +79,5 @@ def add_osh_words(words_dict):
 #     add_eng_words(obj)
 #     add_osh_words(obj)
 
-add_eng_words(new_words)
-add_osh_words(new_words)
+# add_eng_words(d_k_words)
+# add_osh_words(d_k_words)
